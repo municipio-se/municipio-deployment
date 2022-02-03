@@ -1,0 +1,98 @@
+{
+  "name": "municipio-se/municipio-deployment",
+  "license": "MIT",
+  "description": "Deployment of the Municipio Platform.",
+  "authors": [
+      {
+          "name": "Sebastian Thulin",
+          "email": "sebastian.thulin@helsingborg.se"
+      },
+      {
+          "name": "Joel Bernerman",
+          "email": "joel.bernerman@helsingborg.se"
+      }
+  ],
+  "prefer-stable": true,
+  "minimum-stability" : "dev",
+  "repositories": [
+      {
+          "type":"composer",
+          "url":"https://packagist.org"
+      },
+      {
+          "type":"composer",
+          "url":"https://wpackagist.org"
+      }
+  ],
+  "require": {
+      "composer/installers": "~1.0",
+      "wikimedia/composer-merge-plugin": "dev-master",
+      "johnpbloch/wordpress": "^5.0",
+      "helsingborg-stad/modularity": "dev-3.0/develop",
+      "helsingborg-stad/municipio": "dev-3.0/develop",
+      "helsingborg-stad/api-event-manager-integration": "dev-3.0/develop",
+      "helsingborg-stad/force-ssl": ">=1.0.0",
+      "helsingborg-stad/search-notices": ">=1.0.0",
+      "helsingborg-stad/lix-calculator": ">=1.0.1",
+      "helsingborg-stad/active-directory-api-wp-integration": ">=2.0.0",
+      "helsingborg-stad/easy-to-read-alternative": "dev-3.0/develop",
+      "helsingborg-stad/modularity-form-builder": "dev-3.0/develop",
+      "helsingborg-stad/wp-page-for-post-type": ">=1.0.0",
+      "helsingborg-stad/api-alarm-integration": "dev-3.0/develop",
+      "helsingborg-stad/modularity-guides": "dev-3.0/develop",
+      "helsingborg-stad/modularity-sections": "dev-3.0/develop",
+      "helsingborg-stad/modularity-timeline": ">=1.1.4",
+      "helsingborg-stad/modularity-json-render": "dev-3.0/develop",
+      "wpackagist-plugin/varnish-http-purge": "^4.1.1",
+      "wpackagist-plugin/mce-table-buttons": "^3.0.0",
+      "wpackagist-plugin/autodescription" : ">=2.9.0",
+      "wpackagist-plugin/redis-cache": "2.0.15",
+      "wpackagist-plugin/wp-nested-pages": "3.1.4",
+      "helsingborg-stad/customer-feedback": "dev-3.0/develop",
+      "helsingborg-stad/media-usage": "^1.0",
+      "wpackagist-plugin/redirection": "^4.3.1",
+      "helsingborg-stad/job-listings": "dev-3.0/develop",
+      "helsingborg-stad/redirection-extended": "^1.0",
+      "helsingborg-stad/modularity-contact-banner": "dev-3.0/develop",
+      "bueltge/must-use-loader": "^1.3",
+      "helsingborg-stad/component-library": "dev-master",
+      "wpackagist-plugin/fakerpress":"0.5.2",
+      "helsingborg-stad/modularity-testimonials": "dev-3.0/develop",
+      "helsingborg-stad/modularity-local-events": "^1.0",
+      "helsingborg-stad/algolia-index": "^1.7",
+      "helsingborg-stad/algolia-index-modularity-addon": "^1.0",
+      "helsingborg-stad/multisite-role-propagation": "^1.0",
+      "helsingborg-stad/modularity-entryscape": "dev-master",
+      "helsingborg-stad/modularity-recommend": "dev-master"
+  },
+  "extra": {
+      "path": "/",
+      "wordpress-install-dir": "wp",
+      "installer-paths": {
+          "wp-content/plugins/{$name}": ["type:wordpress-plugin"],
+          "wp-content/mu-plugins/{$name}": ["type:wordpress-muplugin"],
+          "wp-content/themes/{$name}": ["type:wordpress-theme"]
+      },
+      "merge-plugin": {
+        "include": [
+            "composer.local.json"
+        ],
+        "recurse": true,
+        "replace": false,
+        "ignore-duplicates": false,
+        "merge-dev": true,
+        "merge-extra": false,
+        "merge-extra-deep": false,
+        "merge-scripts": false
+    }
+  },
+  "scripts": {
+      "post-install-cmd": [
+          "mkdir -p wp-content/uploads/cache/blade-cache",
+          "@php post-install.php"
+      ],
+      "post-update-cmd": [
+          "@php post-install.php"
+      ]
+  }
+}
