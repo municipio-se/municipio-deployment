@@ -30,11 +30,11 @@ Used for branch names: stage, beta, test
 
 | Secret name                     | Description                                                                  | Required |
 |---------------------------------|------------------------------------------------------------------------------|----------|
-| DEPLOY_REMOTE_HOST_PROD         | Host domain or ip                                                            | true     |
-| DEPLOY_REMOTE_PATH_PROD         | Host deployment path                                                         | true     |
-| DEPLOY_REMOTE_BACKUP_DIR_PROD   | Host rsync backup path                                                       | true     |
-| DEPLOY_REMOTE_USER_PROD         | Host deploy ssh user name                                                    | true     |
-| DEPLOY_KEY_PROD                 | Host deploy ssh user key                                                     | true     |
-| WEB_SERVER_USER_PROD            | Host web server user                                                         | true     |
+| DEPLOY_REMOTE_HOST_STAGE        | Host domain or ip                                                            | true     |
+| DEPLOY_REMOTE_PATH_STAGE        | Host deployment path                                                         | true     |
+| DEPLOY_REMOTE_BACKUP_DIR_STAGE  | Host rsync backup path                                                       | true     |
+| DEPLOY_REMOTE_USER_STAGE        | Host deploy ssh user name                                                    | true     |
+| DEPLOY_KEY_STAGE                | Host deploy ssh user key                                                     | true     |
+| WEB_SERVER_USER_STAGE           | Host web server user                                                         | true     |
 | GITHUB_TOKEN                    | Github token for github npm package usage, use built in secrets.GITHUB_TOKEN | true     |
 | ACF URL                         | A url where a zip-file with ACF PRO can be found (ACF provides a url).       | true     |
