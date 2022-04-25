@@ -1,9 +1,9 @@
 # Municipio Deployment
-This repository simplifies the deplyment for third party users of Municpio. Simply fork this repository and setup deployment detials for your hosting environment and deploy-by-merge whenever it suites you. 
+This repository simplifies the deployment for users of Municpio. Simply fork this repository and setup deployment detials for your hosting environment and deploy whenever it suits you. 
 
 This will enshure that deployments can be made by fetching the upstream of the forked repository without any technical knowledge. Guide on hot to fetch a upstream repo with github user interface can be found here: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork.
 
-## How it works
+## Quick start
 1. Fork this repository.
 2. Setup deployment details according to the tables below (source:  https://github.com/helsingborg-stad/municipio-deploy/tree/master/3.0).
 3. Update to upstream, whenever you want to update your production enviroment with the latest version of Municipio.
@@ -11,7 +11,7 @@ This will enshure that deployments can be made by fetching the upstream of the f
 ## Adding custom dependencies
 You may add your own dependencies in composer.local.json file. This file is automatically read in build. We have made it a separate file, to avoid merge conflicts.
 ## Multiple forks of the same repository
-Github has a limitation to one fork of the same repository. This is a inconvenience in this use case, but can be solved by a workaround. You may want to use this, when you have multiple sites to deploy in the same github organization. 
+GitHub has a limitation to one fork of the same repository. This is a inconvenience in this use case, but can be solved by a workaround. You may want to use this, when you have multiple sites to deploy in the same github organization. 
 
 https://handong1587.github.io/linux_study/2015/12/18/create-multi-forks.html 
 
