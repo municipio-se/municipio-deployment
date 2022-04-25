@@ -12,7 +12,10 @@
         "email": "joel.bernerman@helsingborg.se"
     }
   ],
-  "prefer-stable": true,
+  "config": {
+    "sort-packages": true
+  },
+  "sort-packages": true,
   "minimum-stability" : "dev",
   "repositories": [
     {
