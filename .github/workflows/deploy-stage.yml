@@ -1,4 +1,4 @@
-name: Build and deploy beta.
+name: Build and deploy stage, beta, test release.
 
 on:
   push:
