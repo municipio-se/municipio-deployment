@@ -26,7 +26,7 @@ Used for branch names: production, master
 | DEPLOY_REMOTE_HOST_PROD         | Host domain or ip                                                            | true     |
 | DEPLOY_REMOTE_PATH_PROD         | Host deployment path                                                         | true     |
 | DEPLOY_REMOTE_BACKUP_DIR_PROD   | Host rsync backup path                                                       | true     |
-| DEPLOY_REMOTE_USER_PROD         | Host deploy ssh user name                                                    | true     |
+| DEPLOY_REMOTE_USER_PROD         | Host deploy ssh user name (In sudoers with nopassword enabled)               | true     |
 | DEPLOY_KEY_PROD                 | Host deploy ssh user key                                                     | true     |
 | WEB_SERVER_USER_PROD            | Host web server user                                                         | true     |
 | GITHUB_TOKEN                    | Github token for github npm package usage, use built in secrets.GITHUB_TOKEN | true     |
@@ -40,7 +40,7 @@ Used for branch names: stage, beta, test
 | DEPLOY_REMOTE_HOST_STAGE        | Host domain or ip                                                            | true     |
 | DEPLOY_REMOTE_PATH_STAGE        | Host deployment path                                                         | true     |
 | DEPLOY_REMOTE_BACKUP_DIR_STAGE  | Host rsync backup path                                                       | true     |
-| DEPLOY_REMOTE_USER_STAGE        | Host deploy ssh user name                                                    | true     |
+| DEPLOY_REMOTE_USER_STAGE        | Host deploy ssh user name (In sudoers with nopassword enabled)               | true     |
 | DEPLOY_KEY_STAGE                | Host deploy ssh user key                                                     | true     |
 | WEB_SERVER_USER_STAGE           | Host web server user                                                         | true     |
 | GITHUB_TOKEN                    | Github token for github npm package usage, use built in secrets.GITHUB_TOKEN | true     |
@@ -55,3 +55,11 @@ The configuration files should be reviewed in full in order to configure the sit
 
 ## Contribution
 You may contribute to this repository if you feel that anything is missing. Simply send a pull request, and we will review it as soon as possible. 
+
+## Suggested target environment
+We do suggest that you include the following softare on the target machine.
+
+- NGINX
+- PHP 7.4 or later
+- Redis
+- Rsync (required for deplyment)
