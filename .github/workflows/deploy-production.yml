@@ -1,0 +1,24 @@
+name: Build and deploy beta.
+
+on:
+  push:
+    branches: [production, master]
+    paths-ignore:
+      - .github/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: helsingborg-stad/municipio-deploy/3.0@master
+      with:
+        deploy-host: ${{ secrets.DEPLOY_REMOTE_HOST_PROD }}
+        deploy-host-path: ${{ secrets.DEPLOY_REMOTE_PATH_PROD  }}
+        deploy-host-backup-path: ${{ secrets.DEPLOY_REMOTE_BACKUP_DIR_PROD }}
+        deploy-host-user: ${{ secrets.DEPLOY_REMOTE_USER_PROD }}
+        deploy-host-user-key: ${{ secrets.DEPLOY_KEY_PROD }}
+        deploy-host-web-server-user: ${{ secrets.WEB_SERVER_USER_PROD }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
