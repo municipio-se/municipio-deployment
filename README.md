@@ -8,6 +8,11 @@ This will enshure that deployments can be made by fetching the upstream of the f
 2. Setup deployment details according to the tables below (source:  https://github.com/helsingborg-stad/municipio-deploy/tree/master/3.0).
 3. Update to upstream, whenever you want to update your production enviroment with the latest version of Municipio.
 
+## Multiple forks of the same repository
+Github has a limitation to one fork of the same repository. This is a inconvenience in this use case, but can be solved by a workaround. You may want to use this, when you have multiple sites to deploy in the same github organization. 
+
+https://handong1587.github.io/linux_study/2015/12/18/create-multi-forks.html 
+
 ## Parameters
 Add the folowing secrets to your github repository secrets section (https://docs.github.com/en/actions/security-guides/encrypted-secrets). We do recommend that you assign these secrets locally to your repository. You can however use organization level secret to evrything except the path, if you determine that they will persist. 
 
