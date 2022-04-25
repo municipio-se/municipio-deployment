@@ -1,6 +1,8 @@
 name: Build and deploy stage, beta, test release.
 
 on:
+  workflow_dispatch:
+    branches: [production, master]
   push:
     branches: [stage, beta, test]
     paths-ignore:
