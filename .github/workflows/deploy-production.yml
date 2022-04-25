@@ -22,3 +22,4 @@ jobs:
         deploy-host-user-key: ${{ secrets.DEPLOY_KEY_PROD }}
         deploy-host-web-server-user: ${{ secrets.WEB_SERVER_USER_PROD }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        acf-url: ${{ secrets.ACF_URL }}
