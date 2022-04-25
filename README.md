@@ -8,6 +8,8 @@ This will enshure that deployments can be made by fetching the upstream of the f
 2. Setup deployment details according to the tables below (source:  https://github.com/helsingborg-stad/municipio-deploy/tree/master/3.0).
 3. Update to upstream, whenever you want to update your production enviroment with the latest version of Municipio.
 
+## Adding custom dependencies
+You may add your own dependencies in composer.local.json file. This file is automatically read in build. We have made it a separate file, to avoid merge conflicts.
 ## Multiple forks of the same repository
 Github has a limitation to one fork of the same repository. This is a inconvenience in this use case, but can be solved by a workaround. You may want to use this, when you have multiple sites to deploy in the same github organization. 
 
@@ -43,3 +45,13 @@ Used for branch names: stage, beta, test
 | WEB_SERVER_USER_STAGE           | Host web server user                                                         | true     |
 | GITHUB_TOKEN                    | Github token for github npm package usage, use built in secrets.GITHUB_TOKEN | true     |
 | ACF URL                         | A url where a zip-file with ACF PRO can be found (ACF provides a url).       | true     |
+
+## Additional Setup
+A fully functional website will not be automatically created when this deployment script has been executed. Some local site configuration has to be created in the a ./config/ folder on the the local machine. This is basically a wp-config.php split in multiple files, for a better overview of the configuration.
+
+All neccesary configuration-example files can be found in the ./config-example folder in this repository. All files ending in -example.php is optional. To use them, simply remove the '-example' extenstion.
+
+The configuration files should be reviewed in full in order to configure the site to your linkings. 
+
+## Contribution
+You may contribute to this repository if you feel that anything is missing. Simply send a pull request, and we will review it as soon as possible. 
