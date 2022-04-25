@@ -3,6 +3,6 @@
   "license": "MIT",
   "description": "Additions for you own install of municipo.",
   "require": {
-    //Add your requirements here!
+    //Add your custom requirements here!
   }
 }
