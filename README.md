@@ -1,4 +1,4 @@
-# Municipio Deployment
+# Municipio 3 (Standard) - Deployment
 This repository simplifies the deployment for users of Municpio. Simply fork this repository and setup deployment detials for your hosting environment and deploy whenever it suits you. 
 
 This will enshure that deployments can be made by fetching the upstream of the forked repository without any technical knowledge. Guide on hot to fetch a upstream repo with github user interface can be found here: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork.
