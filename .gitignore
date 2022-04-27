@@ -1,3 +1,4 @@
 /wp-content/
 /vendor/
 /wp/
+.DS_Store
