@@ -51,7 +51,7 @@ A fully functional website will not be automatically created when this deploymen
 
 All neccesary configuration-example files can be found in the ./config-example folder in this repository. All files ending in -example.php is optional. To use them, simply remove the '-example' extenstion.
 
-The configuration files should be reviewed in full in order to configure the site to your linkings. 
+The configuration files should be reviewed in full in order to configure the site to your likings. 
 
 ## Contribution
 You may contribute to this repository if you feel that anything is missing. Simply send a pull request, and we will review it as soon as possible. 
