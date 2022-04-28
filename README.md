@@ -26,7 +26,7 @@ This will enshure that deployments can be made by fetching the upstream of the f
 
 ## Quick start
 1. Fork this repository. Enable github workflows on your newly created repository (gihub disables them due to security reasons on forks).
-2. Setup deployment details according to the tables below (source:  https://github.com/municipio-se/municipio-deployment/tree/master/3.0).
+2. Setup deployment details according to the tables below (source:  https://github.com/helsingborg-stad/municipio-deploy/tree/master/3.0).
 3. Update to upstream, whenever you want to update your production enviroment with the latest version of Municipio.
 
 ## Adding custom dependencies
