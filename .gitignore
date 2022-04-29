@@ -1,4 +1,8 @@
-/wp-content/
+
+/wp-content/*
+/wp-content/mu-plugins/*
+!/wp-content/mu-plugins
+!/wp-content/mu-plugins/loader.php
 /vendor/
 /wp/
 .DS_Store

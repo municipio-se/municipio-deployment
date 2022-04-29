@@ -56,7 +56,6 @@
     "helsingborg-stad/job-listings": "dev-3.0/develop",
     "helsingborg-stad/redirection-extended": "^1.0",
     "helsingborg-stad/modularity-contact-banner": "dev-3.0/develop",
-    "bueltge/must-use-loader": "^1.3",
     "helsingborg-stad/component-library": "dev-master",
     "wpackagist-plugin/fakerpress":"0.5.2",
     "helsingborg-stad/modularity-testimonials": "dev-3.0/develop",
