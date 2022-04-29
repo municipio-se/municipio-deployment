@@ -2,7 +2,6 @@ name: Build and deploy production.
 
 on:
   workflow_dispatch:
-    branches: [production, master]
   push:
     branches: [production, master]
     paths-ignore:
