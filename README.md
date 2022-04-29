@@ -1,5 +1,26 @@
-# Municipio 3 (Standard) - Deployment
-This repository simplifies the deployment for users of Municpio. Simply fork this repository and setup deployment detials for your hosting environment and deploy whenever it suits you. 
+<!-- SHIELDS -->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![License][license-shield]][license-url]
+
+<p>
+  <a href="https://github.com/municipio-se/municipio-deployment">
+    <img src="images/municipio.svg" alt="Logo" width="300">
+  </a>
+</p>
+<h3>Municipio 3 (Standard) - Deployment</h3>
+<p>
+  Simplified deployment of Municipio 3
+  <br />
+  <a href="https://github.com/municipio-se/municipio-deployment/issues">Report Bug</a>
+  ·
+  <a href="https://github.com/municipio-se/municipio-deployment/issues">Request Feature</a>
+</p>
+
+## About Municipio 3 (Standard) - Deployment
+This repository simplifies the deployment for users of Municpio. Simply fork this repository and setup deployment details for your hosting environment and deploy whenever it suits you. 
 
 This will enshure that deployments can be made by fetching the upstream of the forked repository without any technical knowledge. Guide on hot to fetch a upstream repo with github user interface can be found here: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork.
 
@@ -9,14 +30,14 @@ This will enshure that deployments can be made by fetching the upstream of the f
 3. Update to upstream, whenever you want to update your production enviroment with the latest version of Municipio.
 
 ## Adding custom dependencies
-You may add your own dependencies in composer.local.json file. This file is automatically read in build. We have made it a separate file, to avoid merge conflicts.
+You may add your own dependencies in composer.local.json file. This file is automatically read in build. We have made it a separate file to avoid merge conflicts.
 ## Multiple forks of the same repository
-GitHub has a limitation to one fork of the same repository. This is a inconvenience in this use case, but can be solved by a workaround. You may want to use this, when you have multiple sites to deploy in the same github organization. 
+GitHub has a limitation to one fork of the same repository. This is a inconvenience in this use case but can be solved by a workaround. You may want to use this when you have multiple sites to deploy in the same github organization. 
 
 https://handong1587.github.io/linux_study/2015/12/18/create-multi-forks.html 
 
 ## Parameters
-Add the folowing secrets to your github repository secrets section (https://docs.github.com/en/actions/security-guides/encrypted-secrets). We do recommend that you assign these secrets locally to your repository. You can however use organization level secret to evrything except the path, if you determine that they will persist. 
+Add the following secrets to your github repository secrets section (https://docs.github.com/en/actions/security-guides/encrypted-secrets). We do recommend that you assign these secrets locally to your repository. You can however use organization level secret to everything except the path if you determine that they will persist. 
 
 ### Configuration - Production
 Used for branch names: production, master
@@ -47,7 +68,7 @@ Used for branch names: stage, beta, test
 | ACF URL                         | A url where a zip-file with ACF PRO can be found (ACF provides a url).       | true     |
 
 ## Additional Setup
-A fully functional website will not be automatically created when this deployment script has been executed. Some local site configuration has to be created in the a ./config/ folder on the the local machine. This is basically a wp-config.php split in multiple files, for a better overview of the configuration.
+A fully functional website will not be automatically created when this deployment script has been executed. Some local site configuration has to be created in the a ./config/ folder on the the local machine. This is basically a wp-config.php split in multiple files for a better overview of the configuration.
 
 All neccesary configuration-example files can be found in the ./config-example folder in this repository. All files ending in -example.php is optional. To use them, simply remove the '-example' extenstion.
 
@@ -62,4 +83,24 @@ We do suggest that you include the following softare on the target machine.
 - NGINX
 - PHP 7.4 or later
 - Redis
-- Rsync (required for deplyment)
+- Rsync (required for deployment)
+
+## License
+Distributed under the [MIT License][license-url].
+
+## Acknowledgements
+- [othneildrew Best README Template](https://github.com/othneildrew/Best-README-Template)
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/municipio-se/municipio-deployment.svg?style=flat-square
+[contributors-url]: https://github.com/municipio-se/municipio-deployment/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/municipio-se/municipio-deployment.svg?style=flat-square
+[forks-url]: https://github.com/municipio-se/municipio-deployment/network/members
+[stars-shield]: https://img.shields.io/github/stars/municipio-se/municipio-deployment.svg?style=flat-square
+[stars-url]: https://github.com/municipio-se/municipio-deployment/stargazers
+[issues-shield]: https://img.shields.io/github/issues/municipio-se/municipio-deployment.svg?style=flat-square
+[issues-url]: https://github.com/municipio-se/municipio-deployment/issues
+[license-shield]: https://img.shields.io/github/license/municipio-se/municipio-deployment.svg?style=flat-square
+[license-url]: https://raw.githubusercontent.com/municipio-se/municipio-deployment/master/LICENSE
