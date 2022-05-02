@@ -63,7 +63,6 @@
     "helsingborg-stad/algolia-index": "^1.7",
     "helsingborg-stad/algolia-index-modularity-addon": "^1.0",
     "helsingborg-stad/multisite-role-propagation": "^1.0",
-    "helsingborg-stad/modularity-entryscape": "dev-master",
     "helsingborg-stad/modularity-recommend": "dev-master",
     "helsingborg-stad/wpmu-network-admin-url": "dev-master"
   },
