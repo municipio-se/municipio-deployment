@@ -2,5 +2,7 @@
   "name": "municipio-se/municipio-deployment-custom",
   "license": "MIT",
   "description": "Additions for you own install of municipo.",
-  "require": {}
+  "require": {
+    "helsingborg-stad/wpmu-accordion-expand-plus": ">=1.0.0"
+  }
 }
