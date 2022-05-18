@@ -24,6 +24,11 @@
     {
         "type":"composer",
         "url":"https://wpackagist.org"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:whitespace-se/broken-link-detector.git",
+      "no-api": true
     }
   ],
   "require": {
@@ -64,7 +69,8 @@
     "helsingborg-stad/algolia-index-modularity-addon": "^1.0",
     "helsingborg-stad/multisite-role-propagation": "^1.0",
     "helsingborg-stad/modularity-recommend": "dev-master",
-    "helsingborg-stad/wpmu-network-admin-url": "dev-master"
+    "helsingborg-stad/wpmu-network-admin-url": "dev-master",
+    "municipio/content-insights-for-editors": "dev-master"
   },
   "extra": {
       "path": "/",
