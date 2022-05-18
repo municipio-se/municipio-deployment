@@ -70,7 +70,7 @@
     "helsingborg-stad/modularity-recommend": "dev-master",
     "helsingborg-stad/wpmu-network-admin-url": "dev-master",
     "municipio/content-insights-for-editors": "dev-master",
-    "helsingborg-stad/broken-link-detector: "^1.4.0",
+    "helsingborg-stad/broken-link-detector: "^1.4.0"
   },
   "extra": {
       "path": "/",
