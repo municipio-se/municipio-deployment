@@ -27,8 +27,7 @@
     },
     {
       "type": "vcs",
-      "url": "git@github.com:whitespace-se/broken-link-detector.git",
-      "no-api": true
+      "url": "https://github.com/whitespace-se/content-insights-for-editors"
     }
   ],
   "require": {
