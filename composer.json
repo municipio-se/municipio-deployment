@@ -34,7 +34,7 @@
     "php": ">=7.4",
     "composer/installers": "~1.0",
     "wikimedia/composer-merge-plugin": "dev-master",
-    "johnpbloch/wordpress": "^5.0",
+    "johnpbloch/wordpress": "5.9.3",
     "helsingborg-stad/modularity": "dev-3.0/develop",
     "helsingborg-stad/municipio": "dev-3.0/develop",
     "helsingborg-stad/api-event-manager-integration": "dev-3.0/develop",
