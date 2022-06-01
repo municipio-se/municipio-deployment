@@ -72,7 +72,8 @@
     "wpackagist-plugin/redis-cache": "2.0.15",
     "wpackagist-plugin/varnish-http-purge": "^4.1.1",
     "wpackagist-plugin/wp-nested-pages": "3.1.4",
-    "wpackagist-plugin/nginx-helper": "^2.2"
+    "wpackagist-plugin/nginx-helper": "^2.2",
+    "wpackagist-plugin/cookies-and-content-security-policy": "^1.44"
   },
   "extra": {
       "path": "/",
