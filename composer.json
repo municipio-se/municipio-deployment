@@ -43,6 +43,7 @@
     "helsingborg-stad/algolia-index-modularity-addon": "^1.0",
     "helsingborg-stad/api-alarm-integration": "dev-3.0/develop",
     "helsingborg-stad/api-event-manager-integration": "dev-3.0/develop",
+    "helsingborg-stad/better-post-ui": "dev-master",
     "helsingborg-stad/broken-link-detector": "dev-whitespace",
     "helsingborg-stad/component-library": "dev-master",
     "helsingborg-stad/customer-feedback": "dev-3.0/develop",
@@ -72,13 +73,13 @@
     "municipio/content-insights-for-editors": "dev-master",
     "wikimedia/composer-merge-plugin": "dev-master",
     "wpackagist-plugin/autodescription": ">=2.9.0",
+    "wpackagist-plugin/cookies-and-content-security-policy": "^1.44",
     "wpackagist-plugin/fakerpress": "0.5.2",
+    "wpackagist-plugin/nginx-helper": "^2.2",
     "wpackagist-plugin/redirection": "^4.3.1",
     "wpackagist-plugin/redis-cache": "2.0.15",
     "wpackagist-plugin/varnish-http-purge": "^4.1.1",
-    "wpackagist-plugin/wp-nested-pages": "3.1.4",
-    "wpackagist-plugin/nginx-helper": "^2.2",
-    "wpackagist-plugin/cookies-and-content-security-policy": "^1.44"
+    "wpackagist-plugin/wp-nested-pages": "3.1.4"
   },
   "extra": {
       "path": "/",
