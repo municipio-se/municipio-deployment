@@ -46,7 +46,7 @@
     "helsingborg-stad/better-post-ui": "dev-master",
     "helsingborg-stad/broken-link-detector": "dev-whitespace",
     "helsingborg-stad/component-library": "dev-master",
-    "helsingborg-stad/content-scheduler": "dev-master",
+    "helsingborg-stad/content-scheduler": "^1.2",
     "helsingborg-stad/customer-feedback": "dev-3.0/develop",
     "helsingborg-stad/easy-to-read-alternative": "dev-3.0/develop",
     "helsingborg-stad/force-ssl": ">=1.0.0",
