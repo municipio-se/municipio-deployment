@@ -3,6 +3,7 @@
   "license": "MIT",
   "description": "Additions for you own install of municipo.",
   "require": {
-    "helsingborg-stad/wpmu-accordion-expand-plus": ">=1.0.0"
+    "helsingborg-stad/wpmu-accordion-expand-plus": ">=1.0.0",
+    "helsingborg-stad/algolia-index-js-searchpage-addon": "dev-3.0/develop"
   }
 }
