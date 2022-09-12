@@ -62,7 +62,7 @@
     "helsingborg-stad/modularity-recommend": "dev-master",
     "helsingborg-stad/modularity-sections": "dev-3.0/develop",
     "helsingborg-stad/modularity-testimonials": "dev-3.0/develop",
-    "helsingborg-stad/modularity-timeline": ">=1.1.4",
+    "helsingborg-stad/modularity-timeline": "dev-3.0/master",
     "helsingborg-stad/multisite-role-propagation": "^1.0",
     "helsingborg-stad/municipio": "dev-3.0/develop",
     "helsingborg-stad/redirection-extended": "^1.0",
