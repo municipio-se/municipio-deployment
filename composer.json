@@ -41,6 +41,7 @@
     "helsingborg-stad/active-directory-api-wp-integration": ">=2.0.0",
     "helsingborg-stad/algolia-index": "^1.7",
     "helsingborg-stad/algolia-index-modularity-addon": "^1.0",
+    "helsingborg-stad/algolia-index-js-searchpage-addon": "dev-3.0/develop",
     "helsingborg-stad/api-alarm-integration": "dev-3.0/develop",
     "helsingborg-stad/api-event-manager-integration": "dev-3.0/develop",
     "helsingborg-stad/better-post-ui": "dev-master",
@@ -62,7 +63,7 @@
     "helsingborg-stad/modularity-recommend": "dev-master",
     "helsingborg-stad/modularity-sections": "dev-3.0/develop",
     "helsingborg-stad/modularity-testimonials": "dev-3.0/develop",
-    "helsingborg-stad/modularity-timeline": ">=1.1.4",
+    "helsingborg-stad/modularity-timeline": "dev-3.0/master",
     "helsingborg-stad/multisite-role-propagation": "^1.0",
     "helsingborg-stad/municipio": "dev-3.0/develop",
     "helsingborg-stad/redirection-extended": "^1.0",
@@ -80,7 +81,8 @@
     "wpackagist-plugin/redirection": "^4.3.1",
     "wpackagist-plugin/redis-cache": "2.0.15",
     "wpackagist-plugin/varnish-http-purge": "^4.1.1",
-    "wpackagist-plugin/wp-nested-pages": "3.1.4"
+    "wpackagist-plugin/wp-nested-pages": "3.1.4",
+    "helsingborg-stad/modularity-products": "dev-master"
   },
   "extra": {
       "path": "/",
