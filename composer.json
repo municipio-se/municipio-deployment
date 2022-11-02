@@ -70,7 +70,7 @@
     "helsingborg-stad/search-notices": ">=1.0.0",
     "helsingborg-stad/wp-page-for-post-type": ">=1.0.0",
     "helsingborg-stad/wpmu-network-admin-url": "dev-master",
-    "johnpbloch/wordpress": "6.0.2",
+    "johnpbloch/wordpress": "6.1",
     "municipio-se/modularity-noticeboard": "1.0.0",
     "municipio/content-insights-for-editors": "dev-master",
     "wikimedia/composer-merge-plugin": "dev-master",
@@ -82,7 +82,8 @@
     "wpackagist-plugin/redis-cache": "2.0.15",
     "wpackagist-plugin/varnish-http-purge": "^4.1.1",
     "wpackagist-plugin/wp-nested-pages": "3.1.4",
-    "helsingborg-stad/modularity-products": "dev-master"
+    "helsingborg-stad/modularity-products": "dev-master",
+    "helsingborg-stad/modularity-interactive-img-map": "dev-3.0/develop"
   },
   "extra": {
       "path": "/",
