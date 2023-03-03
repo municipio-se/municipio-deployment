@@ -70,7 +70,7 @@
     "helsingborg-stad/search-notices": ">=1.0.0",
     "helsingborg-stad/wp-page-for-post-type": ">=1.0.0",
     "helsingborg-stad/wpmu-network-admin-url": "dev-master",
-    "johnpbloch/wordpress": "~6.1",
+    "johnpbloch/wordpress": "6.1.1",
     "municipio-se/modularity-noticeboard": "1.0.0",
     "municipio/content-insights-for-editors": "dev-master",
     "wikimedia/composer-merge-plugin": "dev-master",
