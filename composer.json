@@ -83,7 +83,8 @@
     "wpackagist-plugin/varnish-http-purge": "^4.1.1",
     "wpackagist-plugin/wp-nested-pages": "3.1.4",
     "helsingborg-stad/modularity-products": "dev-master",
-    "helsingborg-stad/modularity-interactive-img-map": "dev-3.0/develop"
+    "helsingborg-stad/modularity-interactive-img-map": "dev-3.0/develop",
+    "helsingborg-stad/wp-page-for-term": "^1.0"
   },
   "extra": {
       "path": "/",
