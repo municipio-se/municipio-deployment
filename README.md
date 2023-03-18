@@ -34,11 +34,6 @@ You may add your own dependencies in composer.local.json file. This file is auto
 
 You may also add plugins locally to your server with the folder name of the plugin prefixed with "local_". Normally they would be removed during the deploy to enshure one source of truth, however the deploy script will respect the "local_" string and keep them. 
 
-## Multiple forks of the same repository
-GitHub has a limitation to one fork of the same repository. This is a inconvenience in this use case but can be solved by a workaround. You may want to use this when you have multiple sites to deploy in the same github organization. 
-
-https://handong1587.github.io/linux_study/2015/12/18/create-multi-forks.html 
-
 ## Parameters
 Add the following secrets to your github repository secrets section (https://docs.github.com/en/actions/security-guides/encrypted-secrets). We do recommend that you assign these secrets locally to your repository. You can however use organization level secret to everything except the path if you determine that they will persist. 
 
