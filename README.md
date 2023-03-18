@@ -31,6 +31,9 @@ This will enshure that deployments can be made by fetching the upstream of the f
 
 ## Adding custom dependencies
 You may add your own dependencies in composer.local.json file. This file is automatically read in build. We have made it a separate file to avoid merge conflicts.
+
+You may also add plugins locally to your server with the folder name of the plugin prefixed with "local_". Normally they would be removed during the deploy to enshure one source of truth, however the deploy script will respect the "local_" string and keep them. 
+
 ## Multiple forks of the same repository
 GitHub has a limitation to one fork of the same repository. This is a inconvenience in this use case but can be solved by a workaround. You may want to use this when you have multiple sites to deploy in the same github organization. 
 
