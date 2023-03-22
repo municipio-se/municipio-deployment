@@ -39,7 +39,7 @@
     "php": ">=7.4",
     "composer/installers": "~1.0",
     "helsingborg-stad/active-directory-api-wp-integration": ">=2.0.0",
-    "helsingborg-stad/algolia-index": "^1.7",
+    "helsingborg-stad/algolia-index": "~1.9",
     "helsingborg-stad/algolia-index-modularity-addon": "^1.0",
     "helsingborg-stad/algolia-index-js-searchpage-addon": "dev-3.0/develop",
     "helsingborg-stad/api-alarm-integration": "dev-3.0/develop",
