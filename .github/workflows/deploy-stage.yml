@@ -17,6 +17,7 @@ jobs:
     - uses: helsingborg-stad/municipio-deploy/3.0@master
       with:
         deploy-host: ${{ secrets.DEPLOY_REMOTE_HOST_STAGE }}
+        deploy-port: ${{ secrets.DEPLOY_REMOTE_PORT_STAGE }}
         deploy-host-path: ${{ secrets.DEPLOY_REMOTE_PATH_STAGE  }}
         deploy-host-backup-path: ${{ secrets.DEPLOY_REMOTE_BACKUP_DIR_STAGE }}
         deploy-host-user: ${{ secrets.DEPLOY_REMOTE_USER_STAGE }}
