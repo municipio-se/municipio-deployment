@@ -78,8 +78,8 @@ You may contribute to this repository if you feel that anything is missing. Simp
 ## Suggested target environment
 We do suggest that you include the following softare on the target machine.
 
-- NGINX
-- PHP 7.4 or later
+- NGINX / Litespeed / Apache
+- PHP 7.4 (PHP 8 support planned 2023)
 - Redis
 - Rsync (required for deployment)
 
