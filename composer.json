@@ -85,6 +85,7 @@
     "helsingborg-stad/wp-page-for-post-type": ">=1.0.0",
     "helsingborg-stad/wp-page-for-term": "^1.0",
     "helsingborg-stad/wp-search-statistics": ">=0.1.0",
+    "helsingborg-stad/wpmu-acf-google-maps-key": "dev-main",
     "helsingborg-stad/wpmu-network-admin-url": "dev-master",
     "humanmade/s3-uploads": "^3.0.4",
     "johnpbloch/wordpress": "6.1.1",
