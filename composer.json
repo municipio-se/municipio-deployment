@@ -45,6 +45,7 @@
     "helsingborg-stad/algolia-index-modularity-addon": "^1.0",
     "helsingborg-stad/api-alarm-integration": "dev-3.0/develop",
     "helsingborg-stad/api-event-manager-integration": "dev-3.0/develop",
+    "helsingborg-stad/api-project-manager-integration": "dev-master",
     "helsingborg-stad/attachment-revisions": ">=1.0.0",
     "helsingborg-stad/better-post-ui": "dev-master",
     "helsingborg-stad/broken-link-detector": "dev-whitespace",
@@ -100,11 +101,11 @@
     "wpackagist-plugin/nginx-helper": "^2.2",
     "wpackagist-plugin/redirection": "^4.3.1",
     "wpackagist-plugin/redis-cache": "2.0.15",
+    "wpackagist-plugin/simple-smtp": "^1.3.2",
     "wpackagist-plugin/user-switching": ">=1.5.1",
     "wpackagist-plugin/username-changer": "3.1.3",
     "wpackagist-plugin/varnish-http-purge": "^4.1.1",
     "wpackagist-plugin/wp-multi-network": "^2.5.2",
-    "wpackagist-plugin/simple-smtp": "^1.3.2",
     "wpackagist-plugin/wp-nested-pages": "3.1.4"
   },
   "extra": {
