@@ -28,6 +28,15 @@ require_once __DIR__ . '/config/upload.php';
 require_once __DIR__ . '/config/cron.php';
 
 /**
+ * Active directory configuration
+ *
+ * Configuration for the active directory login functionality
+ */
+if (file_exists(__DIR__ . '/config/ad.php')) {
+    require_once __DIR__ . '/config/ad.php';
+}
+
+/**
  * Search concfiguration
  *
  * Configuration for the search functionality
