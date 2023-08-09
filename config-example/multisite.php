@@ -6,17 +6,11 @@
 
 define('WP_ALLOW_MULTISITE', true);
 
-// Run the multisite network install via wp-admin and paste your settings here
-// Note: Don't forget to update the .htaccess as well
-
-/*
-Example: Multisite subdomain.
-
-define('WP_ALLOW_MULTISITE', true);
-define('MULTISITE', true);
-define('SUBDOMAIN_INSTALL', true);
-define('DOMAIN_CURRENT_SITE', 'municipio.se');
-define('PATH_CURRENT_SITE', '/');
-define('SITE_ID_CURRENT_SITE', 1);
-define('BLOG_ID_CURRENT_SITE', 1);
-*/
+if(defined('WP_ALLOW_MULTISITE') && WP_ALLOW_MULTISITE) {
+  define('MULTISITE', true);
+  define('SUBDOMAIN_INSTALL', false);
+  define('DOMAIN_CURRENT_SITE', 'dev.local.municipio.tech');
+  define('PATH_CURRENT_SITE','/wp/');
+  define('SITE_ID_CURRENT_SITE', 1 );
+  define('BLOG_ID_CURRENT_SITE', 1 );
+}
