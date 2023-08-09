@@ -1,4 +1,5 @@
 
+/config/*
 /wp-content/*
 !/wp-content/plugins/cookies-and-content-security-policy-vars.php
 !/wp-content/object-cache.php
