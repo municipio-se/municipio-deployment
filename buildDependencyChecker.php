@@ -33,11 +33,6 @@ class DependecyChecker
      */
     public function run()
     {
-        if (isset($argv)) {
-            if (in_array("lite", $argv)) {
-                //echo "lite";
-            }
-        }
 
         if (php_sapi_name() !== 'cli') {
             $this->abortInstall();
