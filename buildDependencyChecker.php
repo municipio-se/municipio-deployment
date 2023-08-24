@@ -141,7 +141,7 @@ class DependecyChecker
      */
     private function abortInstall()
     {
-        exit(0);
+        exit(1);
     }
 }
 
