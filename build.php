@@ -4,6 +4,11 @@
  * This script is meant to be run from github actions and not locally.
  * It searches any sub folder from the folders in $contentDirectories for a build.php and runs it to prepare a compleate built package of the site.
  * It cleans up files like .git and dev tools that should not be on a public facing server.
+ * 
+ * This script takes two arguments:
+ *  - lite: Does not run composer in sub-repositories. 
+ *  - cleanup: Remove files and folders in removeables list. 
+ * 
  */
 
 // Only allow run from cli.
@@ -44,10 +49,12 @@ $removables = [
 $dirName = basename(dirname(__FILE__));
 
 // Iterate through directories and try to find and run build scripts.
-$root = getcwd();
-$output = '';
-$exitCode = 0;
-$cleanup = (isset($argv[1]) && ($argv[1] === '--cleanup')) ? $argv[1] : '';
+$root       = getcwd();
+$output     = '';
+$exitCode   = 0;
+$cleanup    = is_array($argv) && in_array('--cleanup', $argv) ? '--cleanup' : '';
+$noComposer = is_array($argv) && in_array('--lite', $argv) ? '--no-composer' : '';
+
 $builds = [];
 foreach ($contentDirectories as $contentDirectory) {
     $directories = glob("$contentDirectory/*", GLOB_ONLYDIR);
@@ -57,7 +64,7 @@ foreach ($contentDirectories as $contentDirectory) {
             $timeStart = microtime(true);
             chdir($directory);
 
-            $exitCode = executeCommand("php $buildFile $cleanup");
+            $exitCode = executeCommand("php $buildFile $cleanup $noComposer");
             // Break script if any exit code other than 0 is returned.
             if ($exitCode > 0) {
                 exit($exitCode);
