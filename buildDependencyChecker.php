@@ -22,13 +22,6 @@ class DependecyChecker
     private $composerDirectory = "./"; 
 
     /**
-     * Build file name.
-     *
-     * @var string
-     */
-    private $buildFile = 'common.php';
-
-    /**
      * Run the installation process.
      */
     public function run()
