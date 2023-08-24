@@ -90,11 +90,14 @@ class DependecyChecker
      */
     private function getComposerDependencies($path)
     {
-        if (!file_exists($path . "/composer.json")) {
+
+        $path = $path . "/composer.json"; 
+
+        if (!file_exists($path)) {
             return false;
         }
 
-        $contents = file_get_contents($path . "/composer.json");
+        $contents = file_get_contents($path);
         if ($contents = json_decode($contents)) {
             if (isset($contents->require)) {
                 return (array)$contents->require;
