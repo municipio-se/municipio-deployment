@@ -6,7 +6,7 @@
  * It cleans up files like .git and dev tools that should not be on a public facing server.
  * 
  * This script takes two arguments:
- *  - lite: Does not run composer in sub-repositories. 
+ *  - no-composer-in-child-packages: Does not run composer in sub-repositories. 
  *  - cleanup: Remove files and folders in removeables list. 
  * 
  */
@@ -53,7 +53,7 @@ $root       = getcwd();
 $output     = '';
 $exitCode   = 0;
 $cleanup    = is_array($argv) && in_array('--cleanup', $argv) ? '--cleanup' : '';
-$noComposer = is_array($argv) && in_array('--lite', $argv) ? '--no-composer' : '';
+$noComposer = is_array($argv) && in_array('--no-composer-in-child-packages', $argv) ? '--no-composer' : '';
 
 $builds = [];
 foreach ($contentDirectories as $contentDirectory) {
