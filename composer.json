@@ -133,7 +133,8 @@
     "php-http/message": "^1.13",
     "php-http/discovery": "^1.15",
     "php-http/mock-client": "^1.5",
-    "symfony/http-client": "^5.4"
+    "symfony/http-client": "^5.4",
+    "helsingborg-stad/acf-export-manager": "1.0.12"
   },
   "extra": {
       "path": "/",
