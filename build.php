@@ -54,6 +54,7 @@ $output     = '';
 $exitCode   = 0;
 $cleanup    = is_array($argv) && in_array('--cleanup', $argv) ? '--cleanup' : '';
 $noComposer = is_array($argv) && in_array('--no-composer-in-child-packages', $argv) ? '--no-composer' : '';
+$noComposer = ''; //Temporary disable of no-composer argument
 
 $builds = [];
 foreach ($contentDirectories as $contentDirectory) {
