@@ -137,13 +137,17 @@
       "path": "/",
       "wordpress-install-dir": "wp",
       "installer-paths": {
-        "vendor/{$name}": [
+        "wp-content/mu-plugins/{$name}": [
+          "type:wordpress-muplugin",
           "kirki-framework/kirki",
           "wpackagist-plugin/kirki"
         ],
-        "wp-content/mu-plugins/{$name}": ["type:wordpress-muplugin"],
-        "wp-content/plugins/{$name}": ["type:wordpress-plugin"],
-        "wp-content/themes/{$name}": ["type:wordpress-theme"]
+        "wp-content/plugins/{$name}": [
+          "type:wordpress-plugin"
+        ],
+        "wp-content/themes/{$name}": [
+          "type:wordpress-theme"
+        ]
       },
       "merge-plugin": {
         "include": [
