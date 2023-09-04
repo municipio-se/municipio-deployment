@@ -146,5 +146,5 @@ class DependecyChecker
 }
 
 // Instantiate and run the installer.
-$installer = new DependecyChecker();
-$installer->run();
+//$installer = new DependecyChecker();
+//$installer->run();
