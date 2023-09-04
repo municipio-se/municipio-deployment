@@ -147,7 +147,10 @@
   },
   "scripts": {
     "post-install-cmd": [
-        "mkdir -p wp-content/uploads/cache/blade-cache"
+      "mkdir -p wp-content/uploads/cache/blade-cache"
+    ],
+    "post-autoload-dump": [
+      "composer dump-autoload --working-dir ./wp-content/plugins/s3-uploads/"
     ]
   }
 }
