@@ -47,6 +47,7 @@
     "helsingborg-stad/api-alarm-integration": "dev-3.0/develop",
     "helsingborg-stad/api-event-manager-integration": "dev-3.0/develop",
     "helsingborg-stad/api-project-manager-integration": "dev-3.0/develop",
+    "helsingborg-stad/api-volunteer-manager-integration": "dev-develop",
     "helsingborg-stad/attachment-revisions": ">=1.0.0",
     "helsingborg-stad/better-post-ui": "dev-master",
     "helsingborg-stad/broken-link-detector": "dev-whitespace",
