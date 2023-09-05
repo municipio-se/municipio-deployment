@@ -37,8 +37,8 @@
   ],
   "require": {
     "php": ">=7.4",
+    "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
     "composer/installers": "~1.0",
-    "wikimedia/composer-merge-plugin": "dev-master",
     "helsingborg-stad/acf-ux-collapse": ">=1.0.0",
     "helsingborg-stad/active-directory-api-wp-integration": "^2.4.12",
     "helsingborg-stad/algolia-index": "~1.9",
@@ -96,6 +96,7 @@
     "johnpbloch/wordpress": "6.3.0",
     "municipio-se/modularity-noticeboard": "1.0.0",
     "municipio/content-insights-for-editors": "dev-master",
+    "wikimedia/composer-merge-plugin": "dev-master",
     "wpackagist-plugin/acf-extended": "0.8.8.7",
     "wpackagist-plugin/autodescription": ">=2.9.0",
     "wpackagist-plugin/cookies-and-content-security-policy": "^1.44",
@@ -119,7 +120,7 @@
       "installer-paths": {
         "wp-content/mu-plugins/{$name}": [
           "type:wordpress-muplugin",
-          "type:acf-plugin",
+          "clark-nikdel-powell/post-type-select-for-acf",
           "kirki-framework/kirki",
           "wpackagist-plugin/kirki"
         ],
