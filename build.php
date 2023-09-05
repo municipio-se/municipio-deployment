@@ -41,8 +41,7 @@ $removables = [
     'composer.lock',
     'images',
     'README.md',
-    'guide',
-    'buildDependencyChecker.php'
+    'guide'
 ];
 
 
