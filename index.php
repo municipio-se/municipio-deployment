@@ -10,16 +10,8 @@
  * Tells WordPress to load the WordPress theme and output it.
  * @var bool
  */
-define('WP_USE_THEMES', true);
 
-/**
- * Loads builtin vendor packages
- */
-if(file_exists( __DIR__ . '/vendor/autoload.php')) {
-  require_once __DIR__ . '/vendor/autoload.php';
-} else {
-  die("<h1>Not installed</h1><p>Oops! Please run 'php build.php' in the root directory to install Municipio.</p>"); 
-}
+define('WP_USE_THEMES', true);
 
 /**
  * Loads the WordPress Environment and Template
