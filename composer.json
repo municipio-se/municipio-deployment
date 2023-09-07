@@ -121,7 +121,6 @@
       "installer-paths": {
         "wp-content/mu-plugins/{$name}": [
           "type:wordpress-muplugin",
-          "clark-nikdel-powell/post-type-select-for-acf",
           "kirki-framework/kirki",
           "wpackagist-plugin/kirki"
         ],
