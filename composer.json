@@ -115,7 +115,8 @@
     "wpackagist-plugin/varnish-http-purge": "^4.1.1",
     "wpackagist-plugin/wp-multi-network": "^2.5.2",
     "wpackagist-plugin/wp-nested-pages": "3.1.4",
-    "wpackagist-plugin/wp-sentry-integration":"~6.24"
+    "wpackagist-plugin/wp-sentry-integration":"~6.24",
+    "wpackagist-plugin/performant-translations":"~1.0.3"
   },
   "extra": {
       "path": "/",
@@ -124,7 +125,8 @@
         "wp-content/mu-plugins/{$name}": [
           "type:wordpress-muplugin",
           "kirki-framework/kirki",
-          "wpackagist-plugin/kirki"
+          "wpackagist-plugin/kirki",
+          "wpackagist-plugin/performant-translations"
         ],
         "wp-content/plugins/{$name}": [
           "type:wordpress-plugin"
