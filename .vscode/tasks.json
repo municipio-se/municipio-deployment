@@ -11,7 +11,7 @@
         {
             "label": "search replace db",
             "type": "shell",
-            "command": "wp search-replace dev.local.municipio.tech ${input:DOMAIN_TO} --all-tables --skip-columns=guid && wp search-replace https://${input:DOMAIN_TO} http://${input:DOMAIN_TO} --all-tables --skip-columns=guid",
+            "command": "wp search-replace dev.local.municipio.tech ${input:DOMAIN_TO} --all-tables --skip-columns=guid --skip-plugins && wp search-replace https://${input:DOMAIN_TO} http://${input:DOMAIN_TO} --all-tables --skip-columns=guid --skip-plugins",
             "hide": true,
             "problemMatcher": [],
         },
@@ -51,7 +51,7 @@
         {
             "label": "add required config files",
             "type": "shell",
-            "command": "mkdir -p ./config && cp ./.devcontainer/config/wp-config/* ./config",
+            "command": "mkdir -p ./config && cp ./config-example/* ./config && cp ./.devcontainer/config/wp-config/* ./config",
             "hide": true,
             "problemMatcher": []
         },

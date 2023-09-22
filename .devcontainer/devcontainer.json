@@ -13,11 +13,11 @@
 	},
 	"forwardPorts": [
 		3306,
-		8008,
+		8080,
 		8025
 	],
 	"portsAttributes": {
-		"8008": {
+		"8080": {
 			"label": "WordPress"
 		},
 		"3306": {
