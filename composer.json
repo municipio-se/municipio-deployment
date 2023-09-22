@@ -127,7 +127,12 @@
           "type:acf-plugin",
           "kirki-framework/kirki",
           "wpackagist-plugin/kirki",
-          "wpackagist-plugin/performant-translations"
+          "wpackagist-plugin/performant-translations",
+          "johannheyne/advanced-custom-fields-table-field",
+          "clark-nikdel-powell/post-type-select-for-acf",
+          "jeradin/acf-website-field",
+          "ooksanen/acf-focuspoint",
+          "jeradin/acf-dynamic-table-field"
         ],
         "wp-content/plugins/{$name}": [
           "type:wordpress-plugin"
