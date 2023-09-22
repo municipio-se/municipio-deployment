@@ -127,12 +127,7 @@
           "type:acf-plugin",
           "kirki-framework/kirki",
           "wpackagist-plugin/kirki",
-          "wpackagist-plugin/performant-translations",
-          "johannheyne/advanced-custom-fields-table-field",
-          "clark-nikdel-powell/post-type-select-for-acf",
-          "jeradin/acf-website-field",
-          "ooksanen/acf-focuspoint",
-          "jeradin/acf-dynamic-table-field"
+          "wpackagist-plugin/performant-translations"
         ],
         "wp-content/plugins/{$name}": [
           "type:wordpress-plugin"
@@ -159,7 +154,8 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "mkdir -p wp-content/uploads/cache/blade-cache"
+      "mkdir -p wp-content/uploads/cache/blade-cache",
+      "composer dump-autoload -o"
     ],
     "post-update-cmd": [
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/",
