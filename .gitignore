@@ -11,3 +11,4 @@
 /wp/
 .DS_Store
 composer.lock
+.htaccess

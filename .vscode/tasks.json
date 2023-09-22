@@ -1,0 +1,78 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "seed db",
+            "type": "shell",
+            "command": "wp db import ./db/seed.sql && rm -rf ./wp-content/fonts",
+            "hide": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "search replace db",
+            "type": "shell",
+            "command": "wp search-replace dev.local.municipio.tech ${input:DOMAIN_TO} --all-tables --skip-columns=guid && wp search-replace https://${input:DOMAIN_TO} http://${input:DOMAIN_TO} --all-tables --skip-columns=guid",
+            "hide": true,
+            "problemMatcher": [],
+        },
+        {
+            "label": "deactivate incompatible plugins",
+            "type": "shell",
+            "command": "wp plugin deactivate active-directory-api-wp-integration force-ssl --network",
+            "hide": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "seed local db",
+            "dependsOn": [
+                "seed db",
+                "search replace db",
+                "deactivate incompatible plugins"
+            ],
+            "dependsOrder": "sequence",
+            "type": "shell",
+            "command": "echo \"Done seeding local db 💪\"",
+            "problemMatcher": []
+        },
+        {
+            "label": "install acf pro plugin",
+            "type": "shell",
+            "command": "./.vscode/bin/download-plugin-acf-pro.sh ${input:ACF_PRO_KEY} && ./.vscode/bin/install-plugin-acf-pro.sh",
+            "hide": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "add .htaccess",
+            "type": "shell",
+            "command": "cp ./.devcontainer/config/.htaccess ./.htaccess",
+            "hide": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "setup:local site",
+            "dependsOn": [
+                "install acf pro plugin",
+                "seed local db",
+                "add .htaccess"
+            ],
+            "dependsOrder": "sequence",
+            "type": "shell",
+            "command": "echo \"💪 Done setting up local site\"",
+            "problemMatcher": []
+        },
+    ],
+    "inputs": [
+        {
+            "id": "ACF_PRO_KEY",
+            "type": "promptString",
+            "description": "Enter your ACF Pro license key",
+            "default": ""
+        },
+        {
+            "id": "DOMAIN_TO",
+            "type": "promptString",
+            "description": "Enter the domain,including port number you want to replace with. E.g. \"localhost:8123\".",
+            "default": ""
+        }
+    ]
+}

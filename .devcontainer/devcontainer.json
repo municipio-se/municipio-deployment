@@ -1,0 +1,60 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/php-mariadb
+{
+	"name": "PHP & MariaDB",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+	// For use with PHP or Apache (e.g.php -S localhost:8080 or apache2ctl start)
+	"containerEnv": {
+		"XDEBUG_MODE": "off"
+	},
+	"forwardPorts": [
+		3306,
+		8008,
+		8025
+	],
+	"portsAttributes": {
+		"8008": {
+			"label": "WordPress"
+		},
+		"3306": {
+			"label": "Database"
+		},
+		"8025": {
+			"label": "MailHog"
+		}
+	},
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": {
+		"symlink-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
+		"start-apache": "service apache2 start"
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "16"
+		},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+	},
+	"waitFor": "postCreateCommand",
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"eamodio.gitlens",
+				"ritwickdey.liveserver",
+				"ms-vscode.remote-server"
+			],
+			"settings": {
+				"intelephense.environment.includePaths": [
+					"/tmp/wordpress-tests-lib",
+					"/tmp/wordpress"
+				]
+			},
+		}
+	}
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

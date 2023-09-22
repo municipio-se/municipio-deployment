@@ -1,0 +1,19 @@
+{
+    "folders": [
+        {
+            "path": "..",
+            "name": "root",
+        },
+        {
+            "path": "../wp-content/themes/municipio",
+            "name": "theme: municipio"
+        },
+        {
+            "path": "../wp-content/plugins/modularity",
+            "name": "plugin: modularity"
+        }
+    ],
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "root"
+    }
+}
