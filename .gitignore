@@ -11,4 +11,5 @@
 /wp/
 .DS_Store
 composer.lock
+!/.vscode/config/.htaccess
 .htaccess
