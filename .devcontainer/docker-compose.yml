@@ -32,15 +32,6 @@ services:
     # Add "forwardPorts": ["3306"] to **devcontainer.json** to forward MariaDB locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
-  redis:
-    image: redis:6.2-alpine
-    restart: always
-    ports:
-      - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
-    volumes: 
-      - cache:/data
-
   mailhog:
     image: mailhog/mailhog
     logging:
@@ -51,5 +42,3 @@ services:
   
 volumes:
   mariadb-data:
-  cache:
-    driver: local
