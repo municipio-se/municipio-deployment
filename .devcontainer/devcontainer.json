@@ -13,8 +13,7 @@
 	},
 	"forwardPorts": [
 		3306,
-		8080,
-		8025
+		8080
 	],
 	"portsAttributes": {
 		"8080": {
@@ -22,9 +21,6 @@
 		},
 		"3306": {
 			"label": "Database"
-		},
-		"8025": {
-			"label": "MailHog"
 		}
 	},
 	// Use 'postCreateCommand' to run commands after the container is created.
@@ -52,7 +48,7 @@
 					"/tmp/wordpress-tests-lib",
 					"/tmp/wordpress"
 				]
-			},
+			}
 		}
 	}
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.

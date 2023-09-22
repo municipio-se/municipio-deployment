@@ -23,18 +23,6 @@
             "problemMatcher": []
         },
         {
-            "label": "seed local db",
-            "dependsOn": [
-                "seed db",
-                "search replace db",
-                "deactivate incompatible plugins"
-            ],
-            "dependsOrder": "sequence",
-            "type": "shell",
-            "command": "echo \"Done seeding local db 💪\"",
-            "problemMatcher": []
-        },
-        {
             "label": "install acf pro plugin",
             "type": "shell",
             "command": "./.vscode/bin/download-plugin-acf-pro.sh ${input:ACF_PRO_KEY} && ./.vscode/bin/install-plugin-acf-pro.sh",
@@ -60,7 +48,9 @@
             "dependsOn": [
                 "add required config files",
                 "install acf pro plugin",
-                "seed local db",
+                "seed db",
+                "search replace db",
+                "deactivate incompatible plugins",
                 "add .htaccess"
             ],
             "dependsOrder": "sequence",
