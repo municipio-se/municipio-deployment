@@ -18,7 +18,7 @@
         {
             "label": "deactivate incompatible plugins",
             "type": "shell",
-            "command": "wp plugin deactivate active-directory-api-wp-integration force-ssl --network",
+            "command": "wp plugin deactivate active-directory-api-wp-integration force-ssl --network --skip-plugins",
             "hide": true,
             "problemMatcher": []
         },
