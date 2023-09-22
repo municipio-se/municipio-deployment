@@ -2,16 +2,16 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "seed db",
+            "label": "import db",
             "type": "shell",
-            "command": "wp db import ./db/seed.sql && rm -rf ./wp-content/fonts",
+            "command": "wp db import ./db/seed.sql",
             "hide": true,
             "problemMatcher": []
         },
         {
             "label": "search replace db",
             "type": "shell",
-            "command": "wp search-replace dev.local.municipio.tech ${input:DOMAIN_TO} --all-tables --skip-columns=guid --skip-plugins && wp search-replace https://${input:DOMAIN_TO} http://${input:DOMAIN_TO} --all-tables --skip-columns=guid --skip-plugins",
+            "command": "wp search-replace dev.local.municipio.tech ${input:DOMAIN_TO} --all-tables --skip-columns=guid --skip-plugins && wp search-replace https://${input:DOMAIN_TO} http://${input:DOMAIN_TO} --all-tables --skip-columns=guid --skip-plugins && rm -rf ./wp-content/fonts",
             "hide": true,
             "problemMatcher": [],
         },
@@ -48,7 +48,7 @@
             "dependsOn": [
                 "add required config files",
                 "install acf pro plugin",
-                "seed db",
+                "import db",
                 "search replace db",
                 "deactivate incompatible plugins",
                 "add .htaccess"
