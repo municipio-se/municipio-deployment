@@ -22,6 +22,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && mv wp-cli.phar /usr/local/bin/wp
 
 RUN a2enmod headers mime rewrite
+RUN sed -i 's/Listen 8080/Listen 7788/g' /etc/apache2/ports.conf
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1

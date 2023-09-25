@@ -11,7 +11,7 @@
         {
             "label": "search replace db",
             "type": "shell",
-            "command": "wp search-replace dev.local.municipio.tech ${input:DOMAIN_TO} --all-tables --skip-columns=guid --skip-plugins && wp search-replace https://${input:DOMAIN_TO} http://${input:DOMAIN_TO} --all-tables --skip-columns=guid --skip-plugins && rm -rf ./wp-content/fonts",
+            "command": "wp search-replace dev.local.municipio.tech localhost:7788 --all-tables --skip-columns=guid --skip-plugins && wp search-replace https://localhost:7788 http://localhost:7788 --all-tables --skip-columns=guid --skip-plugins && rm -rf ./wp-content/fonts",
             "hide": true,
             "problemMatcher": [],
         },
@@ -25,7 +25,7 @@
         {
             "label": "install acf pro plugin",
             "type": "shell",
-            "command": "./.vscode/bin/download-plugin-acf-pro.sh ${input:ACF_PRO_KEY} && ./.vscode/bin/install-plugin-acf-pro.sh",
+            "command": "./.vscode/bin/download-plugin-acf-pro.sh ${env:MUNICIPIO_ACF_PRO_KEY} && ./.vscode/bin/install-plugin-acf-pro.sh",
             "hide": true,
             "problemMatcher": []
         },
@@ -59,18 +59,4 @@
             "problemMatcher": []
         },
     ],
-    "inputs": [
-        {
-            "id": "ACF_PRO_KEY",
-            "type": "promptString",
-            "description": "Enter your ACF Pro license key",
-            "default": ""
-        },
-        {
-            "id": "DOMAIN_TO",
-            "type": "promptString",
-            "description": "Enter the domain,including port number you want to replace with. E.g. \"localhost:8123\".",
-            "default": ""
-        }
-    ]
 }

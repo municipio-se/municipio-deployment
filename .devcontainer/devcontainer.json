@@ -8,20 +8,12 @@
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 	// For use with PHP or Apache (e.g.php -S localhost:8080 or apache2ctl start)
+	"forwardPorts": [
+		7788,
+		3306
+	],
 	"containerEnv": {
 		"XDEBUG_MODE": "off"
-	},
-	"forwardPorts": [
-		3306,
-		8080
-	],
-	"portsAttributes": {
-		"8080": {
-			"label": "WordPress"
-		},
-		"3306": {
-			"label": "Database"
-		}
 	},
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
@@ -43,6 +35,14 @@
 				"ms-vscode.remote-server"
 			],
 			"settings": {
+				"remote.autoForwardPorts": false,
+				"remote.portsAttributes": {
+					"7788": {
+						"label": "WordPress",
+						"onAutoForward": "openPreview",
+						"requireLocalPort": true
+					}
+				},
 				"intelephense.environment.includePaths": [
 					"/tmp/wordpress-tests-lib",
 					"/tmp/wordpress"
