@@ -65,7 +65,7 @@
     "helsingborg-stad/lix-calculator": ">=1.0.1",
     "helsingborg-stad/media-usage": "^1.0",
     "helsingborg-stad/mod-my-pages": "dev-main",
-    "helsingborg-stad/modularity": "dev-3.0/develop",
+    "helsingborg-stad/modularity": "^3.0.1",
     "helsingborg-stad/modularity-contact-banner": "dev-3.0/develop",
     "helsingborg-stad/modularity-entryscape": "^1.0.0",
     "helsingborg-stad/modularity-form-builder": "dev-3.0/develop",
