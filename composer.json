@@ -124,6 +124,7 @@
       "installer-paths": {
         "wp-content/mu-plugins/{$name}": [
           "type:wordpress-muplugin",
+          "type:acf-plugin",
           "kirki-framework/kirki",
           "wpackagist-plugin/kirki",
           "wpackagist-plugin/performant-translations"
@@ -153,7 +154,8 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "mkdir -p wp-content/uploads/cache/blade-cache"
+      "mkdir -p wp-content/uploads/cache/blade-cache",
+      "composer dump-autoload -o"
     ],
     "post-update-cmd": [
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/",
