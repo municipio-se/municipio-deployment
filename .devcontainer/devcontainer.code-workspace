@@ -11,9 +11,222 @@
         {
             "path": "../wp-content/plugins/modularity",
             "name": "plugin: modularity"
-        }
-    ],
-    "settings": {
-        "liveServer.settings.multiRootWorkspaceName": "root"
-    }
+        },
+        {
+            "path": "../wp-content/plugins/acf-ux-collapse",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/active-directory-api-wp-integration",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/algolia-index",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/algolia-index-js-searchpage-addon",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/algolia-index-modularity-addon",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/api-alarm-integration",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/api-event-manager-integration",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/api-project-manager-integration",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/api-volunteer-manager-integration",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/attachment-revisions",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/better-post-ui",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/broken-link-detector",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/component-library",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/content-scheduler",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/custom-short-links",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/customer-feedback",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/easy-to-read-alternative",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/force-ssl",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/gdi-modularity-cases",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/gdi-modularity-invoices",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/gdi-modularity-my-pages-about-me",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/global-blade-engine",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/job-listings",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/like-posts",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/lix-calculator",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/media-usage",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/mod-my-pages",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-contact-banner",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-entryscape",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-form-builder",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-guides",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-interactive-img-map",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-json-render",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-local-events",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-open-street-map",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-products",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-recommend",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-sections",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-testimonials",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/modularity-timeline",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/multi-network-urls",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/multisite-role-propagation",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/municipio",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/redirection-extended",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/s3-uploads-custom-endpoint",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/search-notices",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/visit-custom-posttypes-taxonomies",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/wp-page-for-post-type",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/wp-page-for-term",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/wp-search-statistics",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/wpmu-acf-google-maps-key",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/wpmu-litespeed-common-settings",
+            "label": ""
+        },
+        {
+            "path": "../wp-content/plugins/wpmu-network-admin-url",
+            "label": ""
+        },
+    ]
 }
