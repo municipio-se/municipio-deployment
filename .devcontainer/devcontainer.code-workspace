@@ -2,11 +2,35 @@
     "folders": [
         {
             "path": "..",
-            "name": "root",
+            "name": "root: municipio-deployment",
         },
         {
             "path": "../wp-content/themes/municipio",
             "name": "theme: municipio"
+        },
+        {
+            "path": "../wp-content/mu-plugins/component-library",
+            "label": "mu-plugin: component-library"
+        },
+        {
+            "path": "../wp-content/mu-plugins/multi-network-urls",
+            "label": "mu-plugin: multi-network-urls"
+        },
+        {
+            "path": "../wp-content/mu-plugins/s3-uploads-custom-endpoint",
+            "label": "mu-plugin: s3-uploads-custom-endpoint"
+        },
+        {
+            "path": "../wp-content/mu-plugins/wpmu-acf-google-maps-key",
+            "label": "mu-plugin: wpmu-acf-google-maps-key"
+        },
+        {
+            "path": "../wp-content/mu-plugins/wpmu-litespeed-common-settings",
+            "label": "mu-plugin: wpmu-litespeed-common-settings"
+        },
+        {
+            "path": "../wp-content/mu-plugins/wpmu-network-admin-url",
+            "label": "mu-plugin: wpmu-network-admin-url"
         },
         {
             "path": "../wp-content/plugins/modularity",
@@ -14,219 +38,195 @@
         },
         {
             "path": "../wp-content/plugins/acf-ux-collapse",
-            "label": ""
+            "label": "plugin: acf-ux-collapse"
         },
         {
             "path": "../wp-content/plugins/active-directory-api-wp-integration",
-            "label": ""
+            "label": "plugin: active-directory-api-wp-integration"
         },
         {
             "path": "../wp-content/plugins/algolia-index",
-            "label": ""
+            "label": "plugin: algolia-index"
         },
         {
             "path": "../wp-content/plugins/algolia-index-js-searchpage-addon",
-            "label": ""
+            "label": "plugin: algolia-index-js-searchpage-addon"
         },
         {
             "path": "../wp-content/plugins/algolia-index-modularity-addon",
-            "label": ""
+            "label": "plugin: algolia-index-modularity-addon"
         },
         {
             "path": "../wp-content/plugins/api-alarm-integration",
-            "label": ""
+            "label": "plugin: api-alarm-integration"
         },
         {
             "path": "../wp-content/plugins/api-event-manager-integration",
-            "label": ""
+            "label": "plugin: api-event-manager-integration"
         },
         {
             "path": "../wp-content/plugins/api-project-manager-integration",
-            "label": ""
+            "label": "plugin: api-project-manager-integration"
         },
         {
             "path": "../wp-content/plugins/api-volunteer-manager-integration",
-            "label": ""
+            "label": "plugin: api-volunteer-manager-integration"
         },
         {
             "path": "../wp-content/plugins/attachment-revisions",
-            "label": ""
+            "label": "plugin: attachment-revisions"
         },
         {
             "path": "../wp-content/plugins/better-post-ui",
-            "label": ""
+            "label": "plugin: better-post-ui"
         },
         {
             "path": "../wp-content/plugins/broken-link-detector",
-            "label": ""
-        },
-        {
-            "path": "../wp-content/plugins/component-library",
-            "label": ""
+            "label": "plugin: broken-link-detector"
         },
         {
             "path": "../wp-content/plugins/content-scheduler",
-            "label": ""
+            "label": "plugin: content-scheduler"
         },
         {
             "path": "../wp-content/plugins/custom-short-links",
-            "label": ""
+            "label": "plugin: custom-short-links"
         },
         {
             "path": "../wp-content/plugins/customer-feedback",
-            "label": ""
+            "label": "plugin: customer-feedback"
         },
         {
             "path": "../wp-content/plugins/easy-to-read-alternative",
-            "label": ""
+            "label": "plugin: easy-to-read-alternative"
         },
         {
             "path": "../wp-content/plugins/force-ssl",
-            "label": ""
+            "label": "plugin: force-ssl"
         },
         {
             "path": "../wp-content/plugins/gdi-modularity-cases",
-            "label": ""
+            "label": "plugin: gdi-modularity-cases"
         },
         {
             "path": "../wp-content/plugins/gdi-modularity-invoices",
-            "label": ""
+            "label": "plugin: gdi-modularity-invoices"
         },
         {
             "path": "../wp-content/plugins/gdi-modularity-my-pages-about-me",
-            "label": ""
+            "label": "plugin: gdi-modularity-my-pages-about-me"
         },
         {
             "path": "../wp-content/plugins/global-blade-engine",
-            "label": ""
+            "label": "plugin: global-blade-engine"
         },
         {
             "path": "../wp-content/plugins/job-listings",
-            "label": ""
+            "label": "plugin: job-listings"
         },
         {
             "path": "../wp-content/plugins/like-posts",
-            "label": ""
+            "label": "plugin: like-posts"
         },
         {
             "path": "../wp-content/plugins/lix-calculator",
-            "label": ""
+            "label": "plugin: lix-calculator"
         },
         {
             "path": "../wp-content/plugins/media-usage",
-            "label": ""
+            "label": "plugin: media-usage"
         },
         {
             "path": "../wp-content/plugins/mod-my-pages",
-            "label": ""
+            "label": "plugin: mod-my-pages"
         },
         {
             "path": "../wp-content/plugins/modularity",
-            "label": ""
+            "label": "plugin: modularity"
         },
         {
             "path": "../wp-content/plugins/modularity-contact-banner",
-            "label": ""
+            "label": "plugin: modularity-contact-banner"
         },
         {
             "path": "../wp-content/plugins/modularity-entryscape",
-            "label": ""
+            "label": "plugin: modularity-entryscape"
         },
         {
             "path": "../wp-content/plugins/modularity-form-builder",
-            "label": ""
+            "label": "plugin: modularity-form-builder"
         },
         {
             "path": "../wp-content/plugins/modularity-guides",
-            "label": ""
+            "label": "plugin: modularity-guides"
         },
         {
             "path": "../wp-content/plugins/modularity-interactive-img-map",
-            "label": ""
+            "label": "plugin: modularity-interactive-img-map"
         },
         {
             "path": "../wp-content/plugins/modularity-json-render",
-            "label": ""
+            "label": "plugin: modularity-json-render"
         },
         {
             "path": "../wp-content/plugins/modularity-local-events",
-            "label": ""
+            "label": "plugin: modularity-local-events"
         },
         {
             "path": "../wp-content/plugins/modularity-open-street-map",
-            "label": ""
+            "label": "plugin: modularity-open-street-map"
         },
         {
             "path": "../wp-content/plugins/modularity-products",
-            "label": ""
+            "label": "plugin: modularity-products"
         },
         {
             "path": "../wp-content/plugins/modularity-recommend",
-            "label": ""
+            "label": "plugin: modularity-recommend"
         },
         {
             "path": "../wp-content/plugins/modularity-sections",
-            "label": ""
+            "label": "plugin: modularity-sections"
         },
         {
             "path": "../wp-content/plugins/modularity-testimonials",
-            "label": ""
+            "label": "plugin: modularity-testimonials"
         },
         {
             "path": "../wp-content/plugins/modularity-timeline",
-            "label": ""
-        },
-        {
-            "path": "../wp-content/plugins/multi-network-urls",
-            "label": ""
+            "label": "plugin: modularity-timeline"
         },
         {
             "path": "../wp-content/plugins/multisite-role-propagation",
-            "label": ""
+            "label": "plugin: multisite-role-propagation"
         },
         {
             "path": "../wp-content/plugins/municipio",
-            "label": ""
+            "label": "plugin: municipio"
         },
         {
             "path": "../wp-content/plugins/redirection-extended",
-            "label": ""
-        },
-        {
-            "path": "../wp-content/plugins/s3-uploads-custom-endpoint",
-            "label": ""
+            "label": "plugin: redirection-extended"
         },
         {
             "path": "../wp-content/plugins/search-notices",
-            "label": ""
+            "label": "plugin: search-notices"
         },
         {
             "path": "../wp-content/plugins/visit-custom-posttypes-taxonomies",
-            "label": ""
+            "label": "plugin: visit-custom-posttypes-taxonomies"
         },
         {
             "path": "../wp-content/plugins/wp-page-for-post-type",
-            "label": ""
+            "label": "plugin: wp-page-for-post-type"
         },
         {
             "path": "../wp-content/plugins/wp-page-for-term",
-            "label": ""
+            "label": "plugin: wp-page-for-term"
         },
         {
             "path": "../wp-content/plugins/wp-search-statistics",
-            "label": ""
-        },
-        {
-            "path": "../wp-content/plugins/wpmu-acf-google-maps-key",
-            "label": ""
-        },
-        {
-            "path": "../wp-content/plugins/wpmu-litespeed-common-settings",
-            "label": ""
-        },
-        {
-            "path": "../wp-content/plugins/wpmu-network-admin-url",
-            "label": ""
+            "label": "plugin: wp-search-statistics"
         },
     ]
 }
