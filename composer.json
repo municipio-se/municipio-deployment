@@ -37,7 +37,6 @@
   ],
   "require": {
     "php": ">=7.4",
-    "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
     "composer/installers": "~1.0",
     "helsingborg-stad/acf-ux-collapse": ">=1.0.0",
     "helsingborg-stad/active-directory-api-wp-integration": "^2.4.12",
