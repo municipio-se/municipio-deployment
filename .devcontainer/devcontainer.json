@@ -15,6 +15,7 @@
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
 		"symlink-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
+		"symlink-npmrc-to-user-catalog": "ln -s \"$(pwd)/.devcontainer/config/.npmrc\" /home/vscode/.npmrc",
 		"start-apache": "service apache2 start",
 		"add-github-token-to-composer": "composer config github-oauth.github.com $MUNICIPIO_GITHUB_TOKEN"
 	},
