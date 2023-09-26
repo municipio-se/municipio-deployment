@@ -11,6 +11,7 @@
 /wp/
 .DS_Store
 composer.lock
+auth.json
 
 # Devcontainer
 .htaccess
