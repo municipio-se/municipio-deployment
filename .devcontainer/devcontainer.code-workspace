@@ -10,223 +10,215 @@
         },
         {
             "path": "../wp-content/mu-plugins/component-library",
-            "label": "mu-plugin: component-library"
+            "name": "mu-plugin: component-library"
         },
         {
             "path": "../wp-content/mu-plugins/multi-network-urls",
-            "label": "mu-plugin: multi-network-urls"
+            "name": "mu-plugin: multi-network-urls"
         },
         {
             "path": "../wp-content/mu-plugins/s3-uploads-custom-endpoint",
-            "label": "mu-plugin: s3-uploads-custom-endpoint"
+            "name": "mu-plugin: s3-uploads-custom-endpoint"
         },
         {
             "path": "../wp-content/mu-plugins/wpmu-acf-google-maps-key",
-            "label": "mu-plugin: wpmu-acf-google-maps-key"
+            "name": "mu-plugin: wpmu-acf-google-maps-key"
         },
         {
             "path": "../wp-content/mu-plugins/wpmu-litespeed-common-settings",
-            "label": "mu-plugin: wpmu-litespeed-common-settings"
+            "name": "mu-plugin: wpmu-litespeed-common-settings"
         },
         {
             "path": "../wp-content/mu-plugins/wpmu-network-admin-url",
-            "label": "mu-plugin: wpmu-network-admin-url"
+            "name": "mu-plugin: wpmu-network-admin-url"
         },
         {
             "path": "../wp-content/plugins/modularity",
             "name": "plugin: modularity"
         },
         {
+            "name": "plugin: acf-ux-collapse",
             "path": "../wp-content/plugins/acf-ux-collapse",
-            "label": "plugin: acf-ux-collapse"
         },
         {
             "path": "../wp-content/plugins/active-directory-api-wp-integration",
-            "label": "plugin: active-directory-api-wp-integration"
+            "name": "plugin: active-directory-api-wp-integration"
         },
         {
             "path": "../wp-content/plugins/algolia-index",
-            "label": "plugin: algolia-index"
+            "name": "plugin: algolia-index"
         },
         {
             "path": "../wp-content/plugins/algolia-index-js-searchpage-addon",
-            "label": "plugin: algolia-index-js-searchpage-addon"
+            "name": "plugin: algolia-index-js-searchpage-addon"
         },
         {
             "path": "../wp-content/plugins/algolia-index-modularity-addon",
-            "label": "plugin: algolia-index-modularity-addon"
+            "name": "plugin: algolia-index-modularity-addon"
         },
         {
             "path": "../wp-content/plugins/api-alarm-integration",
-            "label": "plugin: api-alarm-integration"
+            "name": "plugin: api-alarm-integration"
         },
         {
             "path": "../wp-content/plugins/api-event-manager-integration",
-            "label": "plugin: api-event-manager-integration"
+            "name": "plugin: api-event-manager-integration"
         },
         {
             "path": "../wp-content/plugins/api-project-manager-integration",
-            "label": "plugin: api-project-manager-integration"
+            "name": "plugin: api-project-manager-integration"
         },
         {
             "path": "../wp-content/plugins/api-volunteer-manager-integration",
-            "label": "plugin: api-volunteer-manager-integration"
+            "name": "plugin: api-volunteer-manager-integration"
         },
         {
             "path": "../wp-content/plugins/attachment-revisions",
-            "label": "plugin: attachment-revisions"
+            "name": "plugin: attachment-revisions"
         },
         {
             "path": "../wp-content/plugins/better-post-ui",
-            "label": "plugin: better-post-ui"
+            "name": "plugin: better-post-ui"
         },
         {
             "path": "../wp-content/plugins/broken-link-detector",
-            "label": "plugin: broken-link-detector"
+            "name": "plugin: broken-link-detector"
         },
         {
             "path": "../wp-content/plugins/content-scheduler",
-            "label": "plugin: content-scheduler"
+            "name": "plugin: content-scheduler"
         },
         {
             "path": "../wp-content/plugins/custom-short-links",
-            "label": "plugin: custom-short-links"
+            "name": "plugin: custom-short-links"
         },
         {
             "path": "../wp-content/plugins/customer-feedback",
-            "label": "plugin: customer-feedback"
+            "name": "plugin: customer-feedback"
         },
         {
             "path": "../wp-content/plugins/easy-to-read-alternative",
-            "label": "plugin: easy-to-read-alternative"
+            "name": "plugin: easy-to-read-alternative"
         },
         {
             "path": "../wp-content/plugins/force-ssl",
-            "label": "plugin: force-ssl"
+            "name": "plugin: force-ssl"
         },
         {
             "path": "../wp-content/plugins/gdi-modularity-cases",
-            "label": "plugin: gdi-modularity-cases"
+            "name": "plugin: gdi-modularity-cases"
         },
         {
             "path": "../wp-content/plugins/gdi-modularity-invoices",
-            "label": "plugin: gdi-modularity-invoices"
+            "name": "plugin: gdi-modularity-invoices"
         },
         {
             "path": "../wp-content/plugins/gdi-modularity-my-pages-about-me",
-            "label": "plugin: gdi-modularity-my-pages-about-me"
-        },
-        {
-            "path": "../wp-content/plugins/global-blade-engine",
-            "label": "plugin: global-blade-engine"
+            "name": "plugin: gdi-modularity-my-pages-about-me"
         },
         {
             "path": "../wp-content/plugins/job-listings",
-            "label": "plugin: job-listings"
+            "name": "plugin: job-listings"
         },
         {
             "path": "../wp-content/plugins/like-posts",
-            "label": "plugin: like-posts"
+            "name": "plugin: like-posts"
         },
         {
             "path": "../wp-content/plugins/lix-calculator",
-            "label": "plugin: lix-calculator"
+            "name": "plugin: lix-calculator"
         },
         {
             "path": "../wp-content/plugins/media-usage",
-            "label": "plugin: media-usage"
+            "name": "plugin: media-usage"
         },
         {
             "path": "../wp-content/plugins/mod-my-pages",
-            "label": "plugin: mod-my-pages"
+            "name": "plugin: mod-my-pages"
         },
         {
             "path": "../wp-content/plugins/modularity",
-            "label": "plugin: modularity"
+            "name": "plugin: modularity"
         },
         {
             "path": "../wp-content/plugins/modularity-contact-banner",
-            "label": "plugin: modularity-contact-banner"
+            "name": "plugin: modularity-contact-banner"
         },
         {
             "path": "../wp-content/plugins/modularity-entryscape",
-            "label": "plugin: modularity-entryscape"
+            "name": "plugin: modularity-entryscape"
         },
         {
             "path": "../wp-content/plugins/modularity-form-builder",
-            "label": "plugin: modularity-form-builder"
+            "name": "plugin: modularity-form-builder"
         },
         {
             "path": "../wp-content/plugins/modularity-guides",
-            "label": "plugin: modularity-guides"
+            "name": "plugin: modularity-guides"
         },
         {
             "path": "../wp-content/plugins/modularity-interactive-img-map",
-            "label": "plugin: modularity-interactive-img-map"
+            "name": "plugin: modularity-interactive-img-map"
         },
         {
             "path": "../wp-content/plugins/modularity-json-render",
-            "label": "plugin: modularity-json-render"
+            "name": "plugin: modularity-json-render"
         },
         {
             "path": "../wp-content/plugins/modularity-local-events",
-            "label": "plugin: modularity-local-events"
+            "name": "plugin: modularity-local-events"
         },
         {
             "path": "../wp-content/plugins/modularity-open-street-map",
-            "label": "plugin: modularity-open-street-map"
+            "name": "plugin: modularity-open-street-map"
         },
         {
             "path": "../wp-content/plugins/modularity-products",
-            "label": "plugin: modularity-products"
+            "name": "plugin: modularity-products"
         },
         {
             "path": "../wp-content/plugins/modularity-recommend",
-            "label": "plugin: modularity-recommend"
+            "name": "plugin: modularity-recommend"
         },
         {
             "path": "../wp-content/plugins/modularity-sections",
-            "label": "plugin: modularity-sections"
+            "name": "plugin: modularity-sections"
         },
         {
             "path": "../wp-content/plugins/modularity-testimonials",
-            "label": "plugin: modularity-testimonials"
+            "name": "plugin: modularity-testimonials"
         },
         {
             "path": "../wp-content/plugins/modularity-timeline",
-            "label": "plugin: modularity-timeline"
+            "name": "plugin: modularity-timeline"
         },
         {
             "path": "../wp-content/plugins/multisite-role-propagation",
-            "label": "plugin: multisite-role-propagation"
-        },
-        {
-            "path": "../wp-content/plugins/municipio",
-            "label": "plugin: municipio"
+            "name": "plugin: multisite-role-propagation"
         },
         {
             "path": "../wp-content/plugins/redirection-extended",
-            "label": "plugin: redirection-extended"
+            "name": "plugin: redirection-extended"
         },
         {
             "path": "../wp-content/plugins/search-notices",
-            "label": "plugin: search-notices"
+            "name": "plugin: search-notices"
         },
         {
             "path": "../wp-content/plugins/visit-custom-posttypes-taxonomies",
-            "label": "plugin: visit-custom-posttypes-taxonomies"
+            "name": "plugin: visit-custom-posttypes-taxonomies"
         },
         {
             "path": "../wp-content/plugins/wp-page-for-post-type",
-            "label": "plugin: wp-page-for-post-type"
+            "name": "plugin: wp-page-for-post-type"
         },
         {
             "path": "../wp-content/plugins/wp-page-for-term",
-            "label": "plugin: wp-page-for-term"
+            "name": "plugin: wp-page-for-term"
         },
         {
             "path": "../wp-content/plugins/wp-search-statistics",
-            "label": "plugin: wp-search-statistics"
+            "name": "plugin: wp-search-statistics"
         },
     ]
 }
