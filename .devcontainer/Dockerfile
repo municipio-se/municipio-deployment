@@ -21,6 +21,10 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 
+# Install WP CLI completions
+RUN curl -O https://raw.githubusercontent.com/wp-cli/wp-cli/master/utils/wp-completion.bash \
+    && mv wp-completion.bash /etc/bash_completion.d/wp-completion.bash
+
 RUN a2enmod headers mime rewrite
 RUN sed -i 's/Listen 8080/Listen 7788/g' /etc/apache2/ports.conf
 
