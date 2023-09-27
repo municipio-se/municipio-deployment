@@ -1,9 +1,13 @@
 <?php
 /**
- * Front to the WordPress application. This file doesn't do anything, but loads
- * wp-blog-header.php which does and tells WordPress to load the theme.
- *
- * @package WordPress
+ * Name:              Municipio
+ * URI:               https://getmunicipio.com
+ * Description:       Main installable for Municipio.
+ * Version:           1.0.0
+ * Author:            Sebastian Thulin
+ * Author URI:        https://github.com/helsingborg-stad
+ * License:           MIT
+ * License URI:       https://opensource.org/licenses/MIT
  */
 
 /**
