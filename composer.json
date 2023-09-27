@@ -96,7 +96,6 @@
     "humanmade/s3-uploads": "^3.0.4",
     "johnpbloch/wordpress": "6.3.1",
     "municipio-se/modularity-noticeboard": "1.0.0",
-    "municipio/content-insights-for-editors": "dev-master",
     "wikimedia/composer-merge-plugin": "dev-master",
     "wpackagist-plugin/acf-extended": "0.8.8.7",
     "wpackagist-plugin/autodescription": ">=2.9.0",
