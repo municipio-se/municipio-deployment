@@ -23,10 +23,6 @@
   "minimum-stability" : "dev",
   "repositories": [
     {
-      "type": "vcs",
-      "url": "https://github.com/whitespace-se/broken-link-detector"
-    },
-    {
         "type":"composer",
         "url":"https://packagist.org"
     },
