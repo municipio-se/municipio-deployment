@@ -14,7 +14,7 @@
 
 function getCurrentTopDomain($host) {
     $hostParts = explode('.', $host);
-    if(is_array($hostParts)) {
+    if(is_array($hostParts) && 1 < count($hostParts)) {
         $hostParts = array_reverse($hostParts);
         return implode(
             ".",
