@@ -32,7 +32,8 @@
 			"extensions": [
 				"eamodio.gitlens",
 				"ritwickdey.liveserver",
-				"ms-vscode.remote-server"
+				"ms-vscode.remote-server",
+				"cjhowe7.laravel-blade"
 			],
 			"settings": {
 				"remote.autoForwardPorts": false,
