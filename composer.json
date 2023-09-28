@@ -34,7 +34,7 @@
   "require": {
     "php": ">=7.4",
     "composer/installers": "~1.0",
-    "helsingborg-stad/acf-ux-collapse": "2.0.0",
+    "helsingborg-stad/acf-ux-collapse": "^2.0.0",
     "helsingborg-stad/active-directory-api-wp-integration": "^3.0.0",
     "helsingborg-stad/algolia-index": "^2.0.0",
     "helsingborg-stad/algolia-index-js-searchpage-addon": "^2.0.0",
@@ -91,7 +91,7 @@
     "helsingborg-stad/wpmu-mu-plugins-url-everywhere": "~1.0.0",
     "humanmade/s3-uploads": "^3.0.4",
     "johnpbloch/wordpress": "6.3.1",
-    "municipio-se/modularity-noticeboard": "1.0.0",
+    "municipio-se/modularity-noticeboard": "^1.0.0",
     "wikimedia/composer-merge-plugin": "dev-master",
     "wpackagist-plugin/acf-extended": "0.8.8.7",
     "wpackagist-plugin/autodescription": ">=2.9.0",
