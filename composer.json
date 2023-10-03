@@ -91,7 +91,7 @@
     "helsingborg-stad/wpmu-network-admin-url": "~1",
     "helsingborg-stad/wpmu-mu-plugins-url-everywhere": "~1",
     "humanmade/s3-uploads": "~3.0.7",
-    "johnpbloch/wordpress": "~6.3.0",
+    "johnpbloch/wordpress": "6.3.1",
     "municipio-se/modularity-noticeboard": "~1",
     "wikimedia/composer-merge-plugin": "dev-master",
     "wpackagist-plugin/autodescription": "~4.2.8",
