@@ -65,7 +65,7 @@
     "helsingborg-stad/modularity": "~3.3.2",
     "helsingborg-stad/modularity-contact-banner": "~2",
     "helsingborg-stad/modularity-entryscape": "~2",
-    "helsingborg-stad/modularity-form-builder": "~2",
+    "helsingborg-stad/modularity-form-builder": "~3",
     "helsingborg-stad/modularity-guides": "~3",
     "helsingborg-stad/modularity-interactive-img-map": "~3",
     "helsingborg-stad/modularity-json-render": "~2",
