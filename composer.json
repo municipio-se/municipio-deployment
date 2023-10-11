@@ -78,7 +78,7 @@
     "helsingborg-stad/modularity-timeline": "~2",
     "helsingborg-stad/multi-network-urls": "~2",
     "helsingborg-stad/multisite-role-propagation": "~2",
-    "helsingborg-stad/municipio": "~3.8.0",
+    "helsingborg-stad/municipio": "~3.8.5",
     "helsingborg-stad/redirection-extended": "~2",
     "helsingborg-stad/s3-uploads-custom-endpoint": "~2",
     "helsingborg-stad/search-notices": "~2",
