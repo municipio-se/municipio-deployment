@@ -30,6 +30,7 @@ $buildFile = 'build.php';
 $removables = [
     '.git',
     '.gitignore',
+    'GitVersion.yml',
     'config',
     'wp-content/uploads',
     '.github',
