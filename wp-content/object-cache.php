@@ -3,7 +3,7 @@
  * Plugin Name: Redis Object Cache Drop-In
  * Plugin URI: https://wordpress.org/plugins/redis-cache/
  * Description: A persistent object cache backend powered by Redis. Supports Predis, PhpRedis, Relay, replication, sentinels, clustering and WP-CLI.
- * Version: 2.4.4
+ * Version: 2.5.0
  * Author: Till Krüss
  * Author URI: https://objectcache.pro
  * License: GPLv3
@@ -441,11 +441,7 @@ class WP_Object_Cache {
      *
      * @var array
      */
-    public $ignored_groups = [
-        'counts',
-        'plugins',
-        'themes',
-    ];
+    public $ignored_groups = [];
 
     /**
      * List of groups and their types.
@@ -993,7 +989,7 @@ class WP_Object_Cache {
         if ( defined( 'WP_REDIS_SENTINEL' ) ) {
             if ( is_array( WP_REDIS_SERVERS ) && count( WP_REDIS_SERVERS ) > 1 ) {
                 throw new Exception(
-                    'Multipe sentinel servers are not supported by the bundled Credis library. Please review your Redis Cache configuration.'
+                    'Multiple sentinel servers are not supported by the bundled Credis library. Please review your Redis Cache configuration.'
                 );
             }
 
@@ -2875,21 +2871,22 @@ LUA;
 
         error_log( $exception ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 
+        if ( function_exists( 'do_action' ) ) {
+            /**
+             * Fires when an object cache related error occurs.
+             *
+             * @since 1.5.0
+             * @param \Exception $exception The exception.
+             * @param string     $message   The exception message.
+             */
+            do_action( 'redis_object_cache_error', $exception, $exception->getMessage() );
+        }
+
         if ( ! $this->fail_gracefully ) {
             $this->show_error_and_die( $exception );
         }
 
         $this->errors[] = $exception->getMessage();
-
-        if ( function_exists( 'do_action' ) ) {
-            /**
-             * Fires on every cache error
-             *
-             * @since 1.5.0
-             * @param \Exception $exception The exception triggered.
-             */
-            do_action( 'redis_object_cache_error', $exception );
-        }
     }
 
     /**
