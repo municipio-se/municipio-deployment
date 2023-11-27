@@ -90,7 +90,7 @@ if (file_exists(__DIR__ . '/config/multisite.php')) {
  * Sentry configuration for error reporting.
  */
 if (file_exists(__DIR__ . '/config/sentry.php')) {
-    require_once 'config/sentry.php';
+    require_once __DIR__ . 'config/sentry.php';
 }
 
 /**
