@@ -38,7 +38,6 @@
     "aws/aws-sdk-php": "^3.282.1",
     "composer/installers": "~1.0",
     "firebase/php-jwt": "^6.8.1",
-    "helsingborg-stad/acf-select-image-field": "~1.3.1",
     "helsingborg-stad/acf-ux-collapse": "~2.0.0",
     "helsingborg-stad/active-directory-api-wp-integration": "~3.0.4",
     "helsingborg-stad/algolia-index": "~3.0.3",
