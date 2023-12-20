@@ -4,13 +4,13 @@ FROM mcr.microsoft.com/devcontainers/php:0-7.4-bullseye
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-# Install MariaDB client
+# Install packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y mariadb-client \ 
+    && apt-get install -y mariadb-client libpng-dev \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Install php-mysql driver
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN docker-php-ext-install mysqli pdo pdo_mysql pcntl gd
 
 # Install additional packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \

@@ -7,7 +7,9 @@
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"forwardPorts": [
 		7788,
-		3306
+		3306,
+		8080,
+		8001
 	],
 	"containerEnv": {
 		"XDEBUG_MODE": "off"
@@ -33,7 +35,9 @@
 				"eamodio.gitlens",
 				"ritwickdey.liveserver",
 				"ms-vscode.remote-server",
-				"cjhowe7.laravel-blade"
+				"cjhowe7.laravel-blade",
+				"github.vscode-github-actions",
+				"valeryanm.vscode-phpsab"
 			],
 			"settings": {
 				"remote.autoForwardPorts": false,
@@ -42,6 +46,12 @@
 						"label": "WordPress",
 						"onAutoForward": "openPreview",
 						"requireLocalPort": true
+					},
+					"8080": {
+						"label": "phpMyAdmin"
+					},
+					"8001": {
+						"label": "RedisInsight "
 					}
 				},
 				"intelephense.environment.includePaths": [
