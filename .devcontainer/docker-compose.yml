@@ -31,6 +31,29 @@ services:
       MYSQL_USER: mariadb
       MYSQL_PASSWORD: mariadb
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: mariadb
+
+  
+  # Redis
+  redis:
+    image: "redis:alpine"
+    ports:
+        - '6379:6379'
+
+  redis-insight:
+    image: "redislabs/redisinsight:latest"
+    ports:
+        - '8001:8001'
+    environment:
+        - REDIS_URI=redis://redis:6379
+
     # Add "forwardPorts": ["3306"] to **devcontainer.json** to forward MariaDB locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
   

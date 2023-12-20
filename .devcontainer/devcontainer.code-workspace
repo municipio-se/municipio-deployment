@@ -220,5 +220,8 @@
             "path": "../wp-content/plugins/wp-search-statistics",
             "name": "plugin: wp-search-statistics"
         },
-    ]
+    ],
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "root: municipio-deployment"
+    }
 }
