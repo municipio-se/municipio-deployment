@@ -12,7 +12,7 @@
 .DS_Store
 composer.lock
 auth.json
-
+db/*.sql
 # Devcontainer
 .htaccess
 .devcontainer/.env
