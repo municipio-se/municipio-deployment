@@ -46,7 +46,7 @@
     "helsingborg-stad/api-alarm-integration": "~3.0.3",
     "helsingborg-stad/api-event-manager-integration": "~1.2.1",
     "helsingborg-stad/api-project-manager-integration": "~2.0.1",
-    "helsingborg-stad/api-volunteer-manager-integration": "~2.2.17",
+    "helsingborg-stad/api-volunteer-manager-integration": "~2.2.18",
     "helsingborg-stad/attachment-revisions": "~3.0.3",
     "helsingborg-stad/better-post-ui": "~3.0.2",
     "helsingborg-stad/broken-link-detector": "~3.0.2",
