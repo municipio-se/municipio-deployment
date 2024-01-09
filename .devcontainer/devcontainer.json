@@ -6,7 +6,8 @@
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"forwardPorts": [
-		7788,
+		80,
+		443,
 		3306,
 		8080,
 		8001
@@ -18,7 +19,7 @@
 	"postCreateCommand": {
 		"symlink-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
 		"symlink-npmrc-to-user-catalog": "ln -s \"$(pwd)/.devcontainer/config/.npmrc\" /home/vscode/.npmrc",
-		"start-apache": "service apache2 start",
+		"start-apache": "sudo service apache2 start",
 		"add-github-token-to-composer": "composer config github-oauth.github.com $MUNICIPIO_GITHUB_TOKEN"
 	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -42,10 +43,17 @@
 			"settings": {
 				"remote.autoForwardPorts": false,
 				"remote.portsAttributes": {
-					"7788": {
+					"80": {
 						"label": "WordPress",
 						"onAutoForward": "openPreview",
-						"requireLocalPort": true
+						"requireLocalPort": false,
+						"protocol": "http"
+					},
+					"443": {
+						"label": "WordPress - SSL",
+						"onAutoForward": "openPreview",
+						"requireLocalPort": false,
+						"protocol": "https"
 					},
 					"8080": {
 						"label": "phpMyAdmin"

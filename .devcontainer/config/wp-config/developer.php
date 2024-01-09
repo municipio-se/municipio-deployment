@@ -19,13 +19,18 @@ if (isset($_GET['debug'])) {
 }
 
 if (!defined('WP_SITEURL')) {
-  define('WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST'] . '/wp');
+  $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+  define('WP_SITEURL', $protocol . $_SERVER['HTTP_HOST'] . '/wp');
 }
 
 if (!defined('WP_HOME')) {
   define('WP_HOME', WP_SITEURL);
 }
 
-// if (!defined('WP_CONTENT_URL')) {
-//   define('WP_CONTENT_URL', WP_SITEURL . '/wp-content');
-// }
+if (!defined('RELOCATE')) {
+  define('RELOCATE', true);
+}
+
+if (!defined('WP_ENVIRONMENT_TYPE')) {
+  define('WP_ENVIRONMENT_TYPE', 'local');
+}
