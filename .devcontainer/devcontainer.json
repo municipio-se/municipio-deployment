@@ -9,7 +9,11 @@
 		7788,
 		3306,
 		8080,
-		8001
+		8001,
+		443
+	],
+	"mounts": [
+		"source=${localWorkspaceFolder}/certs,target=/certs,type=bind"
 	],
 	"containerEnv": {
 		"XDEBUG_MODE": "off"
@@ -44,6 +48,11 @@
 				"remote.portsAttributes": {
 					"7788": {
 						"label": "WordPress",
+						"onAutoForward": "openPreview",
+						"requireLocalPort": true
+					},
+					"443": {
+						"label": "WordPress SSL",
 						"onAutoForward": "openPreview",
 						"requireLocalPort": true
 					},
