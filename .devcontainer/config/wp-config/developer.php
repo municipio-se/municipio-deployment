@@ -1,5 +1,4 @@
 <?php
-
 /**
  * For developers: WordPress debugging mode.
  *
@@ -28,7 +27,7 @@ if (!defined('WP_HOME')) {
 }
 
 if (!defined('RELOCATE')) {
-  define('RELOCATE', true);
+  define('RELOCATE', false);
 }
 
 if (!defined('WP_ENVIRONMENT_TYPE')) {
