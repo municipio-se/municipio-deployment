@@ -7,9 +7,9 @@
 define('VHP_VARNISH_IP', '127.0.0.1');
 
 /**
-* Memcache/Redis key salt
-* @var string
-*/
+ * Memcache/Redis key salt
+ * @var string
+ */
 define('WP_CACHE_KEY_SALT', md5(NONCE_KEY));
 
 /**
@@ -17,6 +17,7 @@ define('WP_CACHE_KEY_SALT', md5(NONCE_KEY));
  * @var bool
  */
 define('WP_REDIS_DISABLED', false);
+define('WP_REDIS_HOST', 'redis');
 
 /**
  * Use memcached.
