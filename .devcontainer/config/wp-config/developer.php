@@ -27,7 +27,7 @@ if (!defined('WP_HOME')) {
 }
 
 if (!defined('RELOCATE')) {
-  define('RELOCATE', false);
+  define('RELOCATE', true);
 }
 
 if (!defined('WP_ENVIRONMENT_TYPE')) {
