@@ -1,5 +1,4 @@
 <?php
-
 /**
  * For developers: WordPress debugging mode.
  *
