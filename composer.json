@@ -127,7 +127,7 @@
     "wpackagist-plugin/wp-multi-network": "~2.5.2",
     "wpackagist-plugin/wp-nested-pages": "~3.2.4",
     "wpackagist-plugin/wp-sentry-integration": "^6.26",
-    "helsingborg-stad/wpmu-correct-file-paths": "~1.1.2"
+    "helsingborg-stad/wpmu-correct-file-paths": "~1.1.3"
   },
   "extra": {
       "path": "/",
