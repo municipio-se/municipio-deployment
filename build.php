@@ -42,7 +42,9 @@ $removables = [
     'images',
     'README.md',
     'guide',
-    'db'
+    'db',
+    '.devcontainer',
+    '.vscode'
 ];
 
 
