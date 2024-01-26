@@ -1,0 +1,132 @@
+# BEGIN HSTS
+<IfModule mod_headers.c>
+  Header set Strict-Transport-Security "max-age=7889232"
+</IfModule>
+# END HSTS
+
+# BEGIN Remove WWW
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+</IfModule>
+# END Remove WWW
+
+# BEGIN XMLRPC-Block
+<FilesMatch "^(xmlrpc\.php|wp-trackback\.php)">
+  Order Deny,Allow
+  Deny from all
+</FilesMatch>
+# END XMLRPC-Block
+
+# BEGIN Remove author pages
+<IfModule mod_rewrite.c>
+  RewriteCond %{QUERY_STRING} ^author=([0-9]){1,}$ [NC]
+  RewriteRule ^(.*)$ $1?author=999999 [L]
+</ifModule>
+# END Remove author pages
+
+# BEGIN Remove spam referals
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTP_REFERER} ^.*(ranksonic\.|semalt\.|kambasoft\.|buttons-for-website\.|buttons-for-your-website\.com|4webmasters\.org|social-buttons\.com|best-seo-offer\.com|best-seo-solution\.com).*$ [NC]
+  RewriteRule ^(.*)$ - [F]
+</ifModule>
+# END Remove spam referals
+
+# BEGIN Content-type MIME-disalow-mime manipulation
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>
+# END Content-type MIME-disalow-mime manipulation
+
+# BEGIN P3P Policy
+<IfModule mod_headers.c>
+  Header set P3P "policyref=\"/w3c/p3p.xml\", CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\""
+</IfModule>
+# END P3P Policy
+
+# BEGIN Prevent clickjacking attempts
+<IfModule mod_headers.c>
+  #Header always append X-Frame-Options SAMEORIGIN # Enable this, if server dosen't send this by default. 
+</IfModule>
+# END Prevent clickjacking attempts
+
+# BEGIN turn off Server Signatures
+<IfModule mod_headers.c>
+  ServerSignature Off
+</IfModule>
+# END turn off Server Signatures
+
+# BEGIN Refer policy
+<IfModule mod_headers.c>
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+# END Refer policy
+
+# BEGIN CSP
+<IfModule mod_headers.c>
+  # Header set Content-Security-Policy "default-src 'self';" #Needs to be tailored to your specific needs. 
+</IfModule>
+# END CSP
+
+# BEGIN Feature/permissions policy
+<IfModule mod_headers.c>
+  Header set Permissions-Policy "microphone=(), camera=(), geolocation=()"
+</IfModule>
+# END Feature/permissions policy
+
+# BEGIN Set 404 to WP404
+ErrorDocument 404 /index.php?error=404
+# END Set 404 to WP404
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.php$ - [L]
+  RewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L]
+  RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
+  RewriteRule . index.php [L]
+</IfModule>
+# END WordPress
+
+### marker BROWSER CACHE start ###
+  <IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresByType application/pdf A31557600
+  ExpiresByType image/x-icon A31557600
+  ExpiresByType image/vnd.microsoft.icon A31557600
+  ExpiresByType image/svg+xml A31557600
+
+  ExpiresByType image/jpg A31557600
+  ExpiresByType image/jpeg A31557600
+  ExpiresByType image/png A31557600
+  ExpiresByType image/gif A31557600
+  ExpiresByType image/webp A31557600
+
+  ExpiresByType video/ogg A31557600
+  ExpiresByType audio/ogg A31557600
+  ExpiresByType video/mp4 A31557600
+  ExpiresByType video/webm A31557600
+
+  ExpiresByType text/css A31557600
+  ExpiresByType text/javascript A31557600
+  ExpiresByType application/javascript A31557600
+  ExpiresByType application/x-javascript A31557600
+
+  ExpiresByType application/x-font-ttf A31557600
+  ExpiresByType application/x-font-woff A31557600
+  ExpiresByType application/font-woff A31557600
+  ExpiresByType application/font-woff2 A31557600
+  ExpiresByType application/vnd.ms-fontobject A31557600
+  ExpiresByType font/ttf A31557600
+  ExpiresByType font/otf A31557600
+  ExpiresByType font/woff A31557600
+  ExpiresByType font/woff2 A31557600
+</IfModule>
+### marker BROWSER CACHE end ###
