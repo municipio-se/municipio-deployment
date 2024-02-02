@@ -30,7 +30,7 @@ if( defined('WP_ENVIRONMENT_TYPE') && constant('WP_ENVIRONMENT_TYPE') === 'local
       global $wpdb;
       $domainInDb = $wpdb->get_var( "SELECT domain FROM {$wpdb->blogs} LIMIT 1" );
   
-      $pre = get_site_by_path($domainInDb, $segments, $paths);
+      $pre = get_site_by_path($domainInDb, $path, $segments);
   
       if( is_a($pre, 'WP_Site') ) {
         $pre->domain = $domain;
