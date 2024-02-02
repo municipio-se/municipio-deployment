@@ -33,6 +33,10 @@
             "name": "mu-plugin: wpmu-network-admin-url"
         },
         {
+            "path": "../wp-content/mu-plugins/kirki",
+            "name": "mu-plugin: kirki"
+        },
+        {
             "path": "../wp-content/plugins/modularity",
             "name": "plugin: modularity"
         },
