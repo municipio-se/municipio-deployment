@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/devcontainers/php:0-7.4-bullseye
+FROM mcr.microsoft.com/devcontainers/php:1-8.3-bullseye
 
 # Replaces invalid key. Required to use apt-get when running this PHP 7.4 image.
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+# RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+#     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Install packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
