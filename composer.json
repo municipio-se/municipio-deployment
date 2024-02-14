@@ -136,6 +136,7 @@
         "wp-content/mu-plugins/{$name}": [
           "type:wordpress-muplugin",
           "type:acf-plugin",
+          "kirki-framework/kirki",
           "helsingborg-stad/kirki",
           "wpackagist-plugin/kirki",
           "wpackagist-plugin/performant-translations"
