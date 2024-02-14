@@ -112,7 +112,7 @@
     "wpackagist-plugin/autodescription": "~4.2.8",
     "wpackagist-plugin/cookies-and-content-security-policy": "~2.22",
     "wpackagist-plugin/fakerpress": "~0.6.2",
-    "wpackagist-plugin/kirki": "~5.0",
+    "helsingborg-stad/kirki": "~5.0.0",
     "wpackagist-plugin/litespeed-cache": "~5.6",
     "wpackagist-plugin/network-plugin-auditor": "~1.10.1",
     "wpackagist-plugin/nginx-helper": "^2.2.4",
@@ -136,7 +136,7 @@
         "wp-content/mu-plugins/{$name}": [
           "type:wordpress-muplugin",
           "type:acf-plugin",
-          "kirki-framework/kirki",
+          "helsingborg-stad/kirki",
           "wpackagist-plugin/kirki",
           "wpackagist-plugin/performant-translations"
         ],
