@@ -156,8 +156,8 @@
             "wp-content/themes/*/composer.json"
         ],
         "recurse": false,
-        "replace": false,
-        "ignore-duplicates": true,
+        "replace": true,
+        "ignore-duplicates": false,
         "merge-dev": false,
         "merge-extra": false,
         "merge-extra-deep": false,
@@ -167,11 +167,13 @@
   "scripts": {
     "post-install-cmd": [
       "mkdir -p wp-content/uploads/cache/blade-cache",
-      "composer dump-autoload -o"
+      "composer dump-autoload -o",
+      "mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/"
     ],
     "post-update-cmd": [
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/",
-      "composer dump-autoload -o"
+      "composer dump-autoload -o",
+      "mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/"
     ]
   }
 }
