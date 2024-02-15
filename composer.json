@@ -44,17 +44,17 @@
     "helsingborg-stad/algolia-index-js-searchpage-addon": "~2.0.2",
     "helsingborg-stad/algolia-index-modularity-addon": "~3.0.5",
     "helsingborg-stad/api-alarm-integration": "~3.0.4",
-    "helsingborg-stad/api-event-manager-integration": "~1.2.6",
+    "helsingborg-stad/api-event-manager-integration": "~1.2.7",
     "helsingborg-stad/api-project-manager-integration": "~2.0.2",
     "helsingborg-stad/api-volunteer-manager-integration": "~2.2.19",
     "helsingborg-stad/attachment-revisions": "~3.0.4",
     "helsingborg-stad/better-post-ui": "~3.0.3",
     "helsingborg-stad/broken-link-detector": "~3.0.3",
-    "helsingborg-stad/component-library": "~3.14.1",
+    "helsingborg-stad/component-library": "~3.16.1",
     "helsingborg-stad/content-scheduler": "~3.0.5",
     "helsingborg-stad/custom-short-links": "~3.0.4",
     "helsingborg-stad/customer-feedback": "~4.0.6",
-    "helsingborg-stad/easy-to-read-alternative": "~3.0.3",
+    "helsingborg-stad/easy-to-read-alternative": "~3.0.4",
     "helsingborg-stad/force-ssl": "~3.0.2",
     "helsingborg-stad/gdi-modularity-cases": "~1.0.3",
     "helsingborg-stad/gdi-modularity-invoices": "~1.0.4",
@@ -65,7 +65,7 @@
     "helsingborg-stad/lix-calculator": "~4.0.2",
     "helsingborg-stad/media-usage": "~3.0.4",
     "helsingborg-stad/mod-my-pages": "~1.0.3",
-    "helsingborg-stad/modularity": "~5.21.16",
+    "helsingborg-stad/modularity": "~5.23.1",
     "helsingborg-stad/modularity-contact-banner": "~3.1.0",
     "helsingborg-stad/modularity-entryscape": "~3.0.3",
     "helsingborg-stad/modularity-form-builder": "~3.1.2",
@@ -81,7 +81,7 @@
     "helsingborg-stad/modularity-timeline": "~3.0.2",
     "helsingborg-stad/multi-network-urls": "~2.0.0",
     "helsingborg-stad/multisite-role-propagation": "~3.0.3",
-    "helsingborg-stad/municipio": "~3.62.3",
+    "helsingborg-stad/municipio": "~3.67.1",
     "helsingborg-stad/redirection-extended": "~3.0.3",
     "helsingborg-stad/s3-uploads-custom-endpoint": "~2.0.0",
     "helsingborg-stad/search-notices": "~3.0.2",
@@ -112,7 +112,7 @@
     "wpackagist-plugin/autodescription": "~4.2.8",
     "wpackagist-plugin/cookies-and-content-security-policy": "~2.22",
     "wpackagist-plugin/fakerpress": "~0.6.2",
-    "wpackagist-plugin/kirki": "~5.0",
+    "helsingborg-stad/kirki": "~5.0.0",
     "wpackagist-plugin/litespeed-cache": "~5.6",
     "wpackagist-plugin/network-plugin-auditor": "~1.10.1",
     "wpackagist-plugin/nginx-helper": "^2.2.4",
@@ -120,7 +120,7 @@
     "wpackagist-plugin/redirection": "~5.4.2",
     "wpackagist-plugin/redis-cache": "2.5.0",
     "wpackagist-plugin/simple-smtp": "~1.3.3",
-    "wpackagist-plugin/stream":"~4.0.0",
+    "wpackagist-plugin/stream":"~3.10.0",
     "wpackagist-plugin/user-switching": "~1.7.2",
     "wpackagist-plugin/username-changer": "~3.2.2",
     "wpackagist-plugin/varnish-http-purge": "~5.2.1",
@@ -137,6 +137,7 @@
           "type:wordpress-muplugin",
           "type:acf-plugin",
           "kirki-framework/kirki",
+          "helsingborg-stad/kirki",
           "wpackagist-plugin/kirki",
           "wpackagist-plugin/performant-translations"
         ],
@@ -155,8 +156,8 @@
             "wp-content/themes/*/composer.json"
         ],
         "recurse": false,
-        "replace": false,
-        "ignore-duplicates": true,
+        "replace": true,
+        "ignore-duplicates": false,
         "merge-dev": false,
         "merge-extra": false,
         "merge-extra-deep": false,
@@ -166,11 +167,13 @@
   "scripts": {
     "post-install-cmd": [
       "mkdir -p wp-content/uploads/cache/blade-cache",
-      "composer dump-autoload -o"
+      "composer dump-autoload -o",
+      "if [ -d vendor/helsingborg-stad/kirki ]; then mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/; fi"
     ],
     "post-update-cmd": [
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/",
-      "composer dump-autoload -o"
+      "composer dump-autoload -o",
+      "if [ -d vendor/helsingborg-stad/kirki ]; then mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/; fi"
     ]
   }
 }
