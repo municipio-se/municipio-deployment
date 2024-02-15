@@ -168,12 +168,12 @@
     "post-install-cmd": [
       "mkdir -p wp-content/uploads/cache/blade-cache",
       "composer dump-autoload -o",
-      "mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/"
+      "mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/ 2>&1 >/dev/null"
     ],
     "post-update-cmd": [
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/",
       "composer dump-autoload -o",
-      "mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/"
+      "mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/ 2>&1 >/dev/null"
     ]
   }
 }
