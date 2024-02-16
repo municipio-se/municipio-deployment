@@ -35,7 +35,7 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
-      - '8080:80'
+      - '80'
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: mariadb
@@ -50,7 +50,7 @@ services:
   redis-insight:
     image: "redislabs/redisinsight:latest"
     ports:
-        - '8001:8001'
+        - '8001'
     environment:
         - REDIS_URI=redis://redis:6379
 

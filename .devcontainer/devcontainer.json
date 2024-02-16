@@ -6,11 +6,7 @@
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"forwardPorts": [
-		80,
-		443,
-		3306,
-		8080,
-		8001
+		443
 	],
 	"containerEnv": {
 		"XDEBUG_MODE": "off"
@@ -53,12 +49,6 @@
 						"onAutoForward": "openPreview",
 						"requireLocalPort": false,
 						"protocol": "https"
-					},
-					"8080": {
-						"label": "phpMyAdmin"
-					},
-					"8001": {
-						"label": "RedisInsight "
 					}
 				},
 				"intelephense.environment.includePaths": [
