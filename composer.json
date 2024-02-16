@@ -43,7 +43,7 @@
     "helsingborg-stad/algolia-index": "~3.0.5",
     "helsingborg-stad/algolia-index-js-searchpage-addon": "dev-php-8.3",
     "helsingborg-stad/algolia-index-modularity-addon": "~3.0.5",
-    "helsingborg-stad/api-alarm-integration": "~3.0.4",
+    "helsingborg-stad/api-alarm-integration": "dev-php-8.3",
     "helsingborg-stad/api-event-manager-integration": "dev-php-8.3",
     "helsingborg-stad/api-project-manager-integration": "~2.0.2",
     "helsingborg-stad/api-volunteer-manager-integration": "dev-php-8.3",
