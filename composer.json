@@ -74,7 +74,7 @@
     "helsingborg-stad/modularity-local-events": "~3.1.0",
     "helsingborg-stad/modularity-open-street-map": "dev-php-8.3",
     "helsingborg-stad/modularity-products": "dev-php-8.3",
-    "helsingborg-stad/modularity-recommend": "~2.0.2",
+    "helsingborg-stad/modularity-recommend": "dev-php-8.3",
     "helsingborg-stad/modularity-sections": "~3.0.2",
     "helsingborg-stad/modularity-testimonials": "~3.0.2",
     "helsingborg-stad/modularity-timeline": "~3.0.2",
