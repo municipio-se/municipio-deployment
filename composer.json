@@ -66,7 +66,7 @@
     "helsingborg-stad/mod-my-pages": "~1.0.3",
     "helsingborg-stad/modularity": "dev-php-8.3",
     "helsingborg-stad/modularity-contact-banner": "~3.1.0",
-    "helsingborg-stad/modularity-entryscape": "~3.0.3",
+    "helsingborg-stad/modularity-entryscape": "dev-php-8.3",
     "helsingborg-stad/modularity-form-builder": "~3.0.4",
     "helsingborg-stad/modularity-guides": "~4.0.2",
     "helsingborg-stad/modularity-interactive-img-map": "~4.0.2",
