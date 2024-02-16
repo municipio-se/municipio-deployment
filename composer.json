@@ -85,7 +85,7 @@
     "helsingborg-stad/redirection-extended": "~3.0.3",
     "helsingborg-stad/s3-uploads-custom-endpoint": "~2.0.0",
     "helsingborg-stad/search-notices": "~3.0.2",
-    "helsingborg-stad/visit-custom-posttypes-taxonomies": "~2.0.2",
+    "helsingborg-stad/visit-custom-posttypes-taxonomies": "~2.0.4",
     "helsingborg-stad/wp-page-for-post-type": "~2.0.1",
     "helsingborg-stad/wp-page-for-term": "~3.0.2",
     "helsingborg-stad/wp-search-statistics": "~1.0.1",
