@@ -77,7 +77,7 @@
     "helsingborg-stad/modularity-recommend": "dev-php-8.3",
     "helsingborg-stad/modularity-sections": "~3.0.2",
     "helsingborg-stad/modularity-testimonials": "~3.0.2",
-    "helsingborg-stad/modularity-timeline": "~3.0.2",
+    "helsingborg-stad/modularity-timeline": "dev-php-8.3",
     "helsingborg-stad/multi-network-urls": "~2.0.0",
     "helsingborg-stad/multisite-role-propagation": "~3.0.3",
     "helsingborg-stad/municipio": "dev-php-8.3",
