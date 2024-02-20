@@ -6,21 +6,16 @@
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"forwardPorts": [
-		80,
-		443,
-		3306,
-		8080,
-		8001
+		443
 	],
 	"containerEnv": {
 		"XDEBUG_MODE": "off"
 	},
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"symlink-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
+		"apache": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html && sudo service apache2 start",
 		"symlink-npmrc-to-user-catalog": "ln -s \"$(pwd)/.devcontainer/config/.npmrc\" /home/vscode/.npmrc",
-		"start-apache": "sudo service apache2 start",
-		"add-github-token-to-composer": "composer config github-oauth.github.com $MUNICIPIO_GITHUB_TOKEN"
+		"add-github-token-to-composer": "composer config github-oauth.github.com $MUNICIPIO_GITHUB_TOKEN",
 	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
@@ -28,7 +23,7 @@
 			"version": "16"
 		}
 	},
-	"waitFor": "postCreateCommand",
+	// "waitFor": "postCreateCommand",
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
@@ -54,18 +49,13 @@
 						"onAutoForward": "openPreview",
 						"requireLocalPort": false,
 						"protocol": "https"
-					},
-					"8080": {
-						"label": "phpMyAdmin"
-					},
-					"8001": {
-						"label": "RedisInsight "
 					}
 				},
 				"intelephense.environment.includePaths": [
 					"/tmp/wordpress-tests-lib",
 					"/tmp/wordpress"
-				]
+				],
+				"intelephense.environment.phpVersion": "8.3"
 			}
 		}
 	}
