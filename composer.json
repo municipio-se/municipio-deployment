@@ -60,11 +60,12 @@
     "helsingborg-stad/gdi-modularity-invoices": "~1.0.5",
     "helsingborg-stad/gdi-modularity-my-pages-about-me": "~1.0.4",
     "helsingborg-stad/job-listings": "~4.1.3",
+    "helsingborg-stad/kirki": "~5.0.3",
     "helsingborg-stad/like-posts": "^2.1.0",
     "helsingborg-stad/lix-calculator": "~4.0.2",
     "helsingborg-stad/media-usage": "~3.0.4",
     "helsingborg-stad/mod-my-pages": "~1.0.5",
-    "helsingborg-stad/modularity": "^6.0.2",
+    "helsingborg-stad/modularity": "^6.0.7",
     "helsingborg-stad/modularity-contact-banner": "~3.1.0",
     "helsingborg-stad/modularity-entryscape": "^4.0.0",
     "helsingborg-stad/modularity-form-builder": "~3.1.2",
@@ -77,10 +78,10 @@
     "helsingborg-stad/modularity-recommend": "^3.0.0",
     "helsingborg-stad/modularity-sections": "~3.0.2",
     "helsingborg-stad/modularity-testimonials": "~3.0.2",
-    "helsingborg-stad/modularity-timeline": "^4.0.0", 
+    "helsingborg-stad/modularity-timeline": "^4.0.0",
     "helsingborg-stad/multi-network-urls": "~2.0.0",
     "helsingborg-stad/multisite-role-propagation": "~3.0.3",
-    "helsingborg-stad/municipio": "^4.1.0",
+    "helsingborg-stad/municipio": "^4.1.4",
     "helsingborg-stad/redirection-extended": "~3.0.3",
     "helsingborg-stad/s3-uploads-custom-endpoint": "~2.0.0",
     "helsingborg-stad/search-notices": "~3.0.2",
@@ -89,6 +90,7 @@
     "helsingborg-stad/wp-page-for-term": "~3.0.2",
     "helsingborg-stad/wp-search-statistics": "~1.0.1",
     "helsingborg-stad/wpmu-acf-google-maps-key": "~1.0.0",
+    "helsingborg-stad/wpmu-correct-file-paths": "~1.1.3",
     "helsingborg-stad/wpmu-litespeed-common-settings": "~2.0.1",
     "helsingborg-stad/wpmu-mu-plugins-url-everywhere": "~2.0.1",
     "helsingborg-stad/wpmu-network-admin-url": "~2.0.3",
@@ -111,7 +113,6 @@
     "wpackagist-plugin/autodescription": "~4.2.8",
     "wpackagist-plugin/cookies-and-content-security-policy": "~2.22",
     "wpackagist-plugin/fakerpress": "~0.6.2",
-    "helsingborg-stad/kirki": "~5.0.3",
     "wpackagist-plugin/litespeed-cache": "~5.6",
     "wpackagist-plugin/network-plugin-auditor": "~1.10.1",
     "wpackagist-plugin/nginx-helper": "^2.2.4",
@@ -119,14 +120,13 @@
     "wpackagist-plugin/redirection": "~5.4.2",
     "wpackagist-plugin/redis-cache": "2.5.0",
     "wpackagist-plugin/simple-smtp": "~1.3.3",
-    "wpackagist-plugin/stream":"~3.10.0",
+    "wpackagist-plugin/stream": "~3.10.0",
     "wpackagist-plugin/user-switching": "~1.7.2",
     "wpackagist-plugin/username-changer": "~3.2.2",
     "wpackagist-plugin/varnish-http-purge": "~5.2.1",
     "wpackagist-plugin/wp-multi-network": "~2.5.2",
     "wpackagist-plugin/wp-nested-pages": "~3.2.4",
-    "wpackagist-plugin/wp-sentry-integration": "^6.26",
-    "helsingborg-stad/wpmu-correct-file-paths": "~1.1.3"
+    "wpackagist-plugin/wp-sentry-integration": "^6.26"
   },
   "extra": {
       "path": "/",
@@ -167,12 +167,12 @@
     "post-install-cmd": [
       "mkdir -p wp-content/uploads/cache/blade-cache",
       "composer dump-autoload -o",
-      "if [ -d vendor/helsingborg-stad/kirki ]; then mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/; fi"
+      "[ -d vendor/helsingborg-stad/kirki ] && rsync -a vendor/helsingborg-stad/kirki/ wp-content/mu-plugins/kirki/ && rm -rf vendor/helsingborg-stad/kirki"
     ],
     "post-update-cmd": [
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/",
       "composer dump-autoload -o",
-      "if [ -d vendor/helsingborg-stad/kirki ]; then mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/; fi"
+      "[ -d vendor/helsingborg-stad/kirki ] && rsync -a vendor/helsingborg-stad/kirki/ wp-content/mu-plugins/kirki/ && rm -rf vendor/helsingborg-stad/kirki"
     ]
   }
 }
