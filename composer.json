@@ -136,9 +136,7 @@
         "wp-content/mu-plugins/{$name}": [
           "type:wordpress-muplugin",
           "type:acf-plugin",
-          "kirki-framework/kirki",
           "helsingborg-stad/kirki",
-          "wpackagist-plugin/kirki",
           "wpackagist-plugin/performant-translations"
         ],
         "wp-content/plugins/{$name}": [
@@ -172,8 +170,7 @@
     ],
     "post-update-cmd": [
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/",
-      "composer dump-autoload -o",
-      "[ -d vendor/helsingborg-stad/kirki ] && rsync -a vendor/helsingborg-stad/kirki/ wp-content/mu-plugins/kirki/ && rm -rf vendor/helsingborg-stad/kirki"
+      "composer dump-autoload -o"    
     ]
   }
 }
