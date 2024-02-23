@@ -167,12 +167,12 @@
     "post-install-cmd": [
       "mkdir -p wp-content/uploads/cache/blade-cache",
       "composer dump-autoload -o",
-      "if [ -d vendor/helsingborg-stad/kirki ]; then mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/; fi"
+      "[ -d vendor/helsingborg-stad/kirki ] && rsync -a vendor/helsingborg-stad/kirki/ wp-content/mu-plugins/kirki/ && rm -rf vendor/helsingborg-stad/kirki"
     ],
     "post-update-cmd": [
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/",
       "composer dump-autoload -o",
-      "if [ -d vendor/helsingborg-stad/kirki ]; then mv vendor/helsingborg-stad/kirki wp-content/mu-plugins/kirki/; fi"
+      "[ -d vendor/helsingborg-stad/kirki ] && rsync -a vendor/helsingborg-stad/kirki/ wp-content/mu-plugins/kirki/ && rm -rf vendor/helsingborg-stad/kirki"
     ]
   }
 }
