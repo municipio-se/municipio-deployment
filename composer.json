@@ -55,7 +55,7 @@
     "helsingborg-stad/content-scheduler": "~3.0.5",
     "helsingborg-stad/custom-short-links": "~3.0.4",
     "helsingborg-stad/customer-feedback": "~4.0.6",
-    "helsingborg-stad/easy-to-read-alternative": "~3.0.3",
+    "helsingborg-stad/easy-to-read-alternative": "~3.0.4",
     "helsingborg-stad/force-ssl": "~3.0.2",
     "helsingborg-stad/gdi-modularity-cases": "~1.0.4",
     "helsingborg-stad/gdi-modularity-invoices": "~1.0.5",
@@ -86,7 +86,7 @@
     "helsingborg-stad/redirection-extended": "~3.0.3",
     "helsingborg-stad/s3-uploads-custom-endpoint": "~2.0.0",
     "helsingborg-stad/search-notices": "~3.0.2",
-    "helsingborg-stad/visit-custom-posttypes-taxonomies": "~2.0.2",
+    "helsingborg-stad/visit-custom-posttypes-taxonomies": "~2.0.4",
     "helsingborg-stad/wp-page-for-post-type": "~2.0.1",
     "helsingborg-stad/wp-page-for-term": "~3.0.2",
     "helsingborg-stad/wp-search-statistics": "~1.0.1",
@@ -166,7 +166,7 @@
     ],
     "post-update-cmd": [
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/",
-      "composer dump-autoload -o"    
+      "composer dump-autoload -o"
     ]
   }
 }
