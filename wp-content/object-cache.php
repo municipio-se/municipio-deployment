@@ -2535,6 +2535,11 @@ LUA;
      * @return  string        Sanitized string.
      */
     protected function sanitize_key_part( $part ) {
+
+        if( $part === null ) {
+            return '';
+        }
+
         return str_replace( ':', '-', $part );
     }
 
