@@ -75,6 +75,13 @@ if (file_exists(__DIR__ . '/config/cache.php')) {
 }
 
 /**
+ * Script settings
+ */
+if (file_exists(__DIR__ . '/config/scripts.php')) {
+    require_once __DIR__ . '/config/scripts.php';
+}
+
+/**
  * Multisite settings
  *
  * To enable this site as a multisite please rename the config/multisite-example.php file to
