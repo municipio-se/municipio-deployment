@@ -108,7 +108,6 @@
     "php-http/mock-client": "^1.5.2",
     "pragmarx/ia-arr": "^7.3.2",
     "psr/log": "^1.1.4",
-    "sentry/sentry": "^3.21",
     "symfony/polyfill-php80": "^1",
     "true/punycode": "^2.1.1",
     "wikimedia/composer-merge-plugin": "dev-master",
@@ -127,7 +126,7 @@
     "wpackagist-plugin/varnish-http-purge": "~5.2.1",
     "wpackagist-plugin/wp-multi-network": "~2.5.2",
     "wpackagist-plugin/wp-nested-pages": "~3.2.4",
-    "wpackagist-plugin/wp-sentry-integration": "^6.26"
+    "wpackagist-plugin/wp-sentry-integration": "^7.2.0"
   },
   "extra": {
       "path": "/",
