@@ -10,28 +10,29 @@
     <img src="images/municipio.svg" alt="Logo" width="300">
   </a>
 </p>
-<h3>Municipio 3 (Standard) - Deployment</h3>
+<h3>Municipio 4 (Standard) - Deployment</h3>
 <p>
-  Simplified deployment of Municipio 3
+  Simplified deployment of Municipio 4
   <br />
   <a href="https://github.com/municipio-se/municipio-deployment/issues">Report Bug</a>
   ·
   <a href="https://github.com/municipio-se/municipio-deployment/issues">Request Feature</a>
 </p>
 
-## About Municipio 3 (Standard) - Deployment
+## About Municipio 4 (Standard) - Deployment
 This repository simplifies the deployment for users of Municpio. Simply fork this repository and setup deployment details for your hosting environment and deploy whenever it suits you. 
 
-This will enshure that deployments can be made by fetching the upstream of the forked repository without any technical knowledge. Guide on hot to fetch a upstream repo with github user interface can be found here: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork.
+This will ensure that deployments can be made by fetching the upstream of the forked repository without any technical knowledge. Guide on how to fetch a upstream repo with github user interface can be found here: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork.
 
 ## Changelog
 | Date       | Version | Release Notes                                                |
 |------------|---------|-------------------------------------------------------------|
+| 2024-02-29 | 4.0.0   | [Release Notes](https://github.com/example/repository/releases/tag/4.0.0) |
 | 2023-06-14 | 3.2.0   | [Release Notes](https://github.com/example/repository/releases/tag/3.2.0) |
 
 ## Quick start
 1. Fork this repository. Enable github workflows on your newly created repository (gihub disables them due to security reasons on forks).
-2. Setup deployment details according to the tables below (source:  https://github.com/helsingborg-stad/municipio-deploy/tree/master/3.0).
+2. Setup deployment details according to the tables below (source:  https://github.com/helsingborg-stad/municipio-deploy/tree/master/4.0).
 3. Update to upstream, whenever you want to update your production enviroment with the latest version of Municipio.
 
 ## Adding custom dependencies
@@ -84,7 +85,7 @@ You may contribute to this repository if you feel that anything is missing. Simp
 We do suggest that you include the following softare on the target machine.
 
 - NGINX / Litespeed / Apache
-- PHP 7.4 (PHP 8 support planned 2023)
+- PHP ^8.0
 - Redis
 - Rsync (required for deployment)
 
