@@ -33,3 +33,7 @@ if (!defined('RELOCATE')) {
 if (!defined('WP_ENVIRONMENT_TYPE')) {
   define('WP_ENVIRONMENT_TYPE', 'local');
 }
+
+if (!defined('IS_DEVCONTAINER')) {
+  define('IS_DEVCONTAINER', true);
+}
