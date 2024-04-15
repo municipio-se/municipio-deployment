@@ -66,7 +66,7 @@
     "helsingborg-stad/lix-calculator": "~4.1.1",
     "helsingborg-stad/media-usage": "~3.0.4",
     "helsingborg-stad/mod-my-pages": "~1.0.5",
-    "helsingborg-stad/modularity": "^6.11.2",
+    "helsingborg-stad/modularity": "^6.13.5",
     "helsingborg-stad/modularity-contact-banner": "~3.1.3",
     "helsingborg-stad/modularity-entryscape": "^4.0.1",
     "helsingborg-stad/modularity-form-builder": "~3.1.3",
@@ -82,7 +82,7 @@
     "helsingborg-stad/modularity-timeline": "^4.0.1",
     "helsingborg-stad/multi-network-urls": "~2.0.0",
     "helsingborg-stad/multisite-role-propagation": "~3.0.5",
-    "helsingborg-stad/municipio": "^4.18.0",
+    "helsingborg-stad/municipio": "^4.22.9",
     "helsingborg-stad/redirection-extended": "~3.0.4",
     "helsingborg-stad/s3-uploads-custom-endpoint": "~2.0.0",
     "helsingborg-stad/search-notices": "~3.0.3",
@@ -128,7 +128,8 @@
     "wpackagist-plugin/varnish-http-purge": "~5.2.1",
     "wpackagist-plugin/wp-multi-network": "~2.5.2",
     "wpackagist-plugin/wp-nested-pages": "~3.2.7",
-    "wpackagist-plugin/wp-sentry-integration": "^7.11.0"
+    "wpackagist-plugin/wp-sentry-integration": "^7.11.0",
+    "helsingborg-stad/webhooks-manager": "^1.3.0"
   },
   "extra": {
       "path": "/",
