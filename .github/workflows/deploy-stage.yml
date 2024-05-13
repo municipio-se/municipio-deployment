@@ -23,5 +23,6 @@ jobs:
         deploy-host-user: ${{ secrets.DEPLOY_REMOTE_USER_STAGE }}
         deploy-host-user-key: ${{ secrets.DEPLOY_KEY_STAGE }}
         deploy-host-web-server-user: ${{ secrets.WEB_SERVER_USER_STAGE }}
+        php-version: ${{ secrets.PHP_VERSION }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
         acf-url: ${{ secrets.ACF_URL }}
