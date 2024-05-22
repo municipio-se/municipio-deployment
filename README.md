@@ -86,10 +86,24 @@ You may contribute to this repository if you feel that anything is missing. Simp
 ## Suggested target environment
 We do suggest that you include the following softare on the target machine.
 
-- NGINX / Litespeed / Apache
-- PHP ^8.0
-- Redis
+- Litespeed (prefered option) / NGINX / Apache
+- PHP ^8.1
 - Rsync (required for deployment)
+- MySQL or MariaDB
+
+### Optional addons
+Municipio runs better with these additional packages, applications and settings. 
+
+- Redis (highly encouraged)
+- Imagic (highly encouraged)
+- OpCache (highly encouraged)
+- S3 Compatible Object storage (Tested with Swift)
+
+### Resources
+What resources you should give the machine is highly individual depending on your anticipated amount of traffic. But let each PHP process have at least 512MB memory to allocate. This high amount is due to some image processing being made in runtime. 
+
+### Known issues
+- Municipio platform do not perform well in highly virtualized platforms sutch as Virtouzzo or Docker containers due to lack in efficiency of disk access. 
 
 ## License
 Distributed under the [MIT License][license-url].
