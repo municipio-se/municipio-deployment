@@ -129,7 +129,8 @@
     "wpackagist-plugin/wp-multi-network": "~2.5.2",
     "wpackagist-plugin/wp-nested-pages": "~3.2.7",
     "wpackagist-plugin/wp-sentry-integration": "^7.11.0",
-    "helsingborg-stad/webhooks-manager": "^1.3.0"
+    "helsingborg-stad/webhooks-manager": "^1.3.0",
+    "humanmade/cavalcade": "2.0.2"
   },
   "extra": {
       "path": "/",
