@@ -74,7 +74,7 @@
     "helsingborg-stad/modularity-interactive-img-map": "~4.0.3",
     "helsingborg-stad/modularity-json-render": "~3.0.3",
     "helsingborg-stad/modularity-local-events": "~3.1.1",
-    "helsingborg-stad/modularity-open-street-map": "2.1.1",
+    "helsingborg-stad/modularity-open-street-map": "2.1.3",
     "helsingborg-stad/modularity-products": "^3.0.1",
     "helsingborg-stad/modularity-recommend": "^3.0.2",
     "helsingborg-stad/modularity-sections": "~3.0.3",
