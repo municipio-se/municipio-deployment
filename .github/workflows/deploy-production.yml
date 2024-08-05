@@ -23,6 +23,7 @@ jobs:
         deploy-host-user: ${{ secrets.DEPLOY_REMOTE_USER_PROD }}
         deploy-host-user-key: ${{ secrets.DEPLOY_KEY_PROD }}
         deploy-host-web-server-user: ${{ secrets.WEB_SERVER_USER_PROD }}
+        deploy-host-pagecache-path: ${{ secrets.DEPLOY_LS_PAGECACHE_PATH }}
         php-version: ${{ secrets.PHP_VERSION }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
         acf-url: ${{ secrets.ACF_URL }}
