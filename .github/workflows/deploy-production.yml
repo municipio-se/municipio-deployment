@@ -28,3 +28,10 @@ jobs:
         kill-lsphp: true
         github-token: ${{ secrets.GITHUB_TOKEN }}
         acf-url: ${{ secrets.ACF_URL }}
+        newrelic-app-id: ${{ secrets.NEWRELIC_APP_ID }}
+        newrelic-api-key: ${{ secrets.NEWRELIC_API_KEY }}
+        sentry-url: ${{ vars.SENTRY_URL }}
+        sentry-org: ${{ vars.SENTRY_ORG }}
+        sentry-version: ${{ vars.SENTRY_VERSION }}
+        sentry-api-key: ${{ secrets.SENTRY_API_KEY }}
+        sentry-env: prod
