@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        imageVariant: 8.0-bullseye
+        imageVariant: 8.3-bullseye
 
     env_file:
       - .env
