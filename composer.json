@@ -77,7 +77,7 @@
     "helsingborg-stad/modularity-open-street-map": "2.5.2",
     "helsingborg-stad/modularity-products": "^3.0.1",
     "helsingborg-stad/modularity-recommend": "^3.0.2",
-    "helsingborg-stad/modularity-sections": "~3.0.3",
+    "helsingborg-stad/modularity-sections": "3.1.0",
     "helsingborg-stad/modularity-testimonials": "~3.0.3",
     "helsingborg-stad/modularity-timeline": "^4.0.1",
     "helsingborg-stad/multi-network-urls": "~2.0.0",
