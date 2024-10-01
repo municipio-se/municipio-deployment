@@ -4,12 +4,12 @@
   "description": "Deployment of the Municipio Platform.",
   "authors": [
     {
-        "name": "Sebastian Thulin",
-        "email": "sebastian.thulin@helsingborg.se"
+      "name": "Sebastian Thulin",
+      "email": "sebastian.thulin@helsingborg.se"
     },
     {
-        "name": "Joel Bernerman",
-        "email": "joel.bernerman@helsingborg.se"
+      "name": "Joel Bernerman",
+      "email": "joel.bernerman@helsingborg.se"
     }
   ],
   "config": {
@@ -21,15 +21,15 @@
       "php-http/discovery": true
     }
   },
-  "minimum-stability" : "dev",
+  "minimum-stability": "dev",
   "repositories": [
     {
-        "type":"composer",
-        "url":"https://packagist.org"
+      "type": "composer",
+      "url": "https://packagist.org"
     },
     {
-        "type":"composer",
-        "url":"https://wpackagist.org"
+      "type": "composer",
+      "url": "https://wpackagist.org"
     }
   ],
   "require": {
@@ -130,34 +130,34 @@
     "helsingborg-stad/webhooks-manager": "^1.3.0"
   },
   "extra": {
-      "path": "/",
-      "wordpress-install-dir": "wp",
-      "installer-paths": {
-        "wp-content/mu-plugins/{$name}": [
-          "type:wordpress-muplugin",
-          "type:acf-plugin"
-        ],
-        "wp-content/plugins/{$name}": [
-          "type:wordpress-plugin"
-        ],
-        "wp-content/themes/{$name}": [
-          "type:wordpress-theme"
-        ]
-      },
-      "merge-plugin": {
-        "include": [
-            "composer.local.json",
-            "wp-content/plugins/*/composer.json",
-            "wp-content/mu-plugins/*/composer.json",
-            "wp-content/themes/*/composer.json"
-        ],
-        "recurse": false,
-        "replace": true,
-        "ignore-duplicates": false,
-        "merge-dev": false,
-        "merge-extra": false,
-        "merge-extra-deep": false,
-        "merge-scripts": false
+    "path": "/",
+    "wordpress-install-dir": "wp",
+    "installer-paths": {
+      "wp-content/mu-plugins/{$name}": [
+        "type:wordpress-muplugin",
+        "type:acf-plugin"
+      ],
+      "wp-content/plugins/{$name}": [
+        "type:wordpress-plugin"
+      ],
+      "wp-content/themes/{$name}": [
+        "type:wordpress-theme"
+      ]
+    },
+    "merge-plugin": {
+      "include": [
+        "composer.local.json",
+        "wp-content/plugins/*/composer.json",
+        "wp-content/mu-plugins/*/composer.json",
+        "wp-content/themes/*/composer.json"
+      ],
+      "recurse": false,
+      "replace": true,
+      "ignore-duplicates": false,
+      "merge-dev": false,
+      "merge-extra": false,
+      "merge-extra-deep": false,
+      "merge-scripts": false
     }
   },
   "scripts": {
