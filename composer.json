@@ -44,7 +44,7 @@
     "helsingborg-stad/algolia-index-js-searchpage-addon": "3.2.2",
     "helsingborg-stad/algolia-index-modularity-addon": "3.0.5",
     "helsingborg-stad/api-alarm-integration": "^4.0.5",
-    "helsingborg-stad/api-event-manager-integration": "2.0.18",
+    "helsingborg-stad/api-event-manager-integration": "2.0.20",
     "helsingborg-stad/api-volunteer-manager-integration": "^3.0.3",
     "helsingborg-stad/attachment-revisions": "~3.0.4",
     "helsingborg-stad/better-post-ui": "~3.0.3",
