@@ -25,7 +25,7 @@ jobs:
         deploy-host-web-server-user: ${{ secrets.WEB_SERVER_USER_STAGE_INTRA }}
         deploy-host-pagecache-path: ${{ secrets.DEPLOY_LS_PAGECACHE_PATH }}
         php-version: ${{ secrets.PHP_VERSION }}
-        kill-lsphp: true
+        kill-lsphp: false
         github-token: ${{ secrets.GITHUB_TOKEN }}
         acf-url: ${{ secrets.ACF_URL }}
         newrelic-app-id: ${{ secrets.NEWRELIC_APP_ID }}
