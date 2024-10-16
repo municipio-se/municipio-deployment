@@ -3,7 +3,7 @@ name: Build and deploy intranet production.
 on:
   workflow_dispatch:
   push:
-    branches: [intranet/production, intranet/master, intranet/main]
+    branches: [intranet/production, intranet/master, intranet/main, production-intranet, master-intranet, main-intranet]
     paths-ignore:
       - .github/**
 

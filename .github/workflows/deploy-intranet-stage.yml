@@ -3,7 +3,7 @@ name: Build and deploy intranet stage.
 on:
   workflow_dispatch:
   push:
-    branches: [intranet/stage, intranet/develop]
+    branches: [intranet/stage, intranet/develop, stage-intranet, develop-intranet]
     paths-ignore:
       - .github/**
 
