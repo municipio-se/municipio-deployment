@@ -2,5 +2,7 @@
   "name": "municipio-se/municipio-deployment-custom",
   "license": "MIT",
   "description": "Additions for you own install of municipo.",
-  "require": {}
+  "require": {
+    "wpackagist-plugin/miniorange-saml-20-single-sign-on":"5.1.9"
+  }
 }
