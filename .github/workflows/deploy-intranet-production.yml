@@ -1,4 +1,4 @@
-name: Build and deploy production.
+name: Build and deploy intranet production.
 
 on:
   workflow_dispatch:
