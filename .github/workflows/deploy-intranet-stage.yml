@@ -23,7 +23,7 @@ jobs:
         deploy-host-user: ${{ secrets.DEPLOY_REMOTE_USER_STAGE_INTRA }}
         deploy-host-user-key: ${{ secrets.DEPLOY_KEY_STAGE_INTRA }}
         deploy-host-web-server-user: ${{ secrets.WEB_SERVER_USER_STAGE_INTRA }}
-        deploy-host-pagecache-path: ${{ secrets.DEPLOY_LS_PAGECACHE_PATH }}
+        deploy-host-pagecache-path: ${{ secrets.DEPLOY_LS_PAGECACHE_PATH_STAGE_INTRA }}
         php-version: ${{ secrets.PHP_VERSION }}
         kill-lsphp: false
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -34,4 +34,4 @@ jobs:
         sentry-org: ${{ vars.SENTRY_ORG }}
         sentry-version: ${{ vars.SENTRY_VERSION }}
         sentry-api-key: ${{ secrets.SENTRY_API_KEY }}
-        sentry-env: prod
+        sentry-env: stage
