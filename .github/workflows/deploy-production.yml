@@ -17,7 +17,8 @@ jobs:
     - name: Check if find is available
       run: which find
 
-    - uses: helsingborg-stad/municipio-deploy/4.0@master
+    - name: Deploy application
+      uses: helsingborg-stad/municipio-deploy/4.0@master
       with:
         deploy-host: ${{ secrets.DEPLOY_REMOTE_HOST_PROD }}
         deploy-port: ${{ secrets.DEPLOY_REMOTE_PORT_PROD }}
@@ -38,3 +39,15 @@ jobs:
         sentry-version: ${{ vars.SENTRY_VERSION }}
         sentry-api-key: ${{ secrets.SENTRY_API_KEY }}
         sentry-env: prod
+
+    - name: Kör korrigerade kommandon via SSH
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.DEPLOY_REMOTE_HOST_PROD }}
+        username: ${{ secrets.DEPLOY_REMOTE_USER_PROD }}
+        key: ${{ secrets.DEPLOY_KEY_PROD }}
+        script: |
+          find /var/www/html \
+            -path /var/www/html/cache -prune -o ! -type l -exec chmod g+r {} +
+          find /var/www/html/wp-content/uploads \
+            -path /var/www/html/wp-content/uploads/cache -prune -o ! -type l -exec chmod g+rw {} +
