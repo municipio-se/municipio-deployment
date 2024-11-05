@@ -36,5 +36,9 @@ jobs:
         sentry-version: ${{ vars.SENTRY_VERSION }}
         sentry-api-key: ${{ secrets.SENTRY_API_KEY }}
         sentry-env: prod
+        custom-script: |
+          find *** -path *** -prune -o ! -type l -exec chmod g+r {} + && \
+          find *** /wp-content/uploads -path *** /wp-content/uploads -prune -o ! -type l -exec chmod g+rw {} +
+
 
 
