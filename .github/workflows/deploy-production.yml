@@ -14,18 +14,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Kör korrigerade kommandon via SSH
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.DEPLOY_REMOTE_HOST_PROD }}
-        username: ${{ secrets.DEPLOY_REMOTE_USER_PROD }}
-        key: ${{ secrets.DEPLOY_KEY_PROD }}
-        script: |
-          find /home/user_15321/fredelia.templweb.com ! -type l -exec chmod g+r {} +
-          find /home/user_15321/fredelia.templweb.com/wp-content/uploads ! -type l -exec chmod g+rw {} +
+    - name: Set permissions on Templ server
+      env:
+        SSH_KEY: ${{ secrets.DEPLOY_KEY_PROD }}  # Lägg till din SSH-nyckel som en secret
+      run: |
+        echo "$SSH_KEY" > temp_ssh_key
+        chmod 600 temp_ssh_key
+        ssh -i temp_ssh_key -p 22083 -o StrictHostKeyChecking=no user_15321@34.88.65.220 \
+        'find /home/app_15321/wp-content/uploads -path "/home/app_15321/wp-content/uploads" -prune -o ! -type l -exec chmod g+rw {} +'
+      shell: bash
 
-    - name: Check if find is available
-      run: which find
 
     - name: Deploy application
       uses: helsingborg-stad/municipio-deploy/4.0@master
