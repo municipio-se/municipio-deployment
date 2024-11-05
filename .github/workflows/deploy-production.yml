@@ -14,19 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set permissions on Templ server
-      env:
-        SSH_KEY: ${{ secrets.DEPLOY_KEY_PROD }}  # Lägg till din SSH-nyckel som en secret
-        REMOTE_HOST: ${{ secrets.DEPLOY_REMOTE_HOST_PROD }}
-
-      run: |
-        echo "$SSH_KEY" > temp_ssh_key
-        chmod 600 temp_ssh_key
-        ssh -i temp_ssh_key -p 22083 -o StrictHostKeyChecking=no user_15321@34.88.65.220 \
-        'find /home/app_15321/fredelia.templweb.com/wp-content/uploads -path "/home/app_15321/fredelia.templweb.com/wp-content/uploads" -prune -o ! -type l -exec chmod g+rw {} +'
-      shell: bash
-
-
     - name: Deploy application
       uses: helsingborg-stad/municipio-deploy/4.0@master
       with:
