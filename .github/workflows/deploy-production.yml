@@ -21,7 +21,7 @@ jobs:
         echo "$SSH_KEY" > temp_ssh_key
         chmod 600 temp_ssh_key
         ssh -i temp_ssh_key -p 22083 -o StrictHostKeyChecking=no user_15321@34.88.65.220 \
-        'find /home/app_15321/fredelia.templweb.com/wp-content/uploads -path "/home/app_15321/fredelia.templweb.com/wp-content/uploads" -prune -o ! -type l -exec chmod g+rw {} +'
+        'find /home/app_15321/${{ secrets.DEPLOY_REMOTE_HOST_PROD }}/wp-content/uploads -path "/home/app_15321/${{ secrets.DEPLOY_REMOTE_HOST_PROD }}/wp-content/uploads" -prune -o ! -type l -exec chmod g+rw {} +'
       shell: bash
 
 
