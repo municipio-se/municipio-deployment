@@ -40,13 +40,13 @@ jobs:
         sentry-api-key: ${{ secrets.SENTRY_API_KEY }}
         sentry-env: prod
 
-      - name: Kör korrigerade kommandon via SSH
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.DEPLOY_REMOTE_HOST_PROD }}
-          username: ${{ secrets.DEPLOY_REMOTE_USER_PROD }}
-          key: ${{ secrets.DEPLOY_KEY_PROD }}
-          script: |
-            find /home/user_15321/fredelia.templweb.com ! -type l -exec chmod g+r {} +
-            find /home/user_15321/fredelia.templweb.com/wp-content/uploads ! -type l -exec chmod g+rw {} +
+    - name: Kör korrigerade kommandon via SSH
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.DEPLOY_REMOTE_HOST_PROD }}
+        username: ${{ secrets.DEPLOY_REMOTE_USER_PROD }}
+        key: ${{ secrets.DEPLOY_KEY_PROD }}
+        script: |
+          find /home/user_15321/fredelia.templweb.com ! -type l -exec chmod g+r {} +
+          find /home/user_15321/fredelia.templweb.com/wp-content/uploads ! -type l -exec chmod g+rw {} +
 
