@@ -14,6 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Check if find is available
+      run: which find
+
     - uses: helsingborg-stad/municipio-deploy/4.0@master
       with:
         deploy-host: ${{ secrets.DEPLOY_REMOTE_HOST_PROD }}
