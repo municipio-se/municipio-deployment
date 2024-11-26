@@ -28,3 +28,9 @@ jobs:
         kill-lsphp: true
         github-token: ${{ secrets.GITHUB_TOKEN }}
         acf-url: ${{ secrets.ACF_URL }}
+
+  e2e-tests:
+    needs: build
+    uses: helsingborg-stad/municipio-e2e-action/.github/workflows/test.yml@main
+    with:
+      sitemap_urls: ${{ secrets.E2E_SITEMAP_URLS }}
