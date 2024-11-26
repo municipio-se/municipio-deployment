@@ -33,4 +33,4 @@ jobs:
     needs: build
     uses: helsingborg-stad/municipio-e2e-action/.github/workflows/test.yml@main
     with:
-      sitemap_urls: ${{ secrets.E2E_SITEMAP_URLS }}
+      sitemap_urls: ${{ vars.E2E_SITEMAP_URLS }}
