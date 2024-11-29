@@ -16,7 +16,7 @@ jobs:
         total-shards: [8]
     steps:
       - name: Run Municipio E2E Tests
-        uses: helsingborg-stad/municipio-e2e-action@v1
+        uses: helsingborg-stad/municipio-e2e-action@v2
         with:
           sitemap-urls: ${{ vars.E2E_SITEMAP_URLS }}
           shard: ${{ matrix.shard }}
