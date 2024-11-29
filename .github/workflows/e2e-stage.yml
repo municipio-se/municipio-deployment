@@ -9,7 +9,6 @@ on:
 
 jobs:
   e2e-tests:
-    needs: build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
