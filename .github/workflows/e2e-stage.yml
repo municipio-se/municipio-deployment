@@ -1,11 +1,11 @@
 name: E2E tests stage
 
 on:
+  workflow_dispatch:  # Enable manual trigger
   workflow_run:
     workflows: ["Build and deploy stage, beta, test release."]  # Name of the workflow to depend on
     types:
       - completed  # Trigger on workflow completion, whether success or failure
-  workflow_dispatch:  # Enable manual trigger
 
 jobs:
   e2e-tests:
