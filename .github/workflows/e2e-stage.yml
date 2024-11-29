@@ -1,0 +1,24 @@
+name: E2E tests stage
+
+on:
+  workflow_dispatch:  # Enable manual trigger
+  workflow_run:
+    workflows: ["Build and deploy stage, beta, test release."]  # Name of the workflow to depend on
+    types:
+      - completed  # Trigger on workflow completion, whether success or failure
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+        total-shards: [8]
+    steps:
+      - name: Run Municipio E2E Tests
+        uses: helsingborg-stad/municipio-e2e-action@v2
+        with:
+          sitemap-urls: ${{ vars.E2E_SITEMAP_URLS }}
+          shard: ${{ matrix.shard }}
+          total-shards: ${{ matrix.total-shards }}
