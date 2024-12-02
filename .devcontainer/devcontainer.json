@@ -6,16 +6,19 @@
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"forwardPorts": [
-		443
+		"443:8443",
+		8306,
+		8080
 	],
 	"containerEnv": {
 		"XDEBUG_MODE": "off"
 	},
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"apache": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html && sudo service apache2 start",
+		"symlink-to-served-folder": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
 		"symlink-npmrc-to-user-catalog": "ln -s \"$(pwd)/.devcontainer/config/.npmrc\" /home/vscode/.npmrc",
 		"add-github-token-to-composer": "composer config github-oauth.github.com $MUNICIPIO_GITHUB_TOKEN",
+		"start-apache": "sudo service apache2 start"
 	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
@@ -38,17 +41,21 @@
 			"settings": {
 				"remote.autoForwardPorts": false,
 				"remote.portsAttributes": {
-					"80": {
-						"label": "WordPress",
-						"onAutoForward": "openPreview",
-						"requireLocalPort": false,
-						"protocol": "http"
-					},
-					"443": {
+					"443:8443": {
 						"label": "WordPress - SSL",
-						"onAutoForward": "openPreview",
-						"requireLocalPort": false,
+						"onAutoForward": "notify",
+						"requireLocalPort": true,
 						"protocol": "https"
+					},
+					"8306": {
+						"label": "Database",
+						"onAutoForward": "notify",
+						"requireLocalPort": false
+					},
+					"8080": {
+						"label": "PhpMyAdmin",
+						"onAutoForward": "notify",
+						"requireLocalPort": false
 					}
 				},
 				"intelephense.environment.includePaths": [
