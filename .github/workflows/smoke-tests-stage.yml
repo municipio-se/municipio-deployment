@@ -1,4 +1,4 @@
-name: E2E tests stage
+name: Smoke Tests Stage
 
 on:
   workflow_dispatch:  # Enable manual trigger
@@ -16,8 +16,8 @@ jobs:
         shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
         total-shards: [16]
     steps:
-      - name: Run Municipio E2E Tests
-        uses: helsingborg-stad/municipio-e2e-action@v2
+      - name: Run Municipio Smoke Tests
+        uses: helsingborg-stad/municipio-smoke-tests@v1
         with:
           sitemap-urls: ${{ vars.E2E_SITEMAP_URLS }}
           shard: ${{ matrix.shard }}
