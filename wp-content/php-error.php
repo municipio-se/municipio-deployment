@@ -11,6 +11,22 @@ $errorLine     = isset($error['line']) ? $error['line'] : __('Unknown line', 'de
 // Check if we're in debug mode.
 $debugMode = defined('WP_DEBUG') && WP_DEBUG === true;
 
+// Get current locale
+$locale = get_locale();
+
+// Define the error messages based on locale
+switch ($locale) {
+    case 'sv_SE': // Swedish
+        $errorTitle = __('Sidfel', 'default');
+        $errorMessage = __('Den här webbplatsen har tekniska problem och kunde inte laddas för tillfället. Försök igen senare.', 'default');
+        break;
+
+    default: // English or fallback
+        $errorTitle = __('Page Error', 'default');
+        $errorMessage = __('This website is experiencing technical difficulties and could not be loaded at the moment. Please, try again later.', 'default');
+        break;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,8 +114,8 @@ $debugMode = defined('WP_DEBUG') && WP_DEBUG === true;
 </head>
 <body>
   <div class="error-container">
-    <h1><?php _e('Page Error', 'default'); ?></h1>
-    <p><?php _e('This website is experiencing technical difficulties and could not be loaded at the moment. Please, try again later.', 'default'); ?></p>
+    <h1><?php echo $errorTitle; ?></h1>
+    <p><?php echo $errorMessage; ?></p>
 
     <?php if ($debugMode): ?>
       <div class="debug-info">
