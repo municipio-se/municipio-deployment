@@ -16,7 +16,7 @@ define('WP_CACHE_KEY_SALT', md5(NONCE_KEY));
  * Use redis.
  * @var bool
  */
-define('WP_REDIS_DISABLED', false);
+define('WP_REDIS_DISABLED', true);
 define('WP_REDIS_HOST', 'redis');
 
 /**

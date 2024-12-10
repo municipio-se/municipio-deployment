@@ -4,7 +4,7 @@
  * Tell WordPress to be used as network
  */
 
-define('WP_ALLOW_MULTISITE', true);
+define('WP_ALLOW_MULTISITE', false);
 
 if (defined('WP_ALLOW_MULTISITE') && WP_ALLOW_MULTISITE) {
   define('MULTISITE', true);
