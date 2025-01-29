@@ -57,7 +57,7 @@ $output     = '';
 $exitCode   = 0;
 $cleanup    = is_array($argv) && in_array('--cleanup', $argv) ? '--cleanup' : '';
 $noComposer = is_array($argv) && in_array('--no-composer-in-child-packages', $argv) ? '--no-composer' : '';
-$installNPM = is_array($argv) && in_array('--install-npm', $argv) ? '--install-npm' : ''
+$installNPM = is_array($argv) && in_array('--install-npm', $argv) ? '--install-npm' : '';
 
 $builds = [];
 foreach ($contentDirectories as $contentDirectory) {
