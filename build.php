@@ -8,6 +8,7 @@
  * This script takes two arguments:
  *  - no-composer-in-child-packages: Does not run composer in sub-repositories. 
  *  - cleanup: Remove files and folders in removeables list. 
+ *  - install-npm: Installs JS and CSS dists from NPM instead of building them. 
  * 
  */
 
@@ -56,6 +57,7 @@ $output     = '';
 $exitCode   = 0;
 $cleanup    = is_array($argv) && in_array('--cleanup', $argv) ? '--cleanup' : '';
 $noComposer = is_array($argv) && in_array('--no-composer-in-child-packages', $argv) ? '--no-composer' : '';
+$installNPM = is_array($argv) && in_array('--install-npm', $argv) ? '--install-npm' : '';
 
 $builds = [];
 foreach ($contentDirectories as $contentDirectory) {
@@ -66,7 +68,7 @@ foreach ($contentDirectories as $contentDirectory) {
             $timeStart = microtime(true);
             chdir($directory);
 
-            $exitCode = executeCommand("php $buildFile $cleanup $noComposer");
+            $exitCode = executeCommand("php $buildFile $cleanup $noComposer $installNPM");
             // Break script if any exit code other than 0 is returned.
             if ($exitCode > 0) {
                 exit($exitCode);
