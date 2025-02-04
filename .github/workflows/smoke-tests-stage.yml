@@ -17,7 +17,7 @@ jobs:
         total-shards: [16]
     steps:
       - name: Run Municipio Smoke Tests
-        uses: helsingborg-stad/municipio-smoke-tests@v1
+        uses: helsingborg-stad/municipio-smoke-tests@v1.1
         with:
           sitemap-urls: ${{ vars.E2E_SITEMAP_URLS }}
           shard: ${{ matrix.shard }}
