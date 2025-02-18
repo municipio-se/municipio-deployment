@@ -1,4 +1,4 @@
-name: Build and deploy stage, beta, test release.
+name: Build and create zip file for deployment.
 
 on:
   workflow_dispatch:
