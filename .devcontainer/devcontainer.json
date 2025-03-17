@@ -18,7 +18,7 @@
 		"symlink-to-served-folder": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
 		"symlink-npmrc-to-user-catalog": "ln -s \"$(pwd)/.devcontainer/config/.npmrc\" ~/.npmrc",
 		"add-github-token-to-composer": "composer config github-oauth.github.com $MUNICIPIO_GITHUB_TOKEN",
-		"start-apache": "sudo service apache2 start"
+		"start-apache": "sudo service apache2 start > /dev/null 2>&1"
 	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {

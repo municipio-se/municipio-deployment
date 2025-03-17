@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/devcontainers/php:1-${imageVariant}
 
 # Install packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y mariadb-client libpng-dev apache2 bash-completion subversion libfreetype6-dev libjpeg-dev libwebp-dev \
+    && apt-get install -y mariadb-client libpng-dev apache2 libfreetype6-dev libjpeg-dev libwebp-dev \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Install php-mysql driver
@@ -15,9 +15,14 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 
+# Install git completions
+RUN curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
+    && echo "source ~/.git-completion.bash" >> ~/.bashrc
+
 # Install WP CLI completions
 RUN curl -O https://raw.githubusercontent.com/wp-cli/wp-cli/master/utils/wp-completion.bash \
-    && mv wp-completion.bash /etc/bash_completion.d/wp-completion.bash
+    && mv wp-completion.bash /etc/bash_completion.d/wp-completion.bash \
+    && echo "source /etc/bash_completion.d/wp-completion.bash" >> ~/.bashrc
 
 # Generate self-signed SSL certificate and add to site conf
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt \
