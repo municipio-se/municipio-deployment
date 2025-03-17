@@ -1,10 +1,6 @@
 ARG imageVariant
 FROM mcr.microsoft.com/devcontainers/php:1-${imageVariant}
 
-# Replaces invalid key. Required to use apt-get when running this PHP 7.4 image.
-# RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-#     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
 # Install packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y mariadb-client libpng-dev apache2 bash-completion subversion libfreetype6-dev libjpeg-dev libwebp-dev \
@@ -31,6 +27,3 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private
 
 RUN a2enmod headers mime rewrite ssl
 RUN a2ensite default-ssl
-
-# [Optional] Uncomment this line to install global node packages.
-# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1

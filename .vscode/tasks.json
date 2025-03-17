@@ -36,7 +36,7 @@
             "hide": true,
         },
         {
-            "label": "setup:local site",
+            "label": "setup",
             "detail": "Set up local site. Will remove all current settings and db.",
             "dependsOn": [
                 "add required config files",
@@ -50,5 +50,5 @@
             "command": "echo \"💪 Done setting up local site\"",
             "problemMatcher": []
         },
-    ],
+    ]
 }
