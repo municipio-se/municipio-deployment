@@ -7,10 +7,11 @@ FROM mcr.microsoft.com/devcontainers/php:1-${imageVariant}
 
 # Install packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y mariadb-client libpng-dev apache2 bash-completion subversion \
+    && apt-get install -y mariadb-client libpng-dev apache2 bash-completion subversion libfreetype6-dev libjpeg-dev libwebp-dev \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Install php-mysql driver
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 RUN docker-php-ext-install mysqli pdo pdo_mysql pcntl gd
 
 # Install WP-CLI

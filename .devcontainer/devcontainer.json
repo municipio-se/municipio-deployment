@@ -4,7 +4,6 @@
 	"name": "Municipio Deployment(PHP & MariaDB)",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"forwardPorts": [
 		"443:8443",
 		8306,

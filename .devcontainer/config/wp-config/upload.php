@@ -11,8 +11,6 @@ define('FS_METHOD', 'direct');
 
 define('ALLOW_UNFILTERED_UPLOADS', false);
 
-define('UPLOADS', 'wp-content/uploads');
-
 /**
 * Set upload max file size. This may
 * also be changed in configuration of the machine.

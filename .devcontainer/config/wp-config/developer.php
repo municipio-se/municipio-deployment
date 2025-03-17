@@ -18,16 +18,11 @@ if (isset($_GET['debug'])) {
 }
 
 if (!defined('WP_SITEURL')) {
-  $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-  define('WP_SITEURL', $protocol . $_SERVER['HTTP_HOST'] . '/wp');
+  define('WP_SITEURL', 'https://localhost:8443/wp');
 }
 
 if (!defined('WP_HOME')) {
-  define('WP_HOME', WP_SITEURL);
-}
-
-if (!defined('RELOCATE')) {
-  define('RELOCATE', true);
+  define('WP_HOME', 'https://localhost:8443');
 }
 
 if (!defined('WP_ENVIRONMENT_TYPE')) {
