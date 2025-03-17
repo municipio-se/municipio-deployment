@@ -4,7 +4,7 @@
         {
             "label": "import db",
             "type": "shell",
-            "command": "wp db import ./db/seed.sql",
+            "command": "wp db reset --yes --allow-root && wp db import ./db/seed.sql --skip-plugins --skip-themes --allow-root && wp search-replace dev.local.municipio.tech localhost:8443 --skip-plugins --skip-themes --network --all-tables --allow-root",
             "hide": true,
             "problemMatcher": []
         },
@@ -12,7 +12,7 @@
             "label": "install acf pro plugin",
             "type": "shell",
             "command": "./.vscode/bin/download-plugin-acf-pro.sh ${env:MUNICIPIO_ACF_PRO_KEY} && ./.vscode/bin/install-plugin-acf-pro.sh",
-            "hide": false,
+            "hide": true,
             "problemMatcher": []
         },
         {
@@ -37,6 +37,7 @@
         },
         {
             "label": "setup:local site",
+            "detail": "Set up local site. Will remove all current settings and db.",
             "dependsOn": [
                 "add required config files",
                 "install acf pro plugin",
