@@ -15,10 +15,7 @@
 	},
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"symlink-to-served-folder": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
-		"symlink-npmrc-to-user-catalog": "ln -s \"$(pwd)/.devcontainer/config/.npmrc\" ~/.npmrc",
-		"add-github-token-to-composer": "composer config github-oauth.github.com $MUNICIPIO_GITHUB_TOKEN",
-		"start-apache": "sudo service apache2 start > /dev/null 2>&1"
+		"setup": "chmod +x .devcontainer/setup.sh && bash .devcontainer/setup.sh"
 	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
@@ -26,7 +23,7 @@
 			"version": "16"
 		}
 	},
-	// "waitFor": "postCreateCommand",
+	//"waitFor": "postCreateCommand",
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {

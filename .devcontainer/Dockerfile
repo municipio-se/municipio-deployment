@@ -3,18 +3,26 @@ FROM mcr.microsoft.com/devcontainers/php:1-${imageVariant}
 
 # Install packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y mariadb-client libpng-dev apache2 libfreetype6-dev libjpeg-dev libwebp-dev \
+    && apt-get install -y mariadb-client libpng-dev apache2 libfreetype6-dev libjpeg-dev libwebp-dev libmagickwand-dev imagemagick \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Install php-mysql driver
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
-RUN docker-php-ext-install mysqli pdo pdo_mysql pcntl gd
+RUN docker-php-ext-install mysqli pdo pdo_mysql pcntl
 
 #install Image magick for php 8.3
-RUN apt-get update && apt-get install -y libmagickwand-dev --no-install-recommends \
-    && apt-get install -y --no-install-recommends libmagickcore-dev libmagickwand-dev \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick
+RUN git clone https://github.com/Imagick/imagick.git --depth 1 /tmp/imagick && \
+    cd /tmp/imagick && \
+    git fetch origin master && \
+    git switch master && \
+    cd /tmp/imagick && \
+    phpize && \
+    ./configure && \
+    make && \
+    make install && \
+    apt-get remove -y git && \
+    apt-get autoremove -y && \
+    docker-php-ext-enable imagick && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install WP-CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
