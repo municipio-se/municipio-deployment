@@ -10,6 +10,12 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 RUN docker-php-ext-install mysqli pdo pdo_mysql pcntl gd
 
+#install Image magick for php 8.3
+RUN apt-get update && apt-get install -y libmagickwand-dev --no-install-recommends \
+    && apt-get install -y --no-install-recommends libmagickcore-dev libmagickwand-dev \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
+
 # Install WP-CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
