@@ -2,6 +2,7 @@
 /config/*
 /wp-content/*
 !/wp-content/plugins/cookies-and-content-security-policy-vars.php
+!/wp-content/advanced-cache.php
 !/wp-content/object-cache.php
 !/wp-content/php-error.php
 !/wp-content/sunrise.php
