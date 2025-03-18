@@ -1,14 +1,14 @@
 <?php
 
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+$host = $_SERVER['HTTP_HOST'];
+
 /**
  * Tell WordPress to load from local wp-content, and not vendor wp.
  */
 define('WP_CONTENT_DIR', dirname(dirname(__FILE__)) . '/wp-content');
-if($contentHost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : false) {
-  $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-  define('WP_CONTENT_URL', $protocol . $contentHost . '/wp-content');
-}
-
+define('WP_CONTENT_URL', $protocol . $host . '/wp-content');
+    
 /**
  * Use municipio as default theme.
  * @var string
