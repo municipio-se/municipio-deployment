@@ -3,19 +3,19 @@
 {
 	"name": "Municipio Deployment(PHP & MariaDB)",
 	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"service": "app",
 	"forwardPorts": [
-		443
+		"443:8443",
+		8306,
+		8080
 	],
 	"containerEnv": {
 		"XDEBUG_MODE": "off"
 	},
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"apache": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html && sudo service apache2 start",
-		"symlink-npmrc-to-user-catalog": "ln -s \"$(pwd)/.devcontainer/config/.npmrc\" /home/vscode/.npmrc",
-		"add-github-token-to-composer": "composer config github-oauth.github.com $MUNICIPIO_GITHUB_TOKEN",
+		"setup": "chmod +x .devcontainer/setup.sh && bash .devcontainer/setup.sh"
 	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
@@ -23,7 +23,7 @@
 			"version": "16"
 		}
 	},
-	// "waitFor": "postCreateCommand",
+	//"waitFor": "postCreateCommand",
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
@@ -38,17 +38,21 @@
 			"settings": {
 				"remote.autoForwardPorts": false,
 				"remote.portsAttributes": {
-					"80": {
-						"label": "WordPress",
-						"onAutoForward": "openPreview",
-						"requireLocalPort": false,
-						"protocol": "http"
-					},
-					"443": {
+					"443:8443": {
 						"label": "WordPress - SSL",
-						"onAutoForward": "openPreview",
-						"requireLocalPort": false,
+						"onAutoForward": "notify",
+						"requireLocalPort": true,
 						"protocol": "https"
+					},
+					"8306": {
+						"label": "Database",
+						"onAutoForward": "notify",
+						"requireLocalPort": false
+					},
+					"8080": {
+						"label": "PhpMyAdmin",
+						"onAutoForward": "notify",
+						"requireLocalPort": false
 					}
 				},
 				"intelephense.environment.includePaths": [
@@ -58,7 +62,7 @@
 				"intelephense.environment.phpVersion": "8.3"
 			}
 		}
-	}
+	},
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"remoteUser": "root"
 }
