@@ -108,8 +108,8 @@ if (!defined('ABSPATH')) {
     define('ABSPATH', dirname(__FILE__) . '/');
 }
 
-/** Force the use of sunrise.php */
-define('SUNRISE', true);
+/** Enables dropin advanced-cache.php, which is responsible for including composer autoloader. */
+define('WP_CACHE', true); 
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
