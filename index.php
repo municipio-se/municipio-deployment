@@ -13,7 +13,7 @@
 /**
  * Autoload Vendor files or display install instructions.
  */
-if(!file_exists(__DIR__ . '/vendor/autoload.php')) {
+if(file_exists(__DIR__ . '/vendor/autoload.php')) {
   require_once __DIR__ . '/vendor/autoload.php';
 } else {
   die(file_get_contents(__DIR__ . '/install.html')); 
