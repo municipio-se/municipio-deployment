@@ -3,12 +3,21 @@
  * Name:              Municipio
  * URI:               https://getmunicipio.com
  * Description:       Main installable for Municipio.
- * Version:           1.0.0
- * Author:            Sebastian Thulin
+ * Version:           5
+ * Author:            Sebastian Thulin, Thor Brink, Niclas Norin
  * Author URI:        https://github.com/helsingborg-stad
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT
  */
+
+/**
+ * Autoload Vendor files or display install instructions.
+ */
+if(file_exists(__DIR__ . '/vendor/autoload.php')) {
+  require_once __DIR__ . '/vendor/autoload.php';
+} else {
+  die(file_get_contents(__DIR__ . '/install.html')); 
+}
 
 /**
  * Tells WordPress to load the WordPress theme and output it.
