@@ -108,12 +108,13 @@ if (!defined('ABSPATH')) {
     define('ABSPATH', dirname(__FILE__) . '/');
 }
 
-/** Enables dropin advanced-cache.php, which is responsible for including composer autoloader. */
-define('WP_CACHE', true); 
-
-/** Load advanced-cache.php in wp-cli (not loaded by default) */
-if (php_sapi_name() === 'cli' && defined('WP_CACHE') && WP_CACHE) {
-    require_once WP_CONTENT_DIR . '/advanced-cache.php';
+/**
+ * Autoload Vendor files or display install instructions.
+ */
+if(file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+} else {
+    die(file_get_contents(__DIR__ . '/install.html'));  
 }
 
 /** Sets up WordPress vars and included files. */
