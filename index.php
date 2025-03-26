@@ -3,8 +3,8 @@
  * Name:              Municipio
  * URI:               https://getmunicipio.com
  * Description:       Main installable for Municipio.
- * Version:           1.0.0
- * Author:            Sebastian Thulin
+ * Version:           5
+ * Author:            Sebastian Thulin, Thor Brink, Niclas Norin
  * Author URI:        https://github.com/helsingborg-stad
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT

@@ -3,7 +3,7 @@
  * Plugin Name: Redis Object Cache Drop-In
  * Plugin URI: https://wordpress.org/plugins/redis-cache/
  * Description: A persistent object cache backend powered by Redis. Supports Predis, PhpRedis, Relay, replication, sentinels, clustering and WP-CLI.
- * Version: 2.5.0
+ * Version: 2.5.4
  * Author: Till Krüss
  * Author URI: https://objectcache.pro
  * License: GPLv3
@@ -653,6 +653,10 @@ class WP_Object_Cache {
             unset( $parameters[ 'password' ] );
         }
 
+        $this->diagnostics[ 'timeout' ] = $parameters[ 'timeout' ];
+        $this->diagnostics[ 'read_timeout' ] = $parameters[ 'read_timeout' ];
+        $this->diagnostics[ 'retry_interval' ] = $parameters[ 'retry_interval' ];
+
         return $parameters;
     }
 
@@ -684,6 +688,14 @@ class WP_Object_Cache {
 
                 if ( isset( $parameters['password'] ) && version_compare( $version, '4.3.0', '>=' ) ) {
                     $args['password'] = $parameters['password'];
+                }
+
+                if ( version_compare( $version, '5.3.0', '>=' ) && defined( 'WP_REDIS_SSL_CONTEXT' ) && ! empty( WP_REDIS_SSL_CONTEXT ) ) {
+                    if ( ! array_key_exists( 'password', $args ) ) {
+                        $args['password'] = null;
+                    }
+
+                    $args['ssl'] = WP_REDIS_SSL_CONTEXT;
                 }
 
                 $this->redis = new RedisCluster( null, ...array_values( $args ) );
@@ -1127,23 +1139,22 @@ class WP_Object_Cache {
      * @return void
      */
     public function fetch_info() {
-        $options = method_exists( $this->redis, 'getOptions' )
-            ? $this->redis->getOptions()
-            : new stdClass();
-
-        if ( isset( $options->replication ) && $options->replication ) {
-            return;
-        }
-
         if ( defined( 'WP_REDIS_CLUSTER' ) ) {
             $connectionId = is_string( WP_REDIS_CLUSTER )
                 ? 'SERVER'
                 : current( $this->build_cluster_connection_array() );
 
-            $info = $this->determine_client() === 'predis'
+            $info = $this->is_predis()
                 ? $this->redis->getClientBy( 'id', $connectionId )->info()
                 : $this->redis->info( $connectionId );
         } else {
+            if ( $this->is_predis() ) {
+                $connection = $this->redis->getConnection();
+                if ( $connection instanceof Predis\Connection\Replication\ReplicationInterface ) {
+                    $connection->switchToMaster();
+                }
+            }
+
             $info = $this->redis->info();
         }
 
@@ -1239,8 +1250,7 @@ class WP_Object_Cache {
      * @return bool[] Array of return values, grouped by key. Each value is either
      *                true on success, or false if cache key and group already exist.
      */
-    protected function add_multiple_at_once( array $data, $group = 'default', $expire = 0 )
-    {
+    protected function add_multiple_at_once( array $data, $group = 'default', $expire = 0 ) {
         $keys = array_keys( $data );
 
         $san_group = $this->sanitize_key_part( $group );
@@ -1587,6 +1597,91 @@ class WP_Object_Cache {
     }
 
     /**
+     * Executes Lua flush script.
+     *
+     * @return array|false  Returns array on success, false on failure
+     */
+    protected function execute_lua_script( $script ) {
+        $results = [];
+
+        if ( defined( 'WP_REDIS_CLUSTER' ) ) {
+            return $this->execute_lua_script_on_cluster( $script );
+        }
+
+        $flushTimeout = defined( 'WP_REDIS_FLUSH_TIMEOUT' ) ? WP_REDIS_FLUSH_TIMEOUT : 5;
+
+        if ( $this->is_predis() ) {
+            $connection = $this->redis->getConnection();
+
+            if ($connection instanceof Predis\Connection\Replication\ReplicationInterface) {
+                $connection = $connection->getMaster();
+            }
+
+            $timeout = $connection->getParameters()->read_write_timeout ?? ini_get( 'default_socket_timeout' );
+            stream_set_timeout( $connection->getResource(), $flushTimeout );
+        } else {
+            $timeout = $this->redis->getOption( Redis::OPT_READ_TIMEOUT );
+            $this->redis->setOption( Redis::OPT_READ_TIMEOUT, $flushTimeout );
+        }
+
+        try {
+            $results[] = $this->parse_redis_response( $script() );
+        } catch ( Exception $exception ) {
+            $this->handle_exception( $exception );
+            $results = false;
+        }
+
+        if ( $this->is_predis() ) {
+            stream_set_timeout( $connection->getResource(), $timeout ); // @phpstan-ignore variable.undefined
+        } else {
+            $this->redis->setOption( Redis::OPT_READ_TIMEOUT, $timeout );
+        }
+
+        return $results;
+    }
+
+    /**
+     * Executes Lua flush script on Redis cluster.
+     *
+     * @return array|false  Returns array on success, false on failure
+     */
+    protected function execute_lua_script_on_cluster( $script ) {
+        $results = [];
+        $redis = $this->redis;
+        $flushTimeout = defined( 'WP_REDIS_FLUSH_TIMEOUT' ) ? WP_REDIS_FLUSH_TIMEOUT : 5;
+
+        if ( $this->is_predis() ) {
+            foreach ( $this->redis->getIterator() as $master ) {
+                $timeout = $master->getConnection()->getParameters()->read_write_timeout ?? ini_get( 'default_socket_timeout' );
+                stream_set_timeout( $master->getConnection()->getResource(), $flushTimeout );
+
+                $this->redis = $master;
+                $results[] = $this->parse_redis_response( $script() );
+
+                stream_set_timeout($master->getConnection()->getResource(), $timeout);
+            }
+        } else {
+            try {
+                foreach ( $this->redis->_masters() as $master ) {
+                    $this->redis = new Redis();
+                    $this->redis->connect( $master[0], $master[1], 0, null, 0, $flushTimeout );
+
+                    $results[] = $this->parse_redis_response( $script() );
+                }
+            } catch ( Exception $exception ) {
+                $this->handle_exception( $exception );
+                $this->redis = $redis;
+
+                return false;
+            }
+        }
+
+        $this->redis = $redis;
+
+        return $results;
+    }
+
+    /**
      * Invalidate all items in the cache. If `WP_REDIS_SELECTIVE_FLUSH` is `true`,
      * only keys prefixed with the `WP_REDIS_PREFIX` are flushed.
      *
@@ -1604,34 +1699,22 @@ class WP_Object_Cache {
 
             if ( $salt && $selective ) {
                 $script = $this->get_flush_closure( $salt );
+                $results = $this->execute_lua_script( $script );
 
-                if ( defined( 'WP_REDIS_CLUSTER' ) ) {
-                    try {
-                        foreach ( $this->redis->_masters() as $master ) {
-                            $redis = new Redis();
-                            $redis->connect( $master[0], $master[1] );
-                            $results[] = $this->parse_redis_response( $script() );
-                            unset( $redis );
-                        }
-                    } catch ( Exception $exception ) {
-                        $this->handle_exception( $exception );
-
-                        return false;
-                    }
-                } else {
-                    try {
-                        $results[] = $this->parse_redis_response( $script() );
-                    } catch ( Exception $exception ) {
-                        $this->handle_exception( $exception );
-
-                        return false;
-                    }
+                if ( empty( $results ) ) {
+                    return false;
                 }
             } else {
                 if ( defined( 'WP_REDIS_CLUSTER' ) ) {
                     try {
-                        foreach ( $this->redis->_masters() as $master ) {
-                            $results[] = $this->parse_redis_response( $this->redis->flushdb( $master ) );
+                        if ( $this->is_predis() ) {
+                            foreach ( $this->redis->getIterator() as $master ) {
+                                $results[] = $this->parse_redis_response( $master->flushdb() );
+                            }
+                        } else {
+                            foreach ( $this->redis->_masters() as $master ) {
+                                $results[] = $this->parse_redis_response( $this->redis->flushdb( $master ) );
+                            }
                         }
                     } catch ( Exception $exception ) {
                         $this->handle_exception( $exception );
@@ -1685,8 +1768,11 @@ class WP_Object_Cache {
 	 * @param string $group Name of group to remove from cache.
 	 * @return bool Returns TRUE on success or FALSE on failure.
 	 */
-    public function flush_group( $group )
-    {
+    public function flush_group( $group ) {
+        if ( defined( 'WP_REDIS_DISABLE_GROUP_FLUSH' ) && WP_REDIS_DISABLE_GROUP_FLUSH ) {
+            return $this->flush();
+        }
+
         $san_group = $this->sanitize_key_part( $group );
 
         if ( is_multisite() && ! $this->is_global_group( $san_group ) ) {
@@ -1709,25 +1795,11 @@ class WP_Object_Cache {
             return false;
         }
 
-        $results = [];
-
         $start_time = microtime( true );
         $script = $this->lua_flush_closure( $salt, false );
+        $results = $this->execute_lua_script( $script );
 
-        try {
-            if ( defined( 'WP_REDIS_CLUSTER' ) ) {
-                foreach ( $this->redis->_masters() as $master ) {
-                    $redis = new Redis;
-                    $redis->connect( $master[0], $master[1] );
-                    $results[] = $this->parse_redis_response( $script() );
-                    unset( $redis );
-                }
-            } else {
-                $results[] = $this->parse_redis_response( $script() );
-            }
-        } catch ( Exception $exception ) {
-            $this->handle_exception( $exception );
-
+        if ( empty( $results ) ) {
             return false;
         }
 
@@ -1817,7 +1889,7 @@ class WP_Object_Cache {
                 return i
 LUA;
 
-            if ( version_compare( $this->redis_version(), '5', '<' ) && version_compare( $this->redis_version(), '3.2', '>=' ) ) {
+            if ( isset($this->redis_version) && version_compare( $this->redis_version, '5', '<' ) && version_compare( $this->redis_version, '3.2', '>=' ) ) {
                 $script = 'redis.replicate_commands()' . "\n" . $script;
             }
 
@@ -1869,7 +1941,7 @@ LUA;
                 until 0 == cur
                 return i
 LUA;
-            if ( version_compare( $this->redis_version(), '5', '<' ) && version_compare( $this->redis_version(), '3.2', '>=' ) ) {
+            if ( isset($this->redis_version) && version_compare( $this->redis_version, '5', '<' ) && version_compare( $this->redis_version, '3.2', '>=' ) ) {
                 $script = 'redis.replicate_commands()' . "\n" . $script;
             }
 
@@ -2227,8 +2299,7 @@ LUA;
      *                           Default 0 (no expiration).
      * @return bool[] Array of return values, grouped by key. Each value is always true.
      */
-    protected function set_multiple_at_once( array $data, $group = 'default', $expiration = 0 )
-    {
+    protected function set_multiple_at_once( array $data, $group = 'default', $expiration = 0 ) {
         $start_time = microtime( true );
 
         $san_group = $this->sanitize_key_part( $group );
@@ -2531,16 +2602,11 @@ LUA;
     /**
      * Replaces the set group separator by another one
      *
-     * @param   string $part  The string to sanitize.
-     * @return  string        Sanitized string.
+     * @param string $part   The string to sanitize.
+     * @return string        Sanitized string.
      */
     protected function sanitize_key_part( $part ) {
-
-        if( $part === null ) {
-            return '';
-        }
-
-        return str_replace( ':', '-', $part );
+        return is_string( $part ) ? str_replace( ':', '-', $part ) : $part;
     }
 
     /**
@@ -2902,11 +2968,19 @@ LUA;
     protected function show_error_and_die( Exception $exception ) {
         wp_load_translations_early();
 
-        add_filter( 'pre_determine_locale', function () {
-            return defined( 'WPLANG' ) ? WPLANG : 'en_US';
-        } );
+        $domain = 'redis-cache';
+        $locale = defined( 'WPLANG' ) ? WPLANG : 'en_US';
+        $mofile = WP_LANG_DIR . "/plugins/{$domain}-{$locale}.mo";
 
-        // Load custom DB error template, if present.
+        if ( load_textdomain( $domain, $mofile, $locale ) === false ) {
+            add_filter( 'pre_determine_locale', function () {
+                return defined( 'WPLANG' ) ? WPLANG : 'en_US';
+            } );
+
+            add_filter( 'pre_get_language_files_from_path', '__return_empty_array' );
+        }
+
+        // Load custom Redis error template, if present.
         if ( file_exists( WP_CONTENT_DIR . '/redis-error.php' ) ) {
             require_once WP_CONTENT_DIR . '/redis-error.php';
             die();
@@ -2958,13 +3032,30 @@ LUA;
         $cluster = array_values( WP_REDIS_CLUSTER );
 
         foreach ( $cluster as $key => $server ) {
-            $connection_string = parse_url( $server );
+            $components = parse_url( $server );
 
-            $cluster[ $key ] = sprintf(
-                "%s:%s",
-                $connection_string['host'],
-                $connection_string['port']
-            );
+            if ( ! empty( $components['scheme'] ) ) {
+                $scheme = $components['scheme'];
+            } elseif ( defined( 'WP_REDIS_SCHEME' ) ) {
+                $scheme = WP_REDIS_SCHEME;
+            } else {
+                $scheme = null;
+            }
+
+            if ( isset( $scheme ) ) {
+                $cluster[ $key ] = sprintf(
+                    '%s://%s:%d',
+                    $scheme,
+                    $components['host'],
+                    $components['port']
+                );
+            } else {
+                $cluster[ $key ] = sprintf(
+                    '%s:%d',
+                    $components['host'],
+                    $components['port']
+                );
+            }
         }
 
         return $cluster;
