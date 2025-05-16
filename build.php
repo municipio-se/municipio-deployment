@@ -45,7 +45,8 @@ $removables = [
     'guide',
     'db',
     '.devcontainer',
-    '.vscode'
+    '.vscode',
+    'install.html'
 ];
 
 
