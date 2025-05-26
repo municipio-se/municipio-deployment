@@ -9,6 +9,7 @@
 /wp-content/mu-plugins/*
 !/wp-content/mu-plugins
 !/wp-content/mu-plugins/loader.php
+!/wp-content/mu-plugins/xmlrpc.php
 /vendor/
 /wp/
 .DS_Store
