@@ -1,0 +1,4 @@
+## Place in /config/ directory
+<FilesMatch "\.php$">
+    Require all denied
+</FilesMatch>
