@@ -46,8 +46,8 @@ switch ($locale) {
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
         }
-        
         .error-container {
             max-width: 600px;
             width: 100%;

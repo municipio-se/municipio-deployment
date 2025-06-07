@@ -1,0 +1,55 @@
+publiccodeYmlVersion: "1.0"
+name: Swedish CMS for public sector
+applicationSuite: Municipio
+url: https://github.com/helsingborg-stad/Municipio/
+landingURL: https://getmunicipio.com/
+softwareVersion: 5.148.3
+releaseDate: null
+logo: https://getmunicipio.com/
+platforms:
+  - web
+categories:
+  - cms
+  - content-management
+  - web-publishing
+  - communication
+  - collaboration
+usedBy:
+  - Helsingborg
+  - Alingsås
+  - Familjen Helsingborg
+developmentStatus: stable
+softwareType: cms
+description:
+  en:
+    localisedName: Swedish CMS for public sector
+    shortDescription: An open web platform for municipalities and the public sector.
+    longDescription: An open web platform for municipalities and the public sector.
+      The initiative for Municipio was taken by the city of Helsingborg. Since
+      2017, more than 20 municipalities and municipal companies have chosen the
+      platform, but in 		principle it is a solution that works for most types of
+      businesses. Municipio is based on open source code and has no license
+      cost.
+    documentation: https://github.com/municipio-se/municipio-deployment
+    features:
+      - Customizable design without the need for developers.
+      - Accessibility and usability according to WCAG 2.1 Level AA.
+      - Modular content with drag-and-drop functionality.
+legal:
+  license: MIT license
+maintenance:
+  type: community
+  contacts:
+    - name: Sebastian Thulin
+      email: sebastian.nordqvistthulin@helsingborg.se
+      phone: ""
+      affiliation: "Development Manager"
+    - name: Dennis Camitz
+      email: dennis.camitz@helsingborg.se
+      phone: ""
+      affiliation: Product Owner
+localisation:
+  localisationReady: true
+  availableLanguages:
+    - sv
+    - en

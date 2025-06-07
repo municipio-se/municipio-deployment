@@ -6,6 +6,9 @@ services:
       args:
         imageVariant: 8.3-bullseye
 
+    env_file:
+      - .env
+
     ports:
       - 8443:443
 
