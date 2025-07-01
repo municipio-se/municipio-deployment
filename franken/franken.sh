@@ -10,16 +10,53 @@ CERT_CRT="$SCRIPT_DIR/franken.crt"
 CADDYFILE="$SCRIPT_DIR/Caddyfile"
 WEBROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-# Generate self-signed certificate if missing
+# Generate self-signed certificate with SAN if not present
 if [ ! -f "$CERT_KEY" ] || [ ! -f "$CERT_CRT" ]; then
   echo "🔐 Generating self-signed certificate for $DOMAIN..."
-  openssl req -x509 -newkey rsa:2048 -nodes \
+
+  # Create a temporary OpenSSL config with SAN
+  OPENSSL_CNF="$SCRIPT_DIR/franken_openssl.cnf"
+  cat > "$OPENSSL_CNF" <<EOF
+[req]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_req
+prompt = no
+
+[req_distinguished_name]
+CN = $DOMAIN
+
+[v3_req]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = $DOMAIN
+EOF
+
+  openssl req -x509 -nodes -days 365 \
+    -newkey rsa:2048 \
     -keyout "$CERT_KEY" \
     -out "$CERT_CRT" \
-    -days 365 \
-    -subj "/CN=$DOMAIN"
+    -config "$OPENSSL_CNF" \
+    -extensions v3_req
+
+  rm -f "$OPENSSL_CNF"
 else
-  echo "✅ Existing certificate found."
+  echo "✅ Certificate already exists, skipping generation."
+fi
+
+# Trust the certificate (macOS only)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "🔗 Trusting the certificate in macOS Keychain..."
+  sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain "$CERT_CRT"
+else
+  if command -v trust &> /dev/null; then
+    echo "🔗 Trusting the certificate..."
+    trust anchor --store "$CERT_CRT"
+  else
+    echo "⚠️ 'trust' command not found. Please trust the certificate manually."
+    echo "You can use the following command to trust it:"
+    echo "sudo trust anchor --store $CERT_CRT"
+  fi
 fi
 
 # Write Caddyfile with absolute paths
