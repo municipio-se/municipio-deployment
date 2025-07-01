@@ -22,3 +22,4 @@ db/*.sql
 *.key
 *.crt
 franken/Caddyfile
+db/db.sqlite

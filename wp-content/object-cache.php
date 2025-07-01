@@ -3,7 +3,7 @@
  * Plugin Name: Redis Object Cache Drop-In
  * Plugin URI: https://wordpress.org/plugins/redis-cache/
  * Description: A persistent object cache backend powered by Redis. Supports Predis, PhpRedis, Relay, replication, sentinels, clustering and WP-CLI.
- * Version: 2.5.0
+ * Version: 2.5.1
  * Author: Till Krüss
  * Author URI: https://objectcache.pro
  * License: GPLv3
@@ -652,6 +652,10 @@ class WP_Object_Cache {
         if ( isset( $parameters[ 'password' ] ) && $parameters[ 'password' ] === '' ) {
             unset( $parameters[ 'password' ] );
         }
+
+        $this->diagnostics[ 'timeout' ] = $parameters[ 'timeout' ];
+        $this->diagnostics[ 'read_timeout' ] = $parameters[ 'read_timeout' ];
+        $this->diagnostics[ 'retry_interval' ] = $parameters[ 'retry_interval' ];
 
         return $parameters;
     }
@@ -2531,16 +2535,11 @@ LUA;
     /**
      * Replaces the set group separator by another one
      *
-     * @param   string $part  The string to sanitize.
-     * @return  string        Sanitized string.
+     * @param string $part   The string to sanitize.
+     * @return string        Sanitized string.
      */
     protected function sanitize_key_part( $part ) {
-
-        if( $part === null ) {
-            return '';
-        }
-
-        return str_replace( ':', '-', $part );
+        return str_replace( ':', '-', is_scalar( $part ) ? (string) $part : '' );
     }
 
     /**
@@ -2900,13 +2899,17 @@ LUA;
      * @return void
      */
     protected function show_error_and_die( Exception $exception ) {
+        if ( ! function_exists( 'get_template_directory' ) ) {
+            require_once ABSPATH . WPINC . '/theme.php';
+        }
+
         wp_load_translations_early();
 
         add_filter( 'pre_determine_locale', function () {
             return defined( 'WPLANG' ) ? WPLANG : 'en_US';
         } );
 
-        // Load custom DB error template, if present.
+        // Load custom Redis error template, if present.
         if ( file_exists( WP_CONTENT_DIR . '/redis-error.php' ) ) {
             require_once WP_CONTENT_DIR . '/redis-error.php';
             die();
