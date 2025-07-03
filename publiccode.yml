@@ -1,5 +1,5 @@
 publiccodeYmlVersion: "1.0"
-name: Swedish CMS for public sector
+name: Municipio CMS (WordPress based CMS for public sector)
 applicationSuite: Municipio
 url: https://github.com/helsingborg-stad/Municipio/
 landingURL: https://getmunicipio.com/
@@ -22,7 +22,7 @@ developmentStatus: stable
 softwareType: cms
 description:
   en:
-    localisedName: Swedish CMS for public sector
+    localisedName: Municipio CMS (WordPress based CMS for public sector)
     shortDescription: An open web platform for municipalities and the public sector.
     longDescription: An open web platform for municipalities and the public sector.
       The initiative for Municipio was taken by the city of Helsingborg. Since
