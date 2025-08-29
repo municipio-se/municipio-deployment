@@ -1,0 +1,30 @@
+name: Build and deploy zip 
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [zip]
+    paths-ignore:
+      - .github/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: helsingborg-stad/municipio-deploy/5.0@master
+      with:
+        deploy-host: ${{ secrets.DEPLOY_REMOTE_HOST_STAGE }}
+        deploy-port: ${{ secrets.DEPLOY_REMOTE_PORT_STAGE }}
+        deploy-host-path: ${{ secrets.DEPLOY_REMOTE_PATH_STAGE  }}
+        deploy-host-backup-path: ${{ secrets.DEPLOY_REMOTE_BACKUP_DIR_STAGE }}
+        deploy-host-user: ${{ secrets.DEPLOY_REMOTE_USER_STAGE }}
+        deploy-host-user-key: ${{ secrets.DEPLOY_KEY_STAGE }}
+        deploy-host-web-server-user: ${{ secrets.WEB_SERVER_USER_STAGE }}
+        deploy-host-pagecache-path: ${{ secrets.DEPLOY_LS_PAGECACHE_PATH_STAGE }}
+        php-version: ${{ secrets.PHP_VERSION }}
+        kill-lsphp: true
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        acf-url: ${{ secrets.ACF_URL }}
