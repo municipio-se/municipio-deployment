@@ -134,7 +134,7 @@
     "helsingborg-stad/wpmu-security": "1.8.3",
     "helsingborg-stad/acf-icon-field": "0.2.42",
     "wpackagist-plugin/acf-extended":"0.9.1.1",
-    "helsingborg-stad/s3-local-index": "0.2.19"
+    "helsingborg-stad/s3-local-index": "0.2.41"
   },
   "extra": {
     "path": "/",
