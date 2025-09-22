@@ -42,7 +42,7 @@
     "helsingborg-stad/acf-openstreetmap-field": "0.79.12",
     "helsingborg-stad/active-directory-api-wp-integration": "3.1.0",
     "helsingborg-stad/algolia-index": "3.2.4",
-    "helsingborg-stad/algolia-index-js-searchpage-addon": "3.3.6",
+    "helsingborg-stad/algolia-index-js-searchpage-addon": "3.3.7",
     "helsingborg-stad/algolia-index-modularity-addon": "3.1.0",
     "helsingborg-stad/algolia-index-typesense-provider": "1.0.7",
     "helsingborg-stad/api-alarm-integration": "4.1.4",
@@ -81,7 +81,7 @@
     "helsingborg-stad/modularity-timeline": "4.1.2",
     "helsingborg-stad/multi-network-urls": "~2.0.0",
     "helsingborg-stad/multisite-role-propagation": "3.0.6",
-    "helsingborg-stad/municipio": "5.172.12",
+    "helsingborg-stad/municipio": "5.172.13",
     "helsingborg-stad/redirection-extended": "3.0.5",
     "helsingborg-stad/s3-uploads-custom-endpoint": "~2.0.0",
     "helsingborg-stad/search-notices": "~3.0.3",
@@ -134,8 +134,7 @@
     "helsingborg-stad/wpmu-propagate-miniorange-saml-sso-settings": "0.1.3",
     "helsingborg-stad/wpmu-security": "1.8.3",
     "helsingborg-stad/acf-icon-field": "0.2.42",
-    "wpackagist-plugin/acf-extended":"0.9.1.1",
-    "helsingborg-stad/s3-local-index": "0.2.41"
+    "wpackagist-plugin/acf-extended":"0.9.1.1"
   },
   "extra": {
     "path": "/",
