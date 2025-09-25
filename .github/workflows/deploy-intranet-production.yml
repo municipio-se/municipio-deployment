@@ -36,4 +36,4 @@ jobs:
         sentry-api-key: ${{ secrets.SENTRY_API_KEY }}
         sentry-env: prod
         tideways-api-key: ${{ secrets.TIDEWAYS_API_KEY }}
-        tideways-env: prod
+        tideways-env: production
