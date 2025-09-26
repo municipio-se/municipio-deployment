@@ -40,7 +40,7 @@
     "firebase/php-jwt": "^6.8.1",
     "helsingborg-stad/acf-ux-collapse": "2.0.7",
     "helsingborg-stad/acf-openstreetmap-field": "0.79.12",
-    "helsingborg-stad/active-directory-api-wp-integration": "3.1.0",
+    "helsingborg-stad/active-directory-api-wp-integration": "3.1.1",
     "helsingborg-stad/algolia-index": "3.2.4",
     "helsingborg-stad/algolia-index-js-searchpage-addon": "3.3.7",
     "helsingborg-stad/algolia-index-modularity-addon": "3.1.0",
