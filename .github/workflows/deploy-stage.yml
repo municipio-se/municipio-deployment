@@ -29,4 +29,4 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         acf-url: ${{ secrets.ACF_URL }}
         tideways-api-key: ${{ secrets.TIDEWAYS_API_KEY_PUBLIC }}
-        tideways-env: ${{ secrets.TIDEWAYS_ENV_STAGE_PUBLIC }}
+        tideways-env: ${{ secrets.TIDEWAYS_ENV_STAGE }}
