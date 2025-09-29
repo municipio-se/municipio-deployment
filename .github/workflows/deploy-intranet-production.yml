@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: helsingborg-stad/municipio-deploy/4.0@master
+    - uses: helsingborg-stad/municipio-deploy/4.1@master
       with:
         deploy-host: ${{ secrets.DEPLOY_REMOTE_HOST_PROD_INTRA }}
         deploy-port: ${{ secrets.DEPLOY_REMOTE_PORT_PROD_INTRA }}
@@ -35,3 +35,5 @@ jobs:
         sentry-version: ${{ vars.SENTRY_VERSION }}
         sentry-api-key: ${{ secrets.SENTRY_API_KEY }}
         sentry-env: prod
+        tideways-api-key: ${{ secrets.TIDEWAYS_API_KEY_INTRANET }}
+        tideways-env: ${{ secrets.TIDEWAYS_ENV_PROD }}
