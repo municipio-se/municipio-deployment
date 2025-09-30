@@ -28,5 +28,5 @@ jobs:
         kill-lsphp: true
         github-token: ${{ secrets.GITHUB_TOKEN }}
         acf-url: ${{ secrets.ACF_URL }}
-        tideways-api-key: ${{ secrets.TIDEWAYS_API_KEY }}
-        tideways-env: ${{ secrets.TIDEWAYS_ENV_STAGE_PUBLIC }}
+        tideways-api-key: ${{ secrets.TIDEWAYS_API_KEY_DEFAULT }}
+        tideways-env: ${{ secrets.TIDEWAYS_ENV_STAGE }}
