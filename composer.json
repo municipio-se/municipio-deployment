@@ -100,7 +100,7 @@
     "http-interop/http-factory-guzzle": "^1.2",
     "humanmade/s3-uploads": "~3.0.7",
     "jean85/pretty-package-versions": "^1",
-    "johnpbloch/wordpress": "6.8.2",
+    "johnpbloch/wordpress": "6.8.3",
     "justinrainbow/json-schema": "^5",
     "municipio-se/modularity-noticeboard": "~1",
     "php-http/curl-client": "^2",
