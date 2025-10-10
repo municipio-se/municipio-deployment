@@ -134,7 +134,7 @@
     "helsingborg-stad/wpmu-propagate-miniorange-saml-sso-settings": "0.1.3",
     "helsingborg-stad/wpmu-security": "1.8.3",
     "helsingborg-stad/acf-icon-field": "0.2.42",
-    "helsingborg-stad/s3-local-index": "1.1.10"
+    "helsingborg-stad/s3-local-index": "1.1.17"
   },
   "extra": {
     "path": "/",
