@@ -10,16 +10,16 @@
     <img src="images/municipio.svg" alt="Logo" width="300">
   </a>
 </p>
-<h3>Municipio 4 (Standard) - Deployment</h3>
+<h3>Municipio (Standard) - Deployment</h3>
 <p>
-  Simplified deployment of Municipio 4
+  Simplified deployment of Municipio
   <br />
   <a href="https://github.com/municipio-se/municipio-deployment/issues">Report Bug</a>
   ·
   <a href="https://github.com/municipio-se/municipio-deployment/issues">Request Feature</a>
 </p>
 
-## About Municipio 4 (Standard) - Deployment
+## About Municipio (Standard) - Deployment
 This repository simplifies the deployment for users of Municpio. Simply fork this repository and setup deployment details for your hosting environment and deploy whenever it suits you. 
 
 This will ensure that deployments can be made by fetching the upstream of the forked repository without any technical knowledge. Guide on how to fetch a upstream repo with github user interface can be found here: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork.
