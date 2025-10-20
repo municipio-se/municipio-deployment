@@ -1,0 +1,35 @@
+name: Generate Release Log
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  generate-release-log:
+    name: Generate Release Log
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run Copilot Prompt
+        id: generate_log
+        run: |
+          git fetch origin master
+          RELEASE_LOG=$(gh api graphql -F query='mutation($input: RunCopilotPromptInput!) { runCopilotPrompt(input: $input) { result } }' \
+            -F input='{"promptFilePath":".github/prompts/create-release-log.prompt.md","variables":{}}' \
+            --jq '.data.runCopilotPrompt.result')
+          echo "${RELEASE_LOG}" > release-log.txt
+
+      - name: Post Release Log as PR Comment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -s release-log.txt ]; then
+            gh pr comment ${{ github.event.pull_request.number }} --body "$(cat release-log.txt)"
+          else
+            echo "No release log generated."
+          fi
