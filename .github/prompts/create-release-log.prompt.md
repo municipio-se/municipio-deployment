@@ -37,10 +37,16 @@ Follow these steps exactly to generate the release log in a format suitable for 
 **Additional rules:**
 - Only include packages that have changed.
 - Do not include any other information or commentary.
-- Make the log clear and concise.
+- Make the log clear and concise but still elaborate on the changes.
 - Always use the specified section and bullet formatting.
 - Do not deviate from these instructions.
 - The output must be ready to be copy-pasted into a `CHANGELOG.md` file.
+- Do not add generic statements like "Multiple updates and fixes across 92 files.". 
+- Be non-technical where possible, explaining changes in layman's terms.
+- Focus on the impact of changes rather than technical details. If a change cannot be explained in layman's terms, include it with technical details but keep it concise.
+- Do not speculate about the reasons or motivations behind changes.
+- Do not speculate about the impact of changes beyond what is explicitly stated in the change logs or commit messages.
+- Be shure to include all changes that has a effect on the user or developer using the package / application.
 
 **Output the result directly. Do not write to any file.**
 
@@ -48,8 +54,12 @@ Follow these steps exactly to generate the release log in a format suitable for 
 ```
 ## helsingborg-stad/example-package[1.2.3...1.3.0]
 - [Compare changes](https://github.com/helsingborg-stad/example-package/compare/1.2.3...1.3.0)
-- Added support for new API endpoints.
-- Improved error handling for authentication failures.
+- Image Focus: Automatic sets the focus point to detected faces in a image (requires deepface), or fallbacks to automatic focus detection by “most busy area”.
+- Schema Import: A fix has been applied to avoid the risk och importing a empty set of data.
+- Resource from API: Removes the feature that could fetch data from a remote api in realtime. This has been completly replaces by SchemaData importer.
+- Gutenberg Rendering: Optimize number of call to do_blocks method. This patch reduces number of calls by 50%.
+- Singular Controller: Once is enough to prepare a post.
+- Gutenberg Hero: We are now reordering the flow of a page, when a hero is used first in a gutenberg page. The helper nav will now be placed after this block visually.
 
 ## vendor/another-package[2.0.0...2.1.0]
 - [Compare changes](https://github.com/vendor/another-package/compare/2.0.0...2.1.0)
