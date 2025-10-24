@@ -12,8 +12,8 @@ Generate a release log suitable for direct inclusion in a `CHANGELOG.md` file by
   Run `git diff origin/master:composer.json composer.json` to identify all packages with changed versions or configurations.
 
 2. **Gather change details:**
-  - For each package identified in step 1, determine the changes made by comparing the previous version number with the current version number use base <from_version> and head <to_version>.
-  - Use php .github/prompts/GithubDiffDataProvider.php --owner=<owner> --repo=<repo> --base=<from_version> --head=<to_version> [--token=<personal_access_token>] to fetch detailed changelogs for each updated package.
+  For each package identified in step 1, determine the changes made by comparing the previous version number with the current version number. Use the GitHub CLI to fetch commit messages and changed files between the two versions:
+  gh api repos/<owner>/<repo>/compare/<to_version>...<from_version> --jq '{ahead_by, behind_by, commits: [.commits[].commit.message], files: [.files[].filename]}'
 
 3. **Format** the release log exactly as follows, so it can be copy-pasted into a `CHANGELOG.md` file:
 ```
