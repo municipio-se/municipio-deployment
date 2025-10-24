@@ -28,18 +28,15 @@ class GithubDiffDataProvider
      */
     public function compareVersions(string $base, string $head): ?array
     {
-        $url = "https://api.github.com/repos/{$this->owner}/{$this->repo}/compare/{$base}...{$head}";
-        $perPage = 50;
+        // Fetch all tags with pagination
+        $allTags = [];
         $page = 1;
-        $allFiles = [];
-        $allCommits = [];
-        $firstResponse = null;
-
+        $perPage = 100;
         do {
-            $pagedUrl = $url . "?per_page={$perPage}&page={$page}";
+            $tagsUrl = "https://api.github.com/repos/{$this->owner}/{$this->repo}/tags?per_page={$perPage}&page={$page}";
             $ch = curl_init();
 
-            curl_setopt($ch, CURLOPT_URL, $pagedUrl);
+            curl_setopt($ch, CURLOPT_URL, $tagsUrl);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_USERAGENT, 'PHP-GitHub-Comparer');
 
@@ -68,34 +65,113 @@ class GithubDiffDataProvider
                 return null;
             }
 
-            $data = json_decode($response, true);
+            $tagsData = json_decode($response, true);
 
             if (json_last_error() !== JSON_ERROR_NONE) {
                 error_log('JSON Decoding Error: ' . json_last_error_msg());
                 return null;
             }
 
-            if ($firstResponse === null) {
-                $firstResponse = $data;
+            if (empty($tagsData)) {
+                break;
             }
 
-            if (!empty($data['files'])) {
-                $allFiles = array_merge($allFiles, $data['files']);
-            }
-            if (!empty($data['commits'])) {
-                $allCommits = array_merge($allCommits, $data['commits']);
+            $allTags = array_merge($allTags, $tagsData);
+
+            if (count($tagsData) < $perPage) {
+                break;
             }
 
-            $filesCount = isset($data['files']) ? count($data['files']) : 0;
-            $commitsCount = isset($data['commits']) ? count($data['commits']) : 0;
-            $hasMore = ($filesCount === $perPage) || ($commitsCount === $perPage);
             $page++;
-        } while ($hasMore);
+        } while (true);
 
-        if ($firstResponse !== null) {
-            $firstResponse['files'] = $allFiles;
-            $firstResponse['commits'] = $allCommits;
+        // Find indices of base and head tags
+        $baseIndex = null;
+        $headIndex = null;
+        foreach ($allTags as $index => $tag) {
+            if ($tag['name'] === $base) {
+                $baseIndex = $index;
+            }
+            if ($tag['name'] === $head) {
+                $headIndex = $index;
+            }
         }
+
+        if ($baseIndex === null || $headIndex === null) {
+            error_log("Base or head tag not found among tags.");
+            return null;
+        }
+
+        // Determine range between base and head, assuming tags are ordered descending by creation
+        $start = min($baseIndex, $headIndex);
+        $end = max($baseIndex, $headIndex);
+        $tagsInRange = array_slice($allTags, $start, $end - $start + 1);
+
+        $allCommits = [];
+        $allFiles = [];
+
+        // For each tag in range, fetch commit data
+        foreach ($tagsInRange as $tag) {
+            $commitSha = $tag['commit']['sha'];
+            $commitUrl = "https://api.github.com/repos/{$this->owner}/{$this->repo}/commits/{$commitSha}";
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, $commitUrl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'PHP-GitHub-Comparer');
+
+            $headers = [
+                'Accept: application/vnd.github+json',
+                'X-GitHub-Api-Version: 2022-11-28',
+            ];
+            if ($this->token) {
+                $headers[] = 'Authorization: Bearer ' . $this->token;
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $commitResponse = curl_exec($ch);
+
+            if (curl_errno($ch)) {
+                error_log('cURL Error: ' . curl_error($ch));
+                curl_close($ch);
+                return null;
+            }
+
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if ($httpCode !== 200) {
+                error_log("GitHub API Error - HTTP Code: {$httpCode}. Response: " . $commitResponse);
+                return null;
+            }
+
+            $commitData = json_decode($commitResponse, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                error_log('JSON Decoding Error: ' . json_last_error_msg());
+                return null;
+            }
+
+            // Aggregate commits
+            $allCommits[] = $commitData;
+
+            // Aggregate files
+            if (isset($commitData['files']) && is_array($commitData['files'])) {
+                foreach ($commitData['files'] as $file) {
+                    $allFiles[] = $file;
+                }
+            }
+        }
+
+        // Build a basic response structure similar to compare endpoint
+        $firstResponse = [
+            'status' => 'success',
+            'total_commits' => count($allCommits),
+            'ahead_by' => 0,
+            'behind_by' => 0,
+            'files' => $allFiles,
+            'commits' => $allCommits,
+        ];
 
         return $firstResponse;
     }
@@ -209,5 +285,6 @@ if ($comparisonData) {
     $errorOutput = [
         "error" => "Failed to retrieve comparison data. Check error logs for details."
     ];
+ 
     echo json_encode($errorOutput, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
 }
