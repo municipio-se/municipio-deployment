@@ -40,6 +40,7 @@ Create a clear, human-readable changelog with the following structure and format
 - Clear, user-friendly package names (e.g., `Component Library` instead of `helsingborg-stad/component-library`).
 - Brief technical details where necessary to explain impact.
 - **Exclude generic entries such as "Updated package file versions to align with the new release" or similar statements that provide no functional or behavioral insight.**
+- **Avoid vague language for example "Miscellaneous improvements" or "Various bug fixes".**
 
 ### **Tone and Style**
 - Use **simple, non-technical language** when possible.
