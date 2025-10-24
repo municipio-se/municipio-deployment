@@ -1,6 +1,6 @@
 ---
 mode: 'agent'
-model: 'GPT-4o'
+model: 'GPT-4.1'
 tools: ['edit', 'search', 'runCommands', 'changes', 'fetch', 'githubRepo']
 description: 'Prompt template for generating release logs based on composer.json changes.'
 ---
@@ -15,14 +15,16 @@ Generate a **concise, structured changelog** summarizing all relevant updates be
    git diff origin/master:composer.json composer.json
    ```
 
-2. For each changed package, gather the version differences and detailed changes using the GitHub CLI:  
+2. For each changed package, gather the version differences and detailed changes using the GitHub CLI. EBoth commands below MUST be used to gather complete information:
    ```
     gh api repos/<owner>/<repo>/compare/<from_version>...<to_version> --jq '{ahead_by, behind_by, commits: [.commits[] | select(.commit.author.name != "github-actions[bot]") | .commit.message], files: [.files[].filename]}'
+   ```
+   ```
     gh api repos/<owner>/<repo>/compare/<from_version>...<to_version> -H "Accept: application/vnd.github.v3.diff"
    ```
 
 ### **Changelog Generation**
-Create a clear, human-readable changelog with the following structure and formatting:
+Output a clear, human-readable changelog with the following structure and formatting:
 
 ```
 ## [Package Name] [version-from...version-to]
@@ -32,6 +34,8 @@ Create a clear, human-readable changelog with the following structure and format
 ## [Next Package Name] [version-from...version-to]
 - [Description of change]
 ```
+
+Do not create any files; simply output the changelog content in the chat.
 
 ### **What to Include**
 - All **new features**, **enhancements**, **bug fixes**, and **functional changes**.
@@ -50,7 +54,7 @@ Create a clear, human-readable changelog with the following structure and format
 
 ### **Formatting**
 - Follow the section and bullet structure exactly.
-- Output should be in Markdown format, ready for direct inclusion in `CHANGELOG.md`.
+- Output should be in Markdown and HTML format both in a escaped manner, so i can copy it easily.
 
 ### **Example**
 ```
@@ -79,4 +83,4 @@ Directory Resolver: Disabled on admin pages to prevent recursive folder creation
 Produce a clear, consistent, and accurate changelog that summarizes all impactful updates between two versions, formatted for publication. Present the result in the chat. 
 
 ### **Additional Output**
-After generating the changelog in Markdown, also output an HTML version under a separate heading called **"HTML Version"**. Present the result in the chat. 
+After generating the changelog in Markdown, also output an HTML version under a separate heading called **"HTML Version"**. Present the result in the chat. Any bullet points with a prefix (maked with:) shound be marked with bold in the HTML version.
