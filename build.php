@@ -9,6 +9,7 @@
  *  - no-composer-in-child-packages: Does not run composer in sub-repositories. 
  *  - cleanup: Remove files and folders in removeables list. 
  * 
+ * Deployment test: 2025-10-19
  */
 
 // Only allow run from cli.
