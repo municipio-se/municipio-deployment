@@ -1,5 +1,5 @@
 {
-    "name": "test-custom-plugin",
+    "name": "sater/test-custom-plugin",
     "description": "A simple test plugin with assets",
     "type": "wordpress-plugin",
     "license": "MIT",

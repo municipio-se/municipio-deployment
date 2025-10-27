@@ -1,5 +1,5 @@
 {
-  "name": "test-custom-plugin",
+  "name": "@sater/test-custom-plugin",
   "version": "1.0.0",
   "description": "Test plugin for build process",
   "main": "",
