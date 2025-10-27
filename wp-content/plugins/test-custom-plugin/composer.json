@@ -1,0 +1,15 @@
+{
+    "name": "test-custom-plugin",
+    "description": "A simple test plugin with assets",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jovica",
+            "email": "jovica@example.com"
+        }
+    ],
+    "require": {},
+    "version": "1.0.0"
+}
+
