@@ -1,13 +1,13 @@
 ARG imageVariant
 FROM mcr.microsoft.com/devcontainers/php:1-${imageVariant}
 
-# Install packages
+# Install packages including libzip-dev before PHP extensions
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y mariadb-client libpng-dev apache2 libfreetype6-dev libjpeg-dev libwebp-dev libmagickwand-dev imagemagick \
+    && apt-get install -y mariadb-client libpng-dev apache2 libfreetype6-dev libjpeg-dev libwebp-dev libmagickwand-dev imagemagick libzip-dev \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-# Install php-mysql driver
-RUN docker-php-ext-install mysqli pdo pdo_mysql pcntl
+# Install php-mysql driver and additional PHP modules
+RUN docker-php-ext-install mysqli pdo pdo_mysql pcntl exif zip intl
 
 #install Image magick for php 8.3
 RUN git clone https://github.com/Imagick/imagick.git --depth 1 /tmp/imagick && \
