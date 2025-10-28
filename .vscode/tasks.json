@@ -4,7 +4,7 @@
         {
             "label": "import db",
             "type": "shell",
-            "command": "wp db reset --yes --allow-root && wp db import ./db/seed.sql --skip-plugins --skip-themes --allow-root && wp search-replace dev.local.municipio.tech localhost:8443 --skip-plugins --skip-themes --network --all-tables --allow-root",
+            "command": "wp db reset --yes --allow-root --url=localhost:8443 && wp db import ./db/seed.sql --skip-plugins --skip-themes --allow-root --url=localhost:8443 && wp search-replace dev.local.municipio.tech localhost:8443 --skip-plugins --skip-themes --network --all-tables --allow-root --url=localhost:8443",
             "hide": true,
             "problemMatcher": []
         },
