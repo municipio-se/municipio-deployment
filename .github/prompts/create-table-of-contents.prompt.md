@@ -6,7 +6,7 @@ description: 'Prompt template for generating a table of contents list.'
 ---
 # Table of Contents Generation Prompt
 
-Generate a **concise, structured table of contents** for all readmes found in all linked repositories. The table of contents should be inserted in the main README.md file under a heading called "Table of contents". It should not include any sections from the main README.md file. Only include repositorys from `helsingborg-stad` or `municipio-se` organizations.
+Generate a **concise, structured table of contents** for all readmes found in all linked repositories.It should not include any sections from the main README.md file. Only include repositorys from `helsingborg-stad` or `municipio-se` organizations.
 
 ### **Data Gathering**
 1. Identify all packages in the main repository's `composer.json` file.  
