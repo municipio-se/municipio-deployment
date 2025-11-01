@@ -1,0 +1,17 @@
+{
+    "name": "sater-municipio/alt-text-injector",
+    "description": "Automatically injects alt text for images missing it by using filename, title, caption, or contextual information",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jovica Bumbulovic",
+            "email": "jovica.bumbulovic@knowit.se"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    },
+    "version": "1.0.0"
+}
+
