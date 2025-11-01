@@ -1,0 +1,22 @@
+#  __  __             _      _       _       
+# |  \/  |_   _ _ __ (_) ___(_)_ __ (_) ___  
+# | |\/| | | | | '_ \| |/ __| | '_ \| |/ _ \ 
+# | |  | | |_| | | | | | (__| | |_) | | (_) |
+# |_|  |_|\__,_|_| |_|_|\___|_| .__/|_|\___/ 
+#                             |_|                                        
+# MUNICIPIO - OPEN SOURCE
+
+# TEAM  
+Team: Helsingborg Stad Development Team 
+Site: https://getmunicipio.com
+Description: Municipio is an open-source WordPress theme designed for municipalities, 
+built with a strong focus on accessibility, flexibility, and performance. 
+Developed by a variety of Swedish municipalities, it provides a scalable 
+and user-friendly solution for modern public sector websites. 
+
+# TECHNOLOGY  
+Built with: WordPress, PHP, HTML, CSS, JavaScript  
+License: MIT License  
+
+# CONTACT  
+Website: https://getmunicipio.com
