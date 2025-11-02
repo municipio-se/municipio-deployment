@@ -32,10 +32,8 @@ class AutoAltTextInjector
      */
     public function __construct()
     {
-        // Primary method: Catch final output using output buffering (most reliable)
+        // PHP processing - reads WordPress alt text from database
         add_action('template_redirect', array($this, 'startOutputBuffer'), PHP_INT_MAX);
-        
-        // Fallback: Hook into content filters for other areas
         add_filter('the_content', array($this, 'fixRenderedImages'), 998);
         add_filter('widget_text', array($this, 'fixRenderedImages'), 999);
         add_filter('the_excerpt', array($this, 'fixRenderedImages'), 999);
