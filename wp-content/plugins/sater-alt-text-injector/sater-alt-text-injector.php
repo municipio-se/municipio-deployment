@@ -32,19 +32,100 @@ class AutoAltTextInjector
      */
     public function __construct()
     {
-        // PHP processing - reads WordPress alt text from database
+        // Filter at the source - intercept when alt text is retrieved from database
+        // This prevents empty alt text from ever reaching the component library
+        add_filter('get_post_metadata', array($this, 'filterImageAltText'), 10, 4);
         
-        // Hook into Municipio's Blade output filter (runs AFTER Blade rendering is complete)
-        // This prevents interference with template variables like {MOD_RECOMMEND_CONTENT}
-        add_filter('Website/HTML/output', array($this, 'fixRenderedImages'), 999);
+        // Also filter wp_get_attachment_image_attributes for direct image generation
+        add_filter('wp_get_attachment_image_attributes', array($this, 'ensureImageAlt'), 10, 3);
+    }
+    
+    /**
+     * Filter alt text metadata retrieval to ensure images always have alt text
+     *
+     * @param mixed $value The meta value
+     * @param int $object_id The object ID
+     * @param string $meta_key The meta key
+     * @param bool $single Whether to return a single value
+     * @return mixed Modified meta value
+     */
+    public function filterImageAltText($value, $object_id, $meta_key, $single)
+    {
+        // Only process alt text meta key
+        if ($meta_key !== '_wp_attachment_image_alt') {
+            return $value;
+        }
         
-        // Also use content filters for other areas
-        add_filter('the_content', array($this, 'fixRenderedImages'), 998);
-        add_filter('widget_text', array($this, 'fixRenderedImages'), 999);
-        add_filter('widget_block_content', array($this, 'fixRenderedImages'), 999);
-        add_filter('the_excerpt', array($this, 'fixRenderedImages'), 999);
-        add_filter('acf/format_value', array($this, 'injectAltTextInAcf'), 999, 3);
-        add_filter('render_block', array($this, 'fixRenderedImages'), 999);
+        // Let WordPress get the actual value first
+        // We need to remove our filter temporarily to avoid infinite loop
+        remove_filter('get_post_metadata', array($this, 'filterImageAltText'), 10);
+        $alt_text = get_post_meta($object_id, '_wp_attachment_image_alt', true);
+        add_filter('get_post_metadata', array($this, 'filterImageAltText'), 10, 4);
+        
+        // If alt text exists and is not empty, return it
+        if (!empty($alt_text)) {
+            return $single ? $alt_text : array($alt_text);
+        }
+        
+        // Generate alt text from attachment
+        $generated_alt = $this->generateAltTextForAttachment($object_id);
+        
+        return $single ? $generated_alt : array($generated_alt);
+    }
+    
+    /**
+     * Ensure image attributes always have alt text
+     *
+     * @param array $attr Image attributes
+     * @param WP_Post $attachment Image attachment post
+     * @param string|int[] $size Image size
+     * @return array Modified attributes
+     */
+    public function ensureImageAlt($attr, $attachment, $size)
+    {
+        // If alt is already set and not empty, leave it
+        if (!empty($attr['alt'])) {
+            return $attr;
+        }
+        
+        // Generate alt text
+        $attr['alt'] = $this->generateAltTextForAttachment($attachment->ID);
+        
+        return $attr;
+    }
+    
+    /**
+     * Generate alt text for an attachment
+     *
+     * @param int $attachment_id The attachment ID
+     * @return string Generated alt text
+     */
+    private function generateAltTextForAttachment($attachment_id)
+    {
+        // Try to get title from attachment
+        $attachment_title = get_the_title($attachment_id);
+        if (!empty($attachment_title) && $attachment_title !== 'Attachment' && $attachment_title !== 'Auto Draft') {
+            return sanitize_text_field($attachment_title);
+        }
+        
+        // Get attachment post to access filename
+        $attachment = get_post($attachment_id);
+        if ($attachment) {
+            // Try caption
+            if (!empty($attachment->post_excerpt)) {
+                return sanitize_text_field($attachment->post_excerpt);
+            }
+            
+            // Generate from filename
+            $filename = basename(get_attached_file($attachment_id));
+            $altText = $this->generateAltFromFilename($filename);
+            
+            if (!empty($altText)) {
+                return $altText;
+            }
+        }
+        
+        return __('Image', 'sater-alt-text-injector');
     }
     
     /**
