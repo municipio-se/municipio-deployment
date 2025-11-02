@@ -41,22 +41,38 @@ class AutoAltTextInjector
         add_filter('acf/format_value', array($this, 'injectAltTextInAcf'), 999, 3);
         add_filter('render_block', array($this, 'fixRenderedImages'), 999);
         
-        // For Blade-rendered content, catch final output (priority 1 = runs early, before other buffers)
-        add_action('template_redirect', array($this, 'startOutputBuffer'), 1);
+        // For Blade-rendered content, use shutdown hook (runs AFTER everything is rendered)
+        add_action('shutdown', array($this, 'processShutdownBuffer'), 0);
     }
     
     /**
-     * Start output buffering to catch final HTML
+     * Process output buffer on shutdown (after all rendering is complete)
      */
-    public function startOutputBuffer()
+    public function processShutdownBuffer()
     {
         // Only on frontend, not admin/ajax/cron
         if (is_admin() || wp_doing_ajax() || wp_doing_cron() || is_feed()) {
             return;
         }
         
-        // Start output buffering with callback - callback will be called automatically when buffer is flushed
-        ob_start(array($this, 'processFinalOutput'));
+        // Get the current buffer level
+        $level = ob_get_level();
+        
+        // If there's no buffer, nothing to do
+        if ($level === 0) {
+            return;
+        }
+        
+        // Get and clean the final output buffer
+        $final_output = '';
+        while (ob_get_level() > 0) {
+            $final_output = ob_get_clean() . $final_output;
+        }
+        
+        // Process and output
+        if (!empty($final_output)) {
+            echo $this->processFinalOutput($final_output);
+        }
     }
     
     /**
