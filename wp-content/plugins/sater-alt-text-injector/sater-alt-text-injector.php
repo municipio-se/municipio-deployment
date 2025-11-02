@@ -33,67 +33,18 @@ class AutoAltTextInjector
     public function __construct()
     {
         // PHP processing - reads WordPress alt text from database
-        // Use content filters for post content, excerpts, etc.
+        
+        // Hook into Municipio's Blade output filter (runs AFTER Blade rendering is complete)
+        // This prevents interference with template variables like {MOD_RECOMMEND_CONTENT}
+        add_filter('Website/HTML/output', array($this, 'fixRenderedImages'), 999);
+        
+        // Also use content filters for other areas
         add_filter('the_content', array($this, 'fixRenderedImages'), 998);
         add_filter('widget_text', array($this, 'fixRenderedImages'), 999);
         add_filter('widget_block_content', array($this, 'fixRenderedImages'), 999);
         add_filter('the_excerpt', array($this, 'fixRenderedImages'), 999);
         add_filter('acf/format_value', array($this, 'injectAltTextInAcf'), 999, 3);
         add_filter('render_block', array($this, 'fixRenderedImages'), 999);
-        
-        // For Blade-rendered content, use shutdown hook (runs AFTER everything is rendered)
-        add_action('shutdown', array($this, 'processShutdownBuffer'), 0);
-    }
-    
-    /**
-     * Process output buffer on shutdown (after all rendering is complete)
-     */
-    public function processShutdownBuffer()
-    {
-        // Only on frontend, not admin/ajax/cron
-        if (is_admin() || wp_doing_ajax() || wp_doing_cron() || is_feed()) {
-            return;
-        }
-        
-        // Get the current buffer level
-        $level = ob_get_level();
-        
-        // If there's no buffer, nothing to do
-        if ($level === 0) {
-            return;
-        }
-        
-        // Get and clean the final output buffer
-        $final_output = '';
-        while (ob_get_level() > 0) {
-            $final_output = ob_get_clean() . $final_output;
-        }
-        
-        // Process and output
-        if (!empty($final_output)) {
-            echo $this->processFinalOutput($final_output);
-        }
-    }
-    
-    /**
-     * Process final output buffer
-     *
-     * @param string $buffer The output buffer
-     * @return string Modified buffer
-     */
-    public function processFinalOutput($buffer)
-    {
-        if (empty($buffer) || !is_string($buffer)) {
-            return $buffer;
-        }
-        
-        // Only process HTML pages
-        if (strpos($buffer, '<html') === false && strpos($buffer, '<body') === false) {
-            return $buffer;
-        }
-        
-        // Process the buffer to fix any remaining images
-        return $this->fixRenderedImages($buffer);
     }
     
     /**
