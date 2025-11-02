@@ -32,12 +32,140 @@ class AutoAltTextInjector
      */
     public function __construct()
     {
-        // Filter at the source - intercept when alt text is retrieved from database
-        // This prevents empty alt text from ever reaching the component library
-        add_filter('get_post_metadata', array($this, 'filterImageAltText'), 10, 4);
+        // Use output buffering to catch fully rendered HTML
+        // This runs early (priority 1) to start buffering before template rendering
+        add_action('template_redirect', array($this, 'startOutputBuffer'), 1);
         
-        // Also filter wp_get_attachment_image_attributes for direct image generation
-        add_filter('wp_get_attachment_image_attributes', array($this, 'ensureImageAlt'), 10, 3);
+        // Enqueue debug script (only on frontend, not admin)
+        add_action('wp_enqueue_scripts', array($this, 'enqueueDebugScript'));
+    }
+    
+    /**
+     * Start output buffering to catch final HTML
+     */
+    public function startOutputBuffer()
+    {
+        // Only on frontend, not admin/ajax/cron
+        if (is_admin() || wp_doing_ajax() || wp_doing_cron() || is_feed()) {
+            return;
+        }
+        
+        // Start output buffering with callback
+        ob_start(array($this, 'processBuffer'));
+    }
+    
+    /**
+     * Process the output buffer - called when buffer is flushed
+     *
+     * @param string $buffer The output buffer
+     * @return string Modified buffer
+     */
+    public function processBuffer($buffer)
+    {
+        // Safety checks - only process valid HTML
+        if (empty($buffer) || !is_string($buffer)) {
+            return $buffer;
+        }
+        
+        // Only process if it looks like complete HTML (avoid processing raw template variables)
+        if (strpos($buffer, '</html>') === false && strpos($buffer, '</body>') === false) {
+            return $buffer;
+        }
+        
+        // Process images with WordPress attachment IDs
+        $buffer = $this->injectAltTextFromAttachmentIds($buffer);
+        
+        // Remove accessibility error attributes
+        $buffer = preg_replace('/\s+data-a11y-error=["\'][^"\']*["\']/', '', $buffer);
+        $buffer = preg_replace('/\s+data-ally-error=["\'][^"\']*["\']/', '', $buffer);
+        
+        return $buffer;
+    }
+    
+    /**
+     * Find images with wp-image-{ID} classes and inject real alt text from database
+     *
+     * @param string $html The HTML content
+     * @return string Modified HTML
+     */
+    private function injectAltTextFromAttachmentIds($html)
+    {
+        // Find all figures/images with wp-image-{ID} class
+        return preg_replace_callback(
+            '/<figure[^>]*\bwp-image-(\d+)\b[^>]*>.*?<img[^>]*>.*?<\/figure>/is',
+            array($this, 'processFigureWithAttachment'),
+            $html
+        );
+    }
+    
+    /**
+     * Process a figure element that has a wp-image-{ID} class
+     *
+     * @param array $matches Regex matches
+     * @return string Modified figure HTML
+     */
+    private function processFigureWithAttachment($matches)
+    {
+        $figureHtml = $matches[0];
+        $attachmentId = (int) $matches[1];
+        
+        // Get real alt text from WordPress database
+        $altText = get_post_meta($attachmentId, '_wp_attachment_image_alt', true);
+        
+        // If no alt text, try title
+        if (empty($altText)) {
+            $altText = get_the_title($attachmentId);
+        }
+        
+        // If still empty, generate from filename
+        if (empty($altText) || $altText === 'Attachment' || $altText === 'Auto Draft') {
+            $attachment = get_post($attachmentId);
+            if ($attachment) {
+                $filename = basename(get_attached_file($attachmentId));
+                $altText = $this->generateAltFromFilename($filename);
+            }
+        }
+        
+        // Ensure we have something
+        if (empty($altText)) {
+            $altText = __('Image', 'sater-alt-text-injector');
+        }
+        
+        // Inject alt text into img tag
+        // Replace empty alt or parsed=1
+        $figureHtml = preg_replace(
+            '/(<img[^>]*?\s)alt=(["\'])(|parsed=1|parsed="1")(\2)/',
+            '$1alt=$2' . esc_attr($altText) . '$4',
+            $figureHtml
+        );
+        
+        // If img doesn't have alt attribute at all, add it
+        if (!preg_match('/\salt=["\']/', $figureHtml)) {
+            $figureHtml = preg_replace(
+                '/(<img[^>]*?)(\s*\/?>)/',
+                '$1 alt="' . esc_attr($altText) . '"$2',
+                $figureHtml
+            );
+        }
+        
+        return $figureHtml;
+    }
+    
+    /**
+     * Enqueue debug script to console.log image alt text status
+     */
+    public function enqueueDebugScript()
+    {
+        // Only load on frontend when WP_DEBUG is enabled or query param is set
+        if (!is_admin() && (defined('WP_DEBUG') && WP_DEBUG || isset($_GET['debug_alt']))) {
+            wp_enqueue_script(
+                'sater-alt-text-debug',
+                plugins_url('js/debug-alt-text.js', __FILE__),
+                array(),
+                '1.0.0',
+                true
+            );
+        }
     }
     
     /**
@@ -56,19 +184,26 @@ class AutoAltTextInjector
             return $value;
         }
         
+        // DEBUG: Log that filter is being called
+        error_log("ALT TEXT FILTER CALLED for attachment ID: $object_id");
+        
         // Let WordPress get the actual value first
         // We need to remove our filter temporarily to avoid infinite loop
         remove_filter('get_post_metadata', array($this, 'filterImageAltText'), 10);
         $alt_text = get_post_meta($object_id, '_wp_attachment_image_alt', true);
         add_filter('get_post_metadata', array($this, 'filterImageAltText'), 10, 4);
         
+        error_log("ALT TEXT FROM DB: '$alt_text'");
+        
         // If alt text exists and is not empty, return it
         if (!empty($alt_text)) {
+            error_log("RETURNING EXISTING ALT: $alt_text");
             return $single ? $alt_text : array($alt_text);
         }
         
         // Generate alt text from attachment
         $generated_alt = $this->generateAltTextForAttachment($object_id);
+        error_log("GENERATED ALT: $generated_alt");
         
         return $single ? $generated_alt : array($generated_alt);
     }
