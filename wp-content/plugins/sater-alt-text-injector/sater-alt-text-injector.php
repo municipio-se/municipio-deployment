@@ -33,11 +33,15 @@ class AutoAltTextInjector
     public function __construct()
     {
         // PHP processing - reads WordPress alt text from database
-        add_action('template_redirect', array($this, 'startOutputBuffer'), PHP_INT_MAX);
+        // Use content filters only (safer than output buffering)
         add_filter('the_content', array($this, 'fixRenderedImages'), 998);
         add_filter('widget_text', array($this, 'fixRenderedImages'), 999);
+        add_filter('widget_block_content', array($this, 'fixRenderedImages'), 999);
         add_filter('the_excerpt', array($this, 'fixRenderedImages'), 999);
         add_filter('acf/format_value', array($this, 'injectAltTextInAcf'), 999, 3);
+        
+        // Also filter rendered blocks and Gutenberg content
+        add_filter('render_block', array($this, 'fixRenderedImages'), 999);
     }
     
     /**
