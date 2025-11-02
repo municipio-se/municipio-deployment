@@ -1,0 +1,8 @@
+{
+    "name": "sater-municipio/sater-search-filter",
+    "description": "Filters search results to only include specific post types (pages, news, events) and exclude Modularity modules",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "require": {}
+}
+

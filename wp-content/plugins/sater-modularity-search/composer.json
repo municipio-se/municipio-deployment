@@ -1,8 +1,0 @@
-{
-    "name": "sater-municipio/sater-modularity-search",
-    "description": "Enables Modularity modules to appear in search results by overriding their exclude_from_search setting",
-    "type": "wordpress-plugin",
-    "license": "MIT",
-    "require": {}
-}
-

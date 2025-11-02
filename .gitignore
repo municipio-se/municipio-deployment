@@ -3,7 +3,7 @@
 /wp-content/*
 !/wp-content/plugins/test-custom-plugin/**
 !/wp-content/plugins/sater-alt-text-injector/**
-!/wp-content/plugins/sater-modularity-search/**
+!/wp-content/plugins/sater-search-filter/**
 !/wp-content/plugins/cookies-and-content-security-policy-vars.php
 !/wp-content/advanced-cache.php
 !/wp-content/object-cache.php
