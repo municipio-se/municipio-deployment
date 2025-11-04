@@ -1,67 +1,89 @@
 ---
 mode: 'agent'
-model: 'GPT-4o'
-tools: ['edit', 'runCommands', 'changes', 'fetch', 'githubRepo']
+model: 'GPT-4.1'
+tools: ['edit', 'search', 'runCommands', 'changes', 'fetch', 'githubRepo']
 description: 'Prompt template for generating release logs based on composer.json changes.'
 ---
+# Release Log Generation Prompt
 
-# Release Log Prompt Template
+Generate a **concise, structured changelog** summarizing all relevant updates between two versions. The changelog should be ready to paste directly into `CHANGELOG.md`.
 
-Follow these steps exactly to generate the release log in a format suitable for inclusion in a `CHANGELOG.md` file:
+### **Data Gathering**
+1. Compare the current and previous `composer.json` files to identify packages with changed versions or configurations.  
+   Example:  
+   ```
+   git diff origin/master:composer.json composer.json
+   ```
 
-1. **Compare** the current `composer.json` file in this branch with the `composer.json` file from the `master` branch on GitHub by running `git diff origin/master:composer.json composer.json`.
-2. **Identify** all packages whose version or configuration has changed.
-3. **For each changed package:**
-   - Create a section with the package name and version change in the format:  
-     `## [Package Name][version-from...version-to]`
-   - Add a bullet-point list describing the specific changes (e.g., version updates, added/removed packages, configuration changes).
-   - **Do not** include a bullet point that describes the actual version change.
-   - **Include a URL to the change comparison for the version bump.**  
-     Format:  
-     `- [Compare changes](<url>)`
-   - Visit the package's repository on GitHub or Packagist to gather more details about the changes.
-   - **If the package belongs to the `helsingborg-stad` vendor,** provide detailed descriptions of the changes.
-   - **If the package does not belong to the `helsingborg-stad` vendor,** keep descriptions brief.
-4. **Do not include** any packages that have not changed.
-5. **Format** the release log exactly as follows, so it can be copy-pasted into a `CHANGELOG.md` file:
+2. For each changed package, gather the version differences and detailed changes using the GitHub CLI. EBoth commands below MUST be used to gather complete information:
+   ```
+    gh api repos/<owner>/<repo>/compare/<from_version>...<to_version> --jq '{ahead_by, behind_by, commits: [.commits[] | select(.commit.author.name != "github-actions[bot]") | .commit.message], files: [.files[].filename]}'
+   ```
+   ```
+    gh api repos/<owner>/<repo>/compare/<from_version>...<to_version> -H "Accept: application/vnd.github.v3.diff"
+   ```
+
+### **Changelog Generation**
+Output a clear, human-readable changelog with the following structure and formatting:
 
 ```
-## [Package Name][version-from...version-to]
+## [Package Name] [version-from...version-to]
 - [Description of change]
 - [Description of change]
 
-## [Next Package Name][version-from...version-to]
+## [Next Package Name] [version-from...version-to]
 - [Description of change]
 ```
 
-**Additional rules:**
-- Only include packages that have changed.
-- Do not include any other information or commentary.
-- Make the log clear and concise but still elaborate on the changes.
-- Always use the specified section and bullet formatting.
-- Do not deviate from these instructions.
-- The output must be ready to be copy-pasted into a `CHANGELOG.md` file.
-- Do not add generic statements like "Multiple updates and fixes across 92 files.". 
-- Be non-technical where possible, explaining changes in layman's terms.
-- Focus on the impact of changes rather than technical details. If a change cannot be explained in layman's terms, include it with technical details but keep it concise.
-- Do not speculate about the reasons or motivations behind changes.
-- Do not speculate about the impact of changes beyond what is explicitly stated in the change logs or commit messages.
-- Be shure to include all changes that has a effect on the user or developer using the package / application.
+Do not create any files; simply output the changelog content in the chat.
 
-**Output the result directly. Do not write to any file.**
+### **What to Include**
+- All **new features**, **enhancements**, **bug fixes**, and **functional changes**.
+- Only packages that have changed.
+- Information that impacts how users or developers use the package or app.
+- Clear, user-friendly package names (e.g., `Component Library` instead of `helsingborg-stad/component-library`).
+- Brief technical details where necessary to explain impact.
+- **Exclude generic entries such as "Updated package file versions to align with the new release" or similar statements that provide no functional or behavioral insight.**
+- **Avoid vague language for example "Miscellaneous improvements" or "Various bug fixes".**
 
-**Example output:**
+### **Tone and Style**
+- Use **simple, non-technical language** when possible.
+- Be **clear, direct, and descriptive**.
+- Write in a **concise, user-facing** tone.
+- Ensure every line communicates a meaningful change.
+
+### **Formatting**
+- Follow the section and bullet structure exactly.
+- Output should be in Markdown and HTML format both in a escaped manner, so i can copy it easily.
+
+### **Example**
 ```
-## helsingborg-stad/example-package[1.2.3...1.3.0]
-- [Compare changes](https://github.com/helsingborg-stad/example-package/compare/1.2.3...1.3.0)
-- Image Focus: Automatic sets the focus point to detected faces in a image (requires deepface), or fallbacks to automatic focus detection by “most busy area”.
-- Schema Import: A fix has been applied to avoid the risk och importing a empty set of data.
-- Resource from API: Removes the feature that could fetch data from a remote api in realtime. This has been completly replaces by SchemaData importer.
-- Gutenberg Rendering: Optimize number of call to do_blocks method. This patch reduces number of calls by 50%.
-- Singular Controller: Once is enough to prepare a post.
-- Gutenberg Hero: We are now reordering the flow of a page, when a hero is used first in a gutenberg page. The helper nav will now be placed after this block visually.
+Municipio Theme [5.177.1...5.177.2](https://github.com/helsingborg-stad/Municipio/compare/5.177.1...5.177.2)
+Image Focus: Automatically sets the focus point to detected faces in an image (requires DeepFace), or falls back to detecting the most visually active area.
+Schema Import: Prevents empty imports by validating data before processing.
+Resource from API: Replaces the live API fetching feature with the SchemaData importer for improved stability.
+Gutenberg Rendering: Reduces calls to the do_blocks method by 50%, improving performance.
+Singular Controller: Simplifies post preparation to avoid redundant calls.
+Gutenberg Hero: Adjusts layout so the hero block now appears before the helper navigation.
+Archive Appearance: Displays the post type name in archive list titles.
 
-## vendor/another-package[2.0.0...2.1.0]
-- [Compare changes](https://github.com/vendor/another-package/compare/2.0.0...2.1.0)
-- Minor bug fixes.
+Modularity [5.177.1...5.177.2](https://github.com/helsingborg-stad/modularity/compare/5.177.1...5.177.2)
+Menu Module: Normalizes grid layouts automatically to prevent layout issues when column counts differ.
+
+Component Library [5.177.1...5.177.2](https://github.com/helsingborg-stad/component-library/compare/5.177.1...5.177.2)
+Button Component: Corrects email link sanitization for safer output.
+
+S3 Index [5.177.1...5.177.2](https://github.com/helsingborg-stad/s3-local-index/compare/5.177.1...5.177.2)
+Manage Index: Handles index deletion errors gracefully to prevent fatal errors.
+Index Identifier: Improves path parsing for more accurate directory handling.
+Directory Resolver: Disabled on admin pages to prevent recursive folder creation failures during file uploads.
 ```
+
+### **Goal**
+Produce a clear, consistent, and accurate changelog that summarizes all impactful updates between two versions, formatted for publication. Present the result in the chat. 
+
+### Additional output requirements
+The output should also include a lead paragraph summarizing the overall changes made in this release, highlighting the most significant updates across all packages. It should be concise and informative, providing context for users about what to expect in this release. It should also categorize the release as one of the following: Major, Minor, or Patch, based on the nature of the changes included. It should be less than 75 words.
+
+### **Additional Output version**
+After generating the changelog in Markdown, also output an HTML version under a separate heading called **"HTML Version"**. Present the result in the chat. Any bullet points with a prefix (maked with:) shound be marked with bold in the HTML version.
