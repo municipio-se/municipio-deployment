@@ -41,7 +41,7 @@
     "helsingborg-stad/acf-openstreetmap-field": "0.79.12",
     "helsingborg-stad/active-directory-api-wp-integration": "3.1.5",
     "helsingborg-stad/algolia-index": "3.3.1",
-    "helsingborg-stad/algolia-index-js-searchpage-addon": "3.3.15",
+    "helsingborg-stad/algolia-index-js-searchpage-addon": "3.3.21",
     "helsingborg-stad/algolia-index-modularity-addon": "3.1.0",
     "helsingborg-stad/algolia-index-typesense-provider": "1.0.7",
     "helsingborg-stad/api-alarm-integration": "5.0.0",
