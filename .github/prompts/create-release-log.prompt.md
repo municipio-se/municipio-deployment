@@ -86,4 +86,4 @@ Produce a clear, consistent, and accurate changelog that summarizes all impactfu
 The output should also include a lead paragraph summarizing the overall changes made in this release, highlighting the most significant updates across all packages. It should be concise and informative, providing context for users about what to expect in this release. It should also categorize the release as one of the following: Major, Minor, or Patch, based on the nature of the changes included. It should be less than 75 words.
 
 ### **Additional Output version**
-After generating the changelog in Markdown, also output an HTML version under a separate heading called **"HTML Version"**. Present the result in the chat. Any bullet points with a prefix (maked with:) shound be marked with bold in the HTML version.
+After generating the changelog in Markdown, also output an ESCAPED HTML version under a separate heading called **"HTML Version"**. Present the result in the chat. Any bullet points with a prefix (maked with:) shound be marked with bold in the HTML version.
