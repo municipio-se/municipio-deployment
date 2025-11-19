@@ -30,6 +30,10 @@
     {
       "type": "composer",
       "url": "https://wpackagist.org"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/helsingborg-stad/modular-ai"
     }
   ],
   "require": {
