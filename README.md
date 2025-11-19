@@ -118,3 +118,5 @@ Distributed under the [MIT License][license-url].
 [issues-url]: https://github.com/municipio-se/municipio-deployment/issues
 [license-shield]: https://img.shields.io/github/license/municipio-se/municipio-deployment.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/municipio-se/municipio-deployment/master/LICENSE
+
+<!-- Updated: 2025-11-19 -->
