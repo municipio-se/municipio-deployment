@@ -2,10 +2,6 @@ name: E2E Tests
 
 on:
   workflow_dispatch:  # Enable manual trigger
-  workflow_run:
-    workflows: ["Build and deploy stage, beta, test release."]  # Name of the workflow to depend on
-    types:
-      - completed  # Trigger on workflow completion, whether success or failure
 jobs:
   e2e:
     uses: helsingborg-stad/municipio-e2e-tests/.github/workflows/e2e.yml@main
