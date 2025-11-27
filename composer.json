@@ -132,7 +132,8 @@
     "helsingborg-stad/wpmu-security": "1.8.3",
     "helsingborg-stad/acf-icon-field": "0.2.44",
     "helsingborg-stad/s3-local-index": "1.1.23",
-    "wpackagist-plugin/worddown":"1.1.1"
+    "wpackagist-plugin/worddown":"1.1.1",
+    "alingsas-kommun/modular-ai": "1.0.3"
   },
   "extra": {
     "path": "/",
