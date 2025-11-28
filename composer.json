@@ -78,7 +78,7 @@
     "helsingborg-stad/modularity-timeline": "5.0.2",
     "helsingborg-stad/multi-network-urls": "2.0.0",
     "helsingborg-stad/multisite-role-propagation": "3.0.7",
-    "helsingborg-stad/municipio": "6.6.2",
+    "helsingborg-stad/municipio": "6.8.10",
     "helsingborg-stad/redirection-extended": "3.0.6",
     "helsingborg-stad/s3-uploads-custom-endpoint": "2.0.0",
     "helsingborg-stad/search-notices": "3.0.4",
@@ -132,8 +132,7 @@
     "helsingborg-stad/wpmu-security": "1.8.3",
     "helsingborg-stad/acf-icon-field": "0.2.44",
     "helsingborg-stad/s3-local-index": "1.1.23",
-    "wpackagist-plugin/worddown":"1.1.1",
-    "alingsas-kommun/modular-ai": "1.0.3"
+    "wpackagist-plugin/worddown":"1.1.1"
   },
   "extra": {
     "path": "/",
