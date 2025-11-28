@@ -166,6 +166,9 @@
     }
   },
   "scripts": {
+    "pre-install-cmd": [
+      "php -r 'if (file_exists(\"composer.local.json\")) { $refHash = \"7ffa5b80d9c0ecd887cef1a7c621a9e67a5503f3b7d202e96a112fbb3e92742e\"; $currentHash = hash_file(\"sha256\", \"composer.local.json\"); if ($currentHash !== $refHash && file_exists(\"composer.lock\")) { unlink(\"composer.lock\"); echo \"Removed composer.lock due to composer.local.json is modified. The build will be slightly slower.\\n\"; } }'"
+    ],
     "post-install-cmd": [
       "mkdir -p wp-content/uploads/cache/blade-cache",
       "composer dump-autoload -o"
