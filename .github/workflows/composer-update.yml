@@ -4,6 +4,8 @@ on:
 jobs:
   composer-update:
     runs-on: ubuntu-latest
+    env:
+      COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GH_TOKEN }}"}}'
     steps:
       - uses: actions/checkout@v3
       - name: Set up PHP
