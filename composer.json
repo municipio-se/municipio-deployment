@@ -177,6 +177,6 @@
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/",
       "composer dump-autoload -o"
     ],
-    "update-lockfile": "command -v act >/dev/null 2>&1 || brew install act; act -j composer-update"
+    "update-lockfile": "command -v act >/dev/null 2>&1 || brew install act; act -j composer-update --bind"
   }
 }

@@ -23,8 +23,3 @@ jobs:
           composer clear-cache
       - name: Run composer update
         run: composer update
-      - name: Upload composer.lock artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: composer-lock
-          path: composer.lock
