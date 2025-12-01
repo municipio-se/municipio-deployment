@@ -9,10 +9,14 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.2'
       - name: Install Composer
         run: |
           curl -sS https://getcomposer.org/installer | php
           mv composer.phar /usr/local/bin/composer
+      - name: Cleanup vendor and composer cache
+        run: |
+          rm -rf vendor
+          composer clear-cache
       - name: Run composer update
         run: composer update
