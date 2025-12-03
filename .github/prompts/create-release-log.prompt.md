@@ -9,18 +9,9 @@ description: 'Prompt template for generating release logs based on composer.json
 Generate a **concise, structured changelog** summarizing all relevant updates between two versions. The changelog should be ready to paste directly into `CHANGELOG.md`.
 
 ### **Data Gathering**
-1. Compare the current and previous `composer.json` files to identify packages with changed versions or configurations.  
-   Example:  
+1. Run the following command to identify changed packages and their versions:
    ```
-   git diff origin/master:composer.json composer.json
-   ```
-
-2. For each changed package, gather the version differences and detailed changes using the GitHub CLI. EBoth commands below MUST be used to gather complete information:
-   ```
-    gh api repos/<owner>/<repo>/compare/<from_version>...<to_version> --jq '{ahead_by, behind_by, commits: [.commits[] | select(.commit.author.name != "github-actions[bot]") | .commit.message], files: [.files[].filename]}'
-   ```
-   ```
-    gh api repos/<owner>/<repo>/compare/<from_version>...<to_version> -H "Accept: application/vnd.github.v3.diff"
+   php ./.github/prompts/create-release-log-prompt.php
    ```
 
 ### **Changelog Generation**
