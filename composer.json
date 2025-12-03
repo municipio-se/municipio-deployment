@@ -19,7 +19,8 @@
       "johnpbloch/wordpress-core-installer": true,
       "wikimedia/composer-merge-plugin": true,
       "php-http/discovery": true
-    }
+    },
+    "optimize-autoloader": true
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -170,12 +171,10 @@
       "php build-pre.php"
     ],
     "post-install-cmd": [
-      "mkdir -p wp-content/uploads/cache/blade-cache",
-      "composer dump-autoload -o"
+      "mkdir -p wp-content/uploads/cache/blade-cache"
     ],
     "post-update-cmd": [
-      "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/",
-      "composer dump-autoload -o"
+      "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/"
     ],
     "update-lockfile": "command -v act >/dev/null 2>&1 || brew install act; act -j composer-update --bind"
   }
