@@ -20,8 +20,8 @@ Class CreateReleaseLogPrompt {
             $summaryCommand     = $this->githubSummaryCommand($fromVersion, $toVersion, $package);
             $summaryFormatted   = $this->formatSummary(shell_exec($summaryCommand));
 
-            echo $detailCommand = $this->githubDiffCommand($fromVersion, $toVersion, $package);
-            $detailFormatted   = $this->formatDiff(shell_exec($detailCommand));
+            $detailCommand      = $this->githubDiffCommand($fromVersion, $toVersion, $package);
+            $detailFormatted    = $this->formatDiff(shell_exec($detailCommand));
 
             echo "----------------------------------------------------------------------\n";
             echo "The following package has been updated:\n";
