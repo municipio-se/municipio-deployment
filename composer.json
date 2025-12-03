@@ -39,7 +39,7 @@
     "aws/aws-sdk-php": "^3.282.1",
     "composer/installers": "~1.0",
     "firebase/php-jwt": "^6.8.1",
-    "helsingborg-stad/acf-icon-field": "0.2.44",
+    "helsingborg-stad/acf-icon-field": "0.2.46",
     "helsingborg-stad/acf-openstreetmap-field": "0.79.13",
     "helsingborg-stad/active-directory-api-wp-integration": "3.1.6",
     "helsingborg-stad/algolia-index": "3.5.2",

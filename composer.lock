@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db1c3646723bbc7cb7892b352cc3caf1",
+    "content-hash": "da0f788a01533f7c6d7c461b9a2c15d9",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1647,16 +1647,16 @@
         },
         {
             "name": "helsingborg-stad/acf-icon-field",
-            "version": "0.2.44",
+            "version": "0.2.46",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/acf-icon-field.git",
-                "reference": "abac7c111c70d1b0fd727b138161beb4a6e3020b"
+                "reference": "67939bb5e3b20e0125ef957d1249096800f44821"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/acf-icon-field/zipball/abac7c111c70d1b0fd727b138161beb4a6e3020b",
-                "reference": "abac7c111c70d1b0fd727b138161beb4a6e3020b",
+                "url": "https://api.github.com/repos/helsingborg-stad/acf-icon-field/zipball/67939bb5e3b20e0125ef957d1249096800f44821",
+                "reference": "67939bb5e3b20e0125ef957d1249096800f44821",
                 "shasum": ""
             },
             "type": "wordpress-muplugin",
@@ -1677,9 +1677,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/acf-icon-field/issues",
-                "source": "https://github.com/helsingborg-stad/acf-icon-field/tree/0.2.44"
+                "source": "https://github.com/helsingborg-stad/acf-icon-field/tree/0.2.46"
             },
-            "time": "2025-11-20T08:25:59+00:00"
+            "time": "2025-12-03T12:58:00+00:00"
         },
         {
             "name": "helsingborg-stad/acf-openstreetmap-field",
