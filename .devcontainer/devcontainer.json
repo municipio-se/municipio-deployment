@@ -33,8 +33,7 @@
 				"ritwickdey.liveserver",
 				"ms-vscode.remote-server",
 				"cjhowe7.laravel-blade",
-				"github.vscode-github-actions",
-				"valeryanm.vscode-phpsab"
+				"github.vscode-github-actions"
 			],
 			"settings": {
 				"remote.autoForwardPorts": false,
