@@ -101,6 +101,17 @@ if (file_exists(__DIR__ . '/config/developer.php')) {
     require_once __DIR__ . '/config/developer.php';
 }
 
+/**
+ * Tideways settings
+ *
+ * You can create a file called "tideways.php" in the config dir and
+ * put your tideways configurations inside.
+ */
+if (file_exists(__DIR__ . '/config/tideways.php')) {
+    require_once __DIR__ . '/config/tideways.php';
+}
+
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */

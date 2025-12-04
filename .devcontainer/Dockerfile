@@ -9,7 +9,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # Install php-mysql driver and additional PHP modules
 RUN docker-php-ext-install mysqli pdo pdo_mysql pcntl exif zip intl
 
-#install Image magick for php 8.3
+# Install Image magick for php 8.3
 RUN git clone https://github.com/Imagick/imagick.git --depth 1 /tmp/imagick && \
     cd /tmp/imagick && \
     git fetch origin master && \
@@ -23,6 +23,10 @@ RUN git clone https://github.com/Imagick/imagick.git --depth 1 /tmp/imagick && \
     apt-get autoremove -y && \
     docker-php-ext-enable imagick && \
     rm -rf /var/lib/apt/lists/*
+
+# Install GD 
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install gd
 
 # Install WP-CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
@@ -54,6 +58,10 @@ RUN (type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
 	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
 	&& sudo apt update \
 	&& sudo apt install gh -y
+
+# Install PHP tidy extension
+RUN apt-get update && apt-get install -y libtidy-dev \
+    && docker-php-ext-install tidy
 
 RUN a2enmod headers mime rewrite ssl
 RUN a2ensite default-ssl
