@@ -176,6 +176,12 @@
     "post-update-cmd": [
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/"
     ],
-    "update-lockfile": "command -v act >/dev/null 2>&1 || brew install act; act -j composer-update --bind"
+    "update-lockfile": "command -v act >/dev/null 2>&1 || brew install act; act -j composer-update --bind",
+    "resolve-conflicts": [
+        "git fetch origin",
+        "git checkout stage",
+        "git merge -X ours origin/master || true",
+        "git commit --no-edit || true",
+    ]
   }
 }
