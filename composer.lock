@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "320d9add195609db433d74f6adcd0053",
+    "content-hash": "31c3c93de22ca3d74d3fefed8754fe60",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -3550,16 +3550,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-open-street-map",
-            "version": "3.0.4",
+            "version": "3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-openstreetmap.git",
-                "reference": "4f09aa512a1650c692de3df40b0c0000ef84dd1d"
+                "reference": "b513991d8132735744f2f7a34aa4064a54640a5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-openstreetmap/zipball/4f09aa512a1650c692de3df40b0c0000ef84dd1d",
-                "reference": "4f09aa512a1650c692de3df40b0c0000ef84dd1d",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-openstreetmap/zipball/b513991d8132735744f2f7a34aa4064a54640a5f",
+                "reference": "b513991d8132735744f2f7a34aa4064a54640a5f",
                 "shasum": ""
             },
             "require": {
@@ -3599,9 +3599,9 @@
             "description": "Open Street Map integration",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-openstreetmap/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-openstreetmap/tree/3.0.4"
+                "source": "https://github.com/helsingborg-stad/modularity-openstreetmap/tree/3.0.5"
             },
-            "time": "2025-12-05T09:36:04+00:00"
+            "time": "2025-12-05T09:52:48+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-products",
@@ -3926,16 +3926,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.10.19",
+            "version": "6.10.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "1f315b3321c2ec0c71acf9dc4a6b8829379422f3"
+                "reference": "e30d366b1fe816106783bc0828aca78568133f11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/1f315b3321c2ec0c71acf9dc4a6b8829379422f3",
-                "reference": "1f315b3321c2ec0c71acf9dc4a6b8829379422f3",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/e30d366b1fe816106783bc0828aca78568133f11",
+                "reference": "e30d366b1fe816106783bc0828aca78568133f11",
                 "shasum": ""
             },
             "require": {
@@ -4011,9 +4011,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.10.19"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.10.21"
             },
-            "time": "2025-12-05T09:27:27+00:00"
+            "time": "2025-12-05T09:56:13+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
