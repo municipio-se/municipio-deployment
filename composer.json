@@ -180,7 +180,7 @@
     "resolve-conflicts": [
         "git fetch origin",
         "git checkout stage",
-        "git merge -X ours origin/master || true",
+        "git merge -X ours --no-edit origin/master || true",
         "git commit --no-edit || true"
     ]
   }
