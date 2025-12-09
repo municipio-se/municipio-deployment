@@ -27,7 +27,8 @@ Class CreateReleaseLogPrompt {
             echo "The following package has been updated:\n";
             echo "Package id:   {$package}\n";
             echo "From version: {$fromVersion}\n";
-            echo "To version:   {$toVersion}\n\n";
+            echo "To version:   {$toVersion}\n";
+            echo "Diff link:    https://github.com/{$package}/compare/{$fromVersion}...{$toVersion}\n\n";
 
             echo "----------------------------------------------------------------------\n";
             echo "Summary of commit messages and files changed:\n";
