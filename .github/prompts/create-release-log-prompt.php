@@ -27,7 +27,8 @@ Class CreateReleaseLogPrompt {
             echo "The following package has been updated:\n";
             echo "Package id:   {$package}\n";
             echo "From version: {$fromVersion}\n";
-            echo "To version:   {$toVersion}\n\n";
+            echo "To version:   {$toVersion}\n";
+            echo "Diff link:    https://github.com/{$package}/compare/{$fromVersion}...{$toVersion}\n\n";
 
             echo "----------------------------------------------------------------------\n";
             echo "Summary of commit messages and files changed:\n";
@@ -138,11 +139,12 @@ Class CreateReleaseLogPrompt {
             return "(No summary data available)";
         }
 
-        $output = "Ahead by:   " . ($decodedSummary['ahead_by'] ?? 'N/A') . "\n";
-        $output .= "Behind by:  " . ($decodedSummary['behind_by'] ?? 'N/A') . "\n";
+        $output = "Ahead by:      " . ($decodedSummary['ahead_by'] ?? 'N/A') . "\n";
+        $output .= "Behind by:     " . ($decodedSummary['behind_by'] ?? 'N/A') . "\n";
 
-        $output .= "Commits:\n";
+        $output .= "Commits:";
         if (!empty($decodedSummary['commits']) && is_array($decodedSummary['commits'])) {
+            $output .= "\n";
             foreach ($decodedSummary['commits'] as $commit) {
                 $lines = explode("\n", $commit);
                 foreach ($lines as $i => $line) {
@@ -157,16 +159,17 @@ Class CreateReleaseLogPrompt {
                 }
             }
         } else {
-            $output .= "  (No commit messages)\n";
+            $output .= "       [No commit messages]\n";
         }
 
-        $output .= "Changed files:\n";
+        $output .= "Changed files:";
         if (!empty($decodedSummary['files']) && is_array($decodedSummary['files'])) {
+            $output .= "\n";
             foreach ($decodedSummary['files'] as $file) {
                 $output .= "  - " . $file . "\n";
             }
         } else {
-            $output .= "  (No files changed)\n";
+            $output .= " [No files changed]\n";
         }
 
         return $output;
