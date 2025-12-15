@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d1efa4b36544520e4b7f3f10d4d351a",
+    "content-hash": "fbfb5a8d03ababf9cee012140a178b7d",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2090,16 +2090,16 @@
         },
         {
             "name": "helsingborg-stad/api-event-manager-integration",
-            "version": "3.0.9",
+            "version": "3.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-event-manager-integration.git",
-                "reference": "8219fd59ff1a11e84688f53aecce25e1b8e71d8b"
+                "reference": "d3114265073e994398cc7e9d930df30e8443d023"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/8219fd59ff1a11e84688f53aecce25e1b8e71d8b",
-                "reference": "8219fd59ff1a11e84688f53aecce25e1b8e71d8b",
+                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/d3114265073e994398cc7e9d930df30e8443d023",
+                "reference": "d3114265073e994398cc7e9d930df30e8443d023",
                 "shasum": ""
             },
             "require": {
@@ -2141,9 +2141,9 @@
             "description": "Import and display events from Event Manager API.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-event-manager-integration/issues",
-                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.0.9"
+                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.0.11"
             },
-            "time": "2025-12-05T09:38:58+00:00"
+            "time": "2025-12-15T13:29:11+00:00"
         },
         {
             "name": "helsingborg-stad/api-volunteer-manager-integration",
@@ -3927,16 +3927,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.11.24",
+            "version": "6.11.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "2b7cc159ae8ad998f57d22bd5665ebcbbfe8ca4b"
+                "reference": "682113aef342c3179065eab256bde360b86c004b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/2b7cc159ae8ad998f57d22bd5665ebcbbfe8ca4b",
-                "reference": "2b7cc159ae8ad998f57d22bd5665ebcbbfe8ca4b",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/682113aef342c3179065eab256bde360b86c004b",
+                "reference": "682113aef342c3179065eab256bde360b86c004b",
                 "shasum": ""
             },
             "require": {
@@ -4012,9 +4012,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.11.24"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.11.26"
             },
-            "time": "2025-12-15T09:23:12+00:00"
+            "time": "2025-12-15T13:32:06+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
