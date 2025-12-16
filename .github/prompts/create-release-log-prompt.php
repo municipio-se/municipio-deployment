@@ -36,6 +36,12 @@ Class CreateReleaseLogPrompt {
 
             echo $summaryFormatted ."\n";
 
+            //If --small flag is set, we can skip the detailed diff
+            if (in_array('--small', $_SERVER['argv'])) {
+                echo "(Detailed diff skipped due to --small flag)\n";
+                continue;
+            }
+
             echo "----------------------------------------------------------------------\n";
             echo "Detailed diff of files changed:\n";
             echo "----------------------------------------------------------------------\n";

@@ -11,7 +11,7 @@ Generate a **concise, structured changelog** summarizing all relevant updates be
 ### **Data Gathering**
 1. Run the following command to identify changed packages and their versions:
    ```
-   php ./.github/prompts/create-release-log-prompt.php
+   php ./.github/prompts/create-release-log-prompt.php --small
    ```
 
 ### **Changelog Generation**

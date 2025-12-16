@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3c638fe6ea647ba154704e3a9517651",
+    "content-hash": "9818dc0cf76a76d14fc9e44734a96133",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -290,16 +290,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.366.4",
+            "version": "3.367.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "1861cc8eede21cdaab0732fd44f43f19ddf1effd"
+                "reference": "d8e6e0691a38223523c38ca9c452ebcd084c7151"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1861cc8eede21cdaab0732fd44f43f19ddf1effd",
-                "reference": "1861cc8eede21cdaab0732fd44f43f19ddf1effd",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d8e6e0691a38223523c38ca9c452ebcd084c7151",
+                "reference": "d8e6e0691a38223523c38ca9c452ebcd084c7151",
                 "shasum": ""
             },
             "require": {
@@ -381,9 +381,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.366.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.367.3"
             },
-            "time": "2025-12-09T19:21:22+00:00"
+            "time": "2025-12-15T19:05:56+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -2091,16 +2091,16 @@
         },
         {
             "name": "helsingborg-stad/api-event-manager-integration",
-            "version": "3.0.9",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-event-manager-integration.git",
-                "reference": "8219fd59ff1a11e84688f53aecce25e1b8e71d8b"
+                "reference": "dc48892d3f406e21b65e0d59c6024edc8648943f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/8219fd59ff1a11e84688f53aecce25e1b8e71d8b",
-                "reference": "8219fd59ff1a11e84688f53aecce25e1b8e71d8b",
+                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/dc48892d3f406e21b65e0d59c6024edc8648943f",
+                "reference": "dc48892d3f406e21b65e0d59c6024edc8648943f",
                 "shasum": ""
             },
             "require": {
@@ -2142,9 +2142,9 @@
             "description": "Import and display events from Event Manager API.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-event-manager-integration/issues",
-                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.0.9"
+                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.1.0"
             },
-            "time": "2025-12-05T09:38:58+00:00"
+            "time": "2025-12-16T07:57:58+00:00"
         },
         {
             "name": "helsingborg-stad/api-volunteer-manager-integration",
@@ -2428,23 +2428,25 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.62.26",
+            "version": "4.62.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "4956efbe59e159b312e67bae17bdc5a5bbad2e70"
+                "reference": "f8ddf56e77b7bfdfcbba84b1281cb8c902ef71bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/4956efbe59e159b312e67bae17bdc5a5bbad2e70",
-                "reference": "4956efbe59e159b312e67bae17bdc5a5bbad2e70",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/f8ddf56e77b7bfdfcbba84b1281cb8c902ef71bb",
+                "reference": "f8ddf56e77b7bfdfcbba84b1281cb8c902ef71bb",
                 "shasum": ""
             },
             "require": {
                 "helsingborg-stad/blade": "^3.5.0",
+                "helsingborg-stad/wpservice": "^2.0",
                 "php": "^8.0"
             },
             "require-dev": {
+                "carthage-software/mago": "^1.0.0-rc.3",
                 "mockery/mockery": "^1.6",
                 "phpunit/phpunit": "^9.6"
             },
@@ -2467,9 +2469,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.62.26"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.62.29"
             },
-            "time": "2025-11-24T12:08:34+00:00"
+            "time": "2025-12-10T09:49:53+00:00"
         },
         {
             "name": "helsingborg-stad/content-scheduler",
@@ -3926,16 +3928,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.10.47",
+            "version": "6.11.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "156fad8d5786427326fcd852039d60f118450a50"
+                "reference": "682113aef342c3179065eab256bde360b86c004b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/156fad8d5786427326fcd852039d60f118450a50",
-                "reference": "156fad8d5786427326fcd852039d60f118450a50",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/682113aef342c3179065eab256bde360b86c004b",
+                "reference": "682113aef342c3179065eab256bde360b86c004b",
                 "shasum": ""
             },
             "require": {
@@ -3948,7 +3950,7 @@
                 "helsingborg-stad/acf-export-manager": ">=1.0.0",
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
-                "helsingborg-stad/component-library": "4.62.26",
+                "helsingborg-stad/component-library": "4.62.29",
                 "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.4",
                 "helsingborg-stad/wpservice": "^2.0",
@@ -4011,9 +4013,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.10.47"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.11.26"
             },
-            "time": "2025-12-09T12:17:27+00:00"
+            "time": "2025-12-15T13:32:06+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -4702,16 +4704,16 @@
         },
         {
             "name": "helsingborg-stad/wpmu-security",
-            "version": "1.8.5",
+            "version": "1.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpmu-security.git",
-                "reference": "085fe8fa97bc6d7249adf3719bb8d1e82eb438a5"
+                "reference": "62f8588173960a3d92e6dd0306bdc237cd977b4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/085fe8fa97bc6d7249adf3719bb8d1e82eb438a5",
-                "reference": "085fe8fa97bc6d7249adf3719bb8d1e82eb438a5",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/62f8588173960a3d92e6dd0306bdc237cd977b4f",
+                "reference": "62f8588173960a3d92e6dd0306bdc237cd977b4f",
                 "shasum": ""
             },
             "require": {
@@ -4744,9 +4746,9 @@
             "description": "A WordPress MU Plugin for security enhancements",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpmu-security/issues",
-                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.8.5"
+                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.8.6"
             },
-            "time": "2025-12-04T10:45:08+00:00"
+            "time": "2025-12-16T08:37:49+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -4900,16 +4902,16 @@
         },
         {
             "name": "http-interop/http-factory-guzzle",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/http-interop/http-factory-guzzle.git",
-                "reference": "8f06e92b95405216b237521cc64c804dd44c4a81"
+                "reference": "c2c859ceb05c3f42e710b60555f4c35b6a4a3995"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/http-interop/http-factory-guzzle/zipball/8f06e92b95405216b237521cc64c804dd44c4a81",
-                "reference": "8f06e92b95405216b237521cc64c804dd44c4a81",
+                "url": "https://api.github.com/repos/http-interop/http-factory-guzzle/zipball/c2c859ceb05c3f42e710b60555f4c35b6a4a3995",
+                "reference": "c2c859ceb05c3f42e710b60555f4c35b6a4a3995",
                 "shasum": ""
             },
             "require": {
@@ -4952,9 +4954,9 @@
             ],
             "support": {
                 "issues": "https://github.com/http-interop/http-factory-guzzle/issues",
-                "source": "https://github.com/http-interop/http-factory-guzzle/tree/1.2.0"
+                "source": "https://github.com/http-interop/http-factory-guzzle/tree/1.2.1"
             },
-            "time": "2021-07-21T13:50:14+00:00"
+            "time": "2025-12-15T11:28:16+00:00"
         },
         {
             "name": "humanmade/s3-uploads",
@@ -5847,16 +5849,16 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "5.3.0",
+            "version": "5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8"
+                "reference": "b5a44b6391a3bbb75c9f2b73e1ef03d6045e1e20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8",
-                "reference": "feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/b5a44b6391a3bbb75c9f2b73e1ef03d6045e1e20",
+                "reference": "b5a44b6391a3bbb75c9f2b73e1ef03d6045e1e20",
                 "shasum": ""
             },
             "require": {
@@ -5906,9 +5908,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/5.3.0"
+                "source": "https://github.com/jsonrainbow/json-schema/tree/5.3.1"
             },
-            "time": "2024-07-06T21:00:26+00:00"
+            "time": "2025-12-12T08:56:22+00:00"
         },
         {
             "name": "landrok/language-detector",
@@ -7357,16 +7359,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.47",
+            "version": "3.0.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "9d6ca36a6c2dd434765b1071b2644a1c683b385d"
+                "reference": "64065a5679c50acb886e82c07aa139b0f757bb89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/9d6ca36a6c2dd434765b1071b2644a1c683b385d",
-                "reference": "9d6ca36a6c2dd434765b1071b2644a1c683b385d",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/64065a5679c50acb886e82c07aa139b0f757bb89",
+                "reference": "64065a5679c50acb886e82c07aa139b0f757bb89",
                 "shasum": ""
             },
             "require": {
@@ -7447,7 +7449,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.47"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.48"
             },
             "funding": [
                 {
@@ -7463,7 +7465,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-10-06T01:07:24+00:00"
+            "time": "2025-12-15T11:51:42+00:00"
         },
         {
             "name": "pragmarx/ia-arr",
