@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ac2bfd6e3a42f6e6e27706938a110ed",
+    "content-hash": "9818dc0cf76a76d14fc9e44734a96133",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -4703,16 +4703,16 @@
         },
         {
             "name": "helsingborg-stad/wpmu-security",
-            "version": "1.8.5",
+            "version": "1.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpmu-security.git",
-                "reference": "085fe8fa97bc6d7249adf3719bb8d1e82eb438a5"
+                "reference": "62f8588173960a3d92e6dd0306bdc237cd977b4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/085fe8fa97bc6d7249adf3719bb8d1e82eb438a5",
-                "reference": "085fe8fa97bc6d7249adf3719bb8d1e82eb438a5",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/62f8588173960a3d92e6dd0306bdc237cd977b4f",
+                "reference": "62f8588173960a3d92e6dd0306bdc237cd977b4f",
                 "shasum": ""
             },
             "require": {
@@ -4745,9 +4745,9 @@
             "description": "A WordPress MU Plugin for security enhancements",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpmu-security/issues",
-                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.8.5"
+                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.8.6"
             },
-            "time": "2025-12-04T10:45:08+00:00"
+            "time": "2025-12-16T08:37:49+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
