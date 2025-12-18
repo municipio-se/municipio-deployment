@@ -1,0 +1,17 @@
+.devcontainer
+.vscode
+.github
+.gitignore
+.secrets
+auth.json
+GitVersion.yml
+humans.txt
+install.html
+LICENSE
+publiccde.yml
+README.md
+config-example/
+db/
+franken/
+guide/
+images/

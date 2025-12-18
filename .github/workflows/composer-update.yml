@@ -1,0 +1,25 @@
+name: Composer Update
+on:
+  workflow_dispatch:
+jobs:
+  composer-update:
+    runs-on: ubuntu-latest
+    env:
+      COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GH_TOKEN }}"}}'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: imagick
+      - name: Install Composer
+        run: |
+          curl -sS https://getcomposer.org/installer | php
+          mv composer.phar /usr/local/bin/composer
+      - name: Cleanup vendor and composer cache
+        run: |
+          rm -rf vendor
+          composer clear-cache
+      - name: Run composer update
+        run: composer update

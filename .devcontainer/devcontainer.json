@@ -15,12 +15,13 @@
 	},
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"setup": "chmod +x .devcontainer/setup.sh && bash .devcontainer/setup.sh"
+		"setup": "chmod +x .devcontainer/postCreateCommand.sh && bash .devcontainer/postCreateCommand.sh"
 	},
+	"postStartCommand": "chmod +x .devcontainer/postStartCommand.sh && bash .devcontainer/postStartCommand.sh",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {
-			"version": "16"
+			"version": "22"
 		}
 	},
 	//"waitFor": "postCreateCommand",
@@ -32,8 +33,7 @@
 				"ritwickdey.liveserver",
 				"ms-vscode.remote-server",
 				"cjhowe7.laravel-blade",
-				"github.vscode-github-actions",
-				"valeryanm.vscode-phpsab"
+				"github.vscode-github-actions"
 			],
 			"settings": {
 				"remote.autoForwardPorts": false,

@@ -1,0 +1,9 @@
+name: E2E Tests
+
+on:
+  workflow_dispatch:  # Enable manual trigger
+jobs:
+  e2e:
+    uses: helsingborg-stad/municipio-e2e-tests/.github/workflows/e2e.yml@main
+    with:
+      sitemaps: ${{ vars.E2E_SITEMAP_URLS }}
