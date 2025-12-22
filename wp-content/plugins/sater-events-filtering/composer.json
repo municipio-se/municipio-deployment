@@ -1,0 +1,8 @@
+{
+    "name": "sater-municipio/sater-events-filtering",
+    "description": "Handles category and date filtering logic for the events archive page",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "require": {}
+}
+

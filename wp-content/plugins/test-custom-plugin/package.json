@@ -1,0 +1,25 @@
+{
+  "name": "test-custom-plugin",
+  "version": "1.0.0",
+  "description": "Test plugin for build process",
+  "main": "",
+  "scripts": {
+    "build": "webpack --mode production",
+    "watch": "webpack --watch --mode development",
+    "build:dev": "webpack --mode development"
+  },
+  "author": "Jovica",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.0",
+    "webpack-manifest-plugin": "^5.0.0",
+    "css-loader": "^6.8.1",
+    "style-loader": "^3.3.3",
+    "sass": "^1.64.0",
+    "sass-loader": "^13.3.0",
+    "mini-css-extract-plugin": "^2.7.0",
+    "clean-webpack-plugin": "^4.0.0"
+  }
+}
+

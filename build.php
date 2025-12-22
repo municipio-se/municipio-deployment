@@ -10,6 +10,7 @@
  *  - cleanup: Remove files and folders in removeables list. 
  *  - install-npm: Installs JS and CSS dists from NPM instead of building them. 
  * 
+ * Deployment test: 2025-10-19
  */
 
 // Only allow run from cli.
