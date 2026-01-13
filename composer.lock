@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2373f07a160e9c34d776d5a5ffb69a8d",
+    "content-hash": "d1b191e37403fea23f796e3e1509a66e",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -3404,57 +3404,6 @@
                 "source": "https://github.com/helsingborg-stad/modularity-guides/tree/5.0.2"
             },
             "time": "2025-11-20T09:26:14+00:00"
-        },
-        {
-            "name": "helsingborg-stad/modularity-interactive-img-map",
-            "version": "5.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helsingborg-stad/modularity-interactive-img-map.git",
-                "reference": "6066d1ccbbfdcbb1357af417f64ac05b3d28209b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-interactive-img-map/zipball/6066d1ccbbfdcbb1357af417f64ac05b3d28209b",
-                "reference": "6066d1ccbbfdcbb1357af417f64ac05b3d28209b",
-                "shasum": ""
-            },
-            "require": {
-                "helsingborg-stad/municipio": "^6.0.0"
-            },
-            "type": "wordpress-plugin",
-            "extra": {
-                "installer-paths": {
-                    "vendor/{$vendor}/{$name}": [
-                        "type:wordpress-muplugin",
-                        "type:wordpress-theme",
-                        "type:wordpress-plugin",
-                        "type:acf-plugin"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ModularityInteractiveMap\\": "source/php/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Guy Incognito",
-                    "email": "guy.incognito@example.com"
-                }
-            ],
-            "description": "Add functionality to create clickable interactive maps in modularity.",
-            "support": {
-                "issues": "https://github.com/helsingborg-stad/modularity-interactive-img-map/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-interactive-img-map/tree/5.0.2"
-            },
-            "abandoned": true,
-            "time": "2025-11-20T09:27:36+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-json-render",
