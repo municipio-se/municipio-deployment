@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e14350e7fbfc518968bf4f0829ff5f91",
+    "content-hash": "bfcc1ec2fe29979c77e94b949a86e9a5",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1628,7 +1628,6 @@
                     "AcfExportManager\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1640,8 +1639,8 @@
             ],
             "description": "ACF Export Manager is a extension that let's you automatically export specified your ACF fields on save.",
             "support": {
-                "issues": "https://github.com/helsingborg-stad/acf-export-manager/issues",
-                "source": "https://github.com/helsingborg-stad/acf-export-manager/tree/1.0.12"
+                "source": "https://github.com/helsingborg-stad/acf-export-manager/tree/1.0.12",
+                "issues": "https://github.com/helsingborg-stad/acf-export-manager/issues"
             },
             "time": "2023-05-25T07:56:58+00:00"
         },
@@ -2433,16 +2432,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.63.0",
+            "version": "4.65.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "970cfa576501f25f8a9345dfda17dba6c63c9e14"
+                "reference": "986575da54822816ab34e69f4ed9bc005fa0c406"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/970cfa576501f25f8a9345dfda17dba6c63c9e14",
-                "reference": "970cfa576501f25f8a9345dfda17dba6c63c9e14",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/986575da54822816ab34e69f4ed9bc005fa0c406",
+                "reference": "986575da54822816ab34e69f4ed9bc005fa0c406",
                 "shasum": ""
             },
             "require": {
@@ -2474,9 +2473,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.63.0"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.65.1"
             },
-            "time": "2025-12-17T13:43:34+00:00"
+            "time": "2026-01-21T06:25:19+00:00"
         },
         {
             "name": "helsingborg-stad/content-scheduler",
@@ -3883,16 +3882,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.15.13",
+            "version": "6.15.45",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "6354e6eb64a57d7d188082b1a9c8cdd49615e688"
+                "reference": "45c420cb65855a9ed6fecdce747288c258f74c30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/6354e6eb64a57d7d188082b1a9c8cdd49615e688",
-                "reference": "6354e6eb64a57d7d188082b1a9c8cdd49615e688",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/45c420cb65855a9ed6fecdce747288c258f74c30",
+                "reference": "45c420cb65855a9ed6fecdce747288c258f74c30",
                 "shasum": ""
             },
             "require": {
@@ -3905,7 +3904,7 @@
                 "helsingborg-stad/acf-export-manager": ">=1.0.0",
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
-                "helsingborg-stad/component-library": "4.63.0",
+                "helsingborg-stad/component-library": "4.65.1",
                 "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.4",
                 "helsingborg-stad/wpservice": "^2.0",
@@ -3968,9 +3967,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.15.13"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.15.45"
             },
-            "time": "2026-01-13T11:46:43+00:00"
+            "time": "2026-01-21T07:31:38+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
