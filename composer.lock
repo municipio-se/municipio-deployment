@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfcc1ec2fe29979c77e94b949a86e9a5",
+    "content-hash": "fb9eee8f6925ee96ae6589433caeca82",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2432,16 +2432,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.65.1",
+            "version": "4.65.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "986575da54822816ab34e69f4ed9bc005fa0c406"
+                "reference": "8a7d1661b5bfd574e22079d08f9cf555b258ac5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/986575da54822816ab34e69f4ed9bc005fa0c406",
-                "reference": "986575da54822816ab34e69f4ed9bc005fa0c406",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/8a7d1661b5bfd574e22079d08f9cf555b258ac5c",
+                "reference": "8a7d1661b5bfd574e22079d08f9cf555b258ac5c",
                 "shasum": ""
             },
             "require": {
@@ -2473,9 +2473,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.65.1"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.65.4"
             },
-            "time": "2026-01-21T06:25:19+00:00"
+            "time": "2026-01-21T13:17:33+00:00"
         },
         {
             "name": "helsingborg-stad/content-scheduler",
@@ -3882,16 +3882,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.15.45",
+            "version": "6.15.53",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "45c420cb65855a9ed6fecdce747288c258f74c30"
+                "reference": "946de327262c6b341e8b2f4bc7c308904daf1572"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/45c420cb65855a9ed6fecdce747288c258f74c30",
-                "reference": "45c420cb65855a9ed6fecdce747288c258f74c30",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/946de327262c6b341e8b2f4bc7c308904daf1572",
+                "reference": "946de327262c6b341e8b2f4bc7c308904daf1572",
                 "shasum": ""
             },
             "require": {
@@ -3904,7 +3904,7 @@
                 "helsingborg-stad/acf-export-manager": ">=1.0.0",
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
-                "helsingborg-stad/component-library": "4.65.1",
+                "helsingborg-stad/component-library": "4.65.4",
                 "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.4",
                 "helsingborg-stad/wpservice": "^2.0",
@@ -3967,9 +3967,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.15.45"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.15.53"
             },
-            "time": "2026-01-21T07:31:38+00:00"
+            "time": "2026-01-22T14:41:39+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
