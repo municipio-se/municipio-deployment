@@ -181,6 +181,10 @@
         "git checkout stage",
         "git merge -X ours --no-edit origin/master || true",
         "git commit --no-edit || true"
+    ],
+    "pin-all-latest": [
+      "bash -c 'set -euo pipefail; composer outdated --direct --format=json | jq -c \".installed[] | select(.latest != null and .latest != \\\"[none matched]\\\") | {name:.name, version:.latest}\" | while read -r row; do PKG=$(echo \"$row\" | jq -r .name); VER=$(echo \"$row\" | jq -r .version); if jq -e --arg p \"$PKG\" \".require | has(\\$p)\" composer.json > /dev/null; then echo \"Updating $PKG to $VER\"; jq --arg p \"$PKG\" --arg v \"$VER\" \".require[\\$p] = \\$v\" composer.json > composer.json.tmp && mv composer.json.tmp composer.json; else echo \"Skipping $PKG (not defined in root composer.json)\"; fi; done'",
+      "composer update --lock"
     ]
   }
 }
