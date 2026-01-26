@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5151a77b50f850a09f5e789cbeb28f60",
+    "content-hash": "0482a5e1f436d17e4741ad28ef61225c",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -9778,6 +9778,24 @@
             "homepage": "https://wordpress.org/plugins/nginx-helper/"
         },
         {
+            "name": "wpackagist-plugin/post-expirator",
+            "version": "4.9.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/post-expirator/",
+                "reference": "tags/4.9.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.9.4.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/post-expirator/"
+        },
+        {
             "name": "wpackagist-plugin/pressidium-cookie-consent",
             "version": "1.9.1",
             "source": {
@@ -9998,13 +10016,13 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "enshrined/svg-sanitize": 20,
-        "jeradin/acf-dynamic-table-field": 20,
-        "jeradin/acf-website-field": 20,
+        "wikimedia/composer-merge-plugin": 20,
         "johannheyne/advanced-custom-fields-table-field": 20,
-        "landrok/language-detector": 20,
-        "wikimedia/composer-merge-plugin": 20
+        "clark-nikdel-powell/post-type-select-for-acf": 20,
+        "jeradin/acf-website-field": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "enshrined/svg-sanitize": 20,
+        "landrok/language-detector": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
@@ -10012,6 +10030,6 @@
         "php": "^8.2",
         "ext-json": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

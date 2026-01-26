@@ -107,6 +107,7 @@
     "wpackagist-plugin/litespeed-cache": "7.7",
     "wpackagist-plugin/network-plugin-auditor": "1.10.1",
     "wpackagist-plugin/nginx-helper": "2.3.5",
+    "wpackagist-plugin/post-expirator": "^4.9",
     "wpackagist-plugin/pressidium-cookie-consent": "1.9.1",
     "wpackagist-plugin/redirection": "5.6.1",
     "wpackagist-plugin/redis-cache": "2.7.0",
