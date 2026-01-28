@@ -67,11 +67,33 @@ composer require \
   --prefer-source \
   "$PACKAGE"
 
-PACKAGE_PATH="vendor/$PACKAGE"
+# Determine the correct installation path for the package
+PACKAGE_PATH=""
+INSTALLER_PATHS=$(jq -r '.extra["installer-paths"] | to_entries[] | .key + " " + (.value | join(","))' composer.json)
+for entry in $INSTALLER_PATHS; do
+  IFS=' ' read -r path types <<< "$entry"
+  for type in ${types//,/ }; do
+    if composer show "$PACKAGE" --format=json | jq -e ".type == \"$type\"" > /dev/null; then
+      PACKAGE_PATH="${path//\$name/${PACKAGE##*/}}"
+      break 2
+    fi
+  done
+done
+
+# Fallback: Use composer show to get the path if installer-paths does not resolve
+if [ -z "$PACKAGE_PATH" ]; then
+  PACKAGE_PATH=$(composer show "$PACKAGE" --format=json | jq -r '.path // empty')
+fi
+
+# Check if PACKAGE_PATH is still empty
+if [ -z "$PACKAGE_PATH" ]; then
+  echo "⚠️ Could not determine the installation path for $PACKAGE."
+  exit 1
+fi
 
 if [ -d "$PACKAGE_PATH" ]; then
   echo "🚀 Opening $PACKAGE_PATH"
   $EDITOR_CMD "$PACKAGE_PATH"
 else
-  echo "⚠️ Package path not found"
+  echo "⚠️ Package path not found: $PACKAGE_PATH"
 fi
