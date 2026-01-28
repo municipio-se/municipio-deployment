@@ -19,11 +19,12 @@ PACKAGES=()
 # Populate PACKAGES array without using a subshell
 PACKAGES=($(composer show --name-only))
 
-# Filter packages based on AVABILE_PACKAGES_TO_EDIT
+# Filter packages to include only those listed in composer.json
+REQUIRED_PACKAGES=$(jq -r '.require | keys[]' composer.json)
 FILTERED_PACKAGES=()
 for pkg in "${PACKAGES[@]}"; do
   for pattern in "${AVABILE_PACKAGES_TO_EDIT[@]}"; do
-    if [[ "$pkg" == $pattern ]]; then
+    if [[ "$pkg" == $pattern ]] && echo "$REQUIRED_PACKAGES" | grep -q "^$pkg$"; then
       FILTERED_PACKAGES+=("$pkg")
     fi
   done
@@ -34,7 +35,7 @@ PACKAGES=("${FILTERED_PACKAGES[@]}")
 
 # Check if filtered PACKAGES array is empty
 if [ ${#PACKAGES[@]} -eq 0 ]; then
-  echo "❌ No matching packages found. Check your AVABILE_PACKAGES_TO_EDIT filter."
+  echo "❌ No matching packages found in composer.json or AVABILE_PACKAGES_TO_EDIT."
   exit 1
 fi
 
@@ -60,10 +61,10 @@ echo "🛠 Reinstalling $PACKAGE as source"
 # Remove only from vendor, keep composer.json/lock intact
 rm -rf "vendor/$PACKAGE"
 
-composer install \
-  --prefer-source \
+composer require \
   --no-interaction \
   --ignore-platform-req=ext-imagick \
+  --prefer-source \
   "$PACKAGE"
 
 PACKAGE_PATH="vendor/$PACKAGE"
