@@ -61,11 +61,13 @@ echo "🛠 Reinstalling $PACKAGE as source"
 # Remove only from vendor, keep composer.json/lock intact
 rm -rf "vendor/$PACKAGE"
 
+PACKAGE_VERSION=$(jq -r --arg package "$PACKAGE" '.require[$package]' composer.json)
+
 composer require \
   --no-interaction \
   --ignore-platform-req=ext-imagick \
   --prefer-source \
-  "$PACKAGE"
+  "$PACKAGE:$PACKAGE_VERSION"
 
 # Determine the correct installation path for the package
 PACKAGE_PATH=""
@@ -91,9 +93,10 @@ if [ -z "$PACKAGE_PATH" ]; then
   exit 1
 fi
 
+# Remove the package from its installation path, respecting custom installer paths
 if [ -d "$PACKAGE_PATH" ]; then
-  echo "🚀 Opening $PACKAGE_PATH"
-  $EDITOR_CMD "$PACKAGE_PATH"
+  echo "🗑 Removing $PACKAGE from $PACKAGE_PATH"
+  rm -rf "$PACKAGE_PATH"
 else
-  echo "⚠️ Package path not found: $PACKAGE_PATH"
+  echo "⚠️ Package path not found for removal: $PACKAGE_PATH"
 fi
