@@ -9,7 +9,7 @@ echo ""
 echo "🧹 Removing all installed resources (vendor, plugins, mu-plugins, themes)"
 rm -rf vendor/*
 rm -rf wp-content/plugins/*
-rm -rf wp-content/mu-plugins/*
+find wp-content/mu-plugins/ -mindepth 1 ! -name 'loader.php' -exec rm -rf {} + # Keep loader.php
 rm -rf wp-content/themes/*
 
 # Install all packages
