@@ -4,10 +4,20 @@ set -euo pipefail
 EDITOR_CMD="code"
 AVABILE_PACKAGES_TO_EDIT=("helsingborg-stad/*" "municipio-se/*")
 
-echo "🔄 Installing all packages with --prefer-dist"
+# Clean up existing installations
+echo ""
+echo "🧹 Removing all installed resources (vendor, plugins, mu-plugins, themes)"
+rm -rf vendor/*
+rm -rf wp-content/plugins/*
+rm -rf wp-content/mu-plugins/*
+rm -rf wp-content/themes/*
+
+# Install all packages
+echo ""
+echo "🔄 Installing all packages with --prefer-dist, --no-cache"
 
 # Check if composer install succeeded
-if ! composer install --prefer-dist --no-interaction --ignore-platform-req=ext-imagick; then
+if ! composer install --prefer-dist --no-interaction --ignore-platform-req=ext-imagick --no-cache; then
   echo "❌ Composer install failed. Please check your setup."
   exit 1
 fi
@@ -58,9 +68,6 @@ PACKAGE="${PACKAGES[$((SELECTION-1))]}"
 echo ""
 echo "🛠 Reinstalling $PACKAGE as source"
 
-# Remove only from vendor, keep composer.json/lock intact
-rm -rf "vendor/$PACKAGE"
-
 PACKAGE_VERSION=$(jq -r --arg package "$PACKAGE" '.require[$package]' composer.json)
 
 composer require \
@@ -93,10 +100,11 @@ if [ -z "$PACKAGE_PATH" ]; then
   exit 1
 fi
 
-# Remove the package from its installation path, respecting custom installer paths
-if [ -d "$PACKAGE_PATH" ]; then
-  echo "🗑 Removing $PACKAGE from $PACKAGE_PATH"
-  rm -rf "$PACKAGE_PATH"
-else
-  echo "⚠️ Package path not found for removal: $PACKAGE_PATH"
-fi
+# Checkout head to revive any local changes
+git -C "$PACKAGE_PATH" checkout HEAD || true
+
+# Open the package in the specified editor
+echo ""
+echo "✏️ Opening $PACKAGE in $EDITOR_CMD from $PACKAGE_PATH"
+cd "$PACKAGE_PATH"
+$EDITOR_CMD .
