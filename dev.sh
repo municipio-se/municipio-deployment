@@ -107,3 +107,6 @@ echo ""
 echo "✏️ Opening $PACKAGE in $EDITOR_CMD from $PACKAGE_PATH"
 cd "$PACKAGE_PATH"
 $EDITOR_CMD .
+
+# Checkout main branch in the newly opened package
+git checkout main || git checkout master || true
