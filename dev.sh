@@ -72,6 +72,7 @@ echo "🛠 Reinstalling $PACKAGE as source"
 PACKAGE_VERSION=$(jq -r --arg package "$PACKAGE" '.require[$package]' composer.json)
 
 # Reinstall the selected package as source
+composer remove --no-interaction --ignore-platform-reqs "$PACKAGE"
 composer require --no-interaction --ignore-platform-reqs --prefer-source "$PACKAGE:$PACKAGE_VERSION"
 
 # Determine the correct installation path for the package
