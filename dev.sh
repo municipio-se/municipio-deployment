@@ -17,7 +17,7 @@ echo ""
 echo "🔄 Installing all packages with --prefer-dist, --no-cache"
 
 # Check if composer install succeeded
-if ! composer install --prefer-dist --no-interaction --ignore-platform-req=ext-imagick --no-cache; then
+if ! composer install --prefer-dist --no-interaction --ignore-platform-reqs --no-cache; then
   echo "❌ Composer install failed. Please check your setup."
   exit 1
 fi
@@ -46,7 +46,7 @@ PACKAGES=("${FILTERED_PACKAGES[@]}")
 # Check if filtered PACKAGES array is empty
 if [ ${#PACKAGES[@]} -eq 0 ]; then
   echo "❌ No matching packages found in composer.json or AVABILE_PACKAGES_TO_EDIT."
-  exit 1
+  exit 1 
 fi
 
 i=1
@@ -68,13 +68,11 @@ PACKAGE="${PACKAGES[$((SELECTION-1))]}"
 echo ""
 echo "🛠 Reinstalling $PACKAGE as source"
 
+# Get the version of the selected package from composer.json
 PACKAGE_VERSION=$(jq -r --arg package "$PACKAGE" '.require[$package]' composer.json)
 
-composer require \
-  --no-interaction \
-  --ignore-platform-req=ext-imagick \
-  --prefer-source \
-  "$PACKAGE:$PACKAGE_VERSION"
+# Reinstall the selected package as source
+composer require --no-interaction --ignore-platform-reqs --prefer-source "$PACKAGE:$PACKAGE_VERSION"
 
 # Determine the correct installation path for the package
 PACKAGE_PATH=""
