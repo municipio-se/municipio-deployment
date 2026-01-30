@@ -3,7 +3,7 @@
 /**
  * Tell WordPress to load from local wp-content, and not vendor wp.
  */
-$localSiteDomain = getenv('LOCAL_SITE_DOMAIN') ?: 'localhost:8443';
+$localSiteDomain = 'localhost:8443';
 
 define('WP_CONTENT_DIR', dirname(dirname(__FILE__)) . '/wp-content');
 define('WP_CONTENT_URL', 'https://' . $localSiteDomain . '/wp-content');

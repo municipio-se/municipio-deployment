@@ -38,38 +38,15 @@ This guide provides instructions for setting up and working with the Municipio D
     `.devcontainer/scripts/setup.sh`
 
 8. **Access the local site**
-    Open your browser and navigate to your configured domain (default: [https://localhost:8443](https://localhost:8443)).
+    Open your browser and navigate to [https://localhost:8443](https://localhost:8443).
 
 ### Accessing the Local Site
 
-- Navigate to your configured `LOCAL_SITE_DOMAIN` (default: [https://localhost:8443](https://localhost:8443)) in your browser.
+- Navigate to [https://localhost:8443](https://localhost:8443) in your browser.
 - Accept the self-signed certificate warning if prompted.
 - Default login credentials:
   - **Username:** `superadmin`
   - **Password:** `superadmin`
-
-### Custom Domain Configuration
-
-You can configure a custom domain and port by setting variables in `.devcontainer/.env`:
-
-```bash
-# Port-based (default)
-LOCAL_SITE_DOMAIN=localhost:8443
-LOCAL_SITE_PORT=8443
-
-# Custom port
-LOCAL_SITE_DOMAIN=localhost:9443
-LOCAL_SITE_PORT=9443
-
-# Custom domain (requires local DNS/hosts configuration)
-LOCAL_SITE_DOMAIN=dev.example.com
-LOCAL_SITE_PORT=443
-```
-
-**Important notes:**
-- When changing `LOCAL_SITE_PORT`, you must also update `forwardPorts` and `portsAttributes` in `devcontainer.json` manually, as it doesn't support environment variables.
-- When using a custom domain, configure your local DNS or `/etc/hosts` file to point to the container.
-- After changing port configuration, rebuild the container for changes to take effect.
 
 ## Working with Packages in the Container
 
@@ -121,7 +98,6 @@ Before running the migration, configure the required environment variables in `.
 | `REMOTE_SITE_DOMAIN` | Domain of remote site to migrate |
 | `REMOTE_PREFIX` | Database table prefix on remote |
 | `LOCAL_SITE_SLUG` | Slug for the local subfolder site |
-| `LOCAL_SITE_DOMAIN` | Local domain (default: `localhost:8443`) |
 
 See `.env.example` for a template.
 
@@ -146,7 +122,7 @@ The script will:
 - You may be prompted for your SSH password/key passphrase
 - If the local site already exists, you'll be asked whether to delete it
 - The script requires SSH access to the remote server
-- After migration, access your site at `https://<LOCAL_SITE_DOMAIN>/<LOCAL_SITE_SLUG>`
+- After migration, access your site at `https://localhost:8443/<LOCAL_SITE_SLUG>`
 
 ## Documentation for dev.sh Script
 The `dev.sh` script is a utility designed to streamline the development process by providing a clean and efficient development environment. It automates the process of downloading a editable version of the selected plugin. All other plugins in the environment will be reset to their production release versions. This ensures that only the selected plugin is in a development state, avoiding unnecessary builds for untouched packages.

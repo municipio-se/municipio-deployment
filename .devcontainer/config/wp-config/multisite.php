@@ -3,7 +3,7 @@
 /**
  * Tell WordPress to be used as network
  */
-$localSiteDomain = getenv('LOCAL_SITE_DOMAIN') ?: 'localhost:8443';
+$localSiteDomain = 'localhost:8443';
 
 define('WP_ALLOW_MULTISITE', true);
 define('MULTISITE', true);

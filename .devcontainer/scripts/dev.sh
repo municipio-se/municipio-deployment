@@ -24,10 +24,18 @@ cd "$FULL_DIR_PATH"
 # Clean up existing installations
 echo ""
 echo "🧹 Removing all installed resources (vendor, plugins, mu-plugins, themes)"
-rm -rf vendor/*
-find wp-content/plugins/ -mindepth 1 ! -name 'advanced-custom-fields-pro' -exec rm -rf {} + # keep advanced-custom-fields-pro (temporary fix)
+if [ -d vendor ]; then
+  rm -rf vendor/*
+fi
+if [ -d wp-content/plugins ]; then
+  find wp-content/plugins/ -mindepth 1 ! -name 'advanced-custom-fields-pro' -exec rm -rf {} + # keep advanced-custom-fields-pro (temporary fix)
+fi
+if [ -d wp-content/mu-plugins ]; then
 find wp-content/mu-plugins/ -mindepth 1 ! -name 'loader.php' -exec rm -rf {} + # Keep loader.php
-rm -rf wp-content/themes/*
+fi
+if [ -d wp-content/themes ]; then
+  rm -rf wp-content/themes/*
+fi
 
 # Install all packages
 echo ""

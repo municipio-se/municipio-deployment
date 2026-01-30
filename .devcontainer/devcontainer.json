@@ -5,7 +5,6 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"service": "app",
-	// Port forwarding - if you change LOCAL_SITE_PORT in .env, update 8443 here to match
 	"forwardPorts": [
 		"443:8443",
 		8306,
@@ -38,7 +37,6 @@
 			],
 			"settings": {
 				"remote.autoForwardPorts": false,
-				// Update 8443 below if you change LOCAL_SITE_PORT in .env
 				"remote.portsAttributes": {
 					"443:8443": {
 						"label": "WordPress - SSL",

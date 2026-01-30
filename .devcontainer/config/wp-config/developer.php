@@ -12,8 +12,8 @@
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
 
-// Local site domain from environment variable (default: localhost:8443)
-$localSiteDomain = getenv('LOCAL_SITE_DOMAIN') ?: 'localhost:8443';
+// Local site domain (fixed for devcontainer)
+$localSiteDomain = 'localhost:8443';
 
 // Activate debug mode on all environments using ?debug flag.
 if (isset($_GET['debug'])) {
