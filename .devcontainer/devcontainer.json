@@ -15,13 +15,13 @@
 	},
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"setup": "chmod +x .devcontainer/postCreateCommand.sh && bash .devcontainer/postCreateCommand.sh"
+		"setup": "chmod +x .devcontainer/scripts/postCreateCommand.sh && bash .devcontainer/scripts/postCreateCommand.sh"
 	},
-	"postStartCommand": "chmod +x .devcontainer/postStartCommand.sh && bash .devcontainer/postStartCommand.sh",
+	"postStartCommand": "chmod +x .devcontainer/scripts/postStartCommand.sh && bash .devcontainer/scripts/postStartCommand.sh",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {
-			"version": "22"
+			"version": "24"
 		}
 	},
 	//"waitFor": "postCreateCommand",

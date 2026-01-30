@@ -10,7 +10,8 @@ set -u  # Exit on undefined variable
 
 ### LOAD ENVIRONMENT ###
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ENV_FILE="${SCRIPT_DIR}/.env"
+DEVCONTAINER_DIR="$(dirname "$SCRIPT_DIR")"
+ENV_FILE="${DEVCONTAINER_DIR}/.env"
 
 if [[ -f "$ENV_FILE" ]]; then
     set -a  # Automatically export all variables

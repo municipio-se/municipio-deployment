@@ -1,13 +1,10 @@
-services: 
+services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
       args:
         imageVariant: 8.3-bullseye
-
-    env_file:
-      - .env
 
     ports:
       - 8443:443
@@ -17,7 +14,6 @@ services:
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
-
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     # network_mode: service:db
 
@@ -45,9 +41,8 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: mariadb
-
     # Add "forwardPorts": ["3306"] to **devcontainer.json** to forward MariaDB locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
-  
+
 volumes:
   mariadb-data:
