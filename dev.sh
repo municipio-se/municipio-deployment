@@ -4,6 +4,11 @@ set -euo pipefail
 EDITOR_CMD="code"
 AVABILE_PACKAGES_TO_EDIT=("helsingborg-stad/*" "municipio-se/*")
 
+# Warning about destructive actions
+echo "⚠️  This script will REMOVE all installed packages and reinstall them."
+echo "    Any local changes in installed packages will be lost (both tracked and untracked)."
+read -p "👉 Do you want to continue? (y/n): " CONFIRM
+
 # Clean up existing installations
 echo ""
 echo "🧹 Removing all installed resources (vendor, plugins, mu-plugins, themes)"
