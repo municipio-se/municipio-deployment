@@ -18,7 +18,7 @@ if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
 fi
 
 # Cd to the project root
-echo "Moving to project root: $FULL_DIR_PATH"
+echo "🏎️ Moving to project root: $FULL_DIR_PATH"
 cd "$FULL_DIR_PATH"
 
 # Clean up existing installations
