@@ -25,19 +25,11 @@ This guide provides instructions for setting up and working with the Municipio D
     - `MUNICIPIO_ACF_PRO_KEY` - Required for ACF Pro plugin
     - `MUNICIPIO_GITHUB_TOKEN` - Required for private npm/composer packages
 
-5. **Install PHP dependencies**
-    In the terminal, run:
-    `composer install`
-
-6. **Install Node.js dependencies**
-    Run:
-    `php build.php --install-npm`
-
-7. **Run setup script**
+5. **Run setup script**
     In the terminal, run:
     `.devcontainer/scripts/setup.sh`
 
-8. **Access the local site**
+6. **Access the local site**
     Open your browser and navigate to [https://localhost:8443](https://localhost:8443).
 
 ### Accessing the Local Site

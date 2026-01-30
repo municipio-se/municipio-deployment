@@ -116,7 +116,12 @@ print_info "Copying devcontainer wp-config files..."
 cp ./.devcontainer/config/wp-config/* ./config
 print_success "Config files added"
 
-# Step 2: Install ACF Pro plugin
+# Step 2: Install packages
+print_header "Installing Packages"
+"$SCRIPT_DIR/setup-dev-package.sh" -y --skip-select
+print_success "Packages installed"
+
+# Step 3: Install ACF Pro plugin
 print_header "Installing ACF Pro Plugin"
 
 if [ -z "${MUNICIPIO_ACF_PRO_KEY:-}" ]; then
@@ -150,7 +155,7 @@ else
     fi
 fi
 
-# Step 3: Import database
+# Step 4: Import database
 print_header "Importing Database"
 print_info "Resetting database..."
 wp db reset --quiet --yes --allow-root --url="${LOCAL_SITE_DOMAIN}"
@@ -160,13 +165,13 @@ print_info "Running search-replace for local domain..."
 wp search-replace dev.local.municipio.tech "${LOCAL_SITE_DOMAIN}" --quiet --skip-plugins --skip-themes --network --all-tables --allow-root --url="${LOCAL_SITE_DOMAIN}"
 print_success "Database imported"
 
-# Step 4: Add .htaccess
+# Step 5: Add .htaccess
 print_header "Adding .htaccess"
 print_info "Copying .htaccess from devcontainer config..."
 cp ./.devcontainer/config/.htaccess ./.htaccess
 print_success ".htaccess added"
 
-# Step 5: Remove cached fonts
+# Step 6: Remove cached fonts
 print_header "Cleaning Up"
 print_info "Removing cached fonts..."
 rm -rf ./wp-content/fonts
