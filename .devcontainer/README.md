@@ -32,7 +32,7 @@ This guide provides instructions for setting up and working with the Municipio D
 
 7. **Run setup script**
     In the terminal, run:
-    `.devcontainer/setup.sh`
+    `.devcontainer/scripts/setup.sh`
 
 8. **Access the local site**  
     Open your browser and navigate to [https://localhost:8443](https://localhost:8443).
@@ -65,7 +65,7 @@ To develop or debug specific Composer packages within the container:
 The `setup.sh` script configures your local development environment from scratch. It will reset the database and apply all necessary configuration.
 
 ```bash
-.devcontainer/setup.sh
+.devcontainer/scripts/setup.sh
 ```
 
 The script will:
@@ -101,7 +101,7 @@ See `.env.example` for a template.
 ### Running the Migration
 
 ```bash
-.devcontainer/migrate.sh
+.devcontainer/scripts/migrate.sh
 ```
 
 The script will:
