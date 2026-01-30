@@ -71,11 +71,6 @@ if [ ${#MISSING_CONFIG[@]} -gt 0 ]; then
     for item in "${MISSING_CONFIG[@]}"; do
         echo "  • $item"
     done
-    echo ""
-    echo "After updating .env, run the following to apply changes:"
-    echo "  1. Rebuild the container, or"
-    echo "  2. Run: source .devcontainer/.env"
-    echo ""
 else
     echo ""
     echo "✓ All configuration complete!"
