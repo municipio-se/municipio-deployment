@@ -30,9 +30,30 @@ This will ensure that deployments can be made by fetching the upstream of the fo
 3. Update to upstream, whenever you want to update your production enviroment with the latest version of Municipio.
 
 ## Adding custom dependencies
-You may add your own dependencies in composer.local.json file. This file is automatically read in build. We have made it a separate file to avoid merge conflicts. When you have modified the composer.local.json; the deploy script will remove the composer lockfile automatically. This may cause a less performant deploy. 
+You may add your own dependencies in the `composer.local.json` file. Add packages to the `require` or `require-dev` sections as needed:
 
-You may also add plugins locally to your server with the folder name of the plugin prefixed with "local_". Normally they would be removed during the deploy to enshure one source of truth, however the deploy script will respect the "local_" string and keep them. 
+```json
+{
+  "name": "municipio-se/municipio-deployment-custom",
+  "license": "MIT",
+  "description": "Additions for your own install of Municipio.",
+  "require": {
+    "vendor/package": "^1.0"
+  },
+  "require-dev": {
+    "vendor/dev-package": "^2.0"
+  }
+}
+```
+
+When `composer install` runs, the build process will:
+1. Temporarily merge your local requirements into `composer.json`
+2. Run the installation
+3. Automatically restore the original `composer.json` and `composer.lock`
+
+This ensures no permanent modifications are made to version-controlled files while still allowing custom dependencies. The merge only happens when `composer.local.json` contains actual requirements.
+
+You may also add plugins locally to your server with the folder name of the plugin prefixed with "local_". Normally they would be removed during the deploy to ensure one source of truth, however the deploy script will respect the "local_" prefix and keep them. 
 
 ## Parameters
 Add the following secrets to your github repository secrets section (https://docs.github.com/en/actions/security-guides/encrypted-secrets). We do recommend that you assign these secrets locally to your repository. You can however use organization level secret to everything except the path if you determine that they will persist. 
