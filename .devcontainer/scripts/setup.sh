@@ -10,8 +10,9 @@ set -u  # Exit on undefined variable
 
 ### LOAD ENVIRONMENT ###
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-ENV_FILE="${SCRIPT_DIR}/.env"
+DEVCONTAINER_DIR="$(dirname "$SCRIPT_DIR")"
+PROJECT_ROOT="$(dirname "$DEVCONTAINER_DIR")"
+ENV_FILE="${DEVCONTAINER_DIR}/.env"
 
 cd "$PROJECT_ROOT"
 
@@ -22,6 +23,9 @@ if [[ -f "$ENV_FILE" ]]; then
 else
     echo "Warning: $ENV_FILE not found. Using existing environment variables." >&2
 fi
+
+### CONFIGURATION ###
+LOCAL_SITE_DOMAIN="${LOCAL_SITE_DOMAIN:-localhost:8443}"
 
 #############################################################################
 # Helper Functions
@@ -149,11 +153,11 @@ fi
 # Step 3: Import database
 print_header "Importing Database"
 print_info "Resetting database..."
-wp db reset --quiet --yes --allow-root --url=localhost:8443
+wp db reset --quiet --yes --allow-root --url="${LOCAL_SITE_DOMAIN}"
 print_info "Importing seed.sql..."
-wp db import ./db/seed.sql --quiet --skip-plugins --skip-themes --allow-root --url=localhost:8443
+wp db import ./db/seed.sql --quiet --skip-plugins --skip-themes --allow-root --url="${LOCAL_SITE_DOMAIN}"
 print_info "Running search-replace for local domain..."
-wp search-replace dev.local.municipio.tech localhost:8443 --quiet --skip-plugins --skip-themes --network --all-tables --allow-root --url=localhost:8443
+wp search-replace dev.local.municipio.tech "${LOCAL_SITE_DOMAIN}" --quiet --skip-plugins --skip-themes --network --all-tables --allow-root --url="${LOCAL_SITE_DOMAIN}"
 print_success "Database imported"
 
 # Step 4: Add .htaccess
@@ -172,6 +176,6 @@ print_success "Cached fonts removed"
 print_header "Setup Complete! 🎉"
 echo ""
 echo "Your local site is now available at:"
-echo "  https://localhost:8443"
+echo "  https://${LOCAL_SITE_DOMAIN}"
 echo ""
 print_success "All done!"

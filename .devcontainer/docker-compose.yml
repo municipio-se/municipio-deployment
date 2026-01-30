@@ -10,7 +10,7 @@ services:
       - .env
 
     ports:
-      - 8443:443
+      - ${LOCAL_SITE_PORT:-8443}:443
 
     volumes:
       - ../..:/workspaces:cached

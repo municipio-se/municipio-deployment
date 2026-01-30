@@ -10,7 +10,8 @@ set -u  # Exit on undefined variable
 
 ### LOAD ENVIRONMENT ###
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ENV_FILE="${SCRIPT_DIR}/.env"
+DEVCONTAINER_DIR="$(dirname "$SCRIPT_DIR")"
+ENV_FILE="${DEVCONTAINER_DIR}/.env"
 
 if [[ -f "$ENV_FILE" ]]; then
     set -a  # Automatically export all variables
@@ -32,7 +33,7 @@ LOCAL_SITE_SLUG="${LOCAL_SITE_SLUG:?LOCAL_SITE_SLUG not set}"
 ### LOCAL SETUP ###
 LOCAL_PATH="/var/www/html"
 REMOTE_SITE_URL="${REMOTE_SITE_PROTOCOL}${REMOTE_SITE_DOMAIN}"
-LOCAL_SITE_DOMAIN="localhost:8443"
+LOCAL_SITE_DOMAIN="${LOCAL_SITE_DOMAIN:-localhost:8443}"
 LOCAL_MU_SITE_URL="https://${LOCAL_SITE_DOMAIN}"
 LOCAL_SITE_URL="$LOCAL_MU_SITE_URL/$LOCAL_SITE_SLUG"
 LOCAL_PREFIX="mun_"

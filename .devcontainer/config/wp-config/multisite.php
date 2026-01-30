@@ -3,10 +3,12 @@
 /**
  * Tell WordPress to be used as network
  */
+$localSiteDomain = getenv('LOCAL_SITE_DOMAIN') ?: 'localhost:8443';
+
 define('WP_ALLOW_MULTISITE', true);
 define('MULTISITE', true);
 define('SUBDOMAIN_INSTALL', false);
 define('PATH_CURRENT_SITE', '/');
 define('SITE_ID_CURRENT_SITE', 1);
 define('BLOG_ID_CURRENT_SITE', 1);
-define('DOMAIN_CURRENT_SITE', 'localhost:8443');
+define('DOMAIN_CURRENT_SITE', $localSiteDomain);
