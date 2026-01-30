@@ -145,6 +145,30 @@ The script will:
 - The script requires SSH access to the remote server
 - After migration, access your site at `https://<LOCAL_SITE_DOMAIN>/<LOCAL_SITE_SLUG>`
 
+## Documentation for dev.sh Script
+The `dev.sh` script is a utility designed to streamline the development process by providing a clean and efficient development environment. It automates the process of downloading a editable version of the selected plugin. All other plugins in the environment will be reset to their production release versions. This ensures that only the selected plugin is in a development state, avoiding unnecessary builds for untouched packages.
+
+### Features
+- **Environment Setup**: Automatically configures the development environment with necessary dependencies.
+- **Cleanup**: Ensures the development environment remains clean by removing uncommitted files and resetting configurations as needed.
+- **Automation**: Simplifies repetitive tasks, allowing developers to focus on coding rather than setup.
+- **Compatibility**: Works seamlessly with the existing project structure and dependencies.
+
+### Usage
+1. **Run the Script**: Execute the `dev.sh` script from the terminal in the project root directory.
+    ```bash
+    sh dev.sh
+    ```
+2. **Follow Prompts**: The script will prompt for input or confirmation during execution. Follow the on-screen instructions.
+3. **Verify Setup**: Once the script completes, the user will have the selected repository locally in a git-repo (vscode open automatically).
+
+### Notes
+- Ensure you have the necessary permissions to execute the script. You may need to run `chmod +x dev.sh` to make it executable.
+- Review the script contents to understand its operations and ensure it aligns with your development requirements.
+- For troubleshooting or customization, refer to the script's inline comments or contact the project maintainers.
+
+By using the `dev.sh` script, developers can save time and maintain a consistent development workflow across the team.
+
 ---
 
 For additional troubleshooting or advanced configuration, refer to the [Dev Containers documentation](https://code.visualstudio.com/docs/devcontainers/containers).
