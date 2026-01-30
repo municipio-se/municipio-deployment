@@ -171,7 +171,15 @@ print_info "Copying .htaccess from devcontainer config..."
 cp ./.devcontainer/config/.htaccess ./.htaccess
 print_success ".htaccess added"
 
-# Step 6: Remove cached fonts
+# Step 6: Set up cache directories
+print_header "Setting Up Cache"
+print_info "Creating blade-cache directory..."
+mkdir -p ./wp-content/uploads/cache/blade-cache
+print_info "Setting permissions on blade-cache..."
+chmod -R 766 ./wp-content/uploads/cache/blade-cache
+print_success "Cache directories configured"
+
+# Step 7: Remove cached fonts
 print_header "Cleaning Up"
 print_info "Removing cached fonts..."
 rm -rf ./wp-content/fonts

@@ -19,12 +19,12 @@ fi
 
 if [ -d wp-content/plugins ]; then
   # Keep advanced-custom-fields-pro (temporary fix)
-  find wp-content/plugins/ -mindepth 1 ! -name 'advanced-custom-fields-pro' -exec rm -rf {} +
+  find wp-content/plugins/ -mindepth 1 -maxdepth 1 ! -name 'advanced-custom-fields-pro' -exec rm -rf {} +
 fi
 
 if [ -d wp-content/mu-plugins ]; then
   # Keep loader.php
-  find wp-content/mu-plugins/ -mindepth 1 ! -name 'loader.php' -exec rm -rf {} +
+  find wp-content/mu-plugins/ -mindepth 1 -maxdepth 1 ! -name 'loader.php' -exec rm -rf {} +
 fi
 
 if [ -d wp-content/themes ]; then
