@@ -3,11 +3,23 @@ set -euo pipefail
 
 EDITOR_CMD="code"
 AVABILE_PACKAGES_TO_EDIT=("helsingborg-stad/*" "municipio-se/*")
+FULL_DIR_PATH=$(cd "$(dirname "$0")/.." && pwd)
 
 # Warning about destructive actions
-echo "⚠️  This script will REMOVE all installed packages and reinstall them."
+echo "⚠️  This script will REMOVE all installed packages, repositories and reinstall them."
 echo "    Any local changes in installed packages will be lost (both tracked and untracked)."
+echo "    Script will run in the project root: $FULL_DIR_PATH"
+echo ""
 read -p "👉 Do you want to continue? (y/n): " CONFIRM
+
+if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
+  echo "❌ Operation cancelled by user."
+  exit 1
+fi
+
+# Cd to the project root
+echo "Moving to project root: $FULL_DIR_PATH"
+cd "$FULL_DIR_PATH"
 
 # Clean up existing installations
 echo ""
