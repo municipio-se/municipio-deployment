@@ -1,137 +1,115 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+#############################################################################
+# Setup Dev Package Script
+# Cleans, reinstalls packages, and optionally sets up a package for development
+#
+# Usage:
+#   setup-dev-package.sh [options]
+#
+# Options:
+#   -y, --yes               Skip confirmation prompt
+#   -s, --skip-select       Skip package selection (only clean and install)
+#   -p, --package <name>    Specify package name directly (skip interactive selection)
+#   -e, --editor <cmd>      Editor command to open package (default: code)
+#   --no-editor             Don't open editor after setup
+#############################################################################
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+# Defaults
+SKIP_CONFIRM=false
+SKIP_SELECT=false
+PACKAGE=""
 EDITOR_CMD="code"
-AVABILE_PACKAGES_TO_EDIT=("helsingborg-stad/*" "municipio-se/*")
-FULL_DIR_PATH=$(cd "$(dirname "$0")/../.." && pwd)
+OPEN_EDITOR=true
 
-# Warning about destructive actions
-echo "⚠️  This script will REMOVE all installed packages, repositories and reinstall them."
-echo "    Any local changes in installed packages will be lost (both tracked and untracked)."
-echo "    Script will run in the project root: $FULL_DIR_PATH"
-echo ""
-read -p "👉 Do you want to continue? (y/n): " CONFIRM
-
-if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
-  echo "❌ Operation cancelled by user."
-  exit 1
-fi
-
-# Cd to the project root
-echo "Moving to project root: $FULL_DIR_PATH"
-cd "$FULL_DIR_PATH"
-
-# Clean up existing installations
-echo ""
-echo "🧹 Removing all installed resources (vendor, plugins, mu-plugins, themes)"
-if [ -d vendor ]; then
-  rm -rf vendor/*
-fi
-if [ -d wp-content/plugins ]; then
-  find wp-content/plugins/ -mindepth 1 ! -name 'advanced-custom-fields-pro' -exec rm -rf {} + # keep advanced-custom-fields-pro (temporary fix)
-fi
-if [ -d wp-content/mu-plugins ]; then
-find wp-content/mu-plugins/ -mindepth 1 ! -name 'loader.php' -exec rm -rf {} + # Keep loader.php
-fi
-if [ -d wp-content/themes ]; then
-  rm -rf wp-content/themes/*
-fi
-
-# Install all packages
-echo ""
-echo "🔄 Installing all packages with --prefer-dist, --no-cache"
-
-# Check if composer install succeeded
-if ! composer install --prefer-dist --no-interaction --ignore-platform-reqs --no-cache; then
-  echo "❌ Composer install failed. Please check your setup."
-  exit 1
-fi
-
-echo ""
-echo "📦 Installed packages:"
-PACKAGES=()
-
-# Populate PACKAGES array without using a subshell
-PACKAGES=($(composer show --name-only))
-
-# Filter packages to include only those listed in composer.json
-REQUIRED_PACKAGES=$(jq -r '.require | keys[]' composer.json)
-FILTERED_PACKAGES=()
-for pkg in "${PACKAGES[@]}"; do
-  for pattern in "${AVABILE_PACKAGES_TO_EDIT[@]}"; do
-    if [[ "$pkg" == $pattern ]] && echo "$REQUIRED_PACKAGES" | grep -q "^$pkg$"; then
-      FILTERED_PACKAGES+=("$pkg")
-    fi
-  done
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -y|--yes)
+      SKIP_CONFIRM=true
+      shift
+      ;;
+    -s|--skip-select)
+      SKIP_SELECT=true
+      shift
+      ;;
+    -p|--package)
+      PACKAGE="$2"
+      shift 2
+      ;;
+    -e|--editor)
+      EDITOR_CMD="$2"
+      shift 2
+      ;;
+    --no-editor)
+      OPEN_EDITOR=false
+      shift
+      ;;
+    -h|--help)
+      echo "Usage: setup-dev-package.sh [options]"
+      echo ""
+      echo "Options:"
+      echo "  -y, --yes               Skip confirmation prompt"
+      echo "  -s, --skip-select       Skip package selection (only clean and install)"
+      echo "  -p, --package <name>    Specify package name directly"
+      echo "  -e, --editor <cmd>      Editor command (default: code)"
+      echo "  --no-editor             Don't open editor after setup"
+      echo "  -h, --help              Show this help message"
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1"
+      echo "Use -h or --help for usage information."
+      exit 1
+      ;;
+  esac
 done
 
-# Replace PACKAGES with FILTERED_PACKAGES
-PACKAGES=("${FILTERED_PACKAGES[@]}")
+# Confirmation prompt
+if [ "$SKIP_CONFIRM" = false ]; then
+  echo "⚠️  This script will REMOVE all installed packages, repositories and reinstall them."
+  echo "    Any local changes in installed packages will be lost (both tracked and untracked)."
+  echo "    Script will run in the project root: $PROJECT_ROOT"
+  echo ""
+  read -p "👉 Do you want to continue? (y/n): " CONFIRM
 
-# Check if filtered PACKAGES array is empty
-if [ ${#PACKAGES[@]} -eq 0 ]; then
-  echo "❌ No matching packages found in composer.json or AVABILE_PACKAGES_TO_EDIT."
-  exit 1 
+  if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
+    echo "❌ Operation cancelled by user."
+    exit 1
+  fi
 fi
-
-i=1
-for pkg in "${PACKAGES[@]}"; do
-  printf "%3d) %s\n" "$i" "$pkg"
-  ((i++))
-done
 
 echo ""
-read -p "👉 Select a package number to work on: " SELECTION
+echo "Moving to project root: $PROJECT_ROOT"
+cd "$PROJECT_ROOT"
 
-if ! [[ "$SELECTION" =~ ^[0-9]+$ ]] || (( SELECTION < 1 || SELECTION > ${#PACKAGES[@]} )); then
-  echo "❌ Invalid selection"
-  exit 1
+# Step 1: Clean packages
+"$SCRIPT_DIR/dev-package/clean-packages.sh" "$PROJECT_ROOT"
+
+# Step 2: Install packages
+echo ""
+"$SCRIPT_DIR/dev-package/install-packages.sh" "$PROJECT_ROOT"
+
+# Step 3: Select and setup dev package (unless skipped)
+if [ "$SKIP_SELECT" = false ]; then
+  SELECT_ARGS=()
+
+  if [ -n "$PACKAGE" ]; then
+    SELECT_ARGS+=("--package" "$PACKAGE")
+  fi
+
+  SELECT_ARGS+=("--editor" "$EDITOR_CMD")
+
+  if [ "$OPEN_EDITOR" = false ]; then
+    SELECT_ARGS+=("--no-editor")
+  fi
+
+  "$SCRIPT_DIR/dev-package/select-dev-package.sh" "${SELECT_ARGS[@]}" "$PROJECT_ROOT"
 fi
-
-PACKAGE="${PACKAGES[$((SELECTION-1))]}"
 
 echo ""
-echo "🛠 Reinstalling $PACKAGE as source"
-
-# Get the version of the selected package from composer.json
-PACKAGE_VERSION=$(jq -r --arg package "$PACKAGE" '.require[$package]' composer.json)
-
-# Reinstall the selected package as source
-composer remove --no-interaction --ignore-platform-reqs "$PACKAGE"
-composer require --no-interaction --ignore-platform-reqs --prefer-source "$PACKAGE:$PACKAGE_VERSION"
-
-# Determine the correct installation path for the package
-PACKAGE_PATH=""
-INSTALLER_PATHS=$(jq -r '.extra["installer-paths"] | to_entries[] | .key + " " + (.value | join(","))' composer.json)
-for entry in $INSTALLER_PATHS; do
-  IFS=' ' read -r path types <<< "$entry"
-  for type in ${types//,/ }; do
-    if composer show "$PACKAGE" --format=json | jq -e ".type == \"$type\"" > /dev/null; then
-      PACKAGE_PATH="${path//\$name/${PACKAGE##*/}}"
-      break 2
-    fi
-  done
-done
-
-# Fallback: Use composer show to get the path if installer-paths does not resolve
-if [ -z "$PACKAGE_PATH" ]; then
-  PACKAGE_PATH=$(composer show "$PACKAGE" --format=json | jq -r '.path // empty')
-fi
-
-# Check if PACKAGE_PATH is still empty
-if [ -z "$PACKAGE_PATH" ]; then
-  echo "⚠️ Could not determine the installation path for $PACKAGE."
-  exit 1
-fi
-
-# Checkout head to revive any local changes
-git -C "$PACKAGE_PATH" checkout HEAD || true
-
-# Open the package in the specified editor
-echo ""
-echo "✏️ Opening $PACKAGE in $EDITOR_CMD from $PACKAGE_PATH"
-cd "$PACKAGE_PATH"
-$EDITOR_CMD .
-
-# Checkout main branch in the newly opened package
-git checkout main || git checkout master || true
+echo "🎉 Setup complete!"

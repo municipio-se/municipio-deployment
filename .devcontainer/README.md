@@ -125,21 +125,56 @@ The script will:
 - After migration, access your site at `https://localhost:8443/<LOCAL_SITE_SLUG>`
 
 ## Documentation for setup-dev-package.sh Script
-The `setup-dev-package.sh` script is a utility designed to streamline the development process by providing a clean and efficient development environment. It automates the process of downloading a editable version of the selected plugin. All other plugins in the environment will be reset to their production release versions. This ensures that only the selected plugin is in a development state, avoiding unnecessary builds for untouched packages.
+The `setup-dev-package.sh` script is a utility designed to streamline the development process by providing a clean and efficient development environment. It automates the process of downloading an editable version of the selected plugin. All other plugins in the environment will be reset to their production release versions. This ensures that only the selected plugin is in a development state, avoiding unnecessary builds for untouched packages.
 
 ### Features
 - **Environment Setup**: Automatically configures the development environment with necessary dependencies.
 - **Cleanup**: Ensures the development environment remains clean by removing uncommitted files and resetting configurations as needed.
 - **Automation**: Simplifies repetitive tasks, allowing developers to focus on coding rather than setup.
 - **Compatibility**: Works seamlessly with the existing project structure and dependencies.
+- **Scriptable**: Supports command-line flags for non-interactive use in CI/CD or other scripts.
 
 ### Usage
-1. **Run the Script**: Execute the `setup-dev-package.sh` script from the terminal in the project root directory.
-    ```bash
-    .devcontainer/scripts/setup-dev-package.sh
-    ```
-2. **Follow Prompts**: The script will prompt for input or confirmation during execution. Follow the on-screen instructions.
-3. **Verify Setup**: Once the script completes, the user will have the selected repository locally in a git-repo (vscode open automatically).
+
+**Interactive mode** (default):
+```bash
+.devcontainer/scripts/setup-dev-package.sh
+```
+
+**Non-interactive mode** (for automation):
+```bash
+# Clean and install only, skip package selection
+.devcontainer/scripts/setup-dev-package.sh -y --skip-select
+
+# Specify a package directly
+.devcontainer/scripts/setup-dev-package.sh -y -p helsingborg-stad/municipio
+
+# Skip opening the editor
+.devcontainer/scripts/setup-dev-package.sh -y -p helsingborg-stad/municipio --no-editor
+```
+
+### Options
+
+| Flag | Description |
+|------|-------------|
+| `-y, --yes` | Skip confirmation prompt |
+| `-s, --skip-select` | Skip package selection (only clean and install) |
+| `-p, --package <name>` | Specify package name directly |
+| `-e, --editor <cmd>` | Editor command (default: `code`) |
+| `--no-editor` | Don't open editor after setup |
+| `-h, --help` | Show help message |
+
+### Sub-scripts
+
+The script is composed of modular sub-scripts in `.devcontainer/scripts/dev-package/`:
+
+| Script | Purpose |
+|--------|---------|
+| `clean-packages.sh` | Removes vendor, plugins, mu-plugins, and themes |
+| `install-packages.sh` | Runs `composer install --prefer-dist` |
+| `select-dev-package.sh` | Lists packages and reinstalls selected one from source |
+
+These can be run individually if needed.
 
 ### Notes
 - Ensure you have the necessary permissions to execute the script. You may need to run `chmod +x .devcontainer/scripts/setup-dev-package.sh` to make it executable.
