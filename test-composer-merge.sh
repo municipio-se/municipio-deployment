@@ -33,15 +33,17 @@ trap cleanup EXIT
 
 echo "Test 1: Empty composer.local.json (should skip merge)"
 echo "------------------------------------------------------"
-# Backup current composer.local.json
-cp "$SCRIPT_DIR/composer.local.json" "$SCRIPT_DIR/.composer.local.json.test.bkup"
+# Backup current composer.local.json if it exists
+if [ -f "$SCRIPT_DIR/composer.local.json" ]; then
+    cp "$SCRIPT_DIR/composer.local.json" "$SCRIPT_DIR/.composer.local.json.test.bkup"
+fi
 
 # Create empty composer.local.json
 cat > "$SCRIPT_DIR/composer.local.json" << 'EOF'
 {
   "name": "municipio-se/municipio-deployment-custom",
   "license": "MIT",
-  "description": "Additions for you own install of municipo.",
+  "description": "Additions for your own install of Municipio.",
   "require": {}
 }
 EOF
@@ -61,7 +63,7 @@ cat > "$SCRIPT_DIR/composer.local.json" << 'EOF'
 {
   "name": "municipio-se/municipio-deployment-custom",
   "license": "MIT",
-  "description": "Additions for you own install of municipo.",
+  "description": "Additions for your own install of Municipio.",
   "require": {
     "test/package": "1.0.0"
   },

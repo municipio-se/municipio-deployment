@@ -142,7 +142,11 @@
       "php composer-local-merge.php post-install",
       "mkdir -p wp-content/uploads/cache/blade-cache"
     ],
+    "pre-update-cmd": [
+      "php composer-local-merge.php pre-install"
+    ],
     "post-update-cmd": [
+      "php composer-local-merge.php post-install",
       "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/"
     ],
     "update-lockfile": "command -v act >/dev/null 2>&1 || brew install act; act -j composer-update --bind",

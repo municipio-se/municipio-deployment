@@ -101,11 +101,15 @@ class ComposerLocalMerge
             echo "✓ Backed up composer.lock\n";
             
             // Step 3: Remove composer.lock to force fresh resolution
-            unlink($lockPath);
+            if (!unlink($lockPath)) {
+                throw new Exception("Failed to remove composer.lock");
+            }
             echo "✓ Removed composer.lock\n";
         }
 
         // Step 4: Merge requirements into composer.json
+        // Note: Local requirements override existing ones - this allows developers
+        // to test specific versions or patches during development
         $composer = $this->readJson($composerPath);
         
         if (!empty($localRequirements['require'])) {
@@ -127,7 +131,9 @@ class ComposerLocalMerge
         $this->writeJson($composerPath, $composer);
         
         // Create flag file to indicate merge was performed
-        file_put_contents($this->flagFile, time());
+        if (file_put_contents($this->flagFile, time()) === false) {
+            throw new Exception("Failed to create merge flag file");
+        }
         
         $this->hasMerged = true;
     }
@@ -256,11 +262,14 @@ class ComposerLocalMerge
      */
     private function writeJson(string $path, array $data): void
     {
-        $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         
         if ($json === false) {
             throw new Exception("Failed to encode JSON: " . json_last_error_msg());
         }
+        
+        // Add newline at end of file to match standard formatting
+        $json .= "\n";
         
         if (file_put_contents($path, $json) === false) {
             throw new Exception("Failed to write file: {$path}");
