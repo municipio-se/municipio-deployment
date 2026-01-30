@@ -10,24 +10,27 @@ This guide provides instructions for setting up and working with the Municipio D
 
 ## Getting Started
 
-1. **Clone the repository**  
+1. **Clone the repository**
     `git clone <repository-url>`
 
 2. **Open the repository in VS Code**
 
-3. **Set up environment variables**  
-    Copy `.devcontainer/.env.example` to `.devcontainer/.env` and fill in the required values.
-
-4. **Reopen in Container**  
-    Open the command palette (`Cmd+Shift+P` or `Ctrl+Shift+P`) and run:  
+3. **Reopen in Container**
+    Open the command palette (`Cmd+Shift+P` or `Ctrl+Shift+P`) and run:
     `Dev Containers: Reopen in Container`
 
-5. **Install PHP dependencies**  
-    In the terminal, run:  
+4. **Configure environment variables**
+    The container will auto-create `.devcontainer/.env` from `.env.example` on first start.
+    Edit `.devcontainer/.env` and fill in the required values:
+    - `MUNICIPIO_ACF_PRO_KEY` - Required for ACF Pro plugin
+    - `MUNICIPIO_GITHUB_TOKEN` - Required for private npm/composer packages
+
+5. **Install PHP dependencies**
+    In the terminal, run:
     `composer install`
 
-6. **Install Node.js dependencies**  
-    Run:  
+6. **Install Node.js dependencies**
+    Run:
     `php build.php --install-npm`
 
 7. **Run setup script**
