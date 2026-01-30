@@ -25,6 +25,3 @@ db/*.sql
 franken/Caddyfile
 db/db.sqlite
 .secrets
-# Composer merge temporary files
-.composer-merge-active
-composer.*.bkup
