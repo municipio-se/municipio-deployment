@@ -30,8 +30,9 @@ This guide provides instructions for setting up and working with the Municipio D
     Run:  
     `php build.php --install-npm`
 
-7. **Run setup task**  
-    Open the command palette and run the `setup` task.
+7. **Run setup script**
+    In the terminal, run:
+    `.devcontainer/setup.sh`
 
 8. **Access the local site**  
     Open your browser and navigate to [https://localhost:8443](https://localhost:8443).
@@ -58,6 +59,24 @@ To develop or debug specific Composer packages within the container:
   In the package directory, run:  
   - `composer install`  
   - `npm install` (if applicable)
+
+## Running the Setup Script
+
+The `setup.sh` script configures your local development environment from scratch. It will reset the database and apply all necessary configuration.
+
+```bash
+.devcontainer/setup.sh
+```
+
+The script will:
+
+1. **Add config files** - Copies configuration from `config-example/` and `.devcontainer/config/wp-config/`
+2. **Install ACF Pro** - Downloads and installs the ACF Pro plugin using your license key
+3. **Import database** - Resets the database and imports `db/seed.sql`
+4. **Add .htaccess** - Copies the `.htaccess` file for URL rewriting
+5. **Clean up** - Removes cached fonts
+
+**Note:** This script requires `MUNICIPIO_ACF_PRO_KEY` to be set in `.devcontainer/.env`.
 
 ## Migrating a Remote Site
 
