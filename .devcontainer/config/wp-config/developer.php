@@ -12,17 +12,20 @@
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
 
-// Activate debug mode on all environments using ?debug flag. 
+// Local site domain (fixed for devcontainer)
+$localSiteDomain = 'localhost:8443';
+
+// Activate debug mode on all environments using ?debug flag.
 if (isset($_GET['debug'])) {
   define('WP_DEBUG', true);
 }
 
 if (!defined('WP_SITEURL')) {
-  define('WP_SITEURL', 'https://localhost:8443/wp');
+  define('WP_SITEURL', 'https://' . $localSiteDomain . '/wp');
 }
 
 if (!defined('WP_HOME')) {
-  define('WP_HOME', 'https://localhost:8443');
+  define('WP_HOME', 'https://' . $localSiteDomain);
 }
 
 if (!defined('WP_ENVIRONMENT_TYPE')) {
