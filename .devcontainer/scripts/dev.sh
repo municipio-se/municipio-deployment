@@ -3,7 +3,7 @@ set -euo pipefail
 
 EDITOR_CMD="code"
 AVABILE_PACKAGES_TO_EDIT=("helsingborg-stad/*" "municipio-se/*")
-FULL_DIR_PATH=$(cd "$(dirname "$0")/.." && pwd)
+FULL_DIR_PATH=$(cd "$(dirname "$0")/../.." && pwd)
 
 # Warning about destructive actions
 echo "⚠️  This script will REMOVE all installed packages, repositories and reinstall them."

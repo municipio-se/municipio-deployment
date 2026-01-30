@@ -157,13 +157,13 @@ The `dev.sh` script is a utility designed to streamline the development process 
 ### Usage
 1. **Run the Script**: Execute the `dev.sh` script from the terminal in the project root directory.
     ```bash
-    sh dev.sh
+    .devcontainer/scripts/dev.sh
     ```
 2. **Follow Prompts**: The script will prompt for input or confirmation during execution. Follow the on-screen instructions.
 3. **Verify Setup**: Once the script completes, the user will have the selected repository locally in a git-repo (vscode open automatically).
 
 ### Notes
-- Ensure you have the necessary permissions to execute the script. You may need to run `chmod +x dev.sh` to make it executable.
+- Ensure you have the necessary permissions to execute the script. You may need to run `chmod +x .devcontainer/scripts/dev.sh` to make it executable.
 - Review the script contents to understand its operations and ensure it aligns with your development requirements.
 - For troubleshooting or customization, refer to the script's inline comments or contact the project maintainers.
 
