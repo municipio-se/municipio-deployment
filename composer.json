@@ -132,9 +132,13 @@
       "wp-content/themes/{$name}": [
         "type:wordpress-theme"
       ]
-    }
+    },
+    "aws/aws-sdk-php": [
+      "S3"
+    ]
   },
   "scripts": {
+    "pre-autoload-dump": "Aws\\Script\\Composer\\Composer::removeUnusedServices",
     "pre-install-cmd": [
       "php composer-local-merge.php pre-install"
     ],
