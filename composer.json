@@ -76,7 +76,7 @@
     "helsingborg-stad/modularity-timeline": "5.0.4",
     "helsingborg-stad/multi-network-urls": "2.0.0",
     "helsingborg-stad/multisite-role-propagation": "3.0.7",
-    "helsingborg-stad/municipio": "6.16.0",
+    "helsingborg-stad/municipio": "6.16.2",
     "helsingborg-stad/redirection-extended": "3.0.6",
     "helsingborg-stad/s3-local-index": "1.1.23",
     "helsingborg-stad/s3-uploads-custom-endpoint": "2.0.0",
@@ -163,6 +163,9 @@
     "pin-all-latest": [
       "bash -c 'set -euo pipefail; composer outdated --direct --format=json --ignore-platform-req=ext-imagick | jq -c \".installed[] | select(.latest != null and .latest != \\\"[none matched]\\\" and (.latest | startswith(\\\"dev-\\\") | not)) | {name:.name, version:.latest}\" | while read -r row; do PKG=$(echo \"$row\" | jq -r .name); VER=$(echo \"$row\" | jq -r .version); CURRENT=$(jq -r --arg p \"$PKG\" \".require[\\$p] // \\\"\\\"\" composer.json); if [ -z \"$CURRENT\" ]; then echo \"Skipping $PKG (not in root composer.json)\"; elif [[ \"$CURRENT\" == dev-* ]]; then echo \"Skipping $PKG (current version is dev)\"; else echo \"Updating $PKG to $VER\"; jq --arg p \"$PKG\" --arg v \"$VER\" \".require[\\$p] = \\$v\" composer.json > composer.json.tmp && mv composer.json.tmp composer.json; fi; done'",
       "composer update --lock --ignore-platform-req=ext-imagick"
+    ],
+    "dev": [
+      "sh .devcontainer/scripts/setup-dev-package.sh"
     ]
   }
 }
