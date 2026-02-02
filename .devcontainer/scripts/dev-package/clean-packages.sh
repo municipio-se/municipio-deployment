@@ -11,7 +11,9 @@ PROJECT_ROOT="${1:-$(cd "$(dirname "$0")/../../.." && pwd)}"
 
 cd "$PROJECT_ROOT"
 
+echo "=========================================================================="
 echo "🧹 Removing all installed resources (vendor, plugins, mu-plugins, themes)"
+echo "=========================================================================="
 
 if [ -d vendor ]; then
   rm -rf vendor/*
@@ -31,4 +33,6 @@ if [ -d wp-content/themes ]; then
   rm -rf wp-content/themes/*
 fi
 
-echo "✓ Cleanup complete"
+echo "=========================================================================="
+echo "✅ Cleanup complete"
+echo "=========================================================================="

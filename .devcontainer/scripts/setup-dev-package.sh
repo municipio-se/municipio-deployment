@@ -71,9 +71,13 @@ done
 
 # Confirmation prompt
 if [ "$SKIP_CONFIRM" = false ]; then
+  echo ""
+  echo ""
+  echo "=========================================================================="
   echo "⚠️  This script will REMOVE all installed packages, repositories and reinstall them."
-  echo "    Any local changes in installed packages will be lost (both tracked and untracked)."
-  echo "    Script will run in the project root: $PROJECT_ROOT"
+  echo "   Any local changes in installed packages will be lost (both tracked and untracked)."
+  echo "   Script will run in the project root: $PROJECT_ROOT"
+  echo "=========================================================================="
   echo ""
   read -p "👉 Do you want to continue? (y/n): " CONFIRM
 
@@ -84,7 +88,9 @@ if [ "$SKIP_CONFIRM" = false ]; then
 fi
 
 echo ""
-echo "Moving to project root: $PROJECT_ROOT"
+echo "=========================================================================="
+echo "📁 Moving to project root: $PROJECT_ROOT"
+echo "=========================================================================="
 cd "$PROJECT_ROOT"
 
 # Step 1: Clean packages
@@ -112,4 +118,6 @@ if [ "$SKIP_SELECT" = false ]; then
 fi
 
 echo ""
+echo "=========================================================================="
 echo "🎉 Setup complete!"
+echo "=========================================================================="

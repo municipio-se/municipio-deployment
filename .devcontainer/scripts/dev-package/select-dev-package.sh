@@ -52,7 +52,9 @@ PROJECT_ROOT="${PROJECT_ROOT:-$(cd "$(dirname "$0")/../../.." && pwd)}"
 cd "$PROJECT_ROOT"
 
 echo ""
+echo "=========================================================================="
 echo "📦 Available packages for development:"
+echo "=========================================================================="
 
 # Get all installed packages
 PACKAGES=($(composer show --name-only))
@@ -71,7 +73,9 @@ done
 PACKAGES=("${FILTERED_PACKAGES[@]}")
 
 if [ ${#PACKAGES[@]} -eq 0 ]; then
+  echo "=========================================================================="
   echo "❌ No matching packages found in composer.json or AVAILABLE_PACKAGES_TO_EDIT."
+  echo "=========================================================================="
   exit 1
 fi
 
@@ -84,7 +88,9 @@ if [ -z "$PACKAGE" ]; then
   done
 
   echo ""
+  echo "=========================================================================="
   read -p "👉 Select a package number to work on: " SELECTION
+  echo "=========================================================================="
 
   if ! [[ "$SELECTION" =~ ^[0-9]+$ ]] || (( SELECTION < 1 || SELECTION > ${#PACKAGES[@]} )); then
     echo "❌ Invalid selection"
@@ -103,7 +109,9 @@ else
   done
 
   if [ "$FOUND" = false ]; then
+    echo "=========================================================================="
     echo "❌ Package '$PACKAGE' is not available for development."
+    echo "=========================================================================="
     echo "Available packages:"
     printf "  %s\n" "${PACKAGES[@]}"
     exit 1
@@ -111,7 +119,9 @@ else
 fi
 
 echo ""
+echo "=========================================================================="
 echo "🛠 Reinstalling $PACKAGE as source"
+echo "=========================================================================="
 
 # Get the version of the selected package from composer.json
 PACKAGE_VERSION=$(jq -r --arg package "$PACKAGE" '.require[$package]' composer.json)
@@ -138,7 +148,10 @@ if [ -z "$PACKAGE_PATH" ]; then
 fi
 
 if [ -z "$PACKAGE_PATH" ]; then
+  echo ""
+  echo "=========================================================================="
   echo "⚠️ Could not determine the installation path for $PACKAGE."
+  echo "=========================================================================="
   exit 1
 fi
 
@@ -149,11 +162,15 @@ git -C "$PACKAGE_PATH" checkout HEAD || true
 cd "$PACKAGE_PATH"
 git checkout main || git checkout master || true
 
-echo "✓ Package $PACKAGE is ready for development at $PACKAGE_PATH"
+echo "=========================================================================="
+echo "✅ Package $PACKAGE is ready for development at $PACKAGE_PATH"
+echo "=========================================================================="
 
 # Open in editor if enabled
 if [ "$OPEN_EDITOR" = true ]; then
   echo ""
-  echo "✏️ Opening $PACKAGE in $EDITOR_CMD"
+  echo "=========================================================================="
+  echo "✏️  Opening $PACKAGE in $EDITOR_CMD"
+  echo "=========================================================================="
   $EDITOR_CMD .
 fi
