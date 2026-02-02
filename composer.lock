@@ -2866,16 +2866,16 @@
         },
         {
             "name": "helsingborg-stad/like-posts",
-            "version": "3.0.12",
+            "version": "3.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-like.git",
-                "reference": "ed7af5c3c55de3b5e482ee213ea2a9cbc82cd3c8"
+                "reference": "94e357e13d71386b1dc8954dbf17373e45b5a7fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-like/zipball/ed7af5c3c55de3b5e482ee213ea2a9cbc82cd3c8",
-                "reference": "ed7af5c3c55de3b5e482ee213ea2a9cbc82cd3c8",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-like/zipball/94e357e13d71386b1dc8954dbf17373e45b5a7fc",
+                "reference": "94e357e13d71386b1dc8954dbf17373e45b5a7fc",
                 "shasum": ""
             },
             "require": {
@@ -2915,9 +2915,9 @@
             "description": "Lets the users like a post.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-like/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-like/tree/3.0.12"
+                "source": "https://github.com/helsingborg-stad/modularity-like/tree/3.0.16"
             },
-            "time": "2026-01-27T09:15:41+00:00"
+            "time": "2026-02-02T10:40:54+00:00"
         },
         {
             "name": "helsingborg-stad/lix-calculator",
@@ -3876,16 +3876,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.16.2",
+            "version": "6.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "be2a1f21ea4f3d927212e28c74d79f367e18077d"
+                "reference": "bf40780b8c37fdef0133bc0b59bc7e393ccf2956"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/be2a1f21ea4f3d927212e28c74d79f367e18077d",
-                "reference": "be2a1f21ea4f3d927212e28c74d79f367e18077d",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/bf40780b8c37fdef0133bc0b59bc7e393ccf2956",
+                "reference": "bf40780b8c37fdef0133bc0b59bc7e393ccf2956",
                 "shasum": ""
             },
             "require": {
@@ -3961,9 +3961,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.16.2"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.17.0"
             },
-            "time": "2026-02-02T07:16:03+00:00"
+            "time": "2026-02-02T14:15:14+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
