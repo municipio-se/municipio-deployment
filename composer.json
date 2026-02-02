@@ -165,7 +165,7 @@
       "composer update --lock --ignore-platform-req=ext-imagick"
     ],
     "dev": [
-      "sh .devcontainer/scripts/setup-dev-package.sh"
+      ".devcontainer/scripts/setup-dev-package.sh"
     ]
   }
 }
