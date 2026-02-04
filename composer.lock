@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "898f28fc6e2aa3013f15c2d065e7c3ae",
+    "content-hash": "da958b088eb9f36e659585a55517a70a",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2410,46 +2410,6 @@
                 "source": "https://github.com/helsingborg-stad/component-library/tree/4.65.6"
             },
             "time": "2026-01-27T13:39:54+00:00"
-        },
-        {
-            "name": "helsingborg-stad/content-scheduler",
-            "version": "3.1.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helsingborg-stad/content-scheduler.git",
-                "reference": "3e630f56050ed1e27ef03bf2cb7625b1981e7ee0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/content-scheduler/zipball/3e630f56050ed1e27ef03bf2cb7625b1981e7ee0",
-                "reference": "3e630f56050ed1e27ef03bf2cb7625b1981e7ee0",
-                "shasum": ""
-            },
-            "require": {
-                "helsingborg-stad/acf-export-manager": ">=1.0.0"
-            },
-            "type": "wordpress-plugin",
-            "autoload": {
-                "psr-4": {
-                    "ContentScheduler\\": "source/php/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kristoffer Svanmark",
-                    "email": "kristoffer.svanmark@lexiconitkonsult.se"
-                }
-            ],
-            "description": "Nicer major publising actions interface and feature for post unpublising scheduleing",
-            "support": {
-                "issues": "https://github.com/helsingborg-stad/content-scheduler/issues",
-                "source": "https://github.com/helsingborg-stad/content-scheduler/tree/3.1.8"
-            },
-            "time": "2026-01-08T10:01:40+00:00"
         },
         {
             "name": "helsingborg-stad/coordinate-transformation-library",
@@ -9521,6 +9481,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/nginx-helper/"
+        },
+        {
+            "name": "wpackagist-plugin/post-expirator",
+            "version": "4.9.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/post-expirator/",
+                "reference": "tags/4.9.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.9.4.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/post-expirator/"
         },
         {
             "name": "wpackagist-plugin/pressidium-cookie-consent",
