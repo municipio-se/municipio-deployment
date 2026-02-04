@@ -12,20 +12,20 @@
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
 
- $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
- $host = $_SERVER['HTTP_HOST'];
+// Local site domain (fixed for devcontainer)
+$localSiteDomain = 'localhost:8443';
 
-// Activate debug mode on all environments using ?debug flag. 
+// Activate debug mode on all environments using ?debug flag.
 if (isset($_GET['debug'])) {
   define('WP_DEBUG', true);
 }
 
 if (!defined('WP_SITEURL')) {
-  define('WP_SITEURL', $protocol . $host . '/wp');
+  define('WP_SITEURL', 'https://' . $localSiteDomain . '/wp');
 }
 
 if (!defined('WP_HOME')) {
-  define('WP_HOME', $protocol . $host);
+  define('WP_HOME', 'https://' . $localSiteDomain);
 }
 
 if (!defined('WP_ENVIRONMENT_TYPE')) {
