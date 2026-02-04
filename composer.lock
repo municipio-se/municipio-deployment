@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86f6a10a10d1a47f0204e587c774194d",
+    "content-hash": "3e89c01757e3c42ee8bc9210d316a188",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2866,25 +2866,30 @@
         },
         {
             "name": "helsingborg-stad/like-posts",
-            "version": "3.0.16",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-like.git",
-                "reference": "94e357e13d71386b1dc8954dbf17373e45b5a7fc"
+                "reference": "df77460d9137c2fb79a50f0f99fb17b5d87c3295"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-like/zipball/94e357e13d71386b1dc8954dbf17373e45b5a7fc",
-                "reference": "94e357e13d71386b1dc8954dbf17373e45b5a7fc",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-like/zipball/df77460d9137c2fb79a50f0f99fb17b5d87c3295",
+                "reference": "df77460d9137c2fb79a50f0f99fb17b5d87c3295",
                 "shasum": ""
             },
             "require": {
-                "helsingborg-stad/municipio": "^6.0.0"
+                "helsingborg-stad/acfservice": "^1.3",
+                "helsingborg-stad/wpservice": "^2.0",
+                "helsingborg-stad/wputilservice": "^0.2.48"
             },
             "require-dev": {
                 "brain/monkey": "^2.6",
                 "codedungeon/phpunit-result-printer": "^0.31.0",
                 "phpunit/phpunit": "^9.5"
+            },
+            "suggest": {
+                "helsingborg-stad/municipio": "^6.0.0"
             },
             "type": "wordpress-plugin",
             "extra": {
@@ -2910,14 +2915,18 @@
                 {
                     "name": "Niclas Norin",
                     "email": "niclas.norin@frontwalker.se"
+                },
+                {
+                    "name": "Sebastian Thulin",
+                    "email": "sebastian.thulin@helsingborg.se"
                 }
             ],
             "description": "Lets the users like a post.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-like/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-like/tree/3.0.16"
+                "source": "https://github.com/helsingborg-stad/modularity-like/tree/3.1.2"
             },
-            "time": "2026-02-02T10:40:54+00:00"
+            "time": "2026-02-04T08:37:47+00:00"
         },
         {
             "name": "helsingborg-stad/lix-calculator",
@@ -3876,16 +3885,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.18.13",
+            "version": "6.18.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "c79e4b9c533bb21e0fd3f0078962b1324a91a261"
+                "reference": "5403e911ca431497433dd138862fcd4584cf8671"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/c79e4b9c533bb21e0fd3f0078962b1324a91a261",
-                "reference": "c79e4b9c533bb21e0fd3f0078962b1324a91a261",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/5403e911ca431497433dd138862fcd4584cf8671",
+                "reference": "5403e911ca431497433dd138862fcd4584cf8671",
                 "shasum": ""
             },
             "require": {
@@ -3961,9 +3970,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.18.13"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.18.15"
             },
-            "time": "2026-02-03T21:43:59+00:00"
+            "time": "2026-02-04T08:33:50+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -4004,23 +4013,23 @@
         },
         {
             "name": "helsingborg-stad/s3-local-index",
-            "version": "1.1.23",
+            "version": "1.1.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/s3-local-index.git",
-                "reference": "2859c093898946f5d1734890a4c3b5b471321241"
+                "reference": "0b8df652cd0e2e4c74d2f8ff9b755e1126b573ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/s3-local-index/zipball/2859c093898946f5d1734890a4c3b5b471321241",
-                "reference": "2859c093898946f5d1734890a4c3b5b471321241",
+                "url": "https://api.github.com/repos/helsingborg-stad/s3-local-index/zipball/0b8df652cd0e2e4c74d2f8ff9b755e1126b573ed",
+                "reference": "0b8df652cd0e2e4c74d2f8ff9b755e1126b573ed",
                 "shasum": ""
             },
             "require": {
                 "helsingborg-stad/wpservice": "^2.0"
             },
             "require-dev": {
-                "helsingborg-stad/phpcs": "^0.2.2",
+                "carthage-software/mago": "^1.0.0-rc.3",
                 "phpunit/phpunit": "^11.5"
             },
             "type": "wordpress-plugin",
@@ -4041,9 +4050,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/s3-local-index/issues",
-                "source": "https://github.com/helsingborg-stad/s3-local-index/tree/1.1.23"
+                "source": "https://github.com/helsingborg-stad/s3-local-index/tree/1.1.24"
             },
-            "time": "2025-10-21T11:19:20+00:00"
+            "time": "2026-02-04T09:00:37+00:00"
         },
         {
             "name": "helsingborg-stad/s3-uploads-custom-endpoint",
