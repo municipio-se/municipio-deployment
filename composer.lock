@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e09679bf43c148e4c800378f80a1739",
+    "content-hash": "898f28fc6e2aa3013f15c2d065e7c3ae",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -4013,16 +4013,16 @@
         },
         {
             "name": "helsingborg-stad/s3-local-index",
-            "version": "1.1.24",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/s3-local-index.git",
-                "reference": "0b8df652cd0e2e4c74d2f8ff9b755e1126b573ed"
+                "reference": "e01bbbfebe4eaf66dbe7da9b202ed6ee54340171"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/s3-local-index/zipball/0b8df652cd0e2e4c74d2f8ff9b755e1126b573ed",
-                "reference": "0b8df652cd0e2e4c74d2f8ff9b755e1126b573ed",
+                "url": "https://api.github.com/repos/helsingborg-stad/s3-local-index/zipball/e01bbbfebe4eaf66dbe7da9b202ed6ee54340171",
+                "reference": "e01bbbfebe4eaf66dbe7da9b202ed6ee54340171",
                 "shasum": ""
             },
             "require": {
@@ -4050,9 +4050,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/s3-local-index/issues",
-                "source": "https://github.com/helsingborg-stad/s3-local-index/tree/1.1.24"
+                "source": "https://github.com/helsingborg-stad/s3-local-index/tree/1.2.0"
             },
-            "time": "2026-02-04T09:00:37+00:00"
+            "time": "2026-02-04T10:09:03+00:00"
         },
         {
             "name": "helsingborg-stad/s3-uploads-custom-endpoint",

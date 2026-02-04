@@ -78,7 +78,7 @@
     "helsingborg-stad/multisite-role-propagation": "3.0.7",
     "helsingborg-stad/municipio": "6.18.15",
     "helsingborg-stad/redirection-extended": "3.0.6",
-    "helsingborg-stad/s3-local-index": "1.1.24",
+    "helsingborg-stad/s3-local-index": "1.2.0",
     "helsingborg-stad/s3-uploads-custom-endpoint": "2.0.0",
     "helsingborg-stad/search-notices": "3.0.4",
     "helsingborg-stad/visit-custom-posttypes-taxonomies": "2.0.7",
