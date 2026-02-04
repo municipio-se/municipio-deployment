@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e89c01757e3c42ee8bc9210d316a188",
+    "content-hash": "0e09679bf43c148e4c800378f80a1739",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2866,16 +2866,16 @@
         },
         {
             "name": "helsingborg-stad/like-posts",
-            "version": "3.1.2",
+            "version": "3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-like.git",
-                "reference": "df77460d9137c2fb79a50f0f99fb17b5d87c3295"
+                "reference": "24ba87a3497ba4acaea895cc04e872abf758fcc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-like/zipball/df77460d9137c2fb79a50f0f99fb17b5d87c3295",
-                "reference": "df77460d9137c2fb79a50f0f99fb17b5d87c3295",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-like/zipball/24ba87a3497ba4acaea895cc04e872abf758fcc3",
+                "reference": "24ba87a3497ba4acaea895cc04e872abf758fcc3",
                 "shasum": ""
             },
             "require": {
@@ -2924,9 +2924,9 @@
             "description": "Lets the users like a post.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-like/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-like/tree/3.1.2"
+                "source": "https://github.com/helsingborg-stad/modularity-like/tree/3.1.3"
             },
-            "time": "2026-02-04T08:37:47+00:00"
+            "time": "2026-02-04T09:23:28+00:00"
         },
         {
             "name": "helsingborg-stad/lix-calculator",
@@ -3582,16 +3582,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-recommend",
-            "version": "4.0.4",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-recommend.git",
-                "reference": "9605b84b438689a264fb8c93e59fc014ae29caf7"
+                "reference": "92b2b16f846302894efe63b50b485957cdbe2bf1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-recommend/zipball/9605b84b438689a264fb8c93e59fc014ae29caf7",
-                "reference": "9605b84b438689a264fb8c93e59fc014ae29caf7",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-recommend/zipball/92b2b16f846302894efe63b50b485957cdbe2bf1",
+                "reference": "92b2b16f846302894efe63b50b485957cdbe2bf1",
                 "shasum": ""
             },
             "require": {
@@ -3634,9 +3634,9 @@
             "description": "Modularity RekAI",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-recommend/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-recommend/tree/4.0.4"
+                "source": "https://github.com/helsingborg-stad/modularity-recommend/tree/4.1.0"
             },
-            "time": "2025-12-15T12:41:02+00:00"
+            "time": "2026-02-04T09:42:20+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-sections",
