@@ -30,13 +30,19 @@ This will ensure that deployments can be made by fetching the upstream of the fo
 3. Update to upstream, whenever you want to update your production enviroment with the latest version of Municipio.
 
 ## Adding custom dependencies
-You may add your own dependencies in the `composer.local.json` file. Add packages to the `require` or `require-dev` sections as needed:
+You may add your own dependencies in the `composer.local.json` file. Add packages to the `require` or `require-dev` sections as needed. You can also add custom `repositories` entries (VCS, package, path, etc.) for packages that are not available on Packagist or wpackagist:
 
 ```json
 {
   "name": "municipio-se/municipio-deployment-custom",
   "license": "MIT",
   "description": "Additions for your own install of Municipio.",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/your-org/your-private-plugin"
+    }
+  ],
   "require": {
     "vendor/package": "^1.0"
   },
@@ -46,12 +52,25 @@ You may add your own dependencies in the `composer.local.json` file. Add package
 }
 ```
 
-When `composer install` runs, the build process will:
-1. Temporarily merge your local requirements into `composer.json`
-2. Run the installation
-3. Automatically restore the original `composer.json` and `composer.lock`
+### How it works
+The build process uses `composer-local-merge.php` to handle local customisations without permanently modifying version-controlled files:
 
-This ensures no permanent modifications are made to version-controlled files while still allowing custom dependencies. The merge only happens when `composer.local.json` contains actual requirements.
+1. **Pre-install** — `composer.json` (and `composer.lock` if present) are backed up, and the contents of `composer.local.json` (`repositories`, `require`, `require-dev`) are merged in. Repository entries already present in `composer.json` are deduplicated automatically. `composer.lock` is removed so Composer resolves the full dependency tree fresh with the new sources.
+2. **Install** — `composer install` runs against the merged `composer.json`.
+3. **Post-install** — The original `composer.json` and `composer.lock` are restored from backup, leaving no trace of the local merge in version-controlled files.
+
+If `composer.local.json` is absent or contains no `repositories`, `require`, or `require-dev` entries the script exits immediately and nothing is changed.
+
+### Running locally (without the build script)
+If you run `composer install` or `composer update` directly on your local machine, you must wrap it with the merge script manually:
+
+```bash
+php composer-local-merge.php pre-install
+composer install
+php composer-local-merge.php post-install
+```
+
+Skipping this means your local packages will not be resolved and any custom repositories will not be available to Composer.
 
 You may also add plugins locally to your server with the folder name of the plugin prefixed with "local_". Normally they would be removed during the deploy to ensure one source of truth, however the deploy script will respect the "local_" prefix and keep them. 
 
