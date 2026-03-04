@@ -56,7 +56,7 @@ fi
 echo ""
 
 # Always create symlink to /var/www/html
-chmod a+x "$(pwd)" && rm -rf /var/www/html && ln -s "$(pwd)" /var/www/html
+sudo chmod a+x "$(pwd)" && sudo rm -rf /var/www/html && sudo ln -s "$(pwd)" /var/www/html
 echo "✓ Symlink created: $(pwd) → /var/www/html"
 
 # Show summary if there are missing configurations
