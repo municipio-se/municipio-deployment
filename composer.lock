@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d1b9764474b912afc54b92158f954b2",
+    "content-hash": "8aeb4bb20180efdfc98dc7d1a53dc879",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -3284,16 +3284,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-guides",
-            "version": "5.0.4",
+            "version": "5.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-guides.git",
-                "reference": "2c77b618a89d11f934f4eb6882a10419060333fa"
+                "reference": "244e8496825f8d4ebbfb3c994583c7efbfc7d153"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-guides/zipball/2c77b618a89d11f934f4eb6882a10419060333fa",
-                "reference": "2c77b618a89d11f934f4eb6882a10419060333fa",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-guides/zipball/244e8496825f8d4ebbfb3c994583c7efbfc7d153",
+                "reference": "244e8496825f8d4ebbfb3c994583c7efbfc7d153",
                 "shasum": ""
             },
             "require": {
@@ -3345,9 +3345,9 @@
             "description": "Addon for Modularity for creating guides",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-guides/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-guides/tree/5.0.4"
+                "source": "https://github.com/helsingborg-stad/modularity-guides/tree/5.0.6"
             },
-            "time": "2025-12-10T14:17:45+00:00"
+            "time": "2026-03-03T09:48:44+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-json-render",
@@ -9727,12 +9727,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
