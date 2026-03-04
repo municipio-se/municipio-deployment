@@ -251,6 +251,9 @@ wp option update siteurl "${LOCAL_SITE_URL}" --allow-root --url=$LOCAL_SITE_URL 
 wp option update home "${LOCAL_SITE_URL}" --allow-root --url=$LOCAL_SITE_URL --quiet 2>/dev/null
 print_success "Site options updated"
 
+print_info "Possibly turn off plugin \"force-ssl\"..."
+wp plugin deactivate force-ssl --allow-root --url=$LOCAL_SITE_URL --quiet 2>/dev/null || true
+
 # Cleanup
 print_header "Cleaning Up"
 rm -f $TMP_SQL
