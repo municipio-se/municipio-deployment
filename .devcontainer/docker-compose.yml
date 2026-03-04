@@ -34,7 +34,7 @@ services:
       MYSQL_PASSWORD: mariadb
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin:latest
     restart: always
     ports:
       - 8090:80
