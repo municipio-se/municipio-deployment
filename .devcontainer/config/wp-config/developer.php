@@ -13,7 +13,7 @@
  */
 
 // Local site domain (fixed for devcontainer)
-$localSiteDomain = 'localhost:8443';
+$localSiteDomain = 'localhost:8080';
 
 // Activate debug mode on all environments using ?debug flag.
 if (isset($_GET['debug'])) {
@@ -21,11 +21,11 @@ if (isset($_GET['debug'])) {
 }
 
 if (!defined('WP_SITEURL')) {
-  define('WP_SITEURL', 'https://' . $localSiteDomain . '/wp');
+  define('WP_SITEURL', 'http://' . $localSiteDomain . '/wp');
 }
 
 if (!defined('WP_HOME')) {
-  define('WP_HOME', 'https://' . $localSiteDomain);
+  define('WP_HOME', 'http://' . $localSiteDomain);
 }
 
 if (!defined('WP_ENVIRONMENT_TYPE')) {
