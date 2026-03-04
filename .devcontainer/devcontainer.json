@@ -1,68 +1,68 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/php-mariadb
 {
-"name": "Municipio Deployment(PHP & MariaDB)",
-"dockerComposeFile": "docker-compose.yml",
-"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-"service": "app",
-"forwardPorts": [
-"80:8080",
-8306,
-8090
-],
-"containerEnv": {
-"XDEBUG_MODE": "off"
-},
-// Use 'postCreateCommand' to run commands after the container is created.
-"postCreateCommand": {
-"setup": "chmod +x .devcontainer/scripts/postCreateCommand.sh && bash .devcontainer/scripts/postCreateCommand.sh"
-},
-"postStartCommand": "chmod +x .devcontainer/scripts/postStartCommand.sh && bash .devcontainer/scripts/postStartCommand.sh",
-// Features to add to the dev container. More info: https://containers.dev/features.
-"features": {
-"ghcr.io/devcontainers/features/node:1": {
-"version": "24"
-}
-},
-//"waitFor": "postCreateCommand",
-// Configure tool-specific properties.
-"customizations": {
-"vscode": {
-"extensions": [
-"eamodio.gitlens",
-"ritwickdey.liveserver",
-"ms-vscode.remote-server",
-"cjhowe7.laravel-blade",
-"github.vscode-github-actions"
-],
-"settings": {
-"remote.autoForwardPorts": false,
-"remote.portsAttributes": {
-"80:8080": {
-"label": "WordPress - HTTP",
-"onAutoForward": "notify",
-"requireLocalPort": true,
-"protocol": "http"
-},
-"8306": {
-"label": "Database",
-"onAutoForward": "notify",
-"requireLocalPort": false
-},
-"8090": {
-"label": "PhpMyAdmin",
-"onAutoForward": "notify",
-"requireLocalPort": false
-}
-},
-"intelephense.environment.includePaths": [
-"/tmp/wordpress-tests-lib",
-"/tmp/wordpress"
-],
-"intelephense.environment.phpVersion": "8.3"
-}
-}
-},
-// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-"remoteUser": "root"
+    "name": "Municipio Deployment(PHP & MariaDB)",
+    "dockerComposeFile": "docker-compose.yml",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "service": "app",
+    "forwardPorts": [
+        "80:8080",
+        8306,
+        8090
+    ],
+    "containerEnv": {
+        "XDEBUG_MODE": "off"
+    },
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": {
+        "setup": "chmod +x .devcontainer/scripts/postCreateCommand.sh && bash .devcontainer/scripts/postCreateCommand.sh"
+    },
+    "postStartCommand": "chmod +x .devcontainer/scripts/postStartCommand.sh && bash .devcontainer/scripts/postStartCommand.sh",
+    // Features to add to the dev container. More info: https://containers.dev/features.
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "24"
+        }
+    },
+    //"waitFor": "postCreateCommand",
+    // Configure tool-specific properties.
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "eamodio.gitlens",
+                "ritwickdey.liveserver",
+                "ms-vscode.remote-server",
+                "cjhowe7.laravel-blade",
+                "github.vscode-github-actions"
+            ],
+            "settings": {
+                "remote.autoForwardPorts": false,
+                "remote.portsAttributes": {
+                    "80:8080": {
+                        "label": "WordPress - HTTP",
+                        "onAutoForward": "notify",
+                        "requireLocalPort": true,
+                        "protocol": "http"
+                    },
+                    "8306": {
+                        "label": "Database",
+                        "onAutoForward": "notify",
+                        "requireLocalPort": false
+                    },
+                    "8090": {
+                        "label": "PhpMyAdmin",
+                        "onAutoForward": "notify",
+                        "requireLocalPort": false
+                    }
+                },
+                "intelephense.environment.includePaths": [
+                    "/tmp/wordpress-tests-lib",
+                    "/tmp/wordpress"
+                ],
+                "intelephense.environment.phpVersion": "8.3"
+            }
+        }
+    }
+    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+    // "remoteUser": "root"
 }

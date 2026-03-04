@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start apache2
-sudo service apache2 start > /dev/null 2>&1
+service apache2 start
 echo "✅ Apache2 started."
 
 # List exposed ports
