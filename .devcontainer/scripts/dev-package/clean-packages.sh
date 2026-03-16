@@ -26,7 +26,7 @@ fi
 
 if [ -d wp-content/mu-plugins ]; then
   # Keep loader.php
-  find wp-content/mu-plugins/ -mindepth 1 -maxdepth 1 ! -name 'loader.php' -exec rm -rf {} +
+  find wp-content/mu-plugins/ -mindepth 1 -maxdepth 1 ! -name 'loader.php' ! -name 'migrate.php' -exec rm -rf {} +
 fi
 
 if [ -d wp-content/themes ]; then
