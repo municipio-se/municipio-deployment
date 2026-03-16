@@ -21,6 +21,34 @@ if [ -f .devcontainer/.env ]; then
     set -a
     source .devcontainer/.env
     set +a
+    
+    # Make environment variables available system-wide for all future shell sessions
+    # Check if already configured to avoid duplicates
+    if ! grep -q "Load devcontainer environment variables" /etc/bash.bashrc 2>/dev/null; then
+        {
+            echo ""
+            echo "# Auto-generated: Load devcontainer environment variables"
+            echo "if [ -f /workspaces/municipio-deployment/.devcontainer/.env ]; then"
+            echo "    set -a"
+            echo "    source /workspaces/municipio-deployment/.devcontainer/.env 2>/dev/null"
+            echo "    set +a"
+            echo "fi"
+        } | sudo tee -a /etc/bash.bashrc > /dev/null
+        echo "✓ Environment variables configured for all shell sessions"
+    fi
+    
+    # Also add to /etc/environment for system-wide availability
+    if ! grep -q "MUNICIPIO_ACF_PRO_KEY" /etc/environment 2>/dev/null; then
+        # Create environment file entries (more universal approach)
+        while IFS='=' read -r key value; do
+            # Skip comments and empty lines
+            [[ $key =~ ^#.*$ || -z $key ]] && continue
+            # Remove quotes if present
+            value=$(echo "$value" | sed 's/^["'\'']\|["'\'']$//g')
+            echo "$key=$value" | sudo tee -a /etc/environment > /dev/null
+        done < .devcontainer/.env
+        echo "✓ Environment variables added to /etc/environment"
+    fi
 fi
 
 # Check required variables and configure what we can

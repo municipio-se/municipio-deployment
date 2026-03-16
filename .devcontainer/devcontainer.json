@@ -24,7 +24,7 @@
             "version": "24"
         }
     },
-    //"waitFor": "postCreateCommand",
+    "waitFor": "postCreateCommand",
     // Configure tool-specific properties.
     "customizations": {
         "vscode": {
