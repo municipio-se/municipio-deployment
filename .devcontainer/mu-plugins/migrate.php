@@ -8,7 +8,7 @@ Author:         Thor Brink
 */
 
 add_filter('upload_dir', function ($uploads) {
-    static $CDN_DOMAIN = 'media.helsingborg.se';
+    static $CDN_DOMAIN = getenv('CDN_DOMAIN');
     static $remoteSiteId = null;
     $localSiteId = get_current_blog_id();
     $localSiteUrl = get_site_url($localSiteId);
