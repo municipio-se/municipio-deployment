@@ -269,6 +269,7 @@ wp option update siteurl "${LOCAL_SITE_URL}" --allow-root --url=$LOCAL_SITE_URL 
 wp option update home "${LOCAL_SITE_URL}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
 wp option update remote_site_id "${REMOTE_SITE_ID}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
 wp option update upload_url_path "${REMOTE_UPLOAD_URL_PATH}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
+wp option update remote_cdn_domain "${CDN_DOMAIN}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
 
 print_success "Site options updated"
 
