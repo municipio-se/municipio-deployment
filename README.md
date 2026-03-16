@@ -64,6 +64,7 @@ Used for branch names: production, master
 | Secret name                     | Description                                                                  | Required |
 |---------------------------------|------------------------------------------------------------------------------|----------|
 | DEPLOY_REMOTE_HOST_PROD         | Host domain or ip                                                            | true     |
+| DEPLOY_REMOTE_PORT_PROD         | SSH port for deployment (defaults to 22 if not specified)                    | false    |
 | DEPLOY_REMOTE_PATH_PROD         | Host deployment path                                                         | true     |
 | DEPLOY_REMOTE_BACKUP_DIR_PROD   | Host rsync backup path                                                       | true     |
 | DEPLOY_REMOTE_USER_PROD         | Host deploy ssh user name (In sudoers with nopassword enabled)               | true     |
@@ -79,6 +80,7 @@ Used for branch names: stage, beta, test
 | Secret name                     | Description                                                                  | Required |
 |---------------------------------|------------------------------------------------------------------------------|----------|
 | DEPLOY_REMOTE_HOST_STAGE        | Host domain or ip                                                            | true     |
+| DEPLOY_REMOTE_PORT_STAGE        | SSH port for deployment (defaults to 22 if not specified)                    | false    |
 | DEPLOY_REMOTE_PATH_STAGE        | Host deployment path                                                         | true     |
 | DEPLOY_REMOTE_BACKUP_DIR_STAGE  | Host rsync backup path                                                       | true     |
 | DEPLOY_REMOTE_USER_STAGE        | Host deploy ssh user name (In sudoers with nopassword enabled)               | true     |
