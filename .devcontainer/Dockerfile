@@ -62,4 +62,8 @@ RUN (type -p wget >/dev/null || (apt update && apt install wget -y)) \
 RUN apt-get update && apt-get install -y libtidy-dev \
     && docker-php-ext-install tidy
 
+# Increase php upload limit
+RUN echo "upload_max_filesize = 256M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size = 256M" >> /usr/local/etc/php/conf.d/uploads.ini
+
 RUN a2enmod headers mime rewrite
