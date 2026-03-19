@@ -243,23 +243,26 @@ print_info "Replacing $REMOTE_SITE_DOMAIN with $LOCAL_SITE_DOMAIN/$LOCAL_SITE_SL
 # Capture the replacement count but suppress the table output
 wp search-replace "$REMOTE_SITE_DOMAIN" "$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG" --allow-root \
     --network \
+    --skip-plugins --skip-themes \
     --quiet 2>/dev/null
 
 print_info "Replacing $CDN_DOMAIN with $LOCAL_SITE_DOMAIN..."
 wp search-replace "$CDN_DOMAIN" "$LOCAL_SITE_DOMAIN" --allow-root \
-    --all-tables \
     --url=$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG \
+    --skip-plugins --skip-themes \
     --quiet 2>/dev/null
 
 print_info "Replacing https:// with http:// for local site..."
 wp search-replace "https://$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG" "http://$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG" --allow-root \
     --network \
     --url=$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG \
+    --skip-plugins --skip-themes \
     --quiet 2>/dev/null
 
 wp search-replace "$LOCAL_SITE_DOMAIN/uploads" "$CDN_DOMAIN/uploads" --allow-root \
     --network \
     --url=$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG \
+    --skip-plugins --skip-themes \
     --quiet 2>/dev/null
 
 print_success "URLs updated"
@@ -269,7 +272,7 @@ wp option update siteurl "${LOCAL_SITE_URL}" --allow-root --url=$LOCAL_SITE_URL 
 wp option update home "${LOCAL_SITE_URL}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
 wp option update remote_site_id "${REMOTE_SITE_ID}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
 wp option update upload_url_path "${REMOTE_UPLOAD_URL_PATH}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
-wp option update remote_cdn_domain "${CDN_DOMAIN}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
+wp option add remote_cdn_domain "${CDN_DOMAIN}" --autoload=no --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
 
 print_success "Site options updated"
 
