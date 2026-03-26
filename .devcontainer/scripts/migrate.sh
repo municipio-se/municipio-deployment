@@ -211,8 +211,13 @@ print_success "Database imported"
 # Update table prefixes
 print_header "Updating Table Prefixes"
 LOCAL_SITE_PREFIX="${LOCAL_PREFIX}${LOCAL_SITE_ID}_"
+if [ "$REMOTE_SITE_ID" = "1" ]; then
+    REMOTE_SITE_PREFIX="${REMOTE_PREFIX}"
+else
+    REMOTE_SITE_PREFIX="${REMOTE_PREFIX}${REMOTE_SITE_ID}_"
+fi
 
-tables_to_rename=$(wp db tables --all-tables --allow-root | grep "^${REMOTE_PREFIX}${REMOTE_SITE_ID}_" || true)
+tables_to_rename=$(wp db tables --all-tables --allow-root | grep "^${REMOTE_SITE_PREFIX}" || true)
 
 if [ -n "$tables_to_rename" ]; then
     table_count=$(echo "$tables_to_rename" | wc -l)
@@ -221,8 +226,8 @@ if [ -n "$tables_to_rename" ]; then
     current=0
     for table in $tables_to_rename; do
         current=$((current + 1))
-        suffix="${table#${REMOTE_PREFIX}${REMOTE_SITE_ID}_}"
-        newtable="${LOCAL_PREFIX}${LOCAL_SITE_ID}_${suffix}"
+        suffix="${table#${REMOTE_SITE_PREFIX}}"
+        newtable="${LOCAL_SITE_PREFIX}${suffix}"
         
         echo -n "  [$current/$table_count] Renaming $table... "
         wp db query "DROP TABLE IF EXISTS $newtable;" --allow-root 2>/dev/null || true
@@ -232,7 +237,7 @@ if [ -n "$tables_to_rename" ]; then
     
     print_success "All tables renamed"
 else
-    print_error "No tables found matching pattern: ${REMOTE_PREFIX}${REMOTE_SITE_ID}_"
+    print_error "No tables found matching pattern: ${REMOTE_SITE_PREFIX}"
     exit 1
 fi
 

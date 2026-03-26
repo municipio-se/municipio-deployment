@@ -23,6 +23,11 @@ add_filter('upload_dir', function ($uploads) {
         return $uploads;
     }
 
+    if($remoteSiteId === "1") {
+        $uploads['url'] = str_replace('sites/' . $localSiteId . '/', '', $uploads['url']);
+        $uploads['baseurl'] = str_replace('sites/' . $localSiteId . '/', '', $uploads['baseurl']);
+    }
+
     $uploads['subdir'] = '';
     $uploads['url'] = str_replace('sites/' . $localSiteId, 'sites/' . $remoteSiteId, $uploads['url']);
     $uploads['url'] = str_replace('wp-content/uploads', 'uploads', $uploads['url']);
