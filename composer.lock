@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db06162cb788ba3bcf5e32876866c9aa",
+    "content-hash": "42ada1feb3ea7aa2208e81a378ea9735",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -290,16 +290,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.374.0",
+            "version": "3.374.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "18525c8cc2a3aa2c1db23ceca5f57c5f8380d9c4"
+                "reference": "67b6b6210af47319c74c5666388d71bc1bc58276"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/18525c8cc2a3aa2c1db23ceca5f57c5f8380d9c4",
-                "reference": "18525c8cc2a3aa2c1db23ceca5f57c5f8380d9c4",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/67b6b6210af47319c74c5666388d71bc1bc58276",
+                "reference": "67b6b6210af47319c74c5666388d71bc1bc58276",
                 "shasum": ""
             },
             "require": {
@@ -381,9 +381,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.374.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.374.2"
             },
-            "time": "2026-03-25T18:05:48+00:00"
+            "time": "2026-03-27T18:05:55+00:00"
         },
         {
             "name": "brick/math",
@@ -1089,16 +1089,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v7.0.3",
+            "version": "v7.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "28aa0694bcfdfa5e2959c394d5a1ee7a5083629e"
+                "reference": "e41f1bd7dbe3c5455c3f72d4338cfeb083b71931"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/28aa0694bcfdfa5e2959c394d5a1ee7a5083629e",
-                "reference": "28aa0694bcfdfa5e2959c394d5a1ee7a5083629e",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/e41f1bd7dbe3c5455c3f72d4338cfeb083b71931",
+                "reference": "e41f1bd7dbe3c5455c3f72d4338cfeb083b71931",
                 "shasum": ""
             },
             "require": {
@@ -1106,6 +1106,7 @@
             },
             "require-dev": {
                 "guzzlehttp/guzzle": "^7.4",
+                "phpfastcache/phpfastcache": "^9.2",
                 "phpspec/prophecy-phpunit": "^2.0",
                 "phpunit/phpunit": "^9.5",
                 "psr/cache": "^2.0||^3.0",
@@ -1146,9 +1147,9 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v7.0.3"
+                "source": "https://github.com/firebase/php-jwt/tree/v7.0.4"
             },
-            "time": "2026-02-25T22:16:40+00:00"
+            "time": "2026-03-27T21:17:19+00:00"
         },
         {
             "name": "freshleafmedia/autofocus",
@@ -2143,16 +2144,16 @@
         },
         {
             "name": "helsingborg-stad/api-event-manager-integration",
-            "version": "3.1.1",
+            "version": "3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-event-manager-integration.git",
-                "reference": "b65f8d030065be0c3e91e86fe372878ab26e57ff"
+                "reference": "ea89891345a0bbfc88faf911e5a4a7f8228f098f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/b65f8d030065be0c3e91e86fe372878ab26e57ff",
-                "reference": "b65f8d030065be0c3e91e86fe372878ab26e57ff",
+                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/ea89891345a0bbfc88faf911e5a4a7f8228f098f",
+                "reference": "ea89891345a0bbfc88faf911e5a4a7f8228f098f",
                 "shasum": ""
             },
             "require": {
@@ -2194,9 +2195,9 @@
             "description": "Import and display events from Event Manager API.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-event-manager-integration/issues",
-                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.1.1"
+                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.1.4"
             },
-            "time": "2026-03-26T08:50:44+00:00"
+            "time": "2026-03-26T10:06:52+00:00"
         },
         {
             "name": "helsingborg-stad/api-volunteer-manager-integration",
@@ -3469,16 +3470,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-json-render",
-            "version": "4.0.3",
+            "version": "4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-json-render.git",
-                "reference": "55247bf105938038d37bd0fe0fcf948ef50137b7"
+                "reference": "1c6ded6de198f93b3f5f198f6ee870dee4be9d01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/55247bf105938038d37bd0fe0fcf948ef50137b7",
-                "reference": "55247bf105938038d37bd0fe0fcf948ef50137b7",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/1c6ded6de198f93b3f5f198f6ee870dee4be9d01",
+                "reference": "1c6ded6de198f93b3f5f198f6ee870dee4be9d01",
                 "shasum": ""
             },
             "require": {
@@ -3521,9 +3522,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-json-render/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.0.3"
+                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.0.4"
             },
-            "time": "2026-03-26T09:01:20+00:00"
+            "time": "2026-03-30T07:44:13+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-open-street-map",
@@ -3950,12 +3951,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "6a4c9ec89291e6a3a426a6719fe31650187a132f"
+                "reference": "c194f1100c550dc3f945b70c90e0047e00c6b793"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/6a4c9ec89291e6a3a426a6719fe31650187a132f",
-                "reference": "6a4c9ec89291e6a3a426a6719fe31650187a132f",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/c194f1100c550dc3f945b70c90e0047e00c6b793",
+                "reference": "c194f1100c550dc3f945b70c90e0047e00c6b793",
                 "shasum": ""
             },
             "require": {
@@ -3971,7 +3972,7 @@
                 "helsingborg-stad/component-library": "5.2.3",
                 "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.4",
-                "helsingborg-stad/styleguide": "2.198.44",
+                "helsingborg-stad/styleguide": "2.198.50",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "^0.2.44",
                 "jeradin/acf-dynamic-table-field": "dev-master",
@@ -4034,7 +4035,7 @@
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
                 "source": "https://github.com/helsingborg-stad/Municipio/tree/styleguide"
             },
-            "time": "2026-03-25T14:08:01+00:00"
+            "time": "2026-03-30T05:36:24+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -4237,16 +4238,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.198.44",
+            "version": "2.198.50",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "7b41e4193a7f487ea3ea68213424457c4fb5ff71"
+                "reference": "d540cdbf1449977b2412b28d6dee1604ae1d291d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/7b41e4193a7f487ea3ea68213424457c4fb5ff71",
-                "reference": "7b41e4193a7f487ea3ea68213424457c4fb5ff71",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/d540cdbf1449977b2412b28d6dee1604ae1d291d",
+                "reference": "d540cdbf1449977b2412b28d6dee1604ae1d291d",
                 "shasum": ""
             },
             "require": {
@@ -4290,9 +4291,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.198.44"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.198.50"
             },
-            "time": "2026-03-25T06:23:07+00:00"
+            "time": "2026-03-30T05:15:35+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
