@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42ada1feb3ea7aa2208e81a378ea9735",
+    "content-hash": "3361047652d371896d2405a6bee4ff23",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -3947,16 +3947,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "dev-styleguide",
+            "version": "7.0.0-alpha.74",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "c194f1100c550dc3f945b70c90e0047e00c6b793"
+                "reference": "3ef552a04308efda1556ae805d861a3f292461e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/c194f1100c550dc3f945b70c90e0047e00c6b793",
-                "reference": "c194f1100c550dc3f945b70c90e0047e00c6b793",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/3ef552a04308efda1556ae805d861a3f292461e7",
+                "reference": "3ef552a04308efda1556ae805d861a3f292461e7",
                 "shasum": ""
             },
             "require": {
@@ -4033,9 +4033,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/styleguide"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.0.0-alpha.74"
             },
-            "time": "2026-03-30T05:36:24+00:00"
+            "time": "2026-03-30T09:03:20+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -10090,9 +10090,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "helsingborg-stad/municipio": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
