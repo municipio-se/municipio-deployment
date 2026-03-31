@@ -7,7 +7,7 @@ services:
         imageVariant: 8.3-bullseye
 
     ports:
-      - 8443:443
+      - 8080:80
 
     volumes:
       - ../..:/workspaces:cached
@@ -34,10 +34,10 @@ services:
       MYSQL_PASSWORD: mariadb
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin:latest
     restart: always
     ports:
-      - 8080:80
+      - 8090:80
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: mariadb

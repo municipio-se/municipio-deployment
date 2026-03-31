@@ -29,12 +29,13 @@ REMOTE_SITE_PROTOCOL="${REMOTE_SITE_PROTOCOL:?REMOTE_SITE_PROTOCOL not set}"
 REMOTE_SITE_DOMAIN="${REMOTE_SITE_DOMAIN:?REMOTE_SITE_DOMAIN not set}"
 REMOTE_PREFIX="${REMOTE_PREFIX:?REMOTE_PREFIX not set}"
 LOCAL_SITE_SLUG="${LOCAL_SITE_SLUG:?LOCAL_SITE_SLUG not set}"
+CDN_DOMAIN="${CDN_DOMAIN:?CDN_DOMAIN not set}"
 
 ### LOCAL SETUP ###
 LOCAL_PATH="/var/www/html"
 REMOTE_SITE_URL="${REMOTE_SITE_PROTOCOL}${REMOTE_SITE_DOMAIN}"
-LOCAL_SITE_DOMAIN="localhost:8443"
-LOCAL_MU_SITE_URL="https://${LOCAL_SITE_DOMAIN}"
+LOCAL_SITE_DOMAIN="localhost:8080"
+LOCAL_MU_SITE_URL="http://${LOCAL_SITE_DOMAIN}"
 LOCAL_SITE_URL="$LOCAL_MU_SITE_URL/$LOCAL_SITE_SLUG"
 LOCAL_PREFIX="mun_"
 TMP_SQL="/tmp/${LOCAL_SITE_SLUG}.sql"
@@ -161,6 +162,8 @@ fi
 # Get remote site ID
 print_header "Getting Remote Site ID"
 REMOTE_SITE_ID=$(ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null | grep '$REMOTE_SITE_URL' | cut -d',' -f1")
+print_header "Getting Remote Upload URL Path"
+REMOTE_UPLOAD_URL_PATH=$(ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH "cd $REMOTE_PATH; wp option get upload_url_path --url=$REMOTE_SITE_URL --allow-root --skip-plugins --skip-themes 2>/dev/null")
 
 if [ -z "$REMOTE_SITE_ID" ]; then
     print_error "Failed to retrieve remote site ID"
@@ -208,8 +211,13 @@ print_success "Database imported"
 # Update table prefixes
 print_header "Updating Table Prefixes"
 LOCAL_SITE_PREFIX="${LOCAL_PREFIX}${LOCAL_SITE_ID}_"
+if [ "$REMOTE_SITE_ID" = "1" ]; then
+    REMOTE_SITE_PREFIX="${REMOTE_PREFIX}"
+else
+    REMOTE_SITE_PREFIX="${REMOTE_PREFIX}${REMOTE_SITE_ID}_"
+fi
 
-tables_to_rename=$(wp db tables --all-tables --allow-root | grep "^${REMOTE_PREFIX}${REMOTE_SITE_ID}_" || true)
+tables_to_rename=$(wp db tables --all-tables --allow-root | grep "^${REMOTE_SITE_PREFIX}" || true)
 
 if [ -n "$tables_to_rename" ]; then
     table_count=$(echo "$tables_to_rename" | wc -l)
@@ -218,8 +226,8 @@ if [ -n "$tables_to_rename" ]; then
     current=0
     for table in $tables_to_rename; do
         current=$((current + 1))
-        suffix="${table#${REMOTE_PREFIX}${REMOTE_SITE_ID}_}"
-        newtable="${LOCAL_PREFIX}${LOCAL_SITE_ID}_${suffix}"
+        suffix="${table#${REMOTE_SITE_PREFIX}}"
+        newtable="${LOCAL_SITE_PREFIX}${suffix}"
         
         echo -n "  [$current/$table_count] Renaming $table... "
         wp db query "DROP TABLE IF EXISTS $newtable;" --allow-root 2>/dev/null || true
@@ -229,27 +237,52 @@ if [ -n "$tables_to_rename" ]; then
     
     print_success "All tables renamed"
 else
-    print_error "No tables found matching pattern: ${REMOTE_PREFIX}${REMOTE_SITE_ID}_"
+    print_error "No tables found matching pattern: ${REMOTE_SITE_PREFIX}"
     exit 1
 fi
 
 # Search and replace URLs
 print_header "Updating URLs in Database"
-print_info "Replacing $REMOTE_SITE_DOMAIN with $LOCAL_SITE_DOMAIN..."
+print_info "Replacing $REMOTE_SITE_DOMAIN with $LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG..."
 
 # Capture the replacement count but suppress the table output
-result=$(wp search-replace "$REMOTE_SITE_DOMAIN" "$LOCAL_SITE_DOMAIN" --allow-root \
+wp search-replace "$REMOTE_SITE_DOMAIN" "$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG" --allow-root \
     --network \
-    --skip-columns=guid \
-    --report-changed-only \
-    --quiet 2>/dev/null || echo "0")
+    --skip-plugins --skip-themes \
+    --quiet 2>/dev/null
 
-print_success "URLs updated (63 replacements made)"
+print_info "Replacing $CDN_DOMAIN with $LOCAL_SITE_DOMAIN..."
+wp search-replace "$CDN_DOMAIN" "$LOCAL_SITE_DOMAIN" --allow-root \
+    --url=$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG \
+    --skip-plugins --skip-themes \
+    --quiet 2>/dev/null
+
+print_info "Replacing https:// with http:// for local site..."
+wp search-replace "https://$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG" "http://$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG" --allow-root \
+    --network \
+    --url=$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG \
+    --skip-plugins --skip-themes \
+    --quiet 2>/dev/null
+
+wp search-replace "$LOCAL_SITE_DOMAIN/uploads" "$CDN_DOMAIN/uploads" --allow-root \
+    --network \
+    --url=$LOCAL_SITE_DOMAIN/$LOCAL_SITE_SLUG \
+    --skip-plugins --skip-themes \
+    --quiet 2>/dev/null
+
+print_success "URLs updated"
 
 print_info "Setting site options..."
-wp option update siteurl "${LOCAL_SITE_URL}" --allow-root --url=$LOCAL_SITE_URL --quiet 2>/dev/null
-wp option update home "${LOCAL_SITE_URL}" --allow-root --url=$LOCAL_SITE_URL --quiet 2>/dev/null
+wp option update siteurl "${LOCAL_SITE_URL}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
+wp option update home "${LOCAL_SITE_URL}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
+wp option update remote_site_id "${REMOTE_SITE_ID}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
+wp option update upload_url_path "${REMOTE_UPLOAD_URL_PATH}" --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
+wp option add remote_cdn_domain "${CDN_DOMAIN}" --autoload=no --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null
+
 print_success "Site options updated"
+
+print_info "Turn off plugins that may cause issues with local development..."
+wp plugin deactivate force-ssl s3-uploads s3-local-index --allow-root --url=$LOCAL_SITE_URL --quiet --skip-plugins --skip-themes 2>/dev/null || true
 
 # Cleanup
 print_header "Cleaning Up"

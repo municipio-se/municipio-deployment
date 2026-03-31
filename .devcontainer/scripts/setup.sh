@@ -25,7 +25,7 @@ else
 fi
 
 ### CONFIGURATION ###
-LOCAL_SITE_DOMAIN="localhost:8443"
+LOCAL_SITE_DOMAIN="localhost:8080"
 
 #############################################################################
 # Helper Functions
@@ -158,12 +158,17 @@ fi
 # Step 4: Import database
 print_header "Importing Database"
 print_info "Resetting database..."
-wp db reset --quiet --yes --allow-root --url="${LOCAL_SITE_DOMAIN}"
+wp db reset --quiet --yes --allow-root --url="${LOCAL_SITE_DOMAIN}" --skip-plugins --skip-themes
 print_info "Importing seed.sql..."
-wp db import ./db/seed.sql --quiet --skip-plugins --skip-themes --allow-root --url="${LOCAL_SITE_DOMAIN}"
+wp db import ./db/seed.sql --quiet --skip-plugins --skip-themes --allow-root --url="${LOCAL_SITE_DOMAIN}" 
 print_info "Running search-replace for local domain..."
 wp search-replace dev.local.municipio.tech "${LOCAL_SITE_DOMAIN}" --quiet --skip-plugins --skip-themes --network --all-tables --allow-root --url="${LOCAL_SITE_DOMAIN}"
+wp search-replace "https://${LOCAL_SITE_DOMAIN}" "http://${LOCAL_SITE_DOMAIN}" --quiet --skip-plugins --skip-themes --network --all-tables --allow-root --url="${LOCAL_SITE_DOMAIN}"
+
 print_success "Database imported"
+
+print_info "Deactivating force-ssl plugin..."
+wp plugin deactivate force-ssl --network --quiet --skip-plugins --skip-themes --allow-root --url="${LOCAL_SITE_DOMAIN}"
 
 # Step 5: Add .htaccess
 print_header "Adding .htaccess"
@@ -176,19 +181,30 @@ print_header "Setting Up Cache"
 print_info "Creating blade-cache directory..."
 mkdir -p ./wp-content/uploads/cache/blade-cache
 print_info "Setting permissions on blade-cache..."
-chmod -R 766 ./wp-content/uploads/cache/blade-cache
+chmod -R 777 ./wp-content/uploads/cache/blade-cache
+print_info "Creating fonts directory..."
+mkdir -p ./wp-content/fonts
+print_info "Setting permissions on fonts directory..."
+chmod -R 777 ./wp-content/fonts
 print_success "Cache directories configured"
 
 # Step 7: Remove cached fonts
 print_header "Cleaning Up"
 print_info "Removing cached fonts..."
-rm -rf ./wp-content/fonts
+rm -rf ./wp-content/fonts/*
 print_success "Cached fonts removed"
+
+# Step 8: Copy mu-plugins
+print_header "Setting Up Must-Use Plugins"
+print_info "Copying mu-plugins from devcontainer config..."
+mkdir -p ./wp-content/mu-plugins
+cp ./.devcontainer/mu-plugins/* ./wp-content/mu-plugins
+print_success "Must-Use Plugins set up"
 
 # Final success message
 print_header "Setup Complete! 🎉"
 echo ""
 echo "Your local site is now available at:"
-echo "  https://${LOCAL_SITE_DOMAIN}"
+echo "  http://${LOCAL_SITE_DOMAIN}"
 echo ""
 print_success "All done!"
