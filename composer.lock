@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07830b89adfbae9ce7f3da2c83c19cea",
+    "content-hash": "d09a9903f26d627bf0c7e69bfd6e83f0",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2471,16 +2471,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.7.4",
+            "version": "5.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "3019ad66327b16f3b61d7f05f51ffe9f98cd96ac"
+                "reference": "382085abb3acf15e4d0170b79b36ca3ed0f1d5fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/3019ad66327b16f3b61d7f05f51ffe9f98cd96ac",
-                "reference": "3019ad66327b16f3b61d7f05f51ffe9f98cd96ac",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/382085abb3acf15e4d0170b79b36ca3ed0f1d5fe",
+                "reference": "382085abb3acf15e4d0170b79b36ca3ed0f1d5fe",
                 "shasum": ""
             },
             "require": {
@@ -2512,9 +2512,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.7.4"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.7.5"
             },
-            "time": "2026-03-31T07:39:58+00:00"
+            "time": "2026-03-31T14:08:02+00:00"
         },
         {
             "name": "helsingborg-stad/coordinate-transformation-library",
@@ -3931,16 +3931,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.33.10",
+            "version": "6.33.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "369ad1e4310ccb8564d344da2ea7c16929a7ef23"
+                "reference": "e457dad777358a081915ba0ff961111d6dbfad43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/369ad1e4310ccb8564d344da2ea7c16929a7ef23",
-                "reference": "369ad1e4310ccb8564d344da2ea7c16929a7ef23",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/e457dad777358a081915ba0ff961111d6dbfad43",
+                "reference": "e457dad777358a081915ba0ff961111d6dbfad43",
                 "shasum": ""
             },
             "require": {
@@ -3953,7 +3953,7 @@
                 "helsingborg-stad/acf-export-manager": ">=1.0.0",
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
-                "helsingborg-stad/component-library": "5.7.4",
+                "helsingborg-stad/component-library": "5.7.5",
                 "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.7",
                 "helsingborg-stad/wpservice": "^2.0",
@@ -4016,9 +4016,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.33.10"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.33.12"
             },
-            "time": "2026-03-31T12:32:35+00:00"
+            "time": "2026-03-31T14:19:53+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
