@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e05d428be8fb579372be6eeab140bd9c",
+    "content-hash": "6b9a4496cf98e93e89d96fa035152a36",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -290,16 +290,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.375.0",
+            "version": "3.377.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6cfa1798c3fa0182d902eda9419dca48c86d74a1"
+                "reference": "573c569d20710a902446688a0439b53fef256e3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6cfa1798c3fa0182d902eda9419dca48c86d74a1",
-                "reference": "6cfa1798c3fa0182d902eda9419dca48c86d74a1",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/573c569d20710a902446688a0439b53fef256e3a",
+                "reference": "573c569d20710a902446688a0439b53fef256e3a",
                 "shasum": ""
             },
             "require": {
@@ -381,9 +381,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.375.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.377.0"
             },
-            "time": "2026-03-30T19:30:55+00:00"
+            "time": "2026-04-07T18:14:36+00:00"
         },
         {
             "name": "brick/math",
@@ -1089,16 +1089,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v7.0.4",
+            "version": "v7.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "e41f1bd7dbe3c5455c3f72d4338cfeb083b71931"
+                "reference": "47ad26bab5e7c70ae8a6f08ed25ff83631121380"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/e41f1bd7dbe3c5455c3f72d4338cfeb083b71931",
-                "reference": "e41f1bd7dbe3c5455c3f72d4338cfeb083b71931",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/47ad26bab5e7c70ae8a6f08ed25ff83631121380",
+                "reference": "47ad26bab5e7c70ae8a6f08ed25ff83631121380",
                 "shasum": ""
             },
             "require": {
@@ -1147,9 +1147,9 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v7.0.4"
+                "source": "https://github.com/firebase/php-jwt/tree/v7.0.5"
             },
-            "time": "2026-03-27T21:17:19+00:00"
+            "time": "2026-04-01T20:38:03+00:00"
         },
         {
             "name": "freshleafmedia/autofocus",
@@ -2090,16 +2090,16 @@
         },
         {
             "name": "helsingborg-stad/api-alarm-integration",
-            "version": "5.0.7",
+            "version": "5.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-alarm-integration.git",
-                "reference": "e87f46208f679bde30d538c726bfabc301159d04"
+                "reference": "e7ce0d6c27208013a89c301dfc6ab78091bd8c13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-alarm-integration/zipball/e87f46208f679bde30d538c726bfabc301159d04",
-                "reference": "e87f46208f679bde30d538c726bfabc301159d04",
+                "url": "https://api.github.com/repos/helsingborg-stad/api-alarm-integration/zipball/e7ce0d6c27208013a89c301dfc6ab78091bd8c13",
+                "reference": "e7ce0d6c27208013a89c301dfc6ab78091bd8c13",
                 "shasum": ""
             },
             "require": {
@@ -2145,9 +2145,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-alarm-integration/issues",
-                "source": "https://github.com/helsingborg-stad/api-alarm-integration/tree/5.0.7"
+                "source": "https://github.com/helsingborg-stad/api-alarm-integration/tree/5.0.9"
             },
-            "time": "2026-03-26T08:39:49+00:00"
+            "time": "2026-04-01T07:44:17+00:00"
         },
         {
             "name": "helsingborg-stad/api-event-manager-integration",
@@ -2426,16 +2426,16 @@
         },
         {
             "name": "helsingborg-stad/broken-link-detector",
-            "version": "4.2.26",
+            "version": "4.2.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/broken-link-detector.git",
-                "reference": "70d0e361ac97454fe7aef1bbedde4fb4c5c64e1d"
+                "reference": "2aef0f15101530027c97395509a4cc329949dafb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/broken-link-detector/zipball/70d0e361ac97454fe7aef1bbedde4fb4c5c64e1d",
-                "reference": "70d0e361ac97454fe7aef1bbedde4fb4c5c64e1d",
+                "url": "https://api.github.com/repos/helsingborg-stad/broken-link-detector/zipball/2aef0f15101530027c97395509a4cc329949dafb",
+                "reference": "2aef0f15101530027c97395509a4cc329949dafb",
                 "shasum": ""
             },
             "require": {
@@ -2488,22 +2488,22 @@
             "description": "Detects broken links",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/broken-link-detector/issues",
-                "source": "https://github.com/helsingborg-stad/broken-link-detector/tree/4.2.26"
+                "source": "https://github.com/helsingborg-stad/broken-link-detector/tree/4.2.28"
             },
-            "time": "2026-01-27T09:29:11+00:00"
+            "time": "2026-04-01T08:08:33+00:00"
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.2.3",
+            "version": "5.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "cf8a629d302d0ee5182d2aab63a423dd220b44f8"
+                "reference": "3019ad66327b16f3b61d7f05f51ffe9f98cd96ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/cf8a629d302d0ee5182d2aab63a423dd220b44f8",
-                "reference": "cf8a629d302d0ee5182d2aab63a423dd220b44f8",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/3019ad66327b16f3b61d7f05f51ffe9f98cd96ac",
+                "reference": "3019ad66327b16f3b61d7f05f51ffe9f98cd96ac",
                 "shasum": ""
             },
             "require": {
@@ -2535,9 +2535,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.2.3"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.7.4"
             },
-            "time": "2026-03-19T10:34:01+00:00"
+            "time": "2026-03-31T07:39:58+00:00"
         },
         {
             "name": "helsingborg-stad/coordinate-transformation-library",
@@ -3954,16 +3954,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.0.0-alpha.74",
+            "version": "7.0.0-alpha.80",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "3ef552a04308efda1556ae805d861a3f292461e7"
+                "reference": "c667b0da0650e48be266c0c3976fe4f1cd42b7a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/3ef552a04308efda1556ae805d861a3f292461e7",
-                "reference": "3ef552a04308efda1556ae805d861a3f292461e7",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/c667b0da0650e48be266c0c3976fe4f1cd42b7a2",
+                "reference": "c667b0da0650e48be266c0c3976fe4f1cd42b7a2",
                 "shasum": ""
             },
             "require": {
@@ -3976,10 +3976,10 @@
                 "helsingborg-stad/acf-export-manager": ">=1.0.0",
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
-                "helsingborg-stad/component-library": "5.2.3",
+                "helsingborg-stad/component-library": "5.7.4",
                 "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.4",
-                "helsingborg-stad/styleguide": "2.198.50",
+                "helsingborg-stad/styleguide": "2.202.16",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "^0.2.44",
                 "jeradin/acf-dynamic-table-field": "dev-master",
@@ -4040,9 +4040,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.0.0-alpha.74"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.0.0-alpha.80"
             },
-            "time": "2026-03-30T09:03:20+00:00"
+            "time": "2026-04-08T07:21:48+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -4245,16 +4245,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.198.50",
+            "version": "2.202.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "d540cdbf1449977b2412b28d6dee1604ae1d291d"
+                "reference": "28edfd494bf76f6aff8dc1f6a0f32e38cfc71fe9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/d540cdbf1449977b2412b28d6dee1604ae1d291d",
-                "reference": "d540cdbf1449977b2412b28d6dee1604ae1d291d",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/28edfd494bf76f6aff8dc1f6a0f32e38cfc71fe9",
+                "reference": "28edfd494bf76f6aff8dc1f6a0f32e38cfc71fe9",
                 "shasum": ""
             },
             "require": {
@@ -4298,9 +4298,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.198.50"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.202.16"
             },
-            "time": "2026-03-30T05:15:35+00:00"
+            "time": "2026-03-31T11:07:11+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
@@ -8309,16 +8309,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v8.0.6",
+            "version": "v8.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "7bf9162d7a0dff98d079b72948508fa48018a770"
+                "reference": "66b769ae743ce2d13e435528fbef4af03d623e5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/7bf9162d7a0dff98d079b72948508fa48018a770",
-                "reference": "7bf9162d7a0dff98d079b72948508fa48018a770",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/66b769ae743ce2d13e435528fbef4af03d623e5a",
+                "reference": "66b769ae743ce2d13e435528fbef4af03d623e5a",
                 "shasum": ""
             },
             "require": {
@@ -8355,7 +8355,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v8.0.6"
+                "source": "https://github.com/symfony/filesystem/tree/v8.0.8"
             },
             "funding": [
                 {
@@ -8375,7 +8375,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-02-25T16:59:43+00:00"
+            "time": "2026-03-30T15:14:47+00:00"
         },
         {
             "name": "symfony/finder",
@@ -8442,16 +8442,16 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v7.4.7",
+            "version": "v7.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "1010624285470eb60e88ed10035102c75b4ea6af"
+                "reference": "01933e626c3de76bea1e22641e205e78f6a34342"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/1010624285470eb60e88ed10035102c75b4ea6af",
-                "reference": "1010624285470eb60e88ed10035102c75b4ea6af",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/01933e626c3de76bea1e22641e205e78f6a34342",
+                "reference": "01933e626c3de76bea1e22641e205e78f6a34342",
                 "shasum": ""
             },
             "require": {
@@ -8519,7 +8519,7 @@
                 "http"
             ],
             "support": {
-                "source": "https://github.com/symfony/http-client/tree/v7.4.7"
+                "source": "https://github.com/symfony/http-client/tree/v7.4.8"
             },
             "funding": [
                 {
@@ -8539,7 +8539,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-03-05T11:16:58+00:00"
+            "time": "2026-03-30T12:55:43+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
@@ -8621,16 +8621,16 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v8.0.0",
+            "version": "v8.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "d2b592535ffa6600c265a3893a7f7fd2bad82dd7"
+                "reference": "b48bce0a70b914f6953dafbd10474df232ed4de8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/d2b592535ffa6600c265a3893a7f7fd2bad82dd7",
-                "reference": "d2b592535ffa6600c265a3893a7f7fd2bad82dd7",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/b48bce0a70b914f6953dafbd10474df232ed4de8",
+                "reference": "b48bce0a70b914f6953dafbd10474df232ed4de8",
                 "shasum": ""
             },
             "require": {
@@ -8668,7 +8668,7 @@
                 "options"
             ],
             "support": {
-                "source": "https://github.com/symfony/options-resolver/tree/v8.0.0"
+                "source": "https://github.com/symfony/options-resolver/tree/v8.0.8"
             },
             "funding": [
                 {
@@ -8688,7 +8688,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-12T15:55:31+00:00"
+            "time": "2026-03-30T15:14:47+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -9183,16 +9183,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.4.5",
+            "version": "v7.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "608476f4604102976d687c483ac63a79ba18cc97"
+                "reference": "60f19cd3badc8de688421e21e4305eba50f8089a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/608476f4604102976d687c483ac63a79ba18cc97",
-                "reference": "608476f4604102976d687c483ac63a79ba18cc97",
+                "url": "https://api.github.com/repos/symfony/process/zipball/60f19cd3badc8de688421e21e4305eba50f8089a",
+                "reference": "60f19cd3badc8de688421e21e4305eba50f8089a",
                 "shasum": ""
             },
             "require": {
@@ -9224,7 +9224,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.4.5"
+                "source": "https://github.com/symfony/process/tree/v7.4.8"
             },
             "funding": [
                 {
@@ -9244,7 +9244,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-26T15:07:59+00:00"
+            "time": "2026-03-24T13:12:05+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -9516,16 +9516,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v7.4.6",
+            "version": "v7.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "045321c440ac18347b136c63d2e9bf28a2dc0291"
+                "reference": "9510c3966f749a1d1ff0059e1eabef6cc621e7fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/045321c440ac18347b136c63d2e9bf28a2dc0291",
-                "reference": "045321c440ac18347b136c63d2e9bf28a2dc0291",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/9510c3966f749a1d1ff0059e1eabef6cc621e7fd",
+                "reference": "9510c3966f749a1d1ff0059e1eabef6cc621e7fd",
                 "shasum": ""
             },
             "require": {
@@ -9579,7 +9579,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v7.4.6"
+                "source": "https://github.com/symfony/var-dumper/tree/v7.4.8"
             },
             "funding": [
                 {
@@ -9599,7 +9599,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-02-15T10:53:20+00:00"
+            "time": "2026-03-30T13:44:50+00:00"
         },
         {
             "name": "voku/portable-ascii",
@@ -10002,24 +10002,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/user-switching/"
-        },
-        {
-            "name": "wpackagist-plugin/username-changer",
-            "version": "3.2.3",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/username-changer/",
-                "reference": "tags/3.2.3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/username-changer.3.2.3.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/username-changer/"
         },
         {
             "name": "wpackagist-plugin/varnish-http-purge",
