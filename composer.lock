@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4790ccdd34ad89138de23b981209d820",
+    "content-hash": "cd0bcfd24cb43a95ce8121db2a9416f3",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -3931,16 +3931,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.36.2",
+            "version": "6.36.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "b105e0a8114f0db8412a65db5ddd3b1c34b16ac4"
+                "reference": "d9791f97fd5193c7793c05a8f8c4a771e0779b4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/b105e0a8114f0db8412a65db5ddd3b1c34b16ac4",
-                "reference": "b105e0a8114f0db8412a65db5ddd3b1c34b16ac4",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/d9791f97fd5193c7793c05a8f8c4a771e0779b4c",
+                "reference": "d9791f97fd5193c7793c05a8f8c4a771e0779b4c",
                 "shasum": ""
             },
             "require": {
@@ -4016,9 +4016,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.36.2"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.36.6"
             },
-            "time": "2026-04-14T13:23:39+00:00"
+            "time": "2026-04-15T14:31:42+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
