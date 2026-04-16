@@ -2471,16 +2471,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.7.5",
+            "version": "5.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "382085abb3acf15e4d0170b79b36ca3ed0f1d5fe"
+                "reference": "01b44a2d85be2a45c9219e61a3047f29832e47f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/382085abb3acf15e4d0170b79b36ca3ed0f1d5fe",
-                "reference": "382085abb3acf15e4d0170b79b36ca3ed0f1d5fe",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/01b44a2d85be2a45c9219e61a3047f29832e47f7",
+                "reference": "01b44a2d85be2a45c9219e61a3047f29832e47f7",
                 "shasum": ""
             },
             "require": {
@@ -2512,9 +2512,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.7.5"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.10.0"
             },
-            "time": "2026-03-31T14:08:02+00:00"
+            "time": "2026-04-15T13:18:45+00:00"
         },
         {
             "name": "helsingborg-stad/coordinate-transformation-library",
@@ -3931,16 +3931,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.36.6",
+            "version": "6.36.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "d9791f97fd5193c7793c05a8f8c4a771e0779b4c"
+                "reference": "33bc89124fda06f7bfc73b573006410a2302a181"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/d9791f97fd5193c7793c05a8f8c4a771e0779b4c",
-                "reference": "d9791f97fd5193c7793c05a8f8c4a771e0779b4c",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/33bc89124fda06f7bfc73b573006410a2302a181",
+                "reference": "33bc89124fda06f7bfc73b573006410a2302a181",
                 "shasum": ""
             },
             "require": {
@@ -3953,7 +3953,7 @@
                 "helsingborg-stad/acf-export-manager": ">=1.0.0",
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
-                "helsingborg-stad/component-library": "5.7.5",
+                "helsingborg-stad/component-library": "5.10.0",
                 "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.7",
                 "helsingborg-stad/wpservice": "^2.0",
@@ -3967,8 +3967,8 @@
                 "ooksanen/acf-focuspoint": "^1.2.1",
                 "php": "^8.2",
                 "pragmarx/ia-arr": "^7.3",
-                "symfony/polyfill-mbstring": "v1.33.0",
-                "symfony/polyfill-php80": "^1.27"
+                "symfony/polyfill-mbstring": "v1.35.0",
+                "symfony/polyfill-php80": "v1.35.0"
             },
             "require-dev": {
                 "carthage-software/mago": "^1.0.0-rc.3",
@@ -4016,9 +4016,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.36.6"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.36.8"
             },
-            "time": "2026-04-15T14:31:42+00:00"
+            "time": "2026-04-15T14:57:54+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -8379,7 +8379,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.35.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -8438,7 +8438,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.35.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -8545,7 +8545,7 @@
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.35.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
@@ -8606,7 +8606,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.35.0"
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -8630,16 +8630,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.33.0",
+            "version": "v1.35.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493"
+                "reference": "6a21eb99c6973357967f6ce3708cd55a6bec6315"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6d857f4d76bd4b343eac26d6b539585d2bc56493",
-                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6a21eb99c6973357967f6ce3708cd55a6bec6315",
+                "reference": "6a21eb99c6973357967f6ce3708cd55a6bec6315",
                 "shasum": ""
             },
             "require": {
@@ -8691,7 +8691,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.33.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.35.0"
             },
             "funding": [
                 {
@@ -8711,7 +8711,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-23T08:48:59+00:00"
+            "time": "2026-04-10T17:25:58+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
@@ -8799,7 +8799,7 @@
         },
         {
             "name": "symfony/polyfill-php83",
-            "version": "v1.35.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php83.git",
@@ -8855,7 +8855,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php83/tree/v1.35.0"
+                "source": "https://github.com/symfony/polyfill-php83/tree/v1.36.0"
             },
             "funding": [
                 {
