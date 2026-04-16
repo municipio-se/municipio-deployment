@@ -56,9 +56,6 @@ Class CreateReleaseLogPrompt {
       $summaryCommand     = $this->githubSummaryCommand($fromVersion, $toVersion, $package);
       $summaryFormatted   = $this->formatSummary(shell_exec($summaryCommand));
 
-      $detailCommand      = $this->githubDiffCommand($fromVersion, $toVersion, $package);
-      $detailFormatted    = $this->formatDiff(shell_exec($detailCommand));
-
       echo "----------------------------------------------------------------------\n";
       echo "The following package has been updated:\n";
       echo "Package id:   {$package}\n";
@@ -76,10 +73,13 @@ Class CreateReleaseLogPrompt {
       echo $summaryFormatted ."\n";
 
       // If --small flag is set, skip the detailed diff output.
-      if (in_array('--small', $_SERVER['argv'])) {
+      if ($this->isSmallMode()) {
         echo "(Detailed diff skipped due to --small flag)\n";
         return;
       }
+
+      $detailCommand      = $this->githubDiffCommand($fromVersion, $toVersion, $package);
+      $detailFormatted    = $this->formatDiff(shell_exec($detailCommand));
 
       echo "----------------------------------------------------------------------\n";
       echo "Detailed diff of files changed:\n";
@@ -89,6 +89,15 @@ Class CreateReleaseLogPrompt {
 
       echo "----------------------------------------------------------------------\n";
       echo "\n\n\n";
+    }
+
+    /**
+     * Determine if the prompt runs in compact mode.
+     * @return bool
+     */
+    private function isSmallMode(): bool
+    {
+      return in_array('--small', $_SERVER['argv'], true);
     }
 
     /**
@@ -282,6 +291,10 @@ Class CreateReleaseLogPrompt {
         return "(No diff data available)";
       }
 
+      if ($this->isGithubApiErrorResponse($diff)) {
+        return "(No diff data available)";
+      }
+
       // Paths to exclude
       $excludePatterns = [
         '#^assets/dist/#',
@@ -363,6 +376,10 @@ Class CreateReleaseLogPrompt {
             return "(No summary data available)";
         }
 
+      if ($this->isGithubApiErrorResponse($summary)) {
+        return "(No summary data available)";
+      }
+
         $output = "Ahead by:      " . ($decodedSummary['ahead_by'] ?? 'N/A') . "\n";
         $output .= "Behind by:     " . ($decodedSummary['behind_by'] ?? 'N/A') . "\n";
 
@@ -408,7 +425,7 @@ Class CreateReleaseLogPrompt {
      **/
     public function githubSummaryCommand($fromVersion, $toVersion, $package) {
         return sprintf(
-            "gh api repos/%s/compare/%s...%s --jq '{ahead_by, behind_by, commits: [(.commits // [])[] | select(.commit.author.name != \"github-actions[bot]\") | .commit.message], files: [(.files // [])[] | .filename]}'",
+        "gh api repos/%s/compare/%s...%s --jq '{ahead_by, behind_by, commits: [(.commits // [])[] | select(.commit.author.name != \"github-actions[bot]\") | .commit.message], files: [(.files // [])[] | .filename]}' 2>/dev/null",
             $package,
             $fromVersion,
             $toVersion
@@ -424,7 +441,7 @@ Class CreateReleaseLogPrompt {
      **/
     public function githubDiffCommand($fromVersion, $toVersion, $package) {
         return sprintf(
-            "gh api repos/%s/compare/%s...%s -H 'Accept: application/vnd.github.v3.diff'",
+        "gh api repos/%s/compare/%s...%s -H 'Accept: application/vnd.github.v3.diff' 2>/dev/null",
             $package,
             $fromVersion,
             $toVersion
@@ -507,6 +524,20 @@ Class CreateReleaseLogPrompt {
      **/
     private function removeLooseVersionPrefix($version) {
         return ltrim($version, "^~");
+    }
+
+    /**
+     * Detect if the GitHub CLI returned an API error payload instead of compare data.
+     * @param string $response
+     * @return bool
+     */
+    private function isGithubApiErrorResponse(string $response): bool
+    {
+      $decodedResponse = json_decode($response, true);
+
+      return is_array($decodedResponse)
+        && isset($decodedResponse['message'])
+        && isset($decodedResponse['status']);
     }
 
     /**
