@@ -15,6 +15,7 @@ Class CreateReleaseLogPrompt {
     protected static $composerPathTemplate = "https://raw.githubusercontent.com/municipio-se/municipio-deployment/refs/heads/%s/%s";
 
     public function __construct() {
+      $this->assertGithubCliIsReady();
         $diff = $this->diffComposerFiles(self::STAGE_BRANCH, self::MAIN_BRANCH);
         echo "Differences in composer.json between " . self::STAGE_BRANCH . " and " . self::MAIN_BRANCH . ":\n";
 
@@ -37,6 +38,30 @@ Class CreateReleaseLogPrompt {
           }
         }
         }
+    }
+
+    /**
+     * Fail fast unless GitHub CLI is installed and authenticated.
+     * @return void
+     */
+    private function assertGithubCliIsReady(): void
+    {
+      $ghBinary = trim((string) shell_exec('command -v gh 2>/dev/null'));
+      if ($ghBinary === '') {
+        throw new RuntimeException(
+          'GitHub CLI (gh) is required to generate the release log. Install it and retry.'
+        );
+      }
+
+      $authStatusCommand = 'gh auth status --hostname github.com >/dev/null 2>&1';
+      $authStatusExitCode = 1;
+      exec($authStatusCommand, $output, $authStatusExitCode);
+
+      if ($authStatusExitCode !== 0) {
+        throw new RuntimeException(
+          'GitHub CLI is not authenticated for github.com. Run "gh auth login" and retry.'
+        );
+      }
     }
 
     /**
