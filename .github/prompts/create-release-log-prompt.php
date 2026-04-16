@@ -6,10 +6,16 @@ Class CreateReleaseLogPrompt {
     const OWNER_ORG     = ['municipio-se', 'helsingborg-stad'];
     const MAIN_BRANCH   = 'master';
     const STAGE_BRANCH  = 'stage';
+    const MUNICIPIO_PACKAGE = 'helsingborg-stad/municipio';
+    const MUNICIPIO_SUB_PACKAGES = [
+      'helsingborg-stad/component-library',
+      'helsingborg-stad/styleguide',
+    ];
 
     protected static $composerPathTemplate = "https://raw.githubusercontent.com/municipio-se/municipio-deployment/refs/heads/%s/%s";
 
     public function __construct() {
+      $this->assertGithubCliIsReady();
         $diff = $this->diffComposerFiles(self::STAGE_BRANCH, self::MAIN_BRANCH);
         echo "Differences in composer.json between " . self::STAGE_BRANCH . " and " . self::MAIN_BRANCH . ":\n";
 
@@ -17,40 +23,286 @@ Class CreateReleaseLogPrompt {
             $fromVersion = $versions['from'];
             $toVersion   = $versions['to'];
 
-            $summaryCommand     = $this->githubSummaryCommand($fromVersion, $toVersion, $package);
-            $summaryFormatted   = $this->formatSummary(shell_exec($summaryCommand));
+        $this->printPackageChangeLog($package, $fromVersion, $toVersion);
 
-            $detailCommand      = $this->githubDiffCommand($fromVersion, $toVersion, $package);
-            $detailFormatted    = $this->formatDiff(shell_exec($detailCommand));
-
-            echo "----------------------------------------------------------------------\n";
-            echo "The following package has been updated:\n";
-            echo "Package id:   {$package}\n";
-            echo "From version: {$fromVersion}\n";
-            echo "To version:   {$toVersion}\n";
-            echo "Diff link:    https://github.com/{$package}/compare/{$fromVersion}...{$toVersion}\n\n";
-
-            echo "----------------------------------------------------------------------\n";
-            echo "Summary of commit messages and files changed:\n";
-            echo "----------------------------------------------------------------------\n";
-
-            echo $summaryFormatted ."\n";
-
-            //If --small flag is set, we can skip the detailed diff
-            if (in_array('--small', $_SERVER['argv'])) {
-                echo "(Detailed diff skipped due to --small flag)\n";
-                continue;
-            }
-
-            echo "----------------------------------------------------------------------\n";
-            echo "Detailed diff of files changed:\n";
-            echo "----------------------------------------------------------------------\n";
-
-            echo $detailFormatted ."\n";
-
-            echo "----------------------------------------------------------------------\n";
-            echo "\n\n\n";
+        // Include tracked municipio sub-packages in the same release log run.
+        if ($package === self::MUNICIPIO_PACKAGE) {
+          $subPackageDiff = $this->diffMunicipioSubPackages($fromVersion, $toVersion);
+          foreach ($subPackageDiff as $subPackage => $subPackageVersions) {
+            $this->printPackageChangeLog(
+              $subPackage,
+              $subPackageVersions['from'],
+              $subPackageVersions['to'],
+              sprintf('Sub-package of %s', self::MUNICIPIO_PACKAGE)
+            );
+          }
         }
+        }
+    }
+
+    /**
+     * Fail fast unless GitHub CLI is installed and authenticated.
+     * @return void
+     */
+    private function assertGithubCliIsReady(): void
+    {
+      $ghBinary = trim((string) shell_exec('command -v gh 2>/dev/null'));
+      if ($ghBinary === '') {
+        throw new RuntimeException(
+          'GitHub CLI (gh) is required to generate the release log. Install it and retry.'
+        );
+      }
+
+      $authStatusCommand = 'gh auth status --hostname github.com >/dev/null 2>&1';
+      $authStatusExitCode = 1;
+      exec($authStatusCommand, $output, $authStatusExitCode);
+
+      if ($authStatusExitCode !== 0) {
+        throw new RuntimeException(
+          'GitHub CLI is not authenticated for github.com. Run "gh auth login" and retry.'
+        );
+      }
+    }
+
+    /**
+     * Print changelog output for one package compare range.
+     * @param string $package
+     * @param string|null $fromVersion
+     * @param string|null $toVersion
+     * @param string|null $contextLabel
+     * @return void
+     */
+    private function printPackageChangeLog(string $package, ?string $fromVersion, ?string $toVersion, ?string $contextLabel = null): void
+    {
+      if (empty($fromVersion) || empty($toVersion)) {
+        return;
+      }
+
+      $summaryCommand     = $this->githubSummaryCommand($fromVersion, $toVersion, $package);
+      $summaryFormatted   = $this->formatSummary(shell_exec($summaryCommand));
+
+      echo "----------------------------------------------------------------------\n";
+      echo "The following package has been updated:\n";
+      echo "Package id:   {$package}\n";
+      echo "From version: {$fromVersion}\n";
+      echo "To version:   {$toVersion}\n";
+      if (!empty($contextLabel)) {
+        echo "Context:      {$contextLabel}\n";
+      }
+      echo "Diff link:    https://github.com/{$package}/compare/{$fromVersion}...{$toVersion}\n\n";
+
+      echo "----------------------------------------------------------------------\n";
+      echo "Summary of commit messages and files changed:\n";
+      echo "----------------------------------------------------------------------\n";
+
+      echo $summaryFormatted ."\n";
+
+      // If --small flag is set, skip the detailed diff output.
+      if ($this->isSmallMode()) {
+        echo "(Detailed diff skipped due to --small flag)\n";
+        return;
+      }
+
+      $detailCommand      = $this->githubDiffCommand($fromVersion, $toVersion, $package);
+      $detailFormatted    = $this->formatDiff(shell_exec($detailCommand));
+
+      echo "----------------------------------------------------------------------\n";
+      echo "Detailed diff of files changed:\n";
+      echo "----------------------------------------------------------------------\n";
+
+      echo $detailFormatted ."\n";
+
+      echo "----------------------------------------------------------------------\n";
+      echo "\n\n\n";
+    }
+
+    /**
+     * Determine if the prompt runs in compact mode.
+     * @return bool
+     */
+    private function isSmallMode(): bool
+    {
+      return in_array('--small', $_SERVER['argv'], true);
+    }
+
+    /**
+     * Diff tracked sub-packages from municipio's own composer.json between two refs.
+     * @param string $fromVersion
+     * @param string $toVersion
+     * @return array
+     */
+    private function diffMunicipioSubPackages(string $fromVersion, string $toVersion): array
+    {
+      $fromRequire = $this->getPackageRequireAtRef(self::MUNICIPIO_PACKAGE, $fromVersion);
+      $toRequire = $this->getPackageRequireAtRef(self::MUNICIPIO_PACKAGE, $toVersion);
+
+      $diff = [];
+      foreach (self::MUNICIPIO_SUB_PACKAGES as $subPackage) {
+        if (empty($fromRequire) || empty($toRequire)) {
+          continue;
+        }
+
+        $fromSubVersion = isset($fromRequire[$subPackage])
+          ? $this->removeLooseVersionPrefix($fromRequire[$subPackage])
+          : null;
+        $toSubVersion = isset($toRequire[$subPackage])
+          ? $this->removeLooseVersionPrefix($toRequire[$subPackage])
+          : null;
+
+        if (empty($fromSubVersion) || empty($toSubVersion) || $fromSubVersion === $toSubVersion) {
+          continue;
+        }
+
+        $diff[$subPackage] = [
+          'from' => $fromSubVersion,
+          'to' => $toSubVersion,
+        ];
+      }
+
+      // Styleguide is not always explicitly pinned in municipio composer.json.
+      if (!isset($diff['helsingborg-stad/styleguide'])) {
+        $fromDate = $this->getReleasePublishedAt(self::MUNICIPIO_PACKAGE, $fromVersion);
+        $toDate = $this->getReleasePublishedAt(self::MUNICIPIO_PACKAGE, $toVersion);
+
+        if (!empty($fromDate) && !empty($toDate)) {
+          $fromStyleguideTag = $this->getNearestReleaseTagAtOrBeforeDate('helsingborg-stad/styleguide', $fromDate);
+          $toStyleguideTag = $this->getNearestReleaseTagAtOrBeforeDate('helsingborg-stad/styleguide', $toDate);
+
+          if (!empty($fromStyleguideTag) && !empty($toStyleguideTag) && $fromStyleguideTag !== $toStyleguideTag) {
+            $diff['helsingborg-stad/styleguide'] = [
+              'from' => $fromStyleguideTag,
+              'to' => $toStyleguideTag,
+            ];
+          }
+        }
+      }
+
+      return $diff;
+    }
+
+    /**
+     * Get release publish date for a package tag.
+     * @param string $package
+     * @param string $tag
+     * @return string|null
+     */
+    private function getReleasePublishedAt(string $package, string $tag): ?string
+    {
+      $endpoint = sprintf(
+        'repos/%s/releases/tags/%s',
+        $package,
+        rawurlencode($tag)
+      );
+
+      $command = sprintf(
+        'gh api %s 2>/dev/null',
+        escapeshellarg($endpoint)
+      );
+
+      $response = shell_exec($command);
+      if (empty($response)) {
+        return null;
+      }
+
+      $decoded = json_decode($response, true);
+      if (!is_array($decoded) || empty($decoded['published_at'])) {
+        return null;
+      }
+
+      return $decoded['published_at'];
+    }
+
+    /**
+     * Find the closest release tag published at or before a given timestamp.
+     * @param string $package
+     * @param string $timestamp
+     * @return string|null
+     */
+    private function getNearestReleaseTagAtOrBeforeDate(string $package, string $timestamp): ?string
+    {
+      $endpoint = sprintf(
+        'repos/%s/releases?per_page=100',
+        $package
+      );
+
+      $command = sprintf(
+        'gh api %s 2>/dev/null',
+        escapeshellarg($endpoint)
+      );
+
+      $response = shell_exec($command);
+      if (empty($response)) {
+        return null;
+      }
+
+      $releases = json_decode($response, true);
+      if (!is_array($releases)) {
+        return null;
+      }
+
+      $targetTimestamp = strtotime($timestamp);
+      if ($targetTimestamp === false) {
+        return null;
+      }
+
+      foreach ($releases as $release) {
+        if (!is_array($release) || empty($release['tag_name']) || empty($release['published_at'])) {
+          continue;
+        }
+
+        $releaseTimestamp = strtotime($release['published_at']);
+        if ($releaseTimestamp === false) {
+          continue;
+        }
+
+        if ($releaseTimestamp <= $targetTimestamp) {
+          return $release['tag_name'];
+        }
+      }
+
+      return null;
+    }
+
+    /**
+     * Get decoded composer require section for a package at a specific ref.
+     * @param string $package
+     * @param string $ref
+     * @return array
+     */
+    private function getPackageRequireAtRef(string $package, string $ref): array
+    {
+      $endpoint = sprintf(
+        'repos/%s/contents/composer.json?ref=%s',
+        $package,
+        rawurlencode($ref)
+      );
+
+      $command = sprintf(
+        'gh api %s 2>/dev/null',
+        escapeshellarg($endpoint)
+      );
+
+      $response = shell_exec($command);
+      if (empty($response)) {
+        return [];
+      }
+
+      $decoded = json_decode($response, true);
+      if (!is_array($decoded) || empty($decoded['content'])) {
+        return [];
+      }
+
+      $composerRaw = base64_decode(str_replace(["\r", "\n"], '', $decoded['content']), true);
+      if ($composerRaw === false) {
+        return [];
+      }
+
+      $composer = json_decode($composerRaw, true);
+      if (!is_array($composer) || !isset($composer['require']) || !is_array($composer['require'])) {
+        return [];
+      }
+
+      return $composer['require'];
     }
 
     /**
@@ -61,6 +313,10 @@ Class CreateReleaseLogPrompt {
     public function formatDiff(string $diff): string
     {
       if (empty($diff)) {
+        return "(No diff data available)";
+      }
+
+      if ($this->isGithubApiErrorResponse($diff)) {
         return "(No diff data available)";
       }
 
@@ -145,6 +401,10 @@ Class CreateReleaseLogPrompt {
             return "(No summary data available)";
         }
 
+      if ($this->isGithubApiErrorResponse($summary)) {
+        return "(No summary data available)";
+      }
+
         $output = "Ahead by:      " . ($decodedSummary['ahead_by'] ?? 'N/A') . "\n";
         $output .= "Behind by:     " . ($decodedSummary['behind_by'] ?? 'N/A') . "\n";
 
@@ -190,7 +450,7 @@ Class CreateReleaseLogPrompt {
      **/
     public function githubSummaryCommand($fromVersion, $toVersion, $package) {
         return sprintf(
-            "gh api repos/%s/compare/%s...%s --jq '{ahead_by, behind_by, commits: [(.commits // [])[] | select(.commit.author.name != \"github-actions[bot]\") | .commit.message], files: [(.files // [])[] | .filename]}'",
+        "gh api repos/%s/compare/%s...%s --jq '{ahead_by, behind_by, commits: [(.commits // [])[] | select(.commit.author.name != \"github-actions[bot]\") | .commit.message], files: [(.files // [])[] | .filename]}' 2>/dev/null",
             $package,
             $fromVersion,
             $toVersion
@@ -206,7 +466,7 @@ Class CreateReleaseLogPrompt {
      **/
     public function githubDiffCommand($fromVersion, $toVersion, $package) {
         return sprintf(
-            "gh api repos/%s/compare/%s...%s -H 'Accept: application/vnd.github.v3.diff'",
+        "gh api repos/%s/compare/%s...%s -H 'Accept: application/vnd.github.v3.diff' 2>/dev/null",
             $package,
             $fromVersion,
             $toVersion
@@ -289,6 +549,20 @@ Class CreateReleaseLogPrompt {
      **/
     private function removeLooseVersionPrefix($version) {
         return ltrim($version, "^~");
+    }
+
+    /**
+     * Detect if the GitHub CLI returned an API error payload instead of compare data.
+     * @param string $response
+     * @return bool
+     */
+    private function isGithubApiErrorResponse(string $response): bool
+    {
+      $decodedResponse = json_decode($response, true);
+
+      return is_array($decodedResponse)
+        && isset($decodedResponse['message'])
+        && isset($decodedResponse['status']);
     }
 
     /**

@@ -25,3 +25,6 @@ db/*.sql
 franken/Caddyfile
 db/db.sqlite
 .secrets
+.claude/settings.local.json
+.composer-merge-active
+composer.*.bkup

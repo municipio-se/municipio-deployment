@@ -1,6 +1,6 @@
 ---
 mode: 'agent'
-model: 'GPT-4.1'
+model: 'GPT-5.4'
 tools: ['edit', 'search', 'runCommands', 'changes', 'fetch', 'githubRepo']
 description: 'Prompt template for generating release logs based on composer.json changes.'
 ---

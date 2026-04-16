@@ -1,6 +1,9 @@
 ARG imageVariant
 FROM mcr.microsoft.com/devcontainers/php:1-${imageVariant}
 
+RUN curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --yes --dearmor -o /usr/share/keyrings/yarnkey.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list > /dev/null
+
 # Install packages including libzip-dev before PHP extensions
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y mariadb-client libpng-dev apache2 libfreetype6-dev libjpeg-dev libwebp-dev libmagickwand-dev imagemagick libzip-dev \
@@ -42,26 +45,25 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/wp-cli/master/utils/wp-comp
     && mv wp-completion.bash /etc/bash_completion.d/wp-completion.bash \
     && echo "source /etc/bash_completion.d/wp-completion.bash" >> ~/.bashrc
 
-# Generate self-signed SSL certificate and add to site conf
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt \
-    -subj "/C=US/ST=State/L=City/O=Organization/OU=Unit/CN=example.com" \
-    && sed -i 's/SSLCertificateFile\t\/etc\/ssl\/certs\/ssl-cert-snakeoil.pem/SSLCertificateFile \/etc\/ssl\/certs\/apache-selfsigned.crt/g' /etc/apache2/sites-available/default-ssl.conf \
-    && sed -i 's/SSLCertificateKeyFile \/etc\/ssl\/private\/ssl-cert-snakeoil.key/SSLCertificateKeyFile \/etc\/ssl\/private\/apache-selfsigned.key/g' /etc/apache2/sites-available/default-ssl.conf
+# Enable Apache modules for development (removed SSL)
 
 # Install github cli
-RUN (type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
-	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
+RUN (type -p wget >/dev/null || (apt update && apt install wget -y)) \
+	&& mkdir -p -m 755 /etc/apt/keyrings \
 	&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-	&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-	&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
-	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-	&& sudo apt update \
-	&& sudo apt install gh -y
+	&& cat $out | tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+	&& chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+	&& mkdir -p -m 755 /etc/apt/sources.list.d \
+	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+	&& apt update \
+	&& apt install gh -y
 
 # Install PHP tidy extension
 RUN apt-get update && apt-get install -y libtidy-dev \
     && docker-php-ext-install tidy
 
-RUN a2enmod headers mime rewrite ssl
-RUN a2ensite default-ssl
+# Increase php upload limit
+RUN echo "upload_max_filesize = 256M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size = 256M" >> /usr/local/etc/php/conf.d/uploads.ini
+
+RUN a2enmod headers mime rewrite

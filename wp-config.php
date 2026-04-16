@@ -18,99 +18,38 @@
  * @package WordPress
  */
 
-require_once __DIR__ . '/config/memory.php';
-require_once __DIR__ . '/config/salts.php';
-require_once __DIR__ . '/config/content.php';
-require_once __DIR__ . '/config/database.php';
-require_once __DIR__ . '/config/plugins.php';
-require_once __DIR__ . '/config/update.php';
-require_once __DIR__ . '/config/upload.php';
-require_once __DIR__ . '/config/cron.php';
-
 /**
- * Active directory configuration
+ * Config files
  *
- * Configuration for the active directory login functionality
+ * All declared configuration files are loaded if they exist.
  */
-if (file_exists(__DIR__ . '/config/ad.php')) {
-    require_once __DIR__ . '/config/ad.php';
-}
+$configFiles = [
+    'memory.php',
+    'salts.php',
+    'content.php',
+    'database.php',
+    'plugins.php',
+    'update.php',
+    'upload.php',
+    'cron.php',
+    'ad.php',
+    'search.php',
+    'sentry.php',
+    'cookie.php',
+    'cache.php',
+    'scripts.php',
+    'multisite.php',
+    'developer.php',
+    'tideways.php',
+];
 
-/**
- * Search concfiguration
- *
- * Configuration for the search functionality
- */
-if (file_exists(__DIR__ . '/config/search.php')) {
-    require_once __DIR__ . '/config/search.php';
-}
+foreach ($configFiles as $configFile) {
+    $configPath = __DIR__ . '/config/' . $configFile;
 
-/**
- * Sentry error tracking.
- *
- * Configuration for the error tracking functionality
- */
-if (file_exists(__DIR__ . '/config/sentry.php')) {
-    require_once __DIR__ . '/config/sentry.php';
+    if (file_exists($configPath)) {
+        require_once $configPath;
+    }
 }
-
-/**
- * Cookie settings
- *
- * To enable this site as a multisite please rename the config/cookie-example.php file to
- * cookie.php, then go ahead and edit the configurations
- */
-if (file_exists(__DIR__ . '/config/cookie.php')) {
-    require_once __DIR__ . '/config/cookie.php';
-}
-
-/**
- * Cache settings
- *
- * To enable this site as a multisite please rename the config/cache-example.php file to
- * cache.php, then go ahead and edit the configurations
- */
-if (file_exists(__DIR__ . '/config/cache.php')) {
-    require_once __DIR__ . '/config/cache.php';
-}
-
-/**
- * Script settings
- */
-if (file_exists(__DIR__ . '/config/scripts.php')) {
-    require_once __DIR__ . '/config/scripts.php';
-}
-
-/**
- * Multisite settings
- *
- * To enable this site as a multisite please rename the config/multisite-example.php file to
- * multisite.php, then go ahead and edit the configurations
- */
-if (file_exists(__DIR__ . '/config/multisite.php')) {
-    require_once __DIR__ . '/config/multisite.php';
-}
-
-/**
- * Developer settings
- *
- * You can create a file called "developer.php" in the config dir and
- * put your dev-stuff and overrides inside.
- */
-if (file_exists(__DIR__ . '/config/developer.php')) {
-    require_once __DIR__ . '/config/developer.php';
-}
-
-/**
- * Tideways settings
- *
- * You can create a file called "tideways.php" in the config dir and
- * put your tideways configurations inside.
- */
-if (file_exists(__DIR__ . '/config/tideways.php')) {
-    require_once __DIR__ . '/config/tideways.php';
-}
-
 
 /* That's all, stop editing! Happy blogging. */
 
