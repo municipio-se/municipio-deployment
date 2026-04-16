@@ -18,6 +18,8 @@ This guide provides instructions for setting up and working with the Municipio D
 3. **Reopen in Container**
     Open the command palette (`Cmd+Shift+P` or `Ctrl+Shift+P`) and run:
     `Dev Containers: Reopen in Container`
+    
+    **Note:** If you previously used this devcontainer before the volume mount fix (commits prior to January 2026), you may need to rebuild the container to clear old volume mounts. Use `Dev Containers: Rebuild Container` from the command palette.
 
 4. **Configure environment variables**
     The container will auto-create `.devcontainer/.env` from `.env.example` on first start.
