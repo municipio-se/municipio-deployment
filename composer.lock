@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a30df04350641dfa390f991402fdce8",
+    "content-hash": "7f2782195f4b683c85e188d0eee17437",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -290,16 +290,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.379.0",
+            "version": "3.379.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a50c3cc2c59f5ebeb56cbe170e6f144034b252b6"
+                "reference": "606d812d3e9289147e2c801d51b916c45c92de39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a50c3cc2c59f5ebeb56cbe170e6f144034b252b6",
-                "reference": "a50c3cc2c59f5ebeb56cbe170e6f144034b252b6",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/606d812d3e9289147e2c801d51b916c45c92de39",
+                "reference": "606d812d3e9289147e2c801d51b916c45c92de39",
                 "shasum": ""
             },
             "require": {
@@ -381,9 +381,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.379.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.379.4"
             },
-            "time": "2026-04-13T18:11:10+00:00"
+            "time": "2026-04-21T20:01:34+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -3387,16 +3387,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-guides",
-            "version": "5.0.6",
+            "version": "5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-guides.git",
-                "reference": "244e8496825f8d4ebbfb3c994583c7efbfc7d153"
+                "reference": "333b22459111757475aaecee144e72bd23c59dc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-guides/zipball/244e8496825f8d4ebbfb3c994583c7efbfc7d153",
-                "reference": "244e8496825f8d4ebbfb3c994583c7efbfc7d153",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-guides/zipball/333b22459111757475aaecee144e72bd23c59dc3",
+                "reference": "333b22459111757475aaecee144e72bd23c59dc3",
                 "shasum": ""
             },
             "require": {
@@ -3448,9 +3448,9 @@
             "description": "Addon for Modularity for creating guides",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-guides/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-guides/tree/5.0.6"
+                "source": "https://github.com/helsingborg-stad/modularity-guides/tree/5.0.8"
             },
-            "time": "2026-03-03T09:48:44+00:00"
+            "time": "2026-04-21T11:37:42+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-json-render",
@@ -3931,16 +3931,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.36.8",
+            "version": "6.37.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "33bc89124fda06f7bfc73b573006410a2302a181"
+                "reference": "d2b535df0ae33d91e1a8869f454d0b549789550a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/33bc89124fda06f7bfc73b573006410a2302a181",
-                "reference": "33bc89124fda06f7bfc73b573006410a2302a181",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/d2b535df0ae33d91e1a8869f454d0b549789550a",
+                "reference": "d2b535df0ae33d91e1a8869f454d0b549789550a",
                 "shasum": ""
             },
             "require": {
@@ -4016,9 +4016,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.36.8"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.37.8"
             },
-            "time": "2026-04-15T14:57:54+00:00"
+            "time": "2026-04-22T06:25:56+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -4335,16 +4335,16 @@
         },
         {
             "name": "helsingborg-stad/wp-page-for-post-type",
-            "version": "2.0.8",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wp-page-for-posttype.git",
-                "reference": "7c59b7245ab5a0790bd2a8b682d664acd349b164"
+                "reference": "5f1d06bd0d5b56fe849597517ee37f6647fd7cae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wp-page-for-posttype/zipball/7c59b7245ab5a0790bd2a8b682d664acd349b164",
-                "reference": "7c59b7245ab5a0790bd2a8b682d664acd349b164",
+                "url": "https://api.github.com/repos/helsingborg-stad/wp-page-for-posttype/zipball/5f1d06bd0d5b56fe849597517ee37f6647fd7cae",
+                "reference": "5f1d06bd0d5b56fe849597517ee37f6647fd7cae",
                 "shasum": ""
             },
             "require": {
@@ -4381,9 +4381,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wp-page-for-posttype/issues",
-                "source": "https://github.com/helsingborg-stad/wp-page-for-posttype/tree/2.0.8"
+                "source": "https://github.com/helsingborg-stad/wp-page-for-posttype/tree/2.0.10"
             },
-            "time": "2026-02-23T09:30:33+00:00"
+            "time": "2026-04-21T13:35:49+00:00"
         },
         {
             "name": "helsingborg-stad/wp-search-statistics",
@@ -9592,15 +9592,15 @@
         },
         {
             "name": "wpackagist-plugin/cookies-and-content-security-policy",
-            "version": "2.38",
+            "version": "2.39",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cookies-and-content-security-policy/",
-                "reference": "tags/2.38"
+                "reference": "tags/2.39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cookies-and-content-security-policy.2.38.zip"
+                "url": "https://downloads.wordpress.org/plugin/cookies-and-content-security-policy.2.39.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -9700,15 +9700,15 @@
         },
         {
             "name": "wpackagist-plugin/post-expirator",
-            "version": "4.10.0",
+            "version": "4.10.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/post-expirator/",
-                "reference": "tags/4.10.0"
+                "reference": "tags/4.10.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.10.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.10.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
