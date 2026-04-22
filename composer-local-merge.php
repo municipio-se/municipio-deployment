@@ -38,6 +38,12 @@ class ComposerLocalMerge
     {
         echo "=== Composer Local Merge: Pre-Install ===\n";
 
+        // If a merge is already active, skip to avoid backing up/overwriting backups
+        if (file_exists($this->flagFile)) {
+            echo "Merge already active - skipping pre-install\n";
+            return;
+        }
+
         $localPath = $this->getPath(self::COMPOSER_LOCAL_JSON);
         
         if (!file_exists($localPath)) {
@@ -128,6 +134,14 @@ class ComposerLocalMerge
             echo "✓ Merged " . count($localRequirements['require-dev']) . " require-dev dependencies\n";
         }
 
+        if (!empty($localRequirements['repositories'])) {
+            $composerRepos = $composer['repositories'] ?? [];
+            $originalCount = count($composerRepos);
+            $composer['repositories'] = $this->mergeRepositories($composerRepos, $localRequirements['repositories']);
+            $mergedCount = count($composer['repositories']) - $originalCount;
+            echo "✓ Merged " . max(0, $mergedCount) . " repositories\n";
+        }
+
         $this->writeJson($composerPath, $composer);
         
         // Create flag file to indicate merge was performed
@@ -204,8 +218,50 @@ class ComposerLocalMerge
         
         return [
             'require' => $data['require'] ?? [],
-            'require-dev' => $data['require-dev'] ?? []
+            'require-dev' => $data['require-dev'] ?? [],
+            'repositories' => $data['repositories'] ?? []
         ];
+    }
+
+    /**
+     * Merge incoming repositories into existing ones with deduplication
+     */
+    private function mergeRepositories(array $existing, array $incoming): array
+    {
+        $seen = [];
+        $result = [];
+
+        foreach ($existing as $repo) {
+            $key = json_encode($this->sortKeysRecursive($repo), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            $seen[$key] = true;
+            $result[] = $repo;
+        }
+
+        foreach ($incoming as $repo) {
+            $key = json_encode($this->sortKeysRecursive($repo), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            if (!isset($seen[$key])) {
+                $seen[$key] = true;
+                $result[] = $repo;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Recursively sort array keys for stable encoding
+     */
+    private function sortKeysRecursive(array $arr): array
+    {
+        foreach ($arr as $k => $v) {
+            if (is_array($v)) {
+                $arr[$k] = $this->sortKeysRecursive($v);
+            }
+        }
+
+        ksort($arr);
+
+        return $arr;
     }
 
     /**
