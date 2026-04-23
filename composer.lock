@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f2782195f4b683c85e188d0eee17437",
+    "content-hash": "b0921dbfc259a16b8d16f93cf9bceb1b",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -290,16 +290,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.379.4",
+            "version": "3.379.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "606d812d3e9289147e2c801d51b916c45c92de39"
+                "reference": "c81342df6e09bbc30d28ea57cc4644bb35c53ce2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/606d812d3e9289147e2c801d51b916c45c92de39",
-                "reference": "606d812d3e9289147e2c801d51b916c45c92de39",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c81342df6e09bbc30d28ea57cc4644bb35c53ce2",
+                "reference": "c81342df6e09bbc30d28ea57cc4644bb35c53ce2",
                 "shasum": ""
             },
             "require": {
@@ -381,9 +381,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.379.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.379.5"
             },
-            "time": "2026-04-21T20:01:34+00:00"
+            "time": "2026-04-22T18:13:16+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -3321,16 +3321,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-form-builder",
-            "version": "4.0.6",
+            "version": "4.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-form-builder.git",
-                "reference": "5785897d9e1fd6fc3748f7af4f62d068b842f295"
+                "reference": "8fbe7cc02ea3fd23131efb98065eaaee27cd7adb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-form-builder/zipball/5785897d9e1fd6fc3748f7af4f62d068b842f295",
-                "reference": "5785897d9e1fd6fc3748f7af4f62d068b842f295",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-form-builder/zipball/8fbe7cc02ea3fd23131efb98065eaaee27cd7adb",
+                "reference": "8fbe7cc02ea3fd23131efb98065eaaee27cd7adb",
                 "shasum": ""
             },
             "require": {
@@ -3381,9 +3381,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-form-builder/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-form-builder/tree/4.0.6"
+                "source": "https://github.com/helsingborg-stad/modularity-form-builder/tree/4.0.8"
             },
-            "time": "2026-01-16T09:25:24+00:00"
+            "time": "2026-04-22T09:18:36+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-guides",
@@ -3931,16 +3931,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.37.8",
+            "version": "6.38.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "d2b535df0ae33d91e1a8869f454d0b549789550a"
+                "reference": "c9f8bf374ac6de30af88cc47fe8406aa19dde4eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/d2b535df0ae33d91e1a8869f454d0b549789550a",
-                "reference": "d2b535df0ae33d91e1a8869f454d0b549789550a",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/c9f8bf374ac6de30af88cc47fe8406aa19dde4eb",
+                "reference": "c9f8bf374ac6de30af88cc47fe8406aa19dde4eb",
                 "shasum": ""
             },
             "require": {
@@ -4016,9 +4016,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.37.8"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.38.4"
             },
-            "time": "2026-04-22T06:25:56+00:00"
+            "time": "2026-04-22T12:09:56+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -4335,16 +4335,16 @@
         },
         {
             "name": "helsingborg-stad/wp-page-for-post-type",
-            "version": "2.0.10",
+            "version": "2.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wp-page-for-posttype.git",
-                "reference": "5f1d06bd0d5b56fe849597517ee37f6647fd7cae"
+                "reference": "7508e91d85f9328ceca7c958c4dceebcfb0dc7c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wp-page-for-posttype/zipball/5f1d06bd0d5b56fe849597517ee37f6647fd7cae",
-                "reference": "5f1d06bd0d5b56fe849597517ee37f6647fd7cae",
+                "url": "https://api.github.com/repos/helsingborg-stad/wp-page-for-posttype/zipball/7508e91d85f9328ceca7c958c4dceebcfb0dc7c9",
+                "reference": "7508e91d85f9328ceca7c958c4dceebcfb0dc7c9",
                 "shasum": ""
             },
             "require": {
@@ -4381,9 +4381,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wp-page-for-posttype/issues",
-                "source": "https://github.com/helsingborg-stad/wp-page-for-posttype/tree/2.0.10"
+                "source": "https://github.com/helsingborg-stad/wp-page-for-posttype/tree/2.0.12"
             },
-            "time": "2026-04-21T13:35:49+00:00"
+            "time": "2026-04-22T13:37:23+00:00"
         },
         {
             "name": "helsingborg-stad/wp-search-statistics",
