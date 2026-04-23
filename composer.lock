@@ -290,16 +290,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.379.4",
+            "version": "3.379.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "606d812d3e9289147e2c801d51b916c45c92de39"
+                "reference": "c81342df6e09bbc30d28ea57cc4644bb35c53ce2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/606d812d3e9289147e2c801d51b916c45c92de39",
-                "reference": "606d812d3e9289147e2c801d51b916c45c92de39",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c81342df6e09bbc30d28ea57cc4644bb35c53ce2",
+                "reference": "c81342df6e09bbc30d28ea57cc4644bb35c53ce2",
                 "shasum": ""
             },
             "require": {
@@ -381,9 +381,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.379.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.379.5"
             },
-            "time": "2026-04-21T20:01:34+00:00"
+            "time": "2026-04-22T18:13:16+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -4335,16 +4335,16 @@
         },
         {
             "name": "helsingborg-stad/wp-page-for-post-type",
-            "version": "2.0.10",
+            "version": "2.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wp-page-for-posttype.git",
-                "reference": "5f1d06bd0d5b56fe849597517ee37f6647fd7cae"
+                "reference": "7508e91d85f9328ceca7c958c4dceebcfb0dc7c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wp-page-for-posttype/zipball/5f1d06bd0d5b56fe849597517ee37f6647fd7cae",
-                "reference": "5f1d06bd0d5b56fe849597517ee37f6647fd7cae",
+                "url": "https://api.github.com/repos/helsingborg-stad/wp-page-for-posttype/zipball/7508e91d85f9328ceca7c958c4dceebcfb0dc7c9",
+                "reference": "7508e91d85f9328ceca7c958c4dceebcfb0dc7c9",
                 "shasum": ""
             },
             "require": {
@@ -4381,9 +4381,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wp-page-for-posttype/issues",
-                "source": "https://github.com/helsingborg-stad/wp-page-for-posttype/tree/2.0.10"
+                "source": "https://github.com/helsingborg-stad/wp-page-for-posttype/tree/2.0.12"
             },
-            "time": "2026-04-21T13:35:49+00:00"
+            "time": "2026-04-22T13:37:23+00:00"
         },
         {
             "name": "helsingborg-stad/wp-search-statistics",
