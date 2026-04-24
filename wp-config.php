@@ -18,6 +18,13 @@
  * @package WordPress
  */
 
+if( !defined('WP_USE_THEMES') && !defined('WP_ADMIN') && !defined('WP_CLI') ) {
+    // Prevent direct access to this file, as it should only be included by index.php
+    // Set header to 403 Forbidden and exit
+    header('HTTP/1.0 403 Forbidden');
+    die();
+}
+
 /**
  * Config files
  *
