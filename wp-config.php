@@ -18,7 +18,7 @@
  * @package WordPress
  */
 
-if( !defined('WP_USE_THEMES') && !defined('WP_ADMIN') && !defined('WP_CLI') ) {
+if( !defined('ABSPATH') ) {
     // Prevent direct access to this file, as it should only be included by index.php
     // Set header to 403 Forbidden and exit
     header('HTTP/1.0 403 Forbidden');
@@ -59,11 +59,6 @@ foreach ($configFiles as $configFile) {
 }
 
 /* That's all, stop editing! Happy blogging. */
-
-/** Absolute path to the WordPress directory. */
-if (!defined('ABSPATH')) {
-    define('ABSPATH', dirname(__FILE__) . '/');
-}
 
 /**
  * Autoload Vendor files or display install instructions.
