@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de1d117ae893ee02b8f2a4a22f9f6c2e",
+    "content-hash": "7b1ba05cc0ea394613a4a52ca43da537",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -290,16 +290,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.379.5",
+            "version": "3.379.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c81342df6e09bbc30d28ea57cc4644bb35c53ce2"
+                "reference": "2c338cb3f2bcb9e8616ffbac7a36d66034f2ceef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c81342df6e09bbc30d28ea57cc4644bb35c53ce2",
-                "reference": "c81342df6e09bbc30d28ea57cc4644bb35c53ce2",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2c338cb3f2bcb9e8616ffbac7a36d66034f2ceef",
+                "reference": "2c338cb3f2bcb9e8616ffbac7a36d66034f2ceef",
                 "shasum": ""
             },
             "require": {
@@ -381,9 +381,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.379.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.379.7"
             },
-            "time": "2026-04-22T18:13:16+00:00"
+            "time": "2026-04-24T18:17:06+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -3321,16 +3321,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-form-builder",
-            "version": "4.0.8",
+            "version": "4.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-form-builder.git",
-                "reference": "8fbe7cc02ea3fd23131efb98065eaaee27cd7adb"
+                "reference": "cc66aefeecd167a8d94cc48e38c52be07fd7a4df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-form-builder/zipball/8fbe7cc02ea3fd23131efb98065eaaee27cd7adb",
-                "reference": "8fbe7cc02ea3fd23131efb98065eaaee27cd7adb",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-form-builder/zipball/cc66aefeecd167a8d94cc48e38c52be07fd7a4df",
+                "reference": "cc66aefeecd167a8d94cc48e38c52be07fd7a4df",
                 "shasum": ""
             },
             "require": {
@@ -3381,9 +3381,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-form-builder/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-form-builder/tree/4.0.8"
+                "source": "https://github.com/helsingborg-stad/modularity-form-builder/tree/4.0.10"
             },
-            "time": "2026-04-22T09:18:36+00:00"
+            "time": "2026-04-27T09:22:35+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-guides",
@@ -3454,16 +3454,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-json-render",
-            "version": "4.0.4",
+            "version": "4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-json-render.git",
-                "reference": "1c6ded6de198f93b3f5f198f6ee870dee4be9d01"
+                "reference": "3702bd4d680c5e7fbb84b1ab4c9a2a0ccdcbab0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/1c6ded6de198f93b3f5f198f6ee870dee4be9d01",
-                "reference": "1c6ded6de198f93b3f5f198f6ee870dee4be9d01",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/3702bd4d680c5e7fbb84b1ab4c9a2a0ccdcbab0b",
+                "reference": "3702bd4d680c5e7fbb84b1ab4c9a2a0ccdcbab0b",
                 "shasum": ""
             },
             "require": {
@@ -3506,22 +3506,22 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-json-render/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.0.4"
+                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.0.6"
             },
-            "time": "2026-03-30T07:44:13+00:00"
+            "time": "2026-04-27T10:14:44+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-open-street-map",
-            "version": "3.1.6",
+            "version": "3.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-openstreetmap.git",
-                "reference": "096e9f39868237bd3a41b6afbe77d703fc601a36"
+                "reference": "a06585e0ed2426a163206694a1777a56b68992b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-openstreetmap/zipball/096e9f39868237bd3a41b6afbe77d703fc601a36",
-                "reference": "096e9f39868237bd3a41b6afbe77d703fc601a36",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-openstreetmap/zipball/a06585e0ed2426a163206694a1777a56b68992b3",
+                "reference": "a06585e0ed2426a163206694a1777a56b68992b3",
                 "shasum": ""
             },
             "require": {
@@ -3564,9 +3564,9 @@
             "description": "Open Street Map integration",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-openstreetmap/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-openstreetmap/tree/3.1.6"
+                "source": "https://github.com/helsingborg-stad/modularity-openstreetmap/tree/3.1.8"
             },
-            "time": "2026-04-14T12:28:40+00:00"
+            "time": "2026-04-24T10:37:57+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-products",
@@ -3931,16 +3931,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "6.38.19",
+            "version": "6.40.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "22d91063a735936fdc841f68821393eadff05823"
+                "reference": "4dd37c6743e05ac2cfedcb62b43cc26954ad8385"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/22d91063a735936fdc841f68821393eadff05823",
-                "reference": "22d91063a735936fdc841f68821393eadff05823",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/4dd37c6743e05ac2cfedcb62b43cc26954ad8385",
+                "reference": "4dd37c6743e05ac2cfedcb62b43cc26954ad8385",
                 "shasum": ""
             },
             "require": {
@@ -4016,9 +4016,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.38.19"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/6.40.4"
             },
-            "time": "2026-04-23T07:39:20+00:00"
+            "time": "2026-04-27T10:13:24+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -4335,16 +4335,16 @@
         },
         {
             "name": "helsingborg-stad/wp-page-for-post-type",
-            "version": "2.0.12",
+            "version": "2.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wp-page-for-posttype.git",
-                "reference": "7508e91d85f9328ceca7c958c4dceebcfb0dc7c9"
+                "reference": "85f91cab3d3a3b331814d9d6468037c24a7579bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wp-page-for-posttype/zipball/7508e91d85f9328ceca7c958c4dceebcfb0dc7c9",
-                "reference": "7508e91d85f9328ceca7c958c4dceebcfb0dc7c9",
+                "url": "https://api.github.com/repos/helsingborg-stad/wp-page-for-posttype/zipball/85f91cab3d3a3b331814d9d6468037c24a7579bd",
+                "reference": "85f91cab3d3a3b331814d9d6468037c24a7579bd",
                 "shasum": ""
             },
             "require": {
@@ -4381,9 +4381,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wp-page-for-posttype/issues",
-                "source": "https://github.com/helsingborg-stad/wp-page-for-posttype/tree/2.0.12"
+                "source": "https://github.com/helsingborg-stad/wp-page-for-posttype/tree/2.0.14"
             },
-            "time": "2026-04-22T13:37:23+00:00"
+            "time": "2026-04-24T07:09:16+00:00"
         },
         {
             "name": "helsingborg-stad/wp-search-statistics",
@@ -4720,16 +4720,16 @@
         },
         {
             "name": "helsingborg-stad/wpmu-remove-user-endpoint",
-            "version": "0.2.2",
+            "version": "0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpmu-remove-user-endpoint.git",
-                "reference": "cf071ea2dab48cc9df52b26ebe5ab07f19a2fa52"
+                "reference": "4757ca79ad096e861e291066c32209f2b2c1edac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-remove-user-endpoint/zipball/cf071ea2dab48cc9df52b26ebe5ab07f19a2fa52",
-                "reference": "cf071ea2dab48cc9df52b26ebe5ab07f19a2fa52",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-remove-user-endpoint/zipball/4757ca79ad096e861e291066c32209f2b2c1edac",
+                "reference": "4757ca79ad096e861e291066c32209f2b2c1edac",
                 "shasum": ""
             },
             "type": "wordpress-muplugin",
@@ -4745,9 +4745,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpmu-remove-user-endpoint/issues",
-                "source": "https://github.com/helsingborg-stad/wpmu-remove-user-endpoint/tree/0.2.2"
+                "source": "https://github.com/helsingborg-stad/wpmu-remove-user-endpoint/tree/0.2.3"
             },
-            "time": "2024-03-01T09:19:59+00:00"
+            "time": "2026-04-24T06:39:58+00:00"
         },
         {
             "name": "helsingborg-stad/wpmu-security",
@@ -7218,16 +7218,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.51",
+            "version": "3.0.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "d59c94077f9c9915abb51ddb52ce85188ece1748"
+                "reference": "2adaefc83df2ec548558307690f376dd7d4f4fce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d59c94077f9c9915abb51ddb52ce85188ece1748",
-                "reference": "d59c94077f9c9915abb51ddb52ce85188ece1748",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/2adaefc83df2ec548558307690f376dd7d4f4fce",
+                "reference": "2adaefc83df2ec548558307690f376dd7d4f4fce",
                 "shasum": ""
             },
             "require": {
@@ -7308,7 +7308,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.51"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.52"
             },
             "funding": [
                 {
@@ -7324,7 +7324,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-10T01:33:53+00:00"
+            "time": "2026-04-27T07:02:15+00:00"
         },
         {
             "name": "pragmarx/ia-arr",
@@ -8379,7 +8379,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.36.0",
+            "version": "v1.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -8438,7 +8438,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.36.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.37.0"
             },
             "funding": [
                 {
@@ -8545,7 +8545,7 @@
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.36.0",
+            "version": "v1.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
@@ -8606,7 +8606,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.36.0"
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.37.0"
             },
             "funding": [
                 {
@@ -8799,7 +8799,7 @@
         },
         {
             "name": "symfony/polyfill-php83",
-            "version": "v1.36.0",
+            "version": "v1.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php83.git",
@@ -8855,7 +8855,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php83/tree/v1.36.0"
+                "source": "https://github.com/symfony/polyfill-php83/tree/v1.37.0"
             },
             "funding": [
                 {
