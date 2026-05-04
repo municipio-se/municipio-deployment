@@ -57,6 +57,18 @@ jobs:
             --optimize-autoloader \
             --classmap-authoritative
 
+      - name: Download ACF Pro
+        env:
+          ACF_URL: ${{ secrets.ACF_URL }}
+        run: |
+          if [ -z "$ACF_URL" ]; then
+            echo "::warning::ACF_URL secret not set; skipping ACF Pro download. CI build will diverge from production."
+            exit 0
+          fi
+          curl -fsSL -o /tmp/acf.zip "$ACF_URL"
+          unzip -q /tmp/acf.zip -d wp-content/plugins/
+          rm /tmp/acf.zip
+
       - name: Run Municipio build
         run: php build.php --cleanup --no-composer-in-child-packages
 
