@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-build:
+    name: Validate production build
+    runs-on: ubuntu-latest
+    env:
+      COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GH_TOKEN }}"}}'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: imagick
+          tools: composer
+
+      - name: Resolve Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config --global cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Composer downloads
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock', 'composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Validate composer.json
+        run: composer validate --no-check-publish
+
+      - name: Prepare composer.lock (build-pre)
+        run: php build-pre.php
+
+      - name: Install dependencies (production)
+        run: |
+          composer install \
+            --no-dev \
+            --no-interaction \
+            --prefer-dist \
+            --no-progress \
+            --optimize-autoloader \
+            --classmap-authoritative
+
+      - name: Run Municipio build
+        run: php build.php --cleanup --no-composer-in-child-packages
+
+      - name: Sanity-check build output
+        run: |
+          test -f index.php
+          test -d wp
+          test -d wp-content
