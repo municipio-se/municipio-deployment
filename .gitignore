@@ -29,3 +29,5 @@ db/db.sqlite
 .claude/settings.local.json
 .composer-merge-active
 composer.*.bkup
+.docker/.env.local
+.docker/data/
