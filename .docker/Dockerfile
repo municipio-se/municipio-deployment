@@ -12,7 +12,7 @@ FROM php:${PHP_VERSION}-cli-alpine AS builder
 
 RUN <<EOT
   set -euo pipefail
-  apk add --no-cache npm curl git unzip imagemagick imagemagick-dev $PHPIZE_DEPS
+  apk add --no-cache npm curl unzip imagemagick imagemagick-dev $PHPIZE_DEPS
   pecl install imagick
   docker-php-ext-enable imagick
 EOT
