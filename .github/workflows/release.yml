@@ -23,6 +23,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Build Municipio
+        uses: ./.github/actions/build
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          acf-url: ${{ secrets.ACF_URL }}
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -39,7 +45,6 @@ jobs:
       - name: Compute image tags
         id: meta
         uses: docker/metadata-action@v5
-
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
@@ -47,29 +52,14 @@ jobs:
             type=sha,prefix=sha-
             type=raw,value=latest,enable={{is_default_branch}}
 
-      - name: Stage build secrets
-        env:
-          ACF_URL: ${{ secrets.ACF_URL }}
-        run: |
-          printf '%s' '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}' > "${RUNNER_TEMP}/composer_auth"
-          if [ -n "$ACF_URL" ]; then
-            printf '%s' "$ACF_URL" > "${RUNNER_TEMP}/acf_url"
-          else
-            : > "${RUNNER_TEMP}/acf_url"
-            echo "::warning::ACF_URL secret not set; built image will not include ACF Pro."
-          fi
-
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
           context: .
           file: .docker/Dockerfile
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          secret-files: |
-            composer_auth=${{ runner.temp }}/composer_auth
-            acf_url=${{ runner.temp }}/acf_url
           cache-from: type=gha
           cache-to: type=gha,mode=max

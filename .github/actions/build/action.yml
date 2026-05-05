@@ -1,0 +1,100 @@
+name: Build Municipio code tree
+description: |
+  Validate composer.json, install Composer dependencies, fetch ACF Pro,
+  preserve db/seed.sql, run build.php cleanup, promote config-example
+  to config, and stage the production-ready code tree at ./build-output/.
+
+inputs:
+  github-token:
+    description: GitHub token for Composer auth (rate-limit headroom for github.com fetches).
+    required: true
+  acf-url:
+    description: ACF Pro download URL. If empty, ACF Pro is skipped with a warning.
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: imagick
+        tools: composer
+
+    - name: Validate composer.json
+      shell: bash
+      run: composer validate --no-check-publish
+
+    - name: Resolve Composer cache directory
+      id: composer-cache
+      shell: bash
+      run: echo "dir=$(composer config --global cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+    - name: Cache Composer downloads
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock', 'composer.json') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+
+    - name: Prepare composer.lock (build-pre)
+      shell: bash
+      run: php build-pre.php
+
+    - name: Install dependencies (production)
+      shell: bash
+      env:
+        COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ inputs.github-token }}"}}'
+      run: |
+        composer install \
+          --no-dev \
+          --no-interaction \
+          --prefer-dist \
+          --no-progress \
+          --optimize-autoloader \
+          --classmap-authoritative
+
+    - name: Download ACF Pro
+      shell: bash
+      env:
+        ACF_URL: ${{ inputs.acf-url }}
+      run: |
+        if [ -z "$ACF_URL" ]; then
+          echo "::warning::ACF_URL not provided; built tree will not include ACF Pro."
+          exit 0
+        fi
+        curl -fsSL -o /tmp/acf.zip "$ACF_URL"
+        unzip -q /tmp/acf.zip -d wp-content/plugins/
+        rm /tmp/acf.zip
+
+    - name: Preserve seed.sql before cleanup
+      shell: bash
+      run: |
+        if [ -f db/seed.sql ]; then
+          cp db/seed.sql db_seed.sql
+        fi
+
+    - name: Run Municipio build
+      shell: bash
+      run: php build.php --cleanup --no-composer-in-child-packages
+
+    - name: Promote config-example to config
+      shell: bash
+      run: |
+        if [ -d config-example ]; then
+          mv config-example config
+        fi
+
+    - name: Stage build output
+      shell: bash
+      run: |
+        mkdir -p build-output
+        shopt -s nullglob
+        mv vendor wp-content wp-admin config wp index.php wp-*.php db_seed.sql build-output/ 2>/dev/null || true
+        test -f build-output/index.php
+        test -d build-output/wp
+        test -d build-output/wp-content
+        ls -la build-output/
