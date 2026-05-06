@@ -151,6 +151,7 @@ confirm_action() {
 }
 
 #############################################################################
+
 # Main Script
 #############################################################################
 migrate_site() {
@@ -162,6 +163,9 @@ migrate_site() {
     local remote_site_url="${REMOTE_SITE_PROTOCOL}${remote_site_domain}"
     local local_site_url="$LOCAL_MU_SITE_URL/$local_site_slug"
     local tmp_sql="/tmp/${local_site_slug}.sql"
+    local cache_dir="$SCRIPT_DIR/db-cache"
+    local cache_file="$cache_dir/${local_site_slug}.sql"
+    local cache_ttl=3600 # 1 hour
 
     print_header "Migration $migration_index/$migration_total"
     echo "Remote: $remote_site_url"
@@ -185,54 +189,72 @@ migrate_site() {
         print_success "No existing local site found"
     fi
 
-    # Export remote database
-    print_header "Exporting Remote Database"
-    print_info "Connecting to remote server..."
-    print_info "You may be prompted for SSH password"
+    # Export remote database or use cache
+    print_header "Exporting/Fetching Remote Database"
+    mkdir -p "$cache_dir"
+    local use_cache=0
+    if [ -f "$cache_file" ]; then
+        local now=$(date +%s)
+        local file_time=$(stat -c %Y "$cache_file")
+        if [ $((now - file_time)) -lt $cache_ttl ]; then
+            use_cache=1
+        fi
+    fi
 
-    if ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH <<EOF
+    if [ $use_cache -eq 1 ]; then
+        print_info "Using cached database for $local_site_slug (less than 1 hour old)."
+        print_info "To clear cache, run: ./migrate.sh clear-cache"
+        cp "$cache_file" "$tmp_sql"
+    else
+        print_info "Connecting to remote server..."
+        print_info "You may be prompted for SSH password"
+
+        if ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH <<EOF
 cd $REMOTE_PATH
 wp db export $tmp_sql --add-drop-table --tables=\$(wp db tables --scope=blog --url=$remote_site_domain --skip-plugins --skip-themes --allow-root | paste -sd, -) --skip-plugins --skip-themes --quiet 2>/dev/null
 EOF
-    then
-        print_success "Database exported on remote server"
-    else
-        print_error "Failed to export database from remote server"
-        exit 1
+        then
+            print_success "Database exported on remote server"
+        else
+            print_error "Failed to export database from remote server"
+            exit 1
+        fi
+
+        # Get remote site ID
+        print_header "Getting Remote Site ID"
+        REMOTE_SITE_ID=$(ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null | grep '$remote_site_url' | cut -d',' -f1")
+        print_header "Getting Remote Upload URL Path"
+        REMOTE_UPLOAD_URL_PATH=$(ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH "cd $REMOTE_PATH; wp option get upload_url_path --url=$remote_site_url --allow-root --skip-plugins --skip-themes 2>/dev/null")
+
+        if [ -z "$REMOTE_SITE_ID" ]; then
+            print_error "Failed to retrieve remote site ID"
+            exit 1
+        fi
+
+        print_success "Remote site ID: $REMOTE_SITE_ID"
+
+        # Download SQL file
+        print_header "Downloading Database"
+        rm -f $tmp_sql 2>/dev/null || true
+
+        if scp -q -P $SSH_PORT $REMOTE_SSH:$tmp_sql $tmp_sql 2>/dev/null; then
+            print_success "Database downloaded successfully"
+
+            # Show file size
+            file_size=$(du -h $tmp_sql | cut -f1)
+            print_info "File size: $file_size"
+            cp "$tmp_sql" "$cache_file"
+            print_info "Database cached for 1 hour at $cache_file"
+        else
+            print_error "Failed to download database file"
+            exit 1
+        fi
+
+        # Clean up remote temp file
+        print_header "Cleaning Up Remote Server"
+        ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH "rm -f $tmp_sql" 2>/dev/null
+        print_success "Remote temporary file removed"
     fi
-
-    # Get remote site ID
-    print_header "Getting Remote Site ID"
-    REMOTE_SITE_ID=$(ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null | grep '$remote_site_url' | cut -d',' -f1")
-    print_header "Getting Remote Upload URL Path"
-    REMOTE_UPLOAD_URL_PATH=$(ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH "cd $REMOTE_PATH; wp option get upload_url_path --url=$remote_site_url --allow-root --skip-plugins --skip-themes 2>/dev/null")
-
-    if [ -z "$REMOTE_SITE_ID" ]; then
-        print_error "Failed to retrieve remote site ID"
-        exit 1
-    fi
-
-    print_success "Remote site ID: $REMOTE_SITE_ID"
-
-    # Download SQL file
-    print_header "Downloading Database"
-    rm -f $tmp_sql 2>/dev/null || true
-
-    if scp -q -P $SSH_PORT $REMOTE_SSH:$tmp_sql $tmp_sql 2>/dev/null; then
-        print_success "Database downloaded successfully"
-
-        # Show file size
-        file_size=$(du -h $tmp_sql | cut -f1)
-        print_info "File size: $file_size"
-    else
-        print_error "Failed to download database file"
-        exit 1
-    fi
-
-    # Clean up remote temp file
-    print_header "Cleaning Up Remote Server"
-    ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH "rm -f $tmp_sql" 2>/dev/null
-    print_success "Remote temporary file removed"
 
     # Import into local database
     print_header "Setting Up Local Site"
@@ -342,6 +364,19 @@ EOF
     echo ""
     print_success "Migration $migration_index/$migration_total finished"
 }
+
+
+# Clear cache option
+if [[ "${1:-}" == "clear-cache" ]]; then
+    cache_dir="$SCRIPT_DIR/db-cache"
+    if [ -d "$cache_dir" ]; then
+        rm -rf "$cache_dir"/*
+        echo "Database cache cleared ($cache_dir)"
+    else
+        echo "No cache directory found ($cache_dir)"
+    fi
+    exit 0
+fi
 
 print_header "WordPress Multisite Migration"
 print_info "Configured migrations: ${#REMOTE_SITE_DOMAINS[@]}"

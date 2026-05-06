@@ -18,6 +18,7 @@ db/*.sql
 # Devcontainer
 .htaccess
 .devcontainer/.env
+/.devcontainer/scripts/db-cache/
 !/.devcontainer/config/.htaccess
 *.pem
 *.key
