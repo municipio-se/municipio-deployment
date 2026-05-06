@@ -155,6 +155,7 @@ confirm_action() {
 # Main Script
 #############################################################################
 migrate_site() {
+
     local remote_site_domain="$1"
     local local_site_slug="$2"
     local migration_index="$3"
@@ -166,6 +167,13 @@ migrate_site() {
     local cache_dir="$SCRIPT_DIR/db-cache"
     local cache_file="$cache_dir/${local_site_slug}.sql"
     local cache_ttl=3600 # 1 hour
+
+    # Metadata file for cache
+    local cache_meta_file="$cache_dir/${local_site_slug}.meta"
+
+    # Initialize to avoid unbound variable errors
+    local REMOTE_SITE_ID=""
+    local REMOTE_UPLOAD_URL_PATH=""
 
     print_header "Migration $migration_index/$migration_total"
     echo "Remote: $remote_site_url"
@@ -205,6 +213,13 @@ migrate_site() {
         print_info "Using cached database for $local_site_slug (less than 1 hour old)."
         print_info "To clear cache, run: ./migrate.sh clear-cache"
         cp "$cache_file" "$tmp_sql"
+        if [ -f "$cache_meta_file" ]; then
+            # shellcheck disable=SC1090
+            source "$cache_meta_file"
+        else
+            print_error "Cache metadata file missing: $cache_meta_file"
+            exit 1
+        fi
     else
         print_info "Connecting to remote server..."
         print_info "You may be prompted for SSH password"
@@ -232,6 +247,9 @@ EOF
         fi
 
         print_success "Remote site ID: $REMOTE_SITE_ID"
+        # Save metadata for cache
+        echo "REMOTE_SITE_ID=\"$REMOTE_SITE_ID\"" > "$cache_meta_file"
+        echo "REMOTE_UPLOAD_URL_PATH=\"$REMOTE_UPLOAD_URL_PATH\"" >> "$cache_meta_file"
 
         # Download SQL file
         print_header "Downloading Database"
