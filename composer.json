@@ -19,7 +19,8 @@
       "johnpbloch/wordpress-core-installer": true,
       "php-http/discovery": true
     },
-    "optimize-autoloader": true
+    "optimize-autoloader": true,
+    "process-timeout": 1200
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
