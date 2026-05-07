@@ -153,11 +153,13 @@ on_error() {
 run_step() {
     local description="$1"
     shift
+    local exit_code=0
 
     : > "$ERROR_LOG"
-    print_debug "$description"
+    print_debug "Running step: $description"
     if ! "$@" >"$ERROR_LOG" 2>&1; then
-        die "$description" "$?"
+        exit_code=$?
+        die "Step failed: $description" "$exit_code"
     fi
 
     if [[ "$DEBUG_MIGRATE" == "1" && -s "$ERROR_LOG" ]]; then
@@ -277,7 +279,7 @@ migrate_site() {
 
         if confirm_action "Delete existing site and continue?" "n"; then
             print_info "Deleting local site ID $existing_site_id (${existing_site_domain}${existing_site_path})..."
-            run_step "Failed to delete existing local site $local_site_url" \
+            run_step "Delete existing local site $local_site_url" \
                 wp site delete "$existing_site_id" --allow-root --url="$LOCAL_MU_SITE_URL" --yes
             print_success "Local site deleted"
         else
@@ -304,7 +306,7 @@ migrate_site() {
     if [ $use_cache -eq 1 ]; then
         print_info "Using cached database for $local_site_slug (less than 1 hour old)."
         print_info "To clear cache, run: ./migrate.sh clear-cache"
-        run_step "Failed to copy cached database from $cache_file" cp "$cache_file" "$tmp_sql"
+        run_step "Copy cached database from $cache_file" cp "$cache_file" "$tmp_sql"
         if [ -f "$cache_meta_file" ]; then
             # shellcheck disable=SC1090
             source "$cache_meta_file"
@@ -351,7 +353,7 @@ migrate_site() {
             # Show file size
             file_size=$(du -h "$tmp_sql" | cut -f1)
             print_info "File size: $file_size"
-            run_step "Failed to update cache file $cache_file" cp "$tmp_sql" "$cache_file"
+            run_step "Update cache file $cache_file" cp "$tmp_sql" "$cache_file"
             print_info "Database cached for 1 hour at $cache_file"
         else
             print_error "Failed to download database file"
@@ -375,7 +377,7 @@ migrate_site() {
         IFS=',' read -r _ existing_site_domain existing_site_path existing_site_url <<< "$existing_site_record"
         print_info "Site $local_site_url already exists with site ID $existing_site_id. Reusing ${existing_site_domain}${existing_site_path}."
     else
-        run_step "Failed to create local site $local_site_url" \
+        run_step "Create local site $local_site_url" \
             wp site create --slug="$local_site_slug" --allow-root --quiet
         print_success "Local site created"
     fi
@@ -388,7 +390,7 @@ migrate_site() {
     print_success "Local site ID: $LOCAL_SITE_ID"
 
     print_info "Importing database..."
-    run_step "Failed to import database from $tmp_sql" wp db import "$tmp_sql" --allow-root --quiet
+    run_step "Import database from $tmp_sql" wp db import "$tmp_sql" --allow-root --quiet
     print_success "Database imported"
 
     # Update table prefixes
@@ -414,7 +416,7 @@ migrate_site() {
 
             echo -n "  [$current/$table_count] Renaming $table... "
             wp db query "DROP TABLE IF EXISTS $newtable;" --allow-root 2>/dev/null || true
-            run_step "Failed to rename table $table to $newtable" \
+            run_step "Rename table $table to $newtable" \
                 wp db query "RENAME TABLE $table TO $newtable;" --allow-root
             echo "✓"
         done
@@ -429,28 +431,28 @@ migrate_site() {
     print_header "Updating URLs in Database"
     print_info "Replacing $remote_site_domain with $LOCAL_SITE_DOMAIN/$local_site_slug..."
 
-    run_step "Failed to replace $remote_site_domain in the database" \
+    run_step "Replace $remote_site_domain in the database" \
         wp search-replace "$remote_site_domain" "$LOCAL_SITE_DOMAIN/$local_site_slug" --allow-root \
             --network \
             --skip-plugins --skip-themes \
             --quiet
 
     print_info "Replacing $CDN_DOMAIN with $LOCAL_SITE_DOMAIN..."
-    run_step "Failed to replace CDN domain $CDN_DOMAIN in the database" \
+    run_step "Replace CDN domain $CDN_DOMAIN in the database" \
         wp search-replace "$CDN_DOMAIN" "$LOCAL_SITE_DOMAIN" --allow-root \
             --url="$LOCAL_SITE_DOMAIN/$local_site_slug" \
             --skip-plugins --skip-themes \
             --quiet
 
     print_info "Replacing https:// with http:// for local site..."
-    run_step "Failed to normalize the local site protocol" \
+    run_step "Normalize the local site protocol" \
         wp search-replace "https://$LOCAL_SITE_DOMAIN/$local_site_slug" "http://$LOCAL_SITE_DOMAIN/$local_site_slug" --allow-root \
             --network \
             --url="$LOCAL_SITE_DOMAIN/$local_site_slug" \
             --skip-plugins --skip-themes \
             --quiet
 
-    run_step "Failed to restore uploads URLs for $CDN_DOMAIN" \
+    run_step "Restore uploads URLs for $CDN_DOMAIN" \
         wp search-replace "$LOCAL_SITE_DOMAIN/uploads" "$CDN_DOMAIN/uploads" --allow-root \
             --network \
             --url="$LOCAL_SITE_DOMAIN/$local_site_slug" \
@@ -460,19 +462,19 @@ migrate_site() {
     print_success "URLs updated"
 
     print_info "Setting site options..."
-    run_step "Failed to update siteurl for $local_site_url" \
+    run_step "Update siteurl for $local_site_url" \
         wp option update siteurl "${local_site_url}" --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
-    run_step "Failed to update home for $local_site_url" \
+    run_step "Update home for $local_site_url" \
         wp option update home "${local_site_url}" --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
-    run_step "Failed to store remote_site_id for $local_site_url" \
+    run_step "Store remote_site_id for $local_site_url" \
         wp option update remote_site_id "${REMOTE_SITE_ID}" --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
-    run_step "Failed to update upload_url_path for $local_site_url" \
+    run_step "Update upload_url_path for $local_site_url" \
         wp option update upload_url_path "${REMOTE_UPLOAD_URL_PATH}" --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
     if ! wp option get remote_cdn_domain --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes >/dev/null 2>&1; then
-        run_step "Failed to add remote_cdn_domain for $local_site_url" \
+        run_step "Add remote_cdn_domain for $local_site_url" \
             wp option add remote_cdn_domain "${CDN_DOMAIN}" --autoload=no --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
     else
-        run_step "Failed to update remote_cdn_domain for $local_site_url" \
+        run_step "Update remote_cdn_domain for $local_site_url" \
             wp option update remote_cdn_domain "${CDN_DOMAIN}" --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
     fi
 
@@ -548,4 +550,5 @@ for remote_site_domain in "${REMOTE_SITE_DOMAINS[@]}"; do
 done
 
 print_header "All Migrations Complete"
+print_success "Finished ${#REMOTE_SITE_DOMAINS[@]} migration(s)"
 print_success "Finished ${#REMOTE_SITE_DOMAINS[@]} migration(s)"
