@@ -5,8 +5,7 @@
 # Migrates a remote subdomain site to a local subfolder site
 #############################################################################
 
-set -e  # Exit on error
-set -u  # Exit on undefined variable
+set -Eeuo pipefail  # Exit on error, undefined variable, or pipeline failure
 
 ### LOAD ENVIRONMENT ###
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -36,6 +35,8 @@ LOCAL_PATH="/var/www/html"
 LOCAL_SITE_DOMAIN="localhost:8080"
 LOCAL_MU_SITE_URL="http://${LOCAL_SITE_DOMAIN}"
 LOCAL_PREFIX="mun_"
+DEBUG_MIGRATE="${DEBUG_MIGRATE:-0}"
+ERROR_LOG="$(mktemp /tmp/migrate-debug.XXXXXX.log)"
 
 # Supports either a scalar value (comma-separated supported) or a bash array.
 parse_env_list() {
@@ -113,6 +114,63 @@ print_info() {
     echo "→ $1"
 }
 
+print_debug() {
+    if [[ "$DEBUG_MIGRATE" == "1" ]]; then
+        echo "DEBUG: $1"
+    fi
+}
+
+cleanup_error_log() {
+    rm -f "$ERROR_LOG"
+}
+
+die() {
+    local message="$1"
+    local exit_code="${2:-1}"
+
+    print_error "$message"
+    if [[ -s "$ERROR_LOG" ]]; then
+        echo ""
+        echo "--- command output ---" >&2
+        cat "$ERROR_LOG" >&2
+        echo "----------------------" >&2
+    fi
+
+    cleanup_error_log
+    exit "$exit_code"
+}
+
+on_error() {
+    local exit_code="$?"
+    local line_no="$1"
+    local command="$2"
+
+    if [[ $exit_code -ne 0 ]]; then
+        die "Migration failed at line $line_no while running: $command" "$exit_code"
+    fi
+}
+
+run_step() {
+    local description="$1"
+    shift
+    local exit_code=0
+
+    : > "$ERROR_LOG"
+    print_debug "Running step: $description"
+    if ! "$@" >"$ERROR_LOG" 2>&1; then
+        exit_code=$?
+        die "Step failed: $description" "$exit_code"
+    fi
+
+    if [[ "$DEBUG_MIGRATE" == "1" && -s "$ERROR_LOG" ]]; then
+        cat "$ERROR_LOG"
+    fi
+    : > "$ERROR_LOG"
+}
+
+trap 'cleanup_error_log' EXIT
+trap 'on_error "$LINENO" "$BASH_COMMAND"' ERR
+
 # Check if required commands exist
 check_dependencies() {
     print_header "Checking Dependencies"
@@ -120,7 +178,7 @@ check_dependencies() {
     local missing_deps=0
     
     for cmd in wp ssh scp; do
-        if ! command -v $cmd &> /dev/null; then
+        if ! command -v "$cmd" &> /dev/null; then
             print_error "$cmd is not installed or not in PATH"
             missing_deps=1
         else
@@ -150,8 +208,26 @@ confirm_action() {
     done
 }
 
-#############################################################################
+get_local_site_id() {
+    local site_slug="$1"
+    local site_path="/${site_slug}/"
 
+    wp site list --allow-root --format=csv --fields=blog_id,domain,path 2>/dev/null |
+        awk -F',' -v domain="$LOCAL_SITE_DOMAIN" -v path="$site_path" '
+            $2 == domain && $3 == path { print $1; exit }
+        '
+}
+
+get_local_site_record() {
+    local site_id="$1"
+
+    wp site list --allow-root --format=csv --fields=blog_id,domain,path,url 2>/dev/null |
+        awk -F',' -v site_id="$site_id" '
+            $1 == site_id { print $0; exit }
+        '
+}
+
+#############################################################################
 # Main Script
 #############################################################################
 migrate_site() {
@@ -182,12 +258,29 @@ migrate_site() {
 
     # Check if local site already exists
     print_header "Checking Local Site"
-    if wp site list --allow-root --url=$local_site_url 2>/dev/null | grep -q "$local_site_url"; then
+    local existing_site_id
+    local existing_site_record
+    local existing_site_domain
+    local existing_site_path
+    local existing_site_url
+    existing_site_id="$(get_local_site_id "$local_site_slug")"
+
+    if [[ -n "$existing_site_id" ]]; then
+        existing_site_record="$(get_local_site_record "$existing_site_id")"
+        IFS=',' read -r _ existing_site_domain existing_site_path existing_site_url <<< "$existing_site_record"
+
         echo "⚠️  Local site $local_site_url already exists."
+        print_info "Existing site ID: $existing_site_id"
+        print_info "Existing site domain/path: ${existing_site_domain}${existing_site_path}"
+        print_info "Existing site stored URL: ${existing_site_url:-unknown}"
+        if [[ -n "$existing_site_url" && "$existing_site_url" != "$local_site_url" && "$existing_site_url" != "$local_site_url/" ]]; then
+            print_info "Stored URL differs from the local URL, likely due to a previous partial import."
+        fi
 
         if confirm_action "Delete existing site and continue?" "n"; then
-            print_info "Deleting local site..."
-            wp site delete $local_site_slug --allow-root --url=$LOCAL_MU_SITE_URL --yes
+            print_info "Deleting local site ID $existing_site_id (${existing_site_domain}${existing_site_path})..."
+            run_step "Delete existing local site $local_site_url" \
+                wp site delete "$existing_site_id" --allow-root --url="$LOCAL_MU_SITE_URL" --yes
             print_success "Local site deleted"
         else
             echo "Migration cancelled."
@@ -203,7 +296,8 @@ migrate_site() {
     local use_cache=0
     if [ -f "$cache_file" ]; then
         local now=$(date +%s)
-        local file_time=$(stat -c %Y "$cache_file")
+        local file_time
+        file_time=$(stat -c %Y "$cache_file")
         if [ $((now - file_time)) -lt $cache_ttl ]; then
             use_cache=1
         fi
@@ -212,7 +306,7 @@ migrate_site() {
     if [ $use_cache -eq 1 ]; then
         print_info "Using cached database for $local_site_slug (less than 1 hour old)."
         print_info "To clear cache, run: ./migrate.sh clear-cache"
-        cp "$cache_file" "$tmp_sql"
+        run_step "Copy cached database from $cache_file" cp "$cache_file" "$tmp_sql"
         if [ -f "$cache_meta_file" ]; then
             # shellcheck disable=SC1090
             source "$cache_meta_file"
@@ -224,10 +318,8 @@ migrate_site() {
         print_info "Connecting to remote server..."
         print_info "You may be prompted for SSH password"
 
-        if ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH <<EOF
-cd $REMOTE_PATH
-wp db export $tmp_sql --add-drop-table --tables=\$(wp db tables --scope=blog --url=$remote_site_domain --skip-plugins --skip-themes --allow-root | paste -sd, -) --skip-plugins --skip-themes --quiet 2>/dev/null
-EOF
+        if ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" \
+            "cd $REMOTE_PATH && wp db export $tmp_sql --add-drop-table --tables=\$(wp db tables --scope=blog --url=$remote_site_domain --skip-plugins --skip-themes --allow-root | paste -sd, -) --skip-plugins --skip-themes --quiet 2>/dev/null"
         then
             print_success "Database exported on remote server"
         else
@@ -237,9 +329,9 @@ EOF
 
         # Get remote site ID
         print_header "Getting Remote Site ID"
-        REMOTE_SITE_ID=$(ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null | grep '$remote_site_url' | cut -d',' -f1")
+        REMOTE_SITE_ID=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null | grep '$remote_site_url' | cut -d',' -f1")
         print_header "Getting Remote Upload URL Path"
-        REMOTE_UPLOAD_URL_PATH=$(ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH "cd $REMOTE_PATH; wp option get upload_url_path --url=$remote_site_url --allow-root --skip-plugins --skip-themes 2>/dev/null")
+        REMOTE_UPLOAD_URL_PATH=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" "cd $REMOTE_PATH; wp option get upload_url_path --url=$remote_site_url --allow-root --skip-plugins --skip-themes 2>/dev/null")
 
         if [ -z "$REMOTE_SITE_ID" ]; then
             print_error "Failed to retrieve remote site ID"
@@ -253,15 +345,15 @@ EOF
 
         # Download SQL file
         print_header "Downloading Database"
-        rm -f $tmp_sql 2>/dev/null || true
+        rm -f "$tmp_sql" 2>/dev/null || true
 
-        if scp -q -P $SSH_PORT $REMOTE_SSH:$tmp_sql $tmp_sql 2>/dev/null; then
+        if scp -q -P "$SSH_PORT" "$REMOTE_SSH:$tmp_sql" "$tmp_sql" 2>/dev/null; then
             print_success "Database downloaded successfully"
 
             # Show file size
-            file_size=$(du -h $tmp_sql | cut -f1)
+            file_size=$(du -h "$tmp_sql" | cut -f1)
             print_info "File size: $file_size"
-            cp "$tmp_sql" "$cache_file"
+            run_step "Update cache file $cache_file" cp "$tmp_sql" "$cache_file"
             print_info "Database cached for 1 hour at $cache_file"
         else
             print_error "Failed to download database file"
@@ -270,24 +362,35 @@ EOF
 
         # Clean up remote temp file
         print_header "Cleaning Up Remote Server"
-        ssh -T -q -o LogLevel=QUIET -p $SSH_PORT $REMOTE_SSH "rm -f $tmp_sql" 2>/dev/null
+        ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" "rm -f $tmp_sql" 2>/dev/null
         print_success "Remote temporary file removed"
     fi
 
     # Import into local database
     print_header "Setting Up Local Site"
-    cd $LOCAL_PATH
+    cd "$LOCAL_PATH"
 
     print_info "Creating new subfolder site..."
-    wp site create --slug=$local_site_slug --allow-root --quiet 2>/dev/null
-    print_success "Local site created"
+    existing_site_id="$(get_local_site_id "$local_site_slug")"
+    if [[ -n "$existing_site_id" ]]; then
+        existing_site_record="$(get_local_site_record "$existing_site_id")"
+        IFS=',' read -r _ existing_site_domain existing_site_path existing_site_url <<< "$existing_site_record"
+        print_info "Site $local_site_url already exists with site ID $existing_site_id. Reusing ${existing_site_domain}${existing_site_path}."
+    else
+        run_step "Create local site $local_site_url" \
+            wp site create --slug="$local_site_slug" --allow-root --quiet
+        print_success "Local site created"
+    fi
 
     print_info "Getting local site ID..."
     LOCAL_SITE_ID=$(wp site list --allow-root --format=csv --fields=blog_id,url 2>/dev/null | grep "$local_site_url" | cut -d',' -f1)
+    if [[ -z "$LOCAL_SITE_ID" ]]; then
+        die "Failed to determine local site ID for $local_site_url"
+    fi
     print_success "Local site ID: $LOCAL_SITE_ID"
 
     print_info "Importing database..."
-    wp db import $tmp_sql --allow-root --quiet 2>/dev/null
+    run_step "Import database from $tmp_sql" wp db import "$tmp_sql" --allow-root --quiet
     print_success "Database imported"
 
     # Update table prefixes
@@ -313,7 +416,8 @@ EOF
 
             echo -n "  [$current/$table_count] Renaming $table... "
             wp db query "DROP TABLE IF EXISTS $newtable;" --allow-root 2>/dev/null || true
-            wp db query "RENAME TABLE $table TO $newtable;" --allow-root 2>/dev/null
+            run_step "Rename table $table to $newtable" \
+                wp db query "RENAME TABLE $table TO $newtable;" --allow-root
             echo "✓"
         done
 
@@ -327,47 +431,63 @@ EOF
     print_header "Updating URLs in Database"
     print_info "Replacing $remote_site_domain with $LOCAL_SITE_DOMAIN/$local_site_slug..."
 
-    wp search-replace "$remote_site_domain" "$LOCAL_SITE_DOMAIN/$local_site_slug" --allow-root \
-        --network \
-        --skip-plugins --skip-themes \
-        --quiet 2>/dev/null
+    run_step "Replace $remote_site_domain in the database" \
+        wp search-replace "$remote_site_domain" "$LOCAL_SITE_DOMAIN/$local_site_slug" --allow-root \
+            --network \
+            --skip-plugins --skip-themes \
+            --quiet
 
     print_info "Replacing $CDN_DOMAIN with $LOCAL_SITE_DOMAIN..."
-    wp search-replace "$CDN_DOMAIN" "$LOCAL_SITE_DOMAIN" --allow-root \
-        --url=$LOCAL_SITE_DOMAIN/$local_site_slug \
-        --skip-plugins --skip-themes \
-        --quiet 2>/dev/null
+    run_step "Replace CDN domain $CDN_DOMAIN in the database" \
+        wp search-replace "$CDN_DOMAIN" "$LOCAL_SITE_DOMAIN" --allow-root \
+            --url="$LOCAL_SITE_DOMAIN/$local_site_slug" \
+            --skip-plugins --skip-themes \
+            --quiet
 
     print_info "Replacing https:// with http:// for local site..."
-    wp search-replace "https://$LOCAL_SITE_DOMAIN/$local_site_slug" "http://$LOCAL_SITE_DOMAIN/$local_site_slug" --allow-root \
-        --network \
-        --url=$LOCAL_SITE_DOMAIN/$local_site_slug \
-        --skip-plugins --skip-themes \
-        --quiet 2>/dev/null
+    run_step "Normalize the local site protocol" \
+        wp search-replace "https://$LOCAL_SITE_DOMAIN/$local_site_slug" "http://$LOCAL_SITE_DOMAIN/$local_site_slug" --allow-root \
+            --network \
+            --url="$LOCAL_SITE_DOMAIN/$local_site_slug" \
+            --skip-plugins --skip-themes \
+            --quiet
 
-    wp search-replace "$LOCAL_SITE_DOMAIN/uploads" "$CDN_DOMAIN/uploads" --allow-root \
-        --network \
-        --url=$LOCAL_SITE_DOMAIN/$local_site_slug \
-        --skip-plugins --skip-themes \
-        --quiet 2>/dev/null
+    run_step "Restore uploads URLs for $CDN_DOMAIN" \
+        wp search-replace "$LOCAL_SITE_DOMAIN/uploads" "$CDN_DOMAIN/uploads" --allow-root \
+            --network \
+            --url="$LOCAL_SITE_DOMAIN/$local_site_slug" \
+            --skip-plugins --skip-themes \
+            --quiet
 
     print_success "URLs updated"
 
     print_info "Setting site options..."
-    wp option update siteurl "${local_site_url}" --allow-root --url=$local_site_url --quiet --skip-plugins --skip-themes 2>/dev/null
-    wp option update home "${local_site_url}" --allow-root --url=$local_site_url --quiet --skip-plugins --skip-themes 2>/dev/null
-    wp option update remote_site_id "${REMOTE_SITE_ID}" --allow-root --url=$local_site_url --quiet --skip-plugins --skip-themes 2>/dev/null
-    wp option update upload_url_path "${REMOTE_UPLOAD_URL_PATH}" --allow-root --url=$local_site_url --quiet --skip-plugins --skip-themes 2>/dev/null
-    wp option add remote_cdn_domain "${CDN_DOMAIN}" --autoload=no --allow-root --url=$local_site_url --quiet --skip-plugins --skip-themes 2>/dev/null
+    run_step "Update siteurl for $local_site_url" \
+        wp option update siteurl "${local_site_url}" --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
+    run_step "Update home for $local_site_url" \
+        wp option update home "${local_site_url}" --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
+    run_step "Store remote_site_id for $local_site_url" \
+        wp option update remote_site_id "${REMOTE_SITE_ID}" --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
+    run_step "Update upload_url_path for $local_site_url" \
+        wp option update upload_url_path "${REMOTE_UPLOAD_URL_PATH}" --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
+    if ! wp option get remote_cdn_domain --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes >/dev/null 2>&1; then
+        run_step "Add remote_cdn_domain for $local_site_url" \
+            wp option add remote_cdn_domain "${CDN_DOMAIN}" --autoload=no --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
+    else
+        run_step "Update remote_cdn_domain for $local_site_url" \
+            wp option update remote_cdn_domain "${CDN_DOMAIN}" --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes
+    fi
 
     print_success "Site options updated"
 
     print_info "Turn off plugins that may cause issues with local development..."
-    wp plugin deactivate force-ssl s3-uploads s3-local-index --allow-root --url=$local_site_url --quiet --skip-plugins --skip-themes 2>/dev/null || true
+    if ! wp plugin deactivate force-ssl s3-uploads s3-local-index --allow-root --url="$local_site_url" --quiet --skip-plugins --skip-themes >/dev/null 2>&1; then
+        print_info "Plugin deactivation skipped or failed for $local_site_url"
+    fi
 
     # Cleanup
     print_header "Cleaning Up"
-    rm -f $tmp_sql
+    rm -f "$tmp_sql"
     print_success "Temporary files removed"
 
     # Final success message
@@ -430,4 +550,5 @@ for remote_site_domain in "${REMOTE_SITE_DOMAINS[@]}"; do
 done
 
 print_header "All Migrations Complete"
+print_success "Finished ${#REMOTE_SITE_DOMAINS[@]} migration(s)"
 print_success "Finished ${#REMOTE_SITE_DOMAINS[@]} migration(s)"
