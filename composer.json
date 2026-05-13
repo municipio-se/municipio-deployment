@@ -20,7 +20,7 @@
       "php-http/discovery": true
     },
     "optimize-autoloader": true,
-    "process-timeout": 1200
+    "process-timeout": 21600
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

@@ -396,6 +396,7 @@ migrate_site() {
 
     # Initialize to avoid unbound variable errors
     local REMOTE_SITE_ID=""
+    local REMOTE_SITE_URL_CANONICAL=""
     local REMOTE_UPLOAD_URL_PATH=""
 
     print_header "Migration $migration_index/$migration_total"
@@ -476,9 +477,18 @@ migrate_site() {
 
         # Get remote site ID
         print_header "Getting Remote Site ID"
-        REMOTE_SITE_ID=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null | grep '$remote_site_url' | cut -d',' -f1")
+        local remote_site_record
+        remote_site_record=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" \
+            "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null | awk -F',' -v domain='$remote_site_domain' 'NR > 1 { normalized = \$2; sub(/^https?:\\/\\//, \"\", normalized); sub(/\\/.*/, \"\", normalized); if (normalized == domain) { print \$1 \",\" \$2; exit } }'")
+        REMOTE_SITE_ID="${remote_site_record%%,*}"
+        if [[ "$remote_site_record" == *,* ]]; then
+            REMOTE_SITE_URL_CANONICAL="${remote_site_record#*,}"
+        fi
+        if [[ -z "$REMOTE_SITE_URL_CANONICAL" ]]; then
+            REMOTE_SITE_URL_CANONICAL="$remote_site_url"
+        fi
         print_header "Getting Remote Upload URL Path"
-        REMOTE_UPLOAD_URL_PATH=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" "cd $REMOTE_PATH; wp option get upload_url_path --url=$remote_site_url --allow-root --skip-plugins --skip-themes 2>/dev/null")
+        REMOTE_UPLOAD_URL_PATH=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" "cd $REMOTE_PATH; wp option get upload_url_path --url=$REMOTE_SITE_URL_CANONICAL --allow-root --skip-plugins --skip-themes 2>/dev/null")
 
         if [ -z "$REMOTE_SITE_ID" ]; then
             print_error "Failed to retrieve remote site ID"
@@ -486,6 +496,7 @@ migrate_site() {
         fi
 
         print_success "Remote site ID: $REMOTE_SITE_ID"
+        print_info "Canonical remote URL: $REMOTE_SITE_URL_CANONICAL"
         # Save metadata for cache
         echo "REMOTE_SITE_ID=\"$REMOTE_SITE_ID\"" > "$cache_meta_file"
         echo "REMOTE_UPLOAD_URL_PATH=\"$REMOTE_UPLOAD_URL_PATH\"" >> "$cache_meta_file"
