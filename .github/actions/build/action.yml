@@ -79,7 +79,14 @@ runs:
 
     - name: Run Municipio build
       shell: bash
-      run: php build.php --cleanup --no-composer-in-child-packages
+      run: |
+        # build.php --cleanup removes .github (it's in $removables), which
+        # breaks GHA's post-phase lookup of this composite action's action.yml
+        # and fails the job with a misleading "did you forget actions/checkout"
+        # error. Stash + restore .github/actions across the cleanup.
+        cp -a .github/actions "$RUNNER_TEMP/_composite_actions"
+        trap 'mkdir -p .github && cp -a "$RUNNER_TEMP/_composite_actions" .github/actions' EXIT
+        php build.php --cleanup --no-composer-in-child-packages
 
     - name: Promote config-example to config
       shell: bash
