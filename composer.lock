@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34247ce7e9cd50aaaf8655a111202993",
+    "content-hash": "a6a068e9c8238a3419c6858d4fad68f3",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2778,16 +2778,16 @@
         },
         {
             "name": "helsingborg-stad/easy-to-read-alternative",
-            "version": "3.0.8",
+            "version": "3.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/easy-to-read-alternative.git",
-                "reference": "50ea587a69ca8690b31f44dc61a1d1f47912a9f4"
+                "reference": "322600524cee82ef22e0171c733b21006cfff24a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/easy-to-read-alternative/zipball/50ea587a69ca8690b31f44dc61a1d1f47912a9f4",
-                "reference": "50ea587a69ca8690b31f44dc61a1d1f47912a9f4",
+                "url": "https://api.github.com/repos/helsingborg-stad/easy-to-read-alternative/zipball/322600524cee82ef22e0171c733b21006cfff24a",
+                "reference": "322600524cee82ef22e0171c733b21006cfff24a",
                 "shasum": ""
             },
             "require": {
@@ -2812,9 +2812,9 @@
             "description": "Adds easy to read alternative content version.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/easy-to-read-alternative/issues",
-                "source": "https://github.com/helsingborg-stad/easy-to-read-alternative/tree/3.0.8"
+                "source": "https://github.com/helsingborg-stad/easy-to-read-alternative/tree/3.0.9"
             },
-            "time": "2025-11-20T09:12:03+00:00"
+            "time": "2026-05-05T15:43:35+00:00"
         },
         {
             "name": "helsingborg-stad/force-ssl",
@@ -10093,15 +10093,15 @@
         },
         {
             "name": "wpackagist-plugin/redis-cache",
-            "version": "2.7.0",
+            "version": "2.8.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redis-cache/",
-                "reference": "tags/2.7.0"
+                "reference": "tags/2.8.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redis-cache.2.7.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/redis-cache.2.8.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
