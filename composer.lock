@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6a068e9c8238a3419c6858d4fad68f3",
+    "content-hash": "86873628995575dfc68d0c76c0580ff1",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -3437,16 +3437,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-form-builder",
-            "version": "4.0.10",
+            "version": "4.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-form-builder.git",
-                "reference": "cc66aefeecd167a8d94cc48e38c52be07fd7a4df"
+                "reference": "3b384676695e3adc1e087f11015960cbbdc59848"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-form-builder/zipball/cc66aefeecd167a8d94cc48e38c52be07fd7a4df",
-                "reference": "cc66aefeecd167a8d94cc48e38c52be07fd7a4df",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-form-builder/zipball/3b384676695e3adc1e087f11015960cbbdc59848",
+                "reference": "3b384676695e3adc1e087f11015960cbbdc59848",
                 "shasum": ""
             },
             "require": {
@@ -3497,9 +3497,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-form-builder/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-form-builder/tree/4.0.10"
+                "source": "https://github.com/helsingborg-stad/modularity-form-builder/tree/4.0.12"
             },
-            "time": "2026-04-27T09:22:35+00:00"
+            "time": "2026-05-21T05:21:13+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-guides",
