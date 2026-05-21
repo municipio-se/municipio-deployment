@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7
-FROM mrspex/helsingborg:openlitespeed-0.0.1
+FROM webbutvecklinghelsingborg/gitops:openlitespeed-0.0.3
 
 WORKDIR /var/www/vhosts/localhost/html
 
