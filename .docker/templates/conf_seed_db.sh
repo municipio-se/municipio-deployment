@@ -20,8 +20,8 @@ SEED_FLAG=".seed_done"
 if [ ! -f "$SEED_FLAG" ]; then
   wp db reset --yes --allow-root
   wp db import db_seed.sql --allow-root
-	wp search-replace dev.local.municipio.tech "${PUBLIC_DOMAIN}" --skip-plugins --skip-themes --network --all-tables --allow-root --url="${PUBLIC_DOMAIN}"
-	wp search-replace https:// http:// --skip-plugins --skip-themes --network --all-tables --allow-root --url="${PUBLIC_DOMAIN}"
+#	wp search-replace dev.local.municipio.tech "${PUBLIC_DOMAIN}" --skip-plugins --skip-themes --network --all-tables --allow-root --url="${PUBLIC_DOMAIN}"
+#	wp search-replace https:// http:// --skip-plugins --skip-themes --network --all-tables --allow-root --url="${PUBLIC_DOMAIN}"
 	touch "$SEED_FLAG"
 	rm db_seed.sql
 fi

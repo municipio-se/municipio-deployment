@@ -13,5 +13,5 @@ COPY --chown=1000:1000 --chmod=755 \
   .docker/templates/entrypoint-wrapper.sh \
   ./
 
-EXPOSE 80 7080 8088
+EXPOSE 80 7080
 ENTRYPOINT ["./entrypoint-wrapper.sh"]
