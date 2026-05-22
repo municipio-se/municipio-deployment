@@ -31,3 +31,4 @@ db/db.sqlite
 composer.*.bkup
 /build-output/
 /.docker/.env.local
+/.idea
