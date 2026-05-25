@@ -36,7 +36,13 @@ LOCAL_SITE_DOMAIN="localhost:8080"
 LOCAL_MU_SITE_URL="http://${LOCAL_SITE_DOMAIN}"
 LOCAL_PREFIX="mun_"
 DEBUG_MIGRATE="${DEBUG_MIGRATE:-0}"
-ERROR_LOG="$(mktemp /tmp/migrate-debug.XXXXXX.log)"
+AUTO_CONFIRM=0
+
+create_temp_log() {
+    mktemp "/tmp/migrate-debug.XXXXXX" 2>/dev/null || mktemp -t migrate-debug
+}
+
+ERROR_LOG="$(create_temp_log)"
 
 # Supports either a scalar value (comma-separated supported) or a bash array.
 parse_env_list() {
@@ -68,10 +74,113 @@ parse_env_list() {
     done
 }
 
+slugify() {
+    local value="$1"
+    local slug
+    slug="$(printf '%s' "$value" | tr '[:upper:]' '[:lower:]' | sed -E 's#[^a-z0-9]+#-#g; s#(^-+|-+$)##g')"
+    if [[ -z "$slug" ]]; then
+        slug="site"
+    fi
+    printf '%s' "$slug"
+}
+
+array_contains() {
+    local needle="$1"
+    shift
+
+    local item
+    for item in "$@"; do
+        if [[ "$item" == "$needle" ]]; then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+extract_domain_from_url() {
+    local url="$1"
+    local domain="$url"
+
+    domain="${domain#http://}"
+    domain="${domain#https://}"
+    domain="${domain%%/*}"
+    domain="${domain%%:*}"
+
+    printf '%s' "$domain"
+}
+
+resolve_wildcard_sites() {
+    local remote_sites_csv
+    if ! remote_sites_csv="$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" \
+        "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null")"; then
+        echo "ERROR: Failed to list remote sites for wildcard configuration" >&2
+        exit 1
+    fi
+
+    REMOTE_SITE_DOMAINS=()
+    LOCAL_SITE_SLUGS=()
+
+    local blog_id
+    local site_url
+    local remote_domain
+    local domain_slug
+    local base_slug
+    local candidate_slug
+    local suffix
+
+    while IFS=',' read -r blog_id site_url; do
+        if [[ -z "$blog_id" || "$blog_id" == "blog_id" || -z "$site_url" ]]; then
+            continue
+        fi
+
+        remote_domain="$(extract_domain_from_url "$site_url")"
+        if [[ -z "$remote_domain" ]]; then
+            continue
+        fi
+
+        domain_slug="$(slugify "$remote_domain")"
+        base_slug="remote-${blog_id}-${domain_slug}"
+        candidate_slug="$base_slug"
+        suffix=1
+        while [[ ${#LOCAL_SITE_SLUGS[@]} -gt 0 ]] && array_contains "$candidate_slug" "${LOCAL_SITE_SLUGS[@]}"; do
+            candidate_slug="${base_slug}-${suffix}"
+            suffix=$((suffix + 1))
+        done
+
+        REMOTE_SITE_DOMAINS+=("$remote_domain")
+        LOCAL_SITE_SLUGS+=("$candidate_slug")
+    done <<< "$remote_sites_csv"
+
+    if [[ ${#REMOTE_SITE_DOMAINS[@]} -eq 0 ]]; then
+        echo "ERROR: Wildcard configuration returned no remote sites" >&2
+        exit 1
+    fi
+}
+
 REMOTE_SITE_DOMAINS=()
 LOCAL_SITE_SLUGS=()
 parse_env_list "REMOTE_SITE_DOMAIN" "REMOTE_SITE_DOMAINS"
 parse_env_list "LOCAL_SITE_SLUG" "LOCAL_SITE_SLUGS"
+
+remote_wildcard=0
+local_wildcard=0
+if [[ ${#REMOTE_SITE_DOMAINS[@]} -eq 1 && "${REMOTE_SITE_DOMAINS[0]}" == "*" ]]; then
+    remote_wildcard=1
+fi
+if [[ ${#LOCAL_SITE_SLUGS[@]} -eq 1 && "${LOCAL_SITE_SLUGS[0]}" == "*" ]]; then
+    local_wildcard=1
+fi
+
+if [[ $remote_wildcard -ne $local_wildcard ]]; then
+    echo "ERROR: Use wildcard for both REMOTE_SITE_DOMAIN and LOCAL_SITE_SLUG" >&2
+    echo "Example: REMOTE_SITE_DOMAIN=* and LOCAL_SITE_SLUG=*" >&2
+    exit 1
+fi
+
+if [[ $remote_wildcard -eq 1 ]]; then
+    resolve_wildcard_sites
+fi
 
 if [ ${#REMOTE_SITE_DOMAINS[@]} -eq 0 ]; then
     print_error "REMOTE_SITE_DOMAIN has no usable values"
@@ -196,6 +305,11 @@ check_dependencies() {
 confirm_action() {
     local prompt="$1"
     local default="${2:-n}"
+
+    if [[ "$AUTO_CONFIRM" == "1" ]]; then
+        print_info "Auto-confirmed: $prompt"
+        return 0
+    fi
     
     while true; do
         read -p "$prompt [y/n] (default: $default): " choice
@@ -208,23 +322,56 @@ confirm_action() {
     done
 }
 
+parse_cli_args() {
+    SCRIPT_ACTION="run"
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --no-interaction)
+                AUTO_CONFIRM=1
+                ;;
+            clear-cache)
+                SCRIPT_ACTION="clear-cache"
+                ;;
+            *)
+                print_error "Unknown argument: $1"
+                echo "Usage: $0 [clear-cache] [--no-interaction]" >&2
+                exit 1
+                ;;
+        esac
+        shift
+    done
+}
+
 get_local_site_id() {
     local site_slug="$1"
     local site_path="/${site_slug}/"
+    local site_list
 
-    wp site list --allow-root --format=csv --fields=blog_id,domain,path 2>/dev/null |
-        awk -F',' -v domain="$LOCAL_SITE_DOMAIN" -v path="$site_path" '
-            $2 == domain && $3 == path { print $1; exit }
-        '
+    site_list="$(wp site list --allow-root --format=csv --fields=blog_id,domain,path 2>/dev/null || true)"
+    awk -F',' -v domain="$LOCAL_SITE_DOMAIN" -v path="$site_path" '
+        $2 == domain && $3 == path { print $1; exit }
+    ' <<< "$site_list" || true
 }
 
 get_local_site_record() {
     local site_id="$1"
+    local site_list
 
-    wp site list --allow-root --format=csv --fields=blog_id,domain,path,url 2>/dev/null |
-        awk -F',' -v site_id="$site_id" '
-            $1 == site_id { print $0; exit }
-        '
+    site_list="$(wp site list --allow-root --format=csv --fields=blog_id,domain,path,url 2>/dev/null || true)"
+    awk -F',' -v site_id="$site_id" '
+        $1 == site_id { print $0; exit }
+    ' <<< "$site_list" || true
+}
+
+get_file_mtime() {
+    local file_path="$1"
+
+    if stat -f %m "$file_path" >/dev/null 2>&1; then
+        stat -f %m "$file_path"
+    else
+        stat -c %Y "$file_path"
+    fi
 }
 
 #############################################################################
@@ -249,6 +396,7 @@ migrate_site() {
 
     # Initialize to avoid unbound variable errors
     local REMOTE_SITE_ID=""
+    local REMOTE_SITE_URL_CANONICAL=""
     local REMOTE_UPLOAD_URL_PATH=""
 
     print_header "Migration $migration_index/$migration_total"
@@ -297,7 +445,7 @@ migrate_site() {
     if [ -f "$cache_file" ]; then
         local now=$(date +%s)
         local file_time
-        file_time=$(stat -c %Y "$cache_file")
+        file_time="$(get_file_mtime "$cache_file")"
         if [ $((now - file_time)) -lt $cache_ttl ]; then
             use_cache=1
         fi
@@ -329,9 +477,18 @@ migrate_site() {
 
         # Get remote site ID
         print_header "Getting Remote Site ID"
-        REMOTE_SITE_ID=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null | grep '$remote_site_url' | cut -d',' -f1")
+        local remote_site_record
+        remote_site_record=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" \
+            "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null | awk -F',' -v domain='$remote_site_domain' 'NR > 1 { normalized = \$2; sub(/^https?:\\/\\//, \"\", normalized); sub(/\\/.*/, \"\", normalized); if (normalized == domain) { print \$1 \",\" \$2; exit } }'")
+        REMOTE_SITE_ID="${remote_site_record%%,*}"
+        if [[ "$remote_site_record" == *,* ]]; then
+            REMOTE_SITE_URL_CANONICAL="${remote_site_record#*,}"
+        fi
+        if [[ -z "$REMOTE_SITE_URL_CANONICAL" ]]; then
+            REMOTE_SITE_URL_CANONICAL="$remote_site_url"
+        fi
         print_header "Getting Remote Upload URL Path"
-        REMOTE_UPLOAD_URL_PATH=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" "cd $REMOTE_PATH; wp option get upload_url_path --url=$remote_site_url --allow-root --skip-plugins --skip-themes 2>/dev/null")
+        REMOTE_UPLOAD_URL_PATH=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" "cd $REMOTE_PATH; wp option get upload_url_path --url=$REMOTE_SITE_URL_CANONICAL --allow-root --skip-plugins --skip-themes 2>/dev/null")
 
         if [ -z "$REMOTE_SITE_ID" ]; then
             print_error "Failed to retrieve remote site ID"
@@ -339,6 +496,7 @@ migrate_site() {
         fi
 
         print_success "Remote site ID: $REMOTE_SITE_ID"
+        print_info "Canonical remote URL: $REMOTE_SITE_URL_CANONICAL"
         # Save metadata for cache
         echo "REMOTE_SITE_ID=\"$REMOTE_SITE_ID\"" > "$cache_meta_file"
         echo "REMOTE_UPLOAD_URL_PATH=\"$REMOTE_UPLOAD_URL_PATH\"" >> "$cache_meta_file"
@@ -504,8 +662,10 @@ migrate_site() {
 }
 
 
+parse_cli_args "$@"
+
 # Clear cache option
-if [[ "${1:-}" == "clear-cache" ]]; then
+if [[ "$SCRIPT_ACTION" == "clear-cache" ]]; then
     cache_dir="$SCRIPT_DIR/db-cache"
     if [ -d "$cache_dir" ]; then
         rm -rf "$cache_dir"/*
