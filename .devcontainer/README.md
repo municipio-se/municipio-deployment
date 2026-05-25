@@ -94,7 +94,12 @@ If list/array values are used, `REMOTE_SITE_DOMAIN` and `LOCAL_SITE_SLUG` must h
 
 If wildcard is used, both variables must be set to `*`.
 
-Examples:
+=======
+| `REMOTE_SITE_DOMAIN` | Domain(s) of remote site(s) to migrate; supports single value, comma-separated list, or bash array |
+| `REMOTE_PREFIX` | Database table prefix on remote |
+| `LOCAL_SITE_SLUG` | Local slug(s); supports single value, comma-separated list, or bash array |
+
+If list/array values are used, `REMOTE_SITE_DOMAIN` and `LOCAL_SITE_SLUG` must have the same number of items.
 
 ```bash
 # Single site (backward compatible)
@@ -113,7 +118,6 @@ LOCAL_SITE_SLUG=("mysite" "mysite-two")
 # Local slug format: remote-<blog_id>-<domain>
 REMOTE_SITE_DOMAIN=*
 LOCAL_SITE_SLUG=*
-```
 
 See `.env.example` for a template.
 
