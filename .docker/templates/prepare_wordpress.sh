@@ -16,7 +16,14 @@ fi
 
 printf "define('FS_CHMOD_FILE', 0640);\n
 define('FS_CHMOD_DIR', 0750);\n
-define('FS_METHOD', 'direct');" >> config/upload.php
+define('FS_METHOD', 'direct');\n
+define('S3_UPLOADS_CUSTOM_ENDPOINT', '');\n
+define('S3_UPLOADS_DEBUG', '');\n
+define('S3_UPLOADS_KEY', '');\n
+define('S3_UPLOADS_SECRET', '');\n
+define('S3_UPLOADS_BUCKET', '');\n
+define('S3_UPLOADS_REGION', '');\n
+define('S3_UPLOADS_BUCKET_URL', '');" >> config/upload.php
 
 printf "define('BLADE_CACHE_PATH', dirname(__FILE__) . '/../wp-content/uploads/cache/blade-cache');" >> config/cache.php
 
