@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "110038baaab2d6542e4c167648f51944",
+    "content-hash": "e04ec06e95aa7a97e37713ab4a966f68",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1629,16 +1629,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.10.1",
+            "version": "2.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "73ab136360b5dfd858006eae9795e8fe43c80361"
+                "reference": "a1bbdc172f32a25fe999965b65b6e71fd87da9ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/73ab136360b5dfd858006eae9795e8fe43c80361",
-                "reference": "73ab136360b5dfd858006eae9795e8fe43c80361",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/a1bbdc172f32a25fe999965b65b6e71fd87da9ed",
+                "reference": "a1bbdc172f32a25fe999965b65b6e71fd87da9ed",
                 "shasum": ""
             },
             "require": {
@@ -1726,7 +1726,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.10.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.10.2"
             },
             "funding": [
                 {
@@ -1742,7 +1742,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-20T09:27:36+00:00"
+            "time": "2026-05-25T22:58:15+00:00"
         },
         {
             "name": "helsingborg-stad/acf-export-manager",
@@ -3322,16 +3322,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-contact-banner",
-            "version": "4.0.22",
+            "version": "4.0.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-contact-banner.git",
-                "reference": "b8ca9098a0d66dd397787fdf56da2cb510abd199"
+                "reference": "5933f8c0ba89680fc295f813deb4c21e60959d00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-contact-banner/zipball/b8ca9098a0d66dd397787fdf56da2cb510abd199",
-                "reference": "b8ca9098a0d66dd397787fdf56da2cb510abd199",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-contact-banner/zipball/5933f8c0ba89680fc295f813deb4c21e60959d00",
+                "reference": "5933f8c0ba89680fc295f813deb4c21e60959d00",
                 "shasum": ""
             },
             "require": {
@@ -3374,9 +3374,9 @@
             "description": "Contact Banner",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-contact-banner/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-contact-banner/tree/4.0.22"
+                "source": "https://github.com/helsingborg-stad/modularity-contact-banner/tree/4.0.24"
             },
-            "time": "2026-05-13T11:53:37+00:00"
+            "time": "2026-05-26T08:14:54+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-entryscape",
@@ -4048,16 +4048,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.0.2",
+            "version": "7.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "fd8b599f2bb08f840ab6d51328a5f02f4844503c"
+                "reference": "895ec49b7975efb2ce3dce72a9a66d9d44cb8bd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/fd8b599f2bb08f840ab6d51328a5f02f4844503c",
-                "reference": "fd8b599f2bb08f840ab6d51328a5f02f4844503c",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/895ec49b7975efb2ce3dce72a9a66d9d44cb8bd4",
+                "reference": "895ec49b7975efb2ce3dce72a9a66d9d44cb8bd4",
                 "shasum": ""
             },
             "require": {
@@ -4135,9 +4135,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.0.2"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.0.6"
             },
-            "time": "2026-05-25T14:07:40+00:00"
+            "time": "2026-05-26T07:47:03+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -8885,16 +8885,16 @@
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.37.0",
+            "version": "v1.38.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
-                "reference": "3833d7255cc303546435cb650316bff708a1c75c"
+                "reference": "2d446c214bdbe5b71bde5011b060a05fece3ae6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/3833d7255cc303546435cb650316bff708a1c75c",
-                "reference": "3833d7255cc303546435cb650316bff708a1c75c",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/2d446c214bdbe5b71bde5011b060a05fece3ae6b",
+                "reference": "2d446c214bdbe5b71bde5011b060a05fece3ae6b",
                 "shasum": ""
             },
             "require": {
@@ -8946,7 +8946,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.37.0"
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.38.0"
             },
             "funding": [
                 {
@@ -8966,7 +8966,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-09T11:45:10+00:00"
+            "time": "2026-05-25T13:48:31+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -9139,16 +9139,16 @@
         },
         {
             "name": "symfony/polyfill-php83",
-            "version": "v1.37.0",
+            "version": "v1.38.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php83.git",
-                "reference": "3600c2cb22399e25bb226e4a135ce91eeb2a6149"
+                "reference": "c4406e07046227db8844a25f89d111da078aaa9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php83/zipball/3600c2cb22399e25bb226e4a135ce91eeb2a6149",
-                "reference": "3600c2cb22399e25bb226e4a135ce91eeb2a6149",
+                "url": "https://api.github.com/repos/symfony/polyfill-php83/zipball/c4406e07046227db8844a25f89d111da078aaa9c",
+                "reference": "c4406e07046227db8844a25f89d111da078aaa9c",
                 "shasum": ""
             },
             "require": {
@@ -9195,7 +9195,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php83/tree/v1.37.0"
+                "source": "https://github.com/symfony/polyfill-php83/tree/v1.38.0"
             },
             "funding": [
                 {
@@ -9215,7 +9215,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-10T17:25:58+00:00"
+            "time": "2026-05-25T12:39:52+00:00"
         },
         {
             "name": "symfony/process",
