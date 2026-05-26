@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e04ec06e95aa7a97e37713ab4a966f68",
+    "content-hash": "1c65912f8d5bae16c7512b848cc7b2e8",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -4048,16 +4048,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.0.6",
+            "version": "7.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "895ec49b7975efb2ce3dce72a9a66d9d44cb8bd4"
+                "reference": "58e562190de5b04eeb238a4e7a066a5c92395385"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/895ec49b7975efb2ce3dce72a9a66d9d44cb8bd4",
-                "reference": "895ec49b7975efb2ce3dce72a9a66d9d44cb8bd4",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/58e562190de5b04eeb238a4e7a066a5c92395385",
+                "reference": "58e562190de5b04eeb238a4e7a066a5c92395385",
                 "shasum": ""
             },
             "require": {
@@ -4073,7 +4073,7 @@
                 "helsingborg-stad/component-library": "5.21.8",
                 "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.7",
-                "helsingborg-stad/styleguide": "2.256.1",
+                "helsingborg-stad/styleguide": "2.256.7",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "^0.2.44",
                 "jeradin/acf-dynamic-table-field": "dev-master",
@@ -4085,7 +4085,7 @@
                 "ooksanen/acf-focuspoint": "^1.2.1",
                 "php": "^8.2",
                 "pragmarx/ia-arr": "^7.3",
-                "symfony/polyfill-mbstring": "v1.37.0",
+                "symfony/polyfill-mbstring": "v1.38.0",
                 "symfony/polyfill-php80": "v1.37.0"
             },
             "require-dev": {
@@ -4135,9 +4135,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.0.6"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.0.8"
             },
-            "time": "2026-05-26T07:47:03+00:00"
+            "time": "2026-05-26T08:52:05+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -4340,16 +4340,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.256.1",
+            "version": "2.256.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "cd756d64d03ee0de9a27132d6ffb41d59b6ff815"
+                "reference": "ea7a9597aa7f8fed81f9049e3afb26106afad98f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/cd756d64d03ee0de9a27132d6ffb41d59b6ff815",
-                "reference": "cd756d64d03ee0de9a27132d6ffb41d59b6ff815",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/ea7a9597aa7f8fed81f9049e3afb26106afad98f",
+                "reference": "ea7a9597aa7f8fed81f9049e3afb26106afad98f",
                 "shasum": ""
             },
             "require": {
@@ -4393,9 +4393,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.256.1"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.256.7"
             },
-            "time": "2026-05-25T12:02:43+00:00"
+            "time": "2026-05-26T08:29:13+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
@@ -8970,16 +8970,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.37.0",
+            "version": "v1.38.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "6a21eb99c6973357967f6ce3708cd55a6bec6315"
+                "reference": "6b177d03d2eb04a6c9d01bab9818fb93a30ce7fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6a21eb99c6973357967f6ce3708cd55a6bec6315",
-                "reference": "6a21eb99c6973357967f6ce3708cd55a6bec6315",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6b177d03d2eb04a6c9d01bab9818fb93a30ce7fd",
+                "reference": "6b177d03d2eb04a6c9d01bab9818fb93a30ce7fd",
                 "shasum": ""
             },
             "require": {
@@ -9031,7 +9031,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.37.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.38.0"
             },
             "funding": [
                 {
@@ -9051,7 +9051,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-10T17:25:58+00:00"
+            "time": "2026-05-25T14:08:27+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
