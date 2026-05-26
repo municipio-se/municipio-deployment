@@ -86,13 +86,20 @@ Before running the migration, configure the required environment variables in `.
 | `REMOTE_SSH` | SSH connection string (user@host) |
 | `REMOTE_PATH` | WordPress installation path on remote |
 | `REMOTE_SITE_PROTOCOL` | Protocol of remote site (`http://` or `https://`) |
+| `REMOTE_SITE_DOMAIN` | Domain(s) of remote site(s) to migrate; supports single value, comma-separated list, bash array, or `*` (all remote sites) |
+| `REMOTE_PREFIX` | Database table prefix on remote |
+| `LOCAL_SITE_SLUG` | Local slug(s); supports single value, comma-separated list, bash array, or `*` (auto-generate per remote site) |
+
+If list/array values are used, `REMOTE_SITE_DOMAIN` and `LOCAL_SITE_SLUG` must have the same number of items.
+
+If wildcard is used, both variables must be set to `*`.
+
+=======
 | `REMOTE_SITE_DOMAIN` | Domain(s) of remote site(s) to migrate; supports single value, comma-separated list, or bash array |
 | `REMOTE_PREFIX` | Database table prefix on remote |
 | `LOCAL_SITE_SLUG` | Local slug(s); supports single value, comma-separated list, or bash array |
 
 If list/array values are used, `REMOTE_SITE_DOMAIN` and `LOCAL_SITE_SLUG` must have the same number of items.
-
-Examples:
 
 ```bash
 # Single site (backward compatible)
@@ -106,7 +113,11 @@ LOCAL_SITE_SLUG=mysite,mysite-two
 # Multiple sites (bash array)
 REMOTE_SITE_DOMAIN=("example.com" "example-two.com")
 LOCAL_SITE_SLUG=("mysite" "mysite-two")
-```
+
+# Import all remote multisite blogs one by one
+# Local slug format: remote-<blog_id>-<domain>
+REMOTE_SITE_DOMAIN=*
+LOCAL_SITE_SLUG=*
 
 See `.env.example` for a template.
 
@@ -114,6 +125,12 @@ See `.env.example` for a template.
 
 ```bash
 .devcontainer/scripts/migrate.sh
+
+# Auto-confirm all migration script prompts
+.devcontainer/scripts/migrate.sh --no-interaction
+
+# Via Composer
+composer devcontainer:migrate -- --no-interaction
 ```
 
 The script will:
@@ -130,6 +147,7 @@ The script will:
 
 - You may be prompted for your SSH password/key passphrase
 - If the local site already exists, you'll be asked whether to delete it
+- Use `--no-interaction` to answer yes to the migration script prompts automatically
 - The script requires SSH access to the remote server
 - After migration, access your site at `http://localhost:8080/<LOCAL_SITE_SLUG>`
 
