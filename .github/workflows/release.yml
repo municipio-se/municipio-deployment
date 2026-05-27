@@ -79,12 +79,12 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Trigger gitops config repo update
-        uses: convictional/trigger-workflow-and-wait@v1.3.0
+        uses: convictional/trigger-workflow-and-wait@v1.5.0
         with:
           owner: helsingborg-stad
           repo: ${{ secrets.GDI_GITOPS_CONFIG_REPO }}
           github_token: ${{ secrets.GDI_GITOPS_TOKEN }}
           workflow_file_name: update-config.yml
-          inputs: '{"semver": "sha-${{github.sha}}", "app": "${{ secrets.GITOPS_APP }}", "environment": "dev"}'
+          inputs: '{"ghcr_owner": "${{ secrets.GITOPS_GHCR_OWNER }}", "semver": "sha-${{github.sha}}", "app": "${{ secrets.GITOPS_APP }}", "environment": "dev"}'
           wait_workflow: false
           ref: main
