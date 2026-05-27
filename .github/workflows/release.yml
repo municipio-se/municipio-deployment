@@ -50,13 +50,21 @@ jobs:
 
       - name: Compute image tags
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=ref,event=tag
-            type=sha,prefix=sha-
             type=raw,value=latest,enable={{is_default_branch}}
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
+            type=ref,event=pr
+            type=semver,pattern=v{{version}}
+            type=semver,pattern=v{{major}}.{{minor}}
+            type=semver,pattern=v{{major}}
+            type=sha
+            type=sha,format=long
+            type=raw,value=${{ github.event.release.tag_name }}
 
       - name: Build and push image
         uses: docker/build-push-action@v6
@@ -69,3 +77,14 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Trigger gitops config repo update
+        uses: convictional/trigger-workflow-and-wait@v1.3.0
+        with:
+          owner: helsingborg-stad
+          repo: ${{ secrets.GDI_GITOPS_CONFIG_REPO }}
+          github_token: ${{ secrets.GDI_GITOPS_TOKEN }}
+          workflow_file_name: update-config.yml
+          inputs: '{"semver": "sha-${{github.sha}}", "app": "${{ secrets.GITOPS_APP }}", "environment": "dev"}'
+          wait_workflow: false
+          ref: main
