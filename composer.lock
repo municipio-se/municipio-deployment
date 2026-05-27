@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7fb7bf7de5499bc16226dd04a6b097d1",
+    "content-hash": "a7ac79b6e3e4a67eb8816b2ac7fbabba",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2588,16 +2588,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.21.8",
+            "version": "5.21.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "f85c5a54b18ea0ff340d81cfdc96b5b31ec62509"
+                "reference": "e5e37adcf39c1945bf6fb6c2a406e099132bc833"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/f85c5a54b18ea0ff340d81cfdc96b5b31ec62509",
-                "reference": "f85c5a54b18ea0ff340d81cfdc96b5b31ec62509",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/e5e37adcf39c1945bf6fb6c2a406e099132bc833",
+                "reference": "e5e37adcf39c1945bf6fb6c2a406e099132bc833",
                 "shasum": ""
             },
             "require": {
@@ -2629,9 +2629,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.21.8"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.21.9"
             },
-            "time": "2026-05-21T12:43:48+00:00"
+            "time": "2026-05-26T14:35:51+00:00"
         },
         {
             "name": "helsingborg-stad/coordinate-transformation-library",
@@ -4048,16 +4048,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.1.8",
+            "version": "7.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "b5f00ebb6ea37e651c280dcdb0e2ed54e8ea51ab"
+                "reference": "b5b242003566dd1e62d565aaf377545e78eb8169"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/b5f00ebb6ea37e651c280dcdb0e2ed54e8ea51ab",
-                "reference": "b5f00ebb6ea37e651c280dcdb0e2ed54e8ea51ab",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/b5b242003566dd1e62d565aaf377545e78eb8169",
+                "reference": "b5b242003566dd1e62d565aaf377545e78eb8169",
                 "shasum": ""
             },
             "require": {
@@ -4070,7 +4070,7 @@
                 "helsingborg-stad/acf-export-manager": ">=1.0.0",
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
-                "helsingborg-stad/component-library": "5.21.8",
+                "helsingborg-stad/component-library": "5.21.9",
                 "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.7",
                 "helsingborg-stad/styleguide": "2.256.21",
@@ -4135,9 +4135,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.1.8"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.1.12"
             },
-            "time": "2026-05-27T07:20:21+00:00"
+            "time": "2026-05-27T07:33:34+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -10276,12 +10276,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
