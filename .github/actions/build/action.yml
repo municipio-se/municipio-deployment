@@ -19,9 +19,9 @@ runs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.4'
+        php-version: '8.5'
         extensions: imagick
-        tools: composer
+        tools: composer:v2
 
     - name: Validate composer.json
       shell: bash
@@ -36,9 +36,8 @@ runs:
       uses: actions/cache@v4
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
-        key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock', 'composer.json') }}
-        restore-keys: |
-          ${{ runner.os }}-composer-
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
 
     - name: Prepare composer.lock (build-pre)
       shell: bash
