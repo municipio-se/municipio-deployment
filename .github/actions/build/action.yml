@@ -50,10 +50,11 @@ runs:
         COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ inputs.github-token }}"}}'
       run: |
         composer install \
+          --no-audit \
           --no-dev \
           --no-interaction \
-          --prefer-dist \
           --no-progress \
+          --prefer-dist \
           --optimize-autoloader \
           --classmap-authoritative
 
