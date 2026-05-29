@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "98cc614bac1e494b883d8a24fbfd7397",
+    "content-hash": "4c755e7fecc5092b8e3d82887583c2e4",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1629,16 +1629,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.10.3",
+            "version": "2.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "7c1472269227dc6f18930bd903d7a88fe6c52130"
+                "reference": "d2a1a094e396da8957e797489fddaf860c340cfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/7c1472269227dc6f18930bd903d7a88fe6c52130",
-                "reference": "7c1472269227dc6f18930bd903d7a88fe6c52130",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/d2a1a094e396da8957e797489fddaf860c340cfc",
+                "reference": "d2a1a094e396da8957e797489fddaf860c340cfc",
                 "shasum": ""
             },
             "require": {
@@ -1726,7 +1726,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.10.3"
+                "source": "https://github.com/guzzle/psr7/tree/2.10.4"
             },
             "funding": [
                 {
@@ -1742,7 +1742,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-27T11:48:20+00:00"
+            "time": "2026-05-29T12:59:07+00:00"
         },
         {
             "name": "helsingborg-stad/acf-export-manager",
@@ -4048,16 +4048,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.1.37",
+            "version": "7.1.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "77597d5482fd53e84cbbd5d2d7389476568cc354"
+                "reference": "4371443690ebba8f7421f972f1d95b01a9a6db73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/77597d5482fd53e84cbbd5d2d7389476568cc354",
-                "reference": "77597d5482fd53e84cbbd5d2d7389476568cc354",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/4371443690ebba8f7421f972f1d95b01a9a6db73",
+                "reference": "4371443690ebba8f7421f972f1d95b01a9a6db73",
                 "shasum": ""
             },
             "require": {
@@ -4135,9 +4135,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.1.37"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.1.39"
             },
-            "time": "2026-05-29T11:33:31+00:00"
+            "time": "2026-05-29T14:33:37+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
