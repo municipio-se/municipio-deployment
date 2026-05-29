@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "456141cccab46e7c7a3c1148bd405c90",
+    "content-hash": "54712e0c865b65056e98478c9c566373",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -4048,16 +4048,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.1.31",
+            "version": "7.1.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "b44401470407889ff100064d7db9651f343286bb"
+                "reference": "3f21da1bdc9fe7dc97afc86abd3f872f148dfcf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/b44401470407889ff100064d7db9651f343286bb",
-                "reference": "b44401470407889ff100064d7db9651f343286bb",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/3f21da1bdc9fe7dc97afc86abd3f872f148dfcf0",
+                "reference": "3f21da1bdc9fe7dc97afc86abd3f872f148dfcf0",
                 "shasum": ""
             },
             "require": {
@@ -4073,7 +4073,7 @@
                 "helsingborg-stad/component-library": "5.21.9",
                 "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.7",
-                "helsingborg-stad/styleguide": "2.258.5",
+                "helsingborg-stad/styleguide": "2.258.7",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "^0.2.44",
                 "jeradin/acf-dynamic-table-field": "dev-master",
@@ -4135,9 +4135,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.1.31"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.1.33"
             },
-            "time": "2026-05-29T08:19:43+00:00"
+            "time": "2026-05-29T08:49:55+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -4340,16 +4340,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.258.5",
+            "version": "2.258.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "3a273b7111efc2c3766a739fd4ff70667c5dabe8"
+                "reference": "fa55b95a5832a32f6b781ae0b85411b97d468887"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/3a273b7111efc2c3766a739fd4ff70667c5dabe8",
-                "reference": "3a273b7111efc2c3766a739fd4ff70667c5dabe8",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/fa55b95a5832a32f6b781ae0b85411b97d468887",
+                "reference": "fa55b95a5832a32f6b781ae0b85411b97d468887",
                 "shasum": ""
             },
             "require": {
@@ -4393,9 +4393,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.258.5"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.258.7"
             },
-            "time": "2026-05-29T08:14:34+00:00"
+            "time": "2026-05-29T08:44:32+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
