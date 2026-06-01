@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c755e7fecc5092b8e3d82887583c2e4",
+    "content-hash": "d4c994beca32319184ad53dae49d7c3c",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -290,16 +290,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.383.0",
+            "version": "3.383.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "50be4b674a9969c0e0aba765dee534cb5e61d309"
+                "reference": "56b7ff3ff9e086eb3945bf31e75c97cde5ab531a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/50be4b674a9969c0e0aba765dee534cb5e61d309",
-                "reference": "50be4b674a9969c0e0aba765dee534cb5e61d309",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/56b7ff3ff9e086eb3945bf31e75c97cde5ab531a",
+                "reference": "56b7ff3ff9e086eb3945bf31e75c97cde5ab531a",
                 "shasum": ""
             },
             "require": {
@@ -381,9 +381,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.383.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.383.1"
             },
-            "time": "2026-05-28T18:17:51+00:00"
+            "time": "2026-05-29T18:13:12+00:00"
         },
         {
             "name": "brick/math",
@@ -4048,16 +4048,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.1.39",
+            "version": "7.1.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "4371443690ebba8f7421f972f1d95b01a9a6db73"
+                "reference": "314c7aa28fc2ba6eee6ecea019850a6f0e108bef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/4371443690ebba8f7421f972f1d95b01a9a6db73",
-                "reference": "4371443690ebba8f7421f972f1d95b01a9a6db73",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/314c7aa28fc2ba6eee6ecea019850a6f0e108bef",
+                "reference": "314c7aa28fc2ba6eee6ecea019850a6f0e108bef",
                 "shasum": ""
             },
             "require": {
@@ -4073,7 +4073,7 @@
                 "helsingborg-stad/component-library": "5.21.9",
                 "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.7",
-                "helsingborg-stad/styleguide": "2.258.7",
+                "helsingborg-stad/styleguide": "2.259.0",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "^0.2.44",
                 "jeradin/acf-dynamic-table-field": "dev-master",
@@ -4135,9 +4135,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.1.39"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.1.44"
             },
-            "time": "2026-05-29T14:33:37+00:00"
+            "time": "2026-06-01T06:53:17+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
@@ -4340,16 +4340,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.258.7",
+            "version": "2.259.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "fa55b95a5832a32f6b781ae0b85411b97d468887"
+                "reference": "5d568211ccb2d8c7247c3ca58befcea1c14518e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/fa55b95a5832a32f6b781ae0b85411b97d468887",
-                "reference": "fa55b95a5832a32f6b781ae0b85411b97d468887",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/5d568211ccb2d8c7247c3ca58befcea1c14518e6",
+                "reference": "5d568211ccb2d8c7247c3ca58befcea1c14518e6",
                 "shasum": ""
             },
             "require": {
@@ -4393,9 +4393,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.258.7"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.259.0"
             },
-            "time": "2026-05-29T08:44:32+00:00"
+            "time": "2026-05-29T13:18:38+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
@@ -10280,12 +10280,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
