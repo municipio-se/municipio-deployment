@@ -83,7 +83,7 @@ jobs:
         with:
           owner: helsingborg-stad
           repo: ${{ secrets.GDI_GITOPS_CONFIG_REPO }}
-          github_token: ${{ secrets.GDI_GITOPS_TOKEN }}
+          github_token: ${{ secrets.GITOPS_K8S_DEPLOY_CONF_KEY }}
           workflow_file_name: update-config.yml
           inputs: '{"ghcr_owner": "${{ secrets.GITOPS_GHCR_OWNER }}", "semver": "sha-${{github.sha}}", "app": "${{ secrets.GITOPS_APP }}", "environment": "dev"}'
           wait_workflow: false
