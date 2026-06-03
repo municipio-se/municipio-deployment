@@ -23,7 +23,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Cache Municipio build output
+        id: build-cache
+        uses: actions/cache@v4
+        with:
+          path: build-output
+          key: municipio-build-${{ runner.os }}-${{ github.sha }}
+
       - name: Build Municipio
+        if: steps.build-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/build
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
