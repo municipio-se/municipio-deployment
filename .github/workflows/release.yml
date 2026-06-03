@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: build-output
-          key: municipio-build-${{ runner.os }}-${{ github.sha }}
+          key: municipio-build-${{ runner.os }}-${{ hashFiles('composer.lock', 'composer.json', 'build.php', 'build-pre.php', '.github/actions/build/action.yml') }}
 
       - name: Build Municipio
         if: steps.build-cache.outputs.cache-hit != 'true'
