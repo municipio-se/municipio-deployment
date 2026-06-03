@@ -277,6 +277,25 @@ run_step() {
     : > "$ERROR_LOG"
 }
 
+get_search_replace_tables() {
+    local site_url="$1"
+    local all_tables
+    local shared_table
+
+    mapfile -t site_tables < <(
+        wp db tables --scope=blog --url="$site_url" --allow-root --skip-plugins --skip-themes 2>/dev/null
+    )
+
+    all_tables="$(wp db tables --all-tables --allow-root 2>/dev/null || true)"
+    for shared_table in "${LOCAL_PREFIX}blogs" "${LOCAL_PREFIX}blogmeta"; do
+        if printf '%s\n' "$all_tables" | grep -qx "$shared_table"; then
+            site_tables+=("$shared_table")
+        fi
+    done
+
+    printf '%s\n' "${site_tables[@]}"
+}
+
 trap 'cleanup_error_log' EXIT
 trap 'on_error "$LINENO" "$BASH_COMMAND"' ERR
 
@@ -585,35 +604,39 @@ migrate_site() {
         exit 1
     fi
 
+    mapfile -t search_replace_tables < <(get_search_replace_tables "$local_site_url")
+    if [[ ${#search_replace_tables[@]} -eq 0 ]]; then
+        die "Failed to determine search-replace table scope for $local_site_url"
+    fi
+
     # Search and replace URLs
     print_header "Updating URLs in Database"
     print_info "Replacing $remote_site_domain with $LOCAL_SITE_DOMAIN/$local_site_slug..."
+    print_info "Search-replace scope: ${#search_replace_tables[@]} tables"
 
     run_step "Replace $remote_site_domain in the database" \
-        wp search-replace "$remote_site_domain" "$LOCAL_SITE_DOMAIN/$local_site_slug" --allow-root \
-            --network \
+        wp search-replace "$remote_site_domain" "$LOCAL_SITE_DOMAIN/$local_site_slug" "${search_replace_tables[@]}" --allow-root \
+            --url="$local_site_url" \
             --skip-plugins --skip-themes \
             --quiet
 
     print_info "Replacing $CDN_DOMAIN with $LOCAL_SITE_DOMAIN..."
     run_step "Replace CDN domain $CDN_DOMAIN in the database" \
-        wp search-replace "$CDN_DOMAIN" "$LOCAL_SITE_DOMAIN" --allow-root \
-            --url="$LOCAL_SITE_DOMAIN/$local_site_slug" \
+        wp search-replace "$CDN_DOMAIN" "$LOCAL_SITE_DOMAIN" "${search_replace_tables[@]}" --allow-root \
+            --url="$local_site_url" \
             --skip-plugins --skip-themes \
             --quiet
 
     print_info "Replacing https:// with http:// for local site..."
     run_step "Normalize the local site protocol" \
-        wp search-replace "https://$LOCAL_SITE_DOMAIN/$local_site_slug" "http://$LOCAL_SITE_DOMAIN/$local_site_slug" --allow-root \
-            --network \
-            --url="$LOCAL_SITE_DOMAIN/$local_site_slug" \
+        wp search-replace "https://$LOCAL_SITE_DOMAIN/$local_site_slug" "http://$LOCAL_SITE_DOMAIN/$local_site_slug" "${search_replace_tables[@]}" --allow-root \
+            --url="$local_site_url" \
             --skip-plugins --skip-themes \
             --quiet
 
     run_step "Restore uploads URLs for $CDN_DOMAIN" \
-        wp search-replace "$LOCAL_SITE_DOMAIN/uploads" "$CDN_DOMAIN/uploads" --allow-root \
-            --network \
-            --url="$LOCAL_SITE_DOMAIN/$local_site_slug" \
+        wp search-replace "$LOCAL_SITE_DOMAIN/uploads" "$CDN_DOMAIN/uploads" "${search_replace_tables[@]}" --allow-root \
+            --url="$local_site_url" \
             --skip-plugins --skip-themes \
             --quiet
 
