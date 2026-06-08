@@ -8,13 +8,14 @@ if [ ! -f "/usr/bin/wp" ]; then
 fi
 
 # Generate WP secret-key salt
-if [ ! -f "salts.php" ]; then
+if [ ! -f "config/salts.php" ]; then
   printf '<?php\n' > "config/salts.php"
   curl -sf https://api.wordpress.org/secret-key/1.1/salt >> "config/salts.php"
   chown 1000:1000 config/salts.php
 fi
 
-printf "define('FS_CHMOD_FILE', 0640);
+if ! grep -q "S3_UPLOADS_BUCKET" config/upload.php 2>/dev/null; then
+  printf "define('FS_CHMOD_FILE', 0640);
 define('FS_CHMOD_DIR', 0750);
 define('FS_METHOD', 'direct');
 define('S3_UPLOADS_CUSTOM_ENDPOINT', '%s');
@@ -24,17 +25,20 @@ define('S3_UPLOADS_SECRET', '%s');
 define('S3_UPLOADS_BUCKET', '%s');
 define('S3_UPLOADS_REGION', '%s');
 define('S3_UPLOADS_BUCKET_URL', '%s');\n" \
-  "$S3_UPLOADS_CUSTOM_ENDPOINT" \
-  "$S3_UPLOADS_KEY" \
-  "$S3_UPLOADS_SECRET" \
-  "$S3_UPLOADS_BUCKET" \
-  "$S3_UPLOADS_REGION" \
-  "$S3_UPLOADS_BUCKET_URL" >> config/upload.php
+    "$S3_UPLOADS_CUSTOM_ENDPOINT" \
+    "$S3_UPLOADS_KEY" \
+    "$S3_UPLOADS_SECRET" \
+    "$S3_UPLOADS_BUCKET" \
+    "$S3_UPLOADS_REGION" \
+    "$S3_UPLOADS_BUCKET_URL" >> config/upload.php
+fi
 
-printf "define('BLADE_CACHE_PATH', dirname(__FILE__) . '/../wp-content/uploads/cache/blade-cache');" >> config/cache.php
+if ! grep -q "BLADE_CACHE_PATH" config/cache.php 2>/dev/null; then
+  printf "define('BLADE_CACHE_PATH', dirname(__FILE__) . '/../wp-content/uploads/cache/blade-cache');" >> config/cache.php
+fi
 
 sed -i "s|dev.local.municipio.tech|$PUBLIC_DOMAIN|g" "config/multisite.php"
 
 mkdir -p wp-content/uploads/cache/blade-cache wp-content/fonts
 chown 1000:1000 wp-content/uploads/cache/blade-cache wp-content/fonts
-rm wp-content/object-cache.php # TODO: check if needed later?
+rm -f wp-content/object-cache.php # TODO: check if needed later?
