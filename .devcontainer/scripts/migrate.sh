@@ -560,7 +560,7 @@ migrate_site() {
     fi
 
     print_info "Getting local site ID..."
-    LOCAL_SITE_ID=$(wp site list --allow-root --format=csv --fields=blog_id,url 2>/dev/null | grep "$local_site_url" | cut -d',' -f1)
+    LOCAL_SITE_ID="$(get_local_site_id "$local_site_slug")"
     if [[ -z "$LOCAL_SITE_ID" ]]; then
         die "Failed to determine local site ID for $local_site_url"
     fi
