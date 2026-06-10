@@ -590,11 +590,13 @@ migrate_site() {
             current=$((current + 1))
             suffix="${table#${REMOTE_SITE_PREFIX}}"
             newtable="${LOCAL_SITE_PREFIX}${suffix}"
+            quoted_table="\`${table//\`/\`\`\`}\`"
+            quoted_newtable="\`${newtable//\`/\`\`\`}\`"
 
             echo -n "  [$current/$table_count] Renaming $table... "
-            wp db query "DROP TABLE IF EXISTS $newtable;" --allow-root 2>/dev/null || true
+            wp db query "DROP TABLE IF EXISTS $quoted_newtable;" --allow-root 2>/dev/null || true
             run_step "Rename table $table to $newtable" \
-                wp db query "RENAME TABLE $table TO $newtable;" --allow-root
+                wp db query "RENAME TABLE $quoted_table TO $quoted_newtable;" --allow-root
             echo "✓"
         done
 
