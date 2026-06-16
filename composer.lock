@@ -4,8 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6aab94e9a38828905847bc7faa2b5dfa",
+    "content-hash": "179953544edd9b4b09bca26fe1b845f2",
     "packages": [
+        {
+            "name": "adbario/php-dot-notation",
+            "version": "3.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adbario/php-dot-notation.git",
+                "reference": "aa09db5a7a365a8d2d8dd7edfa3cd501d1a8acb0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adbario/php-dot-notation/zipball/aa09db5a7a365a8d2d8dd7edfa3cd501d1a8acb0",
+                "reference": "aa09db5a7a365a8d2d8dd7edfa3cd501d1a8acb0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Adbar\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Riku Särkinen",
+                    "email": "riku@adbar.io"
+                }
+            ],
+            "description": "PHP dot notation access to arrays",
+            "homepage": "https://github.com/adbario/php-dot-notation",
+            "keywords": [
+                "ArrayAccess",
+                "dotnotation"
+            ],
+            "support": {
+                "issues": "https://github.com/adbario/php-dot-notation/issues",
+                "source": "https://github.com/adbario/php-dot-notation/tree/3.5.0"
+            },
+            "time": "2026-04-04T04:29:49+00:00"
+        },
         {
             "name": "algolia/algoliasearch-client-php",
             "version": "3.3.0",
@@ -1351,16 +1405,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.11.1",
+            "version": "7.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "5af96f374e0ab4ebd747b8310888c99d3adb0a8c"
+                "reference": "bf5f35ad4b774b9d7c5766c02035e865e7e3fdab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/5af96f374e0ab4ebd747b8310888c99d3adb0a8c",
-                "reference": "5af96f374e0ab4ebd747b8310888c99d3adb0a8c",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/bf5f35ad4b774b9d7c5766c02035e865e7e3fdab",
+                "reference": "bf5f35ad4b774b9d7c5766c02035e865e7e3fdab",
                 "shasum": ""
             },
             "require": {
@@ -1459,7 +1513,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.11.1"
+                "source": "https://github.com/guzzle/guzzle/tree/7.11.2"
             },
             "funding": [
                 {
@@ -1475,7 +1529,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-07T22:54:06+00:00"
+            "time": "2026-06-12T21:49:57+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1563,16 +1617,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.11.0",
+            "version": "2.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "bbb5e61349fa5cb822b3e87842b951088b76b81f"
+                "reference": "640e2897bbee822dbc8af761d49e1a29b1f2a6b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/bbb5e61349fa5cb822b3e87842b951088b76b81f",
-                "reference": "bbb5e61349fa5cb822b3e87842b951088b76b81f",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/640e2897bbee822dbc8af761d49e1a29b1f2a6b1",
+                "reference": "640e2897bbee822dbc8af761d49e1a29b1f2a6b1",
                 "shasum": ""
             },
             "require": {
@@ -1662,7 +1716,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.11.0"
+                "source": "https://github.com/guzzle/psr7/tree/2.11.1"
             },
             "funding": [
                 {
@@ -1678,7 +1732,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-02T12:30:48+00:00"
+            "time": "2026-06-12T21:50:12+00:00"
         },
         {
             "name": "helsingborg-stad/acf-export-manager",
@@ -3431,6 +3485,59 @@
             "time": "2026-05-21T05:21:13+00:00"
         },
         {
+            "name": "helsingborg-stad/modularity-frontend-form",
+            "version": "0.83.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/modularity-frontend-form.git",
+                "reference": "ed7022a2c168788513b448f942799c3069bc91b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-frontend-form/zipball/ed7022a2c168788513b448f942799c3069bc91b1",
+                "reference": "ed7022a2c168788513b448f942799c3069bc91b1",
+                "shasum": ""
+            },
+            "require": {
+                "adbario/php-dot-notation": "^3.5",
+                "helsingborg-stad/acfservice": "^1.3.0",
+                "helsingborg-stad/psr-logger": "^0.2.2",
+                "helsingborg-stad/wpservice": "^2.0",
+                "psr/log": "^1.0 || ^2.0 || ^3.0"
+            },
+            "require-dev": {
+                "brain/monkey": "^2.6",
+                "codedungeon/phpunit-result-printer": "^0.31.0",
+                "php-stubs/wordpress-stubs": "^6.8",
+                "phpunit/phpunit": "^9.5"
+            },
+            "suggest": {
+                "helsingborg-stad/municipio": "^5.177"
+            },
+            "type": "wordpress-plugin",
+            "autoload": {
+                "psr-4": {
+                    "ModularityFrontendForm\\": "source/php/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Niclas Norin",
+                    "email": "niclas.norin@helsingborg.se"
+                }
+            ],
+            "description": "Frontend Form for Modularity.",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/modularity-frontend-form/issues",
+                "source": "https://github.com/helsingborg-stad/modularity-frontend-form/tree/0.83.2"
+            },
+            "time": "2026-06-15T15:07:37+00:00"
+        },
+        {
             "name": "helsingborg-stad/modularity-guides",
             "version": "5.0.8",
             "source": {
@@ -4066,6 +4173,55 @@
                 "source": "https://github.com/helsingborg-stad/Municipio/tree/7.7.14"
             },
             "time": "2026-06-16T08:00:06+00:00"
+        },
+        {
+            "name": "helsingborg-stad/psr-logger",
+            "version": "0.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/psr-logger.git",
+                "reference": "ccb1389c3ce77f5c41ad901dca77ad18f8e556ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/psr-logger/zipball/ccb1389c3ce77f5c41ad901dca77ad18f8e556ec",
+                "reference": "ccb1389c3ce77f5c41ad901dca77ad18f8e556ec",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2",
+                "psr/log": "^2.0 || ^3.0"
+            },
+            "provide": {
+                "psr/log-implementation": "3.0.0"
+            },
+            "require-dev": {
+                "carthage-software/mago": "^1.30",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^11"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PsrLogger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nikolas Ramstedt",
+                    "email": "nikolas.ramstedt@helsingborg.se"
+                }
+            ],
+            "description": "Implementation of PSR-3: Logger Interface.",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/psr-logger/issues",
+                "source": "https://github.com/helsingborg-stad/psr-logger/tree/0.2.4"
+            },
+            "time": "2026-06-15T17:53:35+00:00"
         },
         {
             "name": "helsingborg-stad/redirection-extended",
