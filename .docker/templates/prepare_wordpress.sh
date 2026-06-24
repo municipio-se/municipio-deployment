@@ -35,7 +35,7 @@ if [ "${#missing[@]}" -gt 0 ]; then
 fi
 
 if [ ! -f "$UPLOAD_FILE" ]; then
-  printf "define('ALLOW_UNFILTERED_UPLOADS', false);
+  printf "<?php\ndefine('ALLOW_UNFILTERED_UPLOADS', false);
 define('FS_CHMOD_FILE', 0640);
 define('FS_CHMOD_DIR', 0750);
 define('FS_METHOD', 'direct');
