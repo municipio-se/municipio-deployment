@@ -38,6 +38,24 @@ LOCAL_PREFIX="mun_"
 DEBUG_MIGRATE="${DEBUG_MIGRATE:-0}"
 AUTO_CONFIRM=0
 
+# Host-mounted ~/.ssh/config can include macOS-only directives like UseKeychain.
+# Ignore those so SSH works inside the Linux devcontainer.
+SSH_COMMON_OPTS=(
+    -T
+    -o BatchMode=yes
+    -o ConnectTimeout=10
+    -o IgnoreUnknown=UseKeychain
+    -p "$SSH_PORT"
+)
+
+SCP_COMMON_OPTS=(
+    -q
+    -o BatchMode=yes
+    -o ConnectTimeout=10
+    -o IgnoreUnknown=UseKeychain
+    -P "$SSH_PORT"
+)
+
 create_temp_log() {
     mktemp "/tmp/migrate-debug.XXXXXX" 2>/dev/null || mktemp -t migrate-debug
 }
@@ -112,7 +130,7 @@ extract_domain_from_url() {
 
 resolve_wildcard_sites() {
     local remote_sites_csv
-    if ! remote_sites_csv="$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" \
+    if ! remote_sites_csv="$(ssh "${SSH_COMMON_OPTS[@]}" -q -o LogLevel=QUIET "$REMOTE_SSH" \
         "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null")"; then
         echo "ERROR: Failed to list remote sites for wildcard configuration" >&2
         exit 1
@@ -323,8 +341,31 @@ check_dependencies() {
 check_ssh_access() {
     print_header "Checking SSH Access"
 
+    # Verify at least one SSH key file is accessible inside the container.
+    # The devcontainer mounts ~/.ssh read-only from the host.
+    local found_key=0
+    local key
+    for key in /home/vscode/.ssh/id_rsa /home/vscode/.ssh/id_ed25519 /home/vscode/.ssh/produktion /home/vscode/.ssh/cloudnet_sebastian /home/vscode/.ssh/helsingborg-io; do
+        if [[ -f "$key" ]]; then
+            found_key=1
+            break
+        fi
+    done
+
+    if [[ $found_key -eq 0 ]]; then
+        print_error "No SSH key files found inside the container."
+        echo "" >&2
+        echo "The devcontainer mounts your host ~/.ssh directory into /home/vscode/.ssh." >&2
+        echo "" >&2
+        echo "Fix:" >&2
+        echo "  1. Make sure ~/.ssh/ exists on your host and contains your private key." >&2
+        echo "  2. Rebuild/reopen the devcontainer: Ctrl+Shift+P → Dev Containers: Rebuild Container" >&2
+        echo "  3. Check inside the container: ls -la /home/vscode/.ssh" >&2
+        exit 1
+    fi
+
     local ssh_probe_output
-    if ssh_probe_output="$(ssh -T -o BatchMode=yes -o ConnectTimeout=10 -p "$SSH_PORT" "$REMOTE_SSH" "echo SSH_OK" 2>&1)"; then
+    if ssh_probe_output="$(ssh "${SSH_COMMON_OPTS[@]}" "$REMOTE_SSH" "echo SSH_OK" 2>&1)"; then
         print_success "SSH authentication works for $REMOTE_SSH:$SSH_PORT"
         return 0
     fi
@@ -334,10 +375,10 @@ check_ssh_access() {
     echo "" >&2
     echo "What to do:" >&2
     echo "  1. Ensure your SSH key is loaded on the host (ssh-add -l)." >&2
-    echo "  2. Ensure the devcontainer forwards SSH_AUTH_SOCK and then rebuild/reopen the container." >&2
+    echo "  2. Ensure your host ~/.ssh is mounted in the devcontainer and then rebuild/reopen." >&2
     echo "  3. Verify REMOTE_SSH uses the correct remote user/account." >&2
     echo "  4. Verify that your public key exists in the remote user's ~/.ssh/authorized_keys." >&2
-    echo "  5. Test manually: ssh -p $SSH_PORT $REMOTE_SSH" >&2
+    echo "  5. Test manually (Linux-safe): ssh -o IgnoreUnknown=UseKeychain -p $SSH_PORT $REMOTE_SSH" >&2
     exit 1
 }
 
@@ -507,7 +548,7 @@ migrate_site() {
         print_info "You may be prompted for SSH password"
 
         local export_output
-        if export_output="$(ssh -T -o BatchMode=yes -p "$SSH_PORT" "$REMOTE_SSH" \
+        if export_output="$(ssh "${SSH_COMMON_OPTS[@]}" "$REMOTE_SSH" \
             "cd $REMOTE_PATH && wp db export $tmp_sql --add-drop-table --tables=\$(wp db tables --scope=blog --url=$remote_site_domain --skip-plugins --skip-themes --allow-root | paste -sd, -) --skip-plugins --skip-themes --quiet" 2>&1)"
         then
             print_success "Database exported on remote server"
@@ -528,7 +569,7 @@ migrate_site() {
         # Get remote site ID
         print_header "Getting Remote Site ID"
         local remote_site_record
-        remote_site_record=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" \
+        remote_site_record=$(ssh "${SSH_COMMON_OPTS[@]}" -q -o LogLevel=QUIET "$REMOTE_SSH" \
             "cd $REMOTE_PATH; wp site list --skip-plugins --skip-themes --allow-root --format=csv --fields=blog_id,url 2>/dev/null | awk -F',' -v domain='$remote_site_domain' 'NR > 1 { normalized = \$2; sub(/^https?:\\/\\//, \"\", normalized); sub(/\\/.*/, \"\", normalized); if (normalized == domain) { print \$1 \",\" \$2; exit } }'")
         REMOTE_SITE_ID="${remote_site_record%%,*}"
         if [[ "$remote_site_record" == *,* ]]; then
@@ -538,7 +579,7 @@ migrate_site() {
             REMOTE_SITE_URL_CANONICAL="$remote_site_url"
         fi
         print_header "Getting Remote Upload URL Path"
-        REMOTE_UPLOAD_URL_PATH=$(ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" "cd $REMOTE_PATH; wp option get upload_url_path --url=$REMOTE_SITE_URL_CANONICAL --allow-root --skip-plugins --skip-themes 2>/dev/null")
+        REMOTE_UPLOAD_URL_PATH=$(ssh "${SSH_COMMON_OPTS[@]}" -q -o LogLevel=QUIET "$REMOTE_SSH" "cd $REMOTE_PATH; wp option get upload_url_path --url=$REMOTE_SITE_URL_CANONICAL --allow-root --skip-plugins --skip-themes 2>/dev/null")
 
         if [ -z "$REMOTE_SITE_ID" ]; then
             print_error "Failed to retrieve remote site ID"
@@ -555,7 +596,7 @@ migrate_site() {
         print_header "Downloading Database"
         rm -f "$tmp_sql" 2>/dev/null || true
 
-        if scp -q -P "$SSH_PORT" "$REMOTE_SSH:$tmp_sql" "$tmp_sql" 2>/dev/null; then
+        if scp "${SCP_COMMON_OPTS[@]}" "$REMOTE_SSH:$tmp_sql" "$tmp_sql" 2>/dev/null; then
             print_success "Database downloaded successfully"
 
             # Show file size
@@ -570,7 +611,7 @@ migrate_site() {
 
         # Clean up remote temp file
         print_header "Cleaning Up Remote Server"
-        ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" "rm -f $tmp_sql" 2>/dev/null
+        ssh "${SSH_COMMON_OPTS[@]}" -q -o LogLevel=QUIET "$REMOTE_SSH" "rm -f $tmp_sql" 2>/dev/null
         print_success "Remote temporary file removed"
     fi
 

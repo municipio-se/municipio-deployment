@@ -5,12 +5,6 @@
     "dockerComposeFile": "docker-compose.yml",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "service": "app",
-    "mounts": [
-        "source=${localEnv:SSH_AUTH_SOCK},target=/ssh-agent,type=bind"
-    ],
-    "remoteEnv": {
-        "SSH_AUTH_SOCK": "/ssh-agent"
-    },
     "forwardPorts": [
         "80:8080",
         8306,
