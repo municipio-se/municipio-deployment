@@ -320,6 +320,27 @@ check_dependencies() {
     fi
 }
 
+check_ssh_access() {
+    print_header "Checking SSH Access"
+
+    local ssh_probe_output
+    if ssh_probe_output="$(ssh -T -o BatchMode=yes -o ConnectTimeout=10 -p "$SSH_PORT" "$REMOTE_SSH" "echo SSH_OK" 2>&1)"; then
+        print_success "SSH authentication works for $REMOTE_SSH:$SSH_PORT"
+        return 0
+    fi
+
+    print_error "Unable to authenticate to $REMOTE_SSH:$SSH_PORT"
+    echo "$ssh_probe_output" >&2
+    echo "" >&2
+    echo "What to do:" >&2
+    echo "  1. Ensure your SSH key is loaded on the host (ssh-add -l)." >&2
+    echo "  2. Ensure the devcontainer forwards SSH_AUTH_SOCK and then rebuild/reopen the container." >&2
+    echo "  3. Verify REMOTE_SSH uses the correct remote user/account." >&2
+    echo "  4. Verify that your public key exists in the remote user's ~/.ssh/authorized_keys." >&2
+    echo "  5. Test manually: ssh -p $SSH_PORT $REMOTE_SSH" >&2
+    exit 1
+}
+
 # Confirm action with user
 confirm_action() {
     local prompt="$1"
@@ -485,12 +506,22 @@ migrate_site() {
         print_info "Connecting to remote server..."
         print_info "You may be prompted for SSH password"
 
-        if ssh -T -q -o LogLevel=QUIET -p "$SSH_PORT" "$REMOTE_SSH" \
-            "cd $REMOTE_PATH && wp db export $tmp_sql --add-drop-table --tables=\$(wp db tables --scope=blog --url=$remote_site_domain --skip-plugins --skip-themes --allow-root | paste -sd, -) --skip-plugins --skip-themes --quiet 2>/dev/null"
+        local export_output
+        if export_output="$(ssh -T -o BatchMode=yes -p "$SSH_PORT" "$REMOTE_SSH" \
+            "cd $REMOTE_PATH && wp db export $tmp_sql --add-drop-table --tables=\$(wp db tables --scope=blog --url=$remote_site_domain --skip-plugins --skip-themes --allow-root | paste -sd, -) --skip-plugins --skip-themes --quiet" 2>&1)"
         then
             print_success "Database exported on remote server"
         else
             print_error "Failed to export database from remote server"
+            echo "$export_output" >&2
+            if grep -qi "Permission denied (publickey)" <<< "$export_output"; then
+                echo "" >&2
+                echo "SSH authentication failed." >&2
+                echo "Run these checks before retrying:" >&2
+                echo "  - ssh-add -l" >&2
+                echo "  - ssh -p $SSH_PORT $REMOTE_SSH" >&2
+                echo "  - Confirm REMOTE_SSH user and authorized_keys on remote" >&2
+            fi
             exit 1
         fi
 
@@ -714,6 +745,7 @@ echo ""
 
 # Check dependencies
 check_dependencies
+check_ssh_access
 
 # Display configuration summary
 print_header "Configuration Summary"
