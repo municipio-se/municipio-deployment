@@ -36,7 +36,8 @@ LOCAL_SITE_DOMAIN="localhost:8080"
 LOCAL_MU_SITE_URL="http://${LOCAL_SITE_DOMAIN}"
 LOCAL_PREFIX="mun_"
 DEBUG_MIGRATE="${DEBUG_MIGRATE:-0}"
-AUTO_CONFIRM=0
+# Also honour Composer's --no-interaction flag (sets COMPOSER_NO_INTERACTION=1)
+AUTO_CONFIRM="${COMPOSER_NO_INTERACTION:-0}"
 
 # Host-mounted ~/.ssh/config can include macOS-only directives like UseKeychain.
 # Ignore those so SSH works inside the Linux devcontainer.
