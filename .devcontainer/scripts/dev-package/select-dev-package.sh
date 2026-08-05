@@ -19,6 +19,7 @@ EDITOR_CMD="code"
 OPEN_EDITOR=true
 PACKAGE=""
 AVAILABLE_PACKAGES_TO_EDIT=("helsingborg-stad/*" "municipio-se/*")
+DEDUPE_DEPS=true
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -33,6 +34,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --no-editor)
       OPEN_EDITOR=false
+      shift
+      ;;
+    --no-dedupe)
+      DEDUPE_DEPS=false
       shift
       ;;
     -*)
@@ -165,6 +170,14 @@ git checkout main || git checkout master || true
 echo "=========================================================================="
 echo "✅ Package $PACKAGE is ready for development at $PACKAGE_PATH"
 echo "=========================================================================="
+
+if [ "$DEDUPE_DEPS" = true ]; then
+  echo ""
+  echo "=========================================================================="
+  echo "🔗 Deduplicating nested dependencies in $PACKAGE"
+  echo "=========================================================================="
+  "$(cd "$(dirname "$0")" && pwd)/dedupe-nested-deps.sh" "$PROJECT_ROOT" "$PACKAGE_PATH" "$PACKAGE"
+fi
 
 # Open in editor if enabled
 if [ "$OPEN_EDITOR" = true ]; then
