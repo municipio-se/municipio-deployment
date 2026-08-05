@@ -25,6 +25,7 @@ SKIP_SELECT=false
 PACKAGE=""
 EDITOR_CMD="code"
 OPEN_EDITOR=true
+DEDUPE_DEPS=true
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -49,6 +50,10 @@ while [[ $# -gt 0 ]]; do
       OPEN_EDITOR=false
       shift
       ;;
+    --no-dedupe)
+      DEDUPE_DEPS=false
+      shift
+      ;;
     -h|--help)
       echo "Usage: setup-dev-package.sh [options]"
       echo ""
@@ -58,6 +63,7 @@ while [[ $# -gt 0 ]]; do
       echo "  -p, --package <name>    Specify package name directly"
       echo "  -e, --editor <cmd>      Editor command (default: code)"
       echo "  --no-editor             Don't open editor after setup"
+      echo "  --no-dedupe             Keep nested package dependencies (disable dedupe)"
       echo "  -h, --help              Show this help message"
       exit 0
       ;;
@@ -112,6 +118,10 @@ if [ "$SKIP_SELECT" = false ]; then
 
   if [ "$OPEN_EDITOR" = false ]; then
     SELECT_ARGS+=("--no-editor")
+  fi
+
+  if [ "$DEDUPE_DEPS" = false ]; then
+    SELECT_ARGS+=("--no-dedupe")
   fi
 
   "$SCRIPT_DIR/dev-package/select-dev-package.sh" "${SELECT_ARGS[@]}" "$PROJECT_ROOT"
