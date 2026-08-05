@@ -24,15 +24,25 @@ if [ ! -f "$PACKAGE_PATH/composer.json" ]; then
   exit 0
 fi
 
-if [ ! -d "$PACKAGE_PATH/vendor" ]; then
-  echo "ℹ️  No nested vendor directory found, skipping dedupe"
-  exit 0
-fi
-
 cd "$PROJECT_ROOT"
 
 linked=0
 skipped=0
+
+if [ ! -d "$PACKAGE_PATH/vendor" ]; then
+  echo "ℹ️  No nested vendor directory found in selected package"
+  echo "🔄 Installing selected package dependencies first"
+
+  if ! composer install \
+    --working-dir "$PACKAGE_PATH" \
+    --no-interaction \
+    --ignore-platform-reqs \
+    --prefer-source \
+    --no-scripts; then
+    echo "⚠️  Failed to install selected package dependencies, skipping dedupe"
+    exit 0
+  fi
+fi
 
 mapfile -t required_packages < <(jq -r '.require | keys[]' "$PACKAGE_PATH/composer.json")
 
@@ -41,9 +51,15 @@ for dep in "${required_packages[@]}"; do
     continue
   fi
 
-  nested_path="$PACKAGE_PATH/vendor/$dep"
+  local_dep_path=$(composer show "$dep" --working-dir "$PACKAGE_PATH" --format=json 2>/dev/null | jq -r '.path // empty')
 
-  if [ ! -e "$nested_path" ]; then
+  if [ -z "$local_dep_path" ]; then
+    local_dep_path="$PACKAGE_PATH/vendor/$dep"
+  elif [[ "$local_dep_path" != /* ]]; then
+    local_dep_path="$PACKAGE_PATH/$local_dep_path"
+  fi
+
+  if [ ! -e "$local_dep_path" ]; then
     continue
   fi
 
@@ -59,19 +75,19 @@ for dep in "${required_packages[@]}"; do
     continue
   fi
 
-  nested_real=$(realpath "$nested_path")
+  local_real=$(realpath "$local_dep_path")
   global_real=$(realpath "$global_path")
 
-  if [ "$nested_real" = "$global_real" ]; then
+  if [ "$local_real" = "$global_real" ]; then
     continue
   fi
 
   rm -rf "$global_path"
   mkdir -p "$(dirname "$global_path")"
-  ln -s "$nested_path" "$global_path"
+  ln -s "$local_dep_path" "$global_path"
   linked=$((linked + 1))
 
-  echo "✓ Linked global $dep_path -> $nested_path"
+  echo "✓ Linked global $dep_path -> $local_dep_path"
 done
 
 echo "=========================================================================="
