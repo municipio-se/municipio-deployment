@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78d5f33d765cc5c7f5f560157412c21e",
+    "content-hash": "f501a85626c0815d8199e819980bfbcf",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -266,16 +266,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.393.4",
+            "version": "3.394.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a5880510e500aa0fe13a6410183cd222b3263890"
+                "reference": "8a85b79ee9e9009bf19fa31659451124855447ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a5880510e500aa0fe13a6410183cd222b3263890",
-                "reference": "a5880510e500aa0fe13a6410183cd222b3263890",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8a85b79ee9e9009bf19fa31659451124855447ad",
+                "reference": "8a85b79ee9e9009bf19fa31659451124855447ad",
                 "shasum": ""
             },
             "require": {
@@ -357,9 +357,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.393.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.0"
             },
-            "time": "2026-08-21T18:24:57+00:00"
+            "time": "2026-08-25T19:22:47+00:00"
         },
         {
             "name": "brick/math",
@@ -2561,16 +2561,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.27.2",
+            "version": "5.24.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "b3db7684e9a513e32b79a5fa4b2e972e848c7492"
+                "reference": "38c7263d37aeb43baf74b38d246fe47053696062"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/b3db7684e9a513e32b79a5fa4b2e972e848c7492",
-                "reference": "b3db7684e9a513e32b79a5fa4b2e972e848c7492",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/38c7263d37aeb43baf74b38d246fe47053696062",
+                "reference": "38c7263d37aeb43baf74b38d246fe47053696062",
                 "shasum": ""
             },
             "require": {
@@ -2602,9 +2602,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.27.2"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.24.18"
             },
-            "time": "2026-08-24T09:46:53+00:00"
+            "time": "2026-08-19T09:28:06+00:00"
         },
         {
             "name": "helsingborg-stad/coordinate-transformation-library",
@@ -2919,6 +2919,125 @@
                 "source": "https://github.com/helsingborg-stad/job-listings/tree/4.1.8"
             },
             "time": "2026-01-23T12:16:26+00:00"
+        },
+        {
+            "name": "helsingborg-stad/kirki",
+            "version": "5.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/kirki.git",
+                "reference": "4f1da9fbfc92d5b96298bb6d754981265cacfd7b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/kirki/zipball/4f1da9fbfc92d5b96298bb6d754981265cacfd7b",
+                "reference": "4f1da9fbfc92d5b96298bb6d754981265cacfd7b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "composer/installers": "*",
+                "dealerdirect/phpcodesniffer-composer-installer": "*",
+                "phpcompatibility/phpcompatibility-wp": "*",
+                "wp-coding-standards/wpcs": "*",
+                "wptrt/wpthemereview": "dev-develop"
+            },
+            "type": "wordpress-muplugin",
+            "autoload": {
+                "psr-4": {
+                    "Kirki\\": [
+                        "kirki-packages/control-base/src",
+                        "kirki-packages/control-checkbox/src",
+                        "kirki-packages/control-code/src",
+                        "kirki-packages/control-color/src",
+                        "kirki-packages/control-color-palette/src",
+                        "kirki-packages/control-cropped-image/src",
+                        "kirki-packages/control-custom/src",
+                        "kirki-packages/control-dashicons/src",
+                        "kirki-packages/control-date/src",
+                        "kirki-packages/control-dimension/src",
+                        "kirki-packages/control-editor/src",
+                        "kirki-packages/control-generic/src",
+                        "kirki-packages/control-image/src",
+                        "kirki-packages/control-multicheck/src",
+                        "kirki-packages/control-palette/src",
+                        "kirki-packages/control-radio/src",
+                        "kirki-packages/control-react-colorful/src",
+                        "kirki-packages/control-react-select/src",
+                        "kirki-packages/control-repeater/src",
+                        "kirki-packages/control-select/src",
+                        "kirki-packages/control-slider/src",
+                        "kirki-packages/control-sortable/src",
+                        "kirki-packages/control-upload/src",
+                        "kirki-packages/field/src",
+                        "kirki-packages/googlefonts/src",
+                        "kirki-packages/l10n/src",
+                        "kirki-packages/module-panels/src",
+                        "kirki-packages/module-sections/src",
+                        "kirki-packages/url-getter/src"
+                    ],
+                    "Kirki\\Pro\\": "pro-src/",
+                    "Kirki\\Data\\": [
+                        "kirki-packages/data-option/src"
+                    ],
+                    "Kirki\\Util\\": [
+                        "kirki-packages/util/src"
+                    ],
+                    "Kirki\\Field\\": [
+                        "kirki-packages/field/src/Field",
+                        "kirki-packages/field-background/src",
+                        "kirki-packages/field-dimensions/src",
+                        "kirki-packages/field-fontawesome/src",
+                        "kirki-packages/field-multicolor/src/Field",
+                        "kirki-packages/field-multicolor/src",
+                        "kirki-packages/field-typography/src/Field",
+                        "kirki-packages/field-typography/src"
+                    ],
+                    "Kirki\\Module\\": [
+                        "kirki-packages/module-css/src",
+                        "kirki-packages/module-editor-styles/src",
+                        "kirki-packages/module-field-dependencies/src",
+                        "kirki-packages/module-postmessage/src",
+                        "kirki-packages/module-preset/src",
+                        "kirki-packages/module-section-icons/src",
+                        "kirki-packages/module-selective-refresh/src",
+                        "kirki-packages/module-tooltips/src",
+                        "kirki-packages/module-webfonts/src"
+                    ],
+                    "Kirki\\Settings\\": [
+                        "kirki-packages/settings/src"
+                    ],
+                    "Kirki\\Compatibility\\": [
+                        "kirki-packages/compatibility/src"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ".",
+                "core"
+            ],
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kirki Framework",
+                    "email": "support@themeum.com"
+                }
+            ],
+            "description": "Extending the WordPress customizer",
+            "homepage": "https://www.themeum.com",
+            "keywords": [
+                "customizer",
+                "wordpress"
+            ],
+            "support": {
+                "source": "https://github.com/helsingborg-stad/kirki/tree/5.2.0"
+            },
+            "time": "2024-08-02T07:01:26+00:00"
         },
         {
             "name": "helsingborg-stad/like-posts",
@@ -3478,16 +3597,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-json-render",
-            "version": "4.0.12",
+            "version": "4.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-json-render.git",
-                "reference": "0515e87f5292c8bc7c5388783435150168fa1aaa"
+                "reference": "fa8f9ebcb7e731eb8ca1973c320fe8b7b0e4002a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/0515e87f5292c8bc7c5388783435150168fa1aaa",
-                "reference": "0515e87f5292c8bc7c5388783435150168fa1aaa",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/fa8f9ebcb7e731eb8ca1973c320fe8b7b0e4002a",
+                "reference": "fa8f9ebcb7e731eb8ca1973c320fe8b7b0e4002a",
                 "shasum": ""
             },
             "require": {
@@ -3530,9 +3649,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-json-render/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.0.12"
+                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.0.14"
             },
-            "time": "2026-08-04T07:05:20+00:00"
+            "time": "2026-08-24T07:13:42+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-open-street-map",
@@ -3955,16 +4074,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.11.4",
+            "version": "7.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "9aa61559856a680189b841b3173d770880d50016"
+                "reference": "04a5d2bd870ae06255d68f5ea90cb5b4f3f03505"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/9aa61559856a680189b841b3173d770880d50016",
-                "reference": "9aa61559856a680189b841b3173d770880d50016",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/04a5d2bd870ae06255d68f5ea90cb5b4f3f03505",
+                "reference": "04a5d2bd870ae06255d68f5ea90cb5b4f3f03505",
                 "shasum": ""
             },
             "require": {
@@ -3978,8 +4097,9 @@
                 "helsingborg-stad/acf-export-manager": ">=1.0.0",
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
+                "helsingborg-stad/kirki": "^5.2",
                 "helsingborg-stad/schema-library": "0.5.7",
-                "helsingborg-stad/styleguide": "3.17.2",
+                "helsingborg-stad/styleguide": "3.14.13",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "^0.2.44",
                 "jeradin/acf-dynamic-table-field": "dev-master",
@@ -4003,7 +4123,8 @@
                 "spatie/phpunit-snapshot-assertions": "dev-main"
             },
             "suggest": {
-                "helsingborg-stad/component-library": "Required for theme to work properly."
+                "helsingborg-stad/component-library": "Required for theme to work properly.",
+                "helsingborg-stad/kirki": "Required for theme to work properly."
             },
             "type": "wordpress-theme",
             "extra": {
@@ -4040,9 +4161,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.11.4"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.10.2"
             },
-            "time": "2026-08-24T16:24:20+00:00"
+            "time": "2026-08-19T13:23:16+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -4294,21 +4415,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.17.2",
+            "version": "3.14.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "b56451adbb5fba110e3b71e86aee26b5e92b4c75"
+                "reference": "c1a0b89195f52d7745f1d92548328a1acff4dd51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/b56451adbb5fba110e3b71e86aee26b5e92b4c75",
-                "reference": "b56451adbb5fba110e3b71e86aee26b5e92b4c75",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/c1a0b89195f52d7745f1d92548328a1acff4dd51",
+                "reference": "c1a0b89195f52d7745f1d92548328a1acff4dd51",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.27.2",
+                "helsingborg-stad/component-library": "5.24.18",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.3"
             },
@@ -4347,9 +4468,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.17.2"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.14.13"
             },
-            "time": "2026-08-24T12:10:03+00:00"
+            "time": "2026-08-19T11:51:25+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
@@ -5778,20 +5899,20 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "7.0.4",
+            "version": "7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "3b14fc00df66e39bace27d119725b336ed5e80c2"
+                "reference": "0f165a6da44b8d7c116321808a917c50bfcae9b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/3b14fc00df66e39bace27d119725b336ed5e80c2",
-                "reference": "3b14fc00df66e39bace27d119725b336ed5e80c2",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/0f165a6da44b8d7c116321808a917c50bfcae9b9",
+                "reference": "0f165a6da44b8d7c116321808a917c50bfcae9b9",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "7.0.4",
+                "johnpbloch/wordpress-core": "7.1.0",
                 "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
                 "php": ">=7.0.0"
             },
@@ -5820,20 +5941,20 @@
                 "issues": "https://core.trac.wordpress.org/",
                 "source": "https://core.trac.wordpress.org/browser"
             },
-            "time": "2026-08-12T22:40:40+00:00"
+            "time": "2026-08-19T20:43:21+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "7.0.4",
+            "version": "7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "ebd597e2d4c6cf362028c6d5dc6b257884b5f7cb"
+                "reference": "ecdd7896958ec6c002b421eb7912b00dda7187b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/ebd597e2d4c6cf362028c6d5dc6b257884b5f7cb",
-                "reference": "ebd597e2d4c6cf362028c6d5dc6b257884b5f7cb",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/ecdd7896958ec6c002b421eb7912b00dda7187b9",
+                "reference": "ecdd7896958ec6c002b421eb7912b00dda7187b9",
                 "shasum": ""
             },
             "require": {
@@ -5841,7 +5962,7 @@
                 "php": ">=7.4"
             },
             "provide": {
-                "wordpress/core-implementation": "7.0.4"
+                "wordpress/core-implementation": "7.1.0"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -5868,7 +5989,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2026-08-12T22:40:36+00:00"
+            "time": "2026-08-19T20:43:15+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -9411,15 +9532,15 @@
         },
         {
             "name": "wpackagist-plugin/cookies-and-content-security-policy",
-            "version": "2.40",
+            "version": "2.41",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cookies-and-content-security-policy/",
-                "reference": "tags/2.40"
+                "reference": "tags/2.41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cookies-and-content-security-policy.2.40.zip"
+                "url": "https://downloads.wordpress.org/plugin/cookies-and-content-security-policy.2.41.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -9663,15 +9784,15 @@
         },
         {
             "name": "wpackagist-plugin/username-changer",
-            "version": "3.2.9",
+            "version": "3.3.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/username-changer/",
-                "reference": "tags/3.2.9"
+                "reference": "tags/3.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/username-changer.3.2.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/username-changer.3.3.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -9735,15 +9856,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-nested-pages",
-            "version": "3.2.15",
+            "version": "3.3.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-nested-pages/",
-                "reference": "tags/3.2.15"
+                "reference": "tags/3.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-nested-pages.3.2.15.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-nested-pages.3.3.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
