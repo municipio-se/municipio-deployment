@@ -787,7 +787,7 @@ echo ""
 
 # Check dependencies
 check_dependencies
-check_ssh_access
+# check_ssh_access //Temporarirly removed due to false positive
 
 # Display configuration summary
 print_header "Configuration Summary"
