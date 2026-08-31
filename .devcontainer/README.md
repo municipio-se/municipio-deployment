@@ -151,6 +151,26 @@ The script will:
 - The script requires SSH access to the remote server
 - After migration, access your site at `http://localhost:8080/<LOCAL_SITE_SLUG>`
 
+### SSH Troubleshooting in Devcontainer
+
+If migration fails with either of these errors:
+
+- `Permission denied (publickey)`
+- `Error connecting to agent: Permission denied`
+
+then the container cannot use your SSH key yet.
+
+Run these checks inside the container:
+
+```bash
+echo "$SSH_AUTH_SOCK"
+ls -l "$SSH_AUTH_SOCK"
+ssh-add -l
+ssh -p <SSH_PORT> <REMOTE_SSH>
+```
+
+If `ssh-add -l` fails with `Error connecting to agent: Permission denied`, rebuild/reopen the devcontainer so the latest SSH socket mount and group settings are applied.
+
 ## Documentation for setup-dev-package.sh Script
 The `setup-dev-package.sh` script is a utility designed to streamline the development process by providing a clean and efficient development environment. It automates the process of downloading an editable version of the selected plugin. All other plugins in the environment will be reset to their production release versions. This ensures that only the selected plugin is in a development state, avoiding unnecessary builds for untouched packages.
 
