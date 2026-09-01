@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "438346f3ef91d1e4cfa12628011afd9b",
+    "content-hash": "052f0bfb5019901b501d9ef133378b29",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -266,16 +266,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.394.3",
+            "version": "3.394.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d015718cd1becf0be9f75a1e72a7401453de4f3c"
+                "reference": "12c80170a12c9e9e5d9057bff4d197979631624f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d015718cd1becf0be9f75a1e72a7401453de4f3c",
-                "reference": "d015718cd1becf0be9f75a1e72a7401453de4f3c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/12c80170a12c9e9e5d9057bff4d197979631624f",
+                "reference": "12c80170a12c9e9e5d9057bff4d197979631624f",
                 "shasum": ""
             },
             "require": {
@@ -357,9 +357,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.3"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.5"
             },
-            "time": "2026-08-28T18:18:55+00:00"
+            "time": "2026-08-31T22:10:11+00:00"
         },
         {
             "name": "brick/math",
@@ -1059,12 +1059,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/darylldoyle/svg-sanitizer.git",
-                "reference": "c1ad90f6a3819ec40fb98fff0193f14fdeab35c8"
+                "reference": "6e2ed57aac2b8852e18e1e0aea0f42315b12c7b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/c1ad90f6a3819ec40fb98fff0193f14fdeab35c8",
-                "reference": "c1ad90f6a3819ec40fb98fff0193f14fdeab35c8",
+                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/6e2ed57aac2b8852e18e1e0aea0f42315b12c7b4",
+                "reference": "6e2ed57aac2b8852e18e1e0aea0f42315b12c7b4",
                 "shasum": ""
             },
             "require": {
@@ -1097,7 +1097,7 @@
                 "issues": "https://github.com/darylldoyle/svg-sanitizer/issues",
                 "source": "https://github.com/darylldoyle/svg-sanitizer/tree/master"
             },
-            "time": "2025-08-12T15:43:45+00:00"
+            "time": "2026-09-01T11:02:16+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -3955,16 +3955,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.16.1",
+            "version": "7.17.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "47425b2df82e9c1b4f80f25fdcf51d61db92d32d"
+                "reference": "278ca12e1ae5d93d3ada3430d73c78e76db00109"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/47425b2df82e9c1b4f80f25fdcf51d61db92d32d",
-                "reference": "47425b2df82e9c1b4f80f25fdcf51d61db92d32d",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/278ca12e1ae5d93d3ada3430d73c78e76db00109",
+                "reference": "278ca12e1ae5d93d3ada3430d73c78e76db00109",
                 "shasum": ""
             },
             "require": {
@@ -3979,7 +3979,7 @@
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
                 "helsingborg-stad/schema-library": "0.5.7",
-                "helsingborg-stad/styleguide": "3.17.22",
+                "helsingborg-stad/styleguide": "3.18.0",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "^0.2.44",
                 "jeradin/acf-dynamic-table-field": "dev-master",
@@ -4040,9 +4040,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.16.1"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.17.2"
             },
-            "time": "2026-08-31T14:01:35+00:00"
+            "time": "2026-09-01T13:01:00+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -4294,16 +4294,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.17.22",
+            "version": "3.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "a2bfbc85ea72e7636eca9f367815c7ea510662a5"
+                "reference": "23181fd9caee2d8c37b88f5138fa39dc40c47a4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/a2bfbc85ea72e7636eca9f367815c7ea510662a5",
-                "reference": "a2bfbc85ea72e7636eca9f367815c7ea510662a5",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/23181fd9caee2d8c37b88f5138fa39dc40c47a4d",
+                "reference": "23181fd9caee2d8c37b88f5138fa39dc40c47a4d",
                 "shasum": ""
             },
             "require": {
@@ -4347,9 +4347,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.17.22"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.18.0"
             },
-            "time": "2026-08-31T13:09:06+00:00"
+            "time": "2026-09-01T12:40:25+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
@@ -9627,15 +9627,15 @@
         },
         {
             "name": "wpackagist-plugin/stream",
-            "version": "4.3.0",
+            "version": "4.4.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/stream/",
-                "reference": "tags/4.3.0"
+                "reference": "tags/4.4.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/stream.4.3.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/stream.4.4.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
