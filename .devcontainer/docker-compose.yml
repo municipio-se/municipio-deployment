@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        imageVariant: 8.3-bullseye
+        imageVariant: 8.3-bookworm
 
     ports:
       - 8080:80
