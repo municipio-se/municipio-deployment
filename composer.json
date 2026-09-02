@@ -116,6 +116,7 @@
     "wpackagist-plugin/username-changer": "3.3.1",
     "wpackagist-plugin/varnish-http-purge": "5.12.3",
     "wpackagist-plugin/worddown": "1.2.4",
+    "wpackagist-plugin/wordpress-importer": "0.9.6",
     "wpackagist-plugin/wp-multi-network": "3.0.0",
     "wpackagist-plugin/wp-nested-pages": "3.3.2"
   },
