@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "052f0bfb5019901b501d9ef133378b29",
+    "content-hash": "ef735305fa5b94ea39781a02b668bdbb",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -266,16 +266,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.394.5",
+            "version": "3.394.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "12c80170a12c9e9e5d9057bff4d197979631624f"
+                "reference": "860a8b13413adcef698afa0770f0d85f85777a78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/12c80170a12c9e9e5d9057bff4d197979631624f",
-                "reference": "12c80170a12c9e9e5d9057bff4d197979631624f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/860a8b13413adcef698afa0770f0d85f85777a78",
+                "reference": "860a8b13413adcef698afa0770f0d85f85777a78",
                 "shasum": ""
             },
             "require": {
@@ -357,9 +357,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.6"
             },
-            "time": "2026-08-31T22:10:11+00:00"
+            "time": "2026-09-01T18:09:58+00:00"
         },
         {
             "name": "brick/math",
@@ -2561,16 +2561,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.27.3",
+            "version": "5.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "d58c0e66c26089f9b26aaa341f5dd8e891bf49ce"
+                "reference": "63837c9a620498bbfbd8828e21bd3e2a949b1197"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/d58c0e66c26089f9b26aaa341f5dd8e891bf49ce",
-                "reference": "d58c0e66c26089f9b26aaa341f5dd8e891bf49ce",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/63837c9a620498bbfbd8828e21bd3e2a949b1197",
+                "reference": "63837c9a620498bbfbd8828e21bd3e2a949b1197",
                 "shasum": ""
             },
             "require": {
@@ -2602,9 +2602,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.27.3"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.29.0"
             },
-            "time": "2026-08-25T07:50:22+00:00"
+            "time": "2026-09-02T07:50:31+00:00"
         },
         {
             "name": "helsingborg-stad/coordinate-transformation-library",
@@ -3411,16 +3411,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-guides",
-            "version": "5.0.12",
+            "version": "5.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-guides.git",
-                "reference": "f0b09ef67e81d18d1b79efe786a931135c78a197"
+                "reference": "0a088cebc2551bfcb05add5b9e96513526bca15e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-guides/zipball/f0b09ef67e81d18d1b79efe786a931135c78a197",
-                "reference": "f0b09ef67e81d18d1b79efe786a931135c78a197",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-guides/zipball/0a088cebc2551bfcb05add5b9e96513526bca15e",
+                "reference": "0a088cebc2551bfcb05add5b9e96513526bca15e",
                 "shasum": ""
             },
             "require": {
@@ -3472,9 +3472,9 @@
             "description": "Addon for Modularity for creating guides",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-guides/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-guides/tree/5.0.12"
+                "source": "https://github.com/helsingborg-stad/modularity-guides/tree/5.0.14"
             },
-            "time": "2026-08-05T09:10:48+00:00"
+            "time": "2026-09-02T07:30:46+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-json-render",
@@ -3955,16 +3955,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.17.2",
+            "version": "7.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "278ca12e1ae5d93d3ada3430d73c78e76db00109"
+                "reference": "f655a8a6a9c56a3b6223260c2b746ffa34d4b05d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/278ca12e1ae5d93d3ada3430d73c78e76db00109",
-                "reference": "278ca12e1ae5d93d3ada3430d73c78e76db00109",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/f655a8a6a9c56a3b6223260c2b746ffa34d4b05d",
+                "reference": "f655a8a6a9c56a3b6223260c2b746ffa34d4b05d",
                 "shasum": ""
             },
             "require": {
@@ -3979,7 +3979,7 @@
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
                 "helsingborg-stad/schema-library": "0.5.7",
-                "helsingborg-stad/styleguide": "3.18.0",
+                "helsingborg-stad/styleguide": "3.18.2",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "^0.2.44",
                 "jeradin/acf-dynamic-table-field": "dev-master",
@@ -4040,9 +4040,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.17.2"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.21.0"
             },
-            "time": "2026-09-01T13:01:00+00:00"
+            "time": "2026-09-02T11:28:18+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -4294,21 +4294,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.18.0",
+            "version": "3.18.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "23181fd9caee2d8c37b88f5138fa39dc40c47a4d"
+                "reference": "4b30ed6fb61e1ec8ef287670d77c287e2eeeb1dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/23181fd9caee2d8c37b88f5138fa39dc40c47a4d",
-                "reference": "23181fd9caee2d8c37b88f5138fa39dc40c47a4d",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/4b30ed6fb61e1ec8ef287670d77c287e2eeeb1dc",
+                "reference": "4b30ed6fb61e1ec8ef287670d77c287e2eeeb1dc",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.27.3",
+                "helsingborg-stad/component-library": "5.29.0",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.3"
             },
@@ -4347,9 +4347,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.18.0"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.18.2"
             },
-            "time": "2026-09-01T12:40:25+00:00"
+            "time": "2026-09-02T09:10:09+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
@@ -9447,15 +9447,15 @@
         },
         {
             "name": "wpackagist-plugin/litespeed-cache",
-            "version": "7.9",
+            "version": "7.9.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/litespeed-cache/",
-                "reference": "tags/7.9"
+                "reference": "tags/7.9.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/litespeed-cache.7.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/litespeed-cache.7.9.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -9716,6 +9716,24 @@
             "homepage": "https://wordpress.org/plugins/worddown/"
         },
         {
+            "name": "wpackagist-plugin/wordpress-importer",
+            "version": "0.9.6",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wordpress-importer/",
+                "reference": "tags/0.9.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.9.6.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wordpress-importer/"
+        },
+        {
             "name": "wpackagist-plugin/wp-multi-network",
             "version": "3.0.0",
             "source": {
@@ -9735,15 +9753,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-nested-pages",
-            "version": "3.3.1",
+            "version": "3.3.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-nested-pages/",
-                "reference": "tags/3.3.1"
+                "reference": "tags/3.3.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-nested-pages.3.3.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-nested-pages.3.3.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
