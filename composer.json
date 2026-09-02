@@ -66,7 +66,7 @@
     "helsingborg-stad/modularity-entryscape": "5.0.12",
     "helsingborg-stad/modularity-form-builder": "4.0.12",
     "helsingborg-stad/modularity-frontend-form": "0.83.14",
-    "helsingborg-stad/modularity-guides": "5.0.12",
+    "helsingborg-stad/modularity-guides": "5.0.14",
     "helsingborg-stad/modularity-json-render": "4.0.14",
     "helsingborg-stad/modularity-open-street-map": "3.1.18",
     "helsingborg-stad/modularity-products": "4.0.4",
@@ -76,7 +76,7 @@
     "helsingborg-stad/modularity-timeline": "5.0.4",
     "helsingborg-stad/multi-network-urls": "2.0.0",
     "helsingborg-stad/multisite-role-propagation": "3.0.7",
-    "helsingborg-stad/municipio": "7.17.6",
+    "helsingborg-stad/municipio": "7.18.0",
     "helsingborg-stad/redirection-extended": "3.0.8",
     "helsingborg-stad/s3-local-index": "1.2.0",
     "helsingborg-stad/s3-uploads-custom-endpoint": "2.0.0",
@@ -102,7 +102,7 @@
     "wpackagist-plugin/autodescription": "5.1.4",
     "wpackagist-plugin/cookies-and-content-security-policy": "2.41",
     "wpackagist-plugin/fakerpress": "0.9.2",
-    "wpackagist-plugin/litespeed-cache": "7.9",
+    "wpackagist-plugin/litespeed-cache": "7.9.1",
     "wpackagist-plugin/network-plugin-auditor": "1.10.1",
     "wpackagist-plugin/nginx-helper": "2.3.5",
     "wpackagist-plugin/post-expirator": "4.10.5",
@@ -117,7 +117,7 @@
     "wpackagist-plugin/varnish-http-purge": "5.12.3",
     "wpackagist-plugin/worddown": "1.2.4",
     "wpackagist-plugin/wp-multi-network": "3.0.0",
-    "wpackagist-plugin/wp-nested-pages": "3.3.1"
+    "wpackagist-plugin/wp-nested-pages": "3.3.2"
   },
   "extra": {
     "path": "/",
