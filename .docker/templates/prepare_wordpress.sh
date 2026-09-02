@@ -1,12 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-# Get WP-CLI
-if [ ! -f "/usr/bin/wp" ]; then
-  curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-  chmod +x wp-cli.phar && mv wp-cli.phar /usr/bin/wp
-fi
-
 # Generate WP secret-key salt
 if [ ! -f "config/salts.php" ]; then
   printf '<?php\n' > "config/salts.php"
