@@ -28,12 +28,6 @@ if [ "${#missing[@]}" -gt 0 ]; then
   exit 1
 fi
 
-# Written unconditionally, NOT guarded by [ ! -f ]. The build promotes
-# config-example/ to config/ (.github/actions/build/action.yml), and
-# config-example ships a plain upload.php -- so a not-exists guard here never
-# fires, the S3_UPLOADS_* defines never get written, and s3-uploads fatals on an
-# undefined S3_UPLOADS_BUCKET. Regenerating from env every boot is idempotent by
-# construction and also self-heals a stale upload.php on a mounted volume.
 printf "<?php\ndefine('ALLOW_UNFILTERED_UPLOADS', false);
 define('FS_CHMOD_FILE', 0640);
 define('FS_CHMOD_DIR', 0750);
