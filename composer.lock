@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef735305fa5b94ea39781a02b668bdbb",
+    "content-hash": "229acad9397e17b5e4c9830b5f81b39d",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -266,16 +266,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.394.6",
+            "version": "3.394.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "860a8b13413adcef698afa0770f0d85f85777a78"
+                "reference": "9afa5f6652e7035a029369c98db68bc21279a3cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/860a8b13413adcef698afa0770f0d85f85777a78",
-                "reference": "860a8b13413adcef698afa0770f0d85f85777a78",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9afa5f6652e7035a029369c98db68bc21279a3cf",
+                "reference": "9afa5f6652e7035a029369c98db68bc21279a3cf",
                 "shasum": ""
             },
             "require": {
@@ -357,9 +357,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.6"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.8"
             },
-            "time": "2026-09-01T18:09:58+00:00"
+            "time": "2026-09-03T18:08:51+00:00"
         },
         {
             "name": "brick/math",
@@ -1955,213 +1955,6 @@
                 "source": "https://github.com/helsingborg-stad/active-directory-api-wp-integration/tree/3.2.0"
             },
             "time": "2026-03-26T13:17:00+00:00"
-        },
-        {
-            "name": "helsingborg-stad/algolia-index",
-            "version": "3.5.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helsingborg-stad/algolia-index.git",
-                "reference": "7a40ebc150c3f09b829f34e1f207bea1796d2ac7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/algolia-index/zipball/7a40ebc150c3f09b829f34e1f207bea1796d2ac7",
-                "reference": "7a40ebc150c3f09b829f34e1f207bea1796d2ac7",
-                "shasum": ""
-            },
-            "require": {
-                "algolia/algoliasearch-client-php": "3.3",
-                "helsingborg-stad/wputilservice": "^0.2.44"
-            },
-            "require-dev": {
-                "carthage-software/mago": "^1.0.0-rc.1",
-                "php-stubs/wordpress-tests-stubs": "^6.1",
-                "phpunit/phpunit": "^11.5"
-            },
-            "suggest": {
-                "helsingborg-stad/municipio": "^6.0.0"
-            },
-            "type": "wordpress-plugin",
-            "extra": {
-                "installer-paths": {
-                    "wp-content/themes/{$name}": [
-                        "type:wordpress-theme"
-                    ],
-                    "wp-content/plugins/{$name}": [
-                        "type:wordpress-plugin"
-                    ]
-                },
-                "wordpress-install-dir": "wp"
-            },
-            "autoload": {
-                "psr-4": {
-                    "AlgoliaIndex\\": "source/php/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Thulin",
-                    "email": "sebastian.thulin@helsingborg.se"
-                }
-            ],
-            "description": "Index wordpress site content to algolia.",
-            "support": {
-                "issues": "https://github.com/helsingborg-stad/algolia-index/issues",
-                "source": "https://github.com/helsingborg-stad/algolia-index/tree/3.5.12"
-            },
-            "time": "2026-08-19T11:58:56+00:00"
-        },
-        {
-            "name": "helsingborg-stad/algolia-index-js-searchpage-addon",
-            "version": "3.6.14",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helsingborg-stad/algolia-index-js-searchpage-addon.git",
-                "reference": "6eddc260673baba59cbfb04dbc71d10cd8575af4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/algolia-index-js-searchpage-addon/zipball/6eddc260673baba59cbfb04dbc71d10cd8575af4",
-                "reference": "6eddc260673baba59cbfb04dbc71d10cd8575af4",
-                "shasum": ""
-            },
-            "require": {
-                "helsingborg-stad/component-library": "^5.0.0",
-                "helsingborg-stad/wpservice": "^2.0",
-                "helsingborg-stad/wputilservice": "^0.2.44"
-            },
-            "require-dev": {
-                "carthage-software/mago": "^1.0.0-rc.1",
-                "phpunit/phpunit": "^11.5"
-            },
-            "suggest": {
-                "helsingborg-stad/municipio": "^6.0.0"
-            },
-            "type": "wordpress-plugin",
-            "extra": {
-                "installer-paths": {
-                    "vendor/{$vendor}/{$name}": [
-                        "type:wordpress-muplugin",
-                        "type:wordpress-theme",
-                        "type:wordpress-plugin",
-                        "type:acf-plugin"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "AlgoliaIndexJsSearchpage\\": "source/php/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Thulin",
-                    "email": "sebastian.thulin@helsingborg.se"
-                }
-            ],
-            "description": "https://github.com/helsingborg-stad/algolia-index-js-searchpage-addon",
-            "support": {
-                "issues": "https://github.com/helsingborg-stad/algolia-index-js-searchpage-addon/issues",
-                "source": "https://github.com/helsingborg-stad/algolia-index-js-searchpage-addon/tree/3.6.14"
-            },
-            "time": "2026-03-16T10:29:40+00:00"
-        },
-        {
-            "name": "helsingborg-stad/algolia-index-modularity-addon",
-            "version": "3.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helsingborg-stad/algolia-index-modularity-addon.git",
-                "reference": "8e014bcfd203a6108a9d052f8edf12b766322d6d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/algolia-index-modularity-addon/zipball/8e014bcfd203a6108a9d052f8edf12b766322d6d",
-                "reference": "8e014bcfd203a6108a9d052f8edf12b766322d6d",
-                "shasum": ""
-            },
-            "require-dev": {
-                "carthage-software/mago": "^1.0.0-rc.1",
-                "phpunit/phpunit": "^11.5"
-            },
-            "suggest": {
-                "helsingborg-stad/municipio": "^6.0.0"
-            },
-            "type": "wordpress-plugin",
-            "autoload": {
-                "psr-4": {
-                    "AlgoliaIndexModularityAddon\\": "source/php/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Thulin",
-                    "email": "sebastian.thulin@helsingborg.se"
-                }
-            ],
-            "description": "https://github.com/helsingborg-stad/algolia-index-modularity-addon",
-            "support": {
-                "issues": "https://github.com/helsingborg-stad/algolia-index-modularity-addon/issues",
-                "source": "https://github.com/helsingborg-stad/algolia-index-modularity-addon/tree/3.1.5"
-            },
-            "time": "2025-12-09T12:50:47+00:00"
-        },
-        {
-            "name": "helsingborg-stad/algolia-index-typesense-provider",
-            "version": "1.0.17",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helsingborg-stad/algolia-index-typesense-provider.git",
-                "reference": "ec3605e20c51482d8d09a9a8433f35d1105bbe34"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/algolia-index-typesense-provider/zipball/ec3605e20c51482d8d09a9a8433f35d1105bbe34",
-                "reference": "ec3605e20c51482d8d09a9a8433f35d1105bbe34",
-                "shasum": ""
-            },
-            "require-dev": {
-                "carthage-software/mago": "^1.0.0-rc.1",
-                "phpunit/phpunit": "^11.5"
-            },
-            "suggest": {
-                "helsingborg-stad/municipio": "^6.0.0"
-            },
-            "type": "wordpress-plugin",
-            "autoload": {
-                "psr-4": {
-                    "AlgoliaIndexTypesenseProvider\\": "source/php/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nikolas Ramstedt",
-                    "email": "nikolas.ramstedt@helsingborg.se"
-                }
-            ],
-            "description": "Typesense search provider for Algolia Index plugin",
-            "support": {
-                "issues": "https://github.com/helsingborg-stad/algolia-index-typesense-provider/issues",
-                "source": "https://github.com/helsingborg-stad/algolia-index-typesense-provider/tree/1.0.17"
-            },
-            "time": "2026-08-19T11:59:19+00:00"
         },
         {
             "name": "helsingborg-stad/api-alarm-integration",
@@ -3955,19 +3748,20 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.21.0",
+            "version": "7.28.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "f655a8a6a9c56a3b6223260c2b746ffa34d4b05d"
+                "reference": "0625d7442aac0caf513685a041301ebd2effd244"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/f655a8a6a9c56a3b6223260c2b746ffa34d4b05d",
-                "reference": "f655a8a6a9c56a3b6223260c2b746ffa34d4b05d",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/0625d7442aac0caf513685a041301ebd2effd244",
+                "reference": "0625d7442aac0caf513685a041301ebd2effd244",
                 "shasum": ""
             },
             "require": {
+                "algolia/algoliasearch-client-php": "3.3",
                 "astrotomic/php-deepface": "0.5.0",
                 "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
                 "composer/installers": "^2.3",
@@ -4040,9 +3834,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.21.0"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.28.0"
             },
-            "time": "2026-09-02T11:28:18+00:00"
+            "time": "2026-09-04T08:51:38+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -9773,12 +9567,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
