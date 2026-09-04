@@ -80,6 +80,19 @@ foreach ($contentDirectories as $contentDirectory) {
                 exit($exitCode);
             }
             chdir($root);
+
+            // When child packages are told not to run composer install, any
+            // "vendor" directory they still create (e.g. via a standalone
+            // "composer dump-autoload") is incomplete - it lacks files such
+            // as vendor/composer/InstalledVersions.php - since dependencies
+            // are already resolved in the root project's shared vendor
+            // directory. Remove such broken/redundant vendor directories to
+            // avoid runtime "Failed to open stream" warnings.
+            if ($noComposer && file_exists("$directory/vendor")) {
+                print "Removing incomplete $directory/vendor (composer install skipped in child packages)\n";
+                shell_exec("rm -rf " . escapeshellarg("$directory/vendor"));
+            }
+
             $buildTime = round(microtime(true) - $timeStart);
             array_push($builds, ['directory' => $directory, 'buildTime' =>  $buildTime]);
             print "-- Done build script in $directory. Build time: $buildTime seconds. --\n";
