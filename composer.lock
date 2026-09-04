@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ea55b19953697a538dd74a19885f13d",
+    "content-hash": "550cfd663529f5b6a373e4152c57358c",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -266,16 +266,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.394.7",
+            "version": "3.394.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "40a8717706fd789cd3e8c72a2e8e93ee4455b391"
+                "reference": "9afa5f6652e7035a029369c98db68bc21279a3cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/40a8717706fd789cd3e8c72a2e8e93ee4455b391",
-                "reference": "40a8717706fd789cd3e8c72a2e8e93ee4455b391",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9afa5f6652e7035a029369c98db68bc21279a3cf",
+                "reference": "9afa5f6652e7035a029369c98db68bc21279a3cf",
                 "shasum": ""
             },
             "require": {
@@ -357,9 +357,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.7"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.8"
             },
-            "time": "2026-09-02T18:07:40+00:00"
+            "time": "2026-09-03T18:08:51+00:00"
         },
         {
             "name": "brick/math",
@@ -3955,19 +3955,20 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.26.3",
+            "version": "7.27.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "a073cfc34dc85a4c019ebf10b3d07b3593a0c9fa"
+                "reference": "c3a59c2f8e3f870ead2fae8e30beb09064fcff8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/a073cfc34dc85a4c019ebf10b3d07b3593a0c9fa",
-                "reference": "a073cfc34dc85a4c019ebf10b3d07b3593a0c9fa",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/c3a59c2f8e3f870ead2fae8e30beb09064fcff8b",
+                "reference": "c3a59c2f8e3f870ead2fae8e30beb09064fcff8b",
                 "shasum": ""
             },
             "require": {
+                "algolia/algoliasearch-client-php": "3.3",
                 "astrotomic/php-deepface": "0.5.0",
                 "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
                 "composer/installers": "^2.3",
@@ -4040,9 +4041,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.26.3"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.27.2"
             },
-            "time": "2026-09-03T13:52:30+00:00"
+            "time": "2026-09-04T06:24:08+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -9773,12 +9774,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
