@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "229acad9397e17b5e4c9830b5f81b39d",
+    "content-hash": "371d8db3404b3b63058272153b83ca51",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -266,16 +266,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.394.8",
+            "version": "3.394.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "9afa5f6652e7035a029369c98db68bc21279a3cf"
+                "reference": "c5e7a247fa6aeac7355d5be88f38873480789c71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9afa5f6652e7035a029369c98db68bc21279a3cf",
-                "reference": "9afa5f6652e7035a029369c98db68bc21279a3cf",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c5e7a247fa6aeac7355d5be88f38873480789c71",
+                "reference": "c5e7a247fa6aeac7355d5be88f38873480789c71",
                 "shasum": ""
             },
             "require": {
@@ -357,9 +357,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.8"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.394.9"
             },
-            "time": "2026-09-03T18:08:51+00:00"
+            "time": "2026-09-04T18:07:00+00:00"
         },
         {
             "name": "brick/math",
@@ -422,16 +422,16 @@
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
-            "version": "3.2.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CarbonPHP/carbon-doctrine-types.git",
-                "reference": "18ba5ddfec8976260ead6e866180bd5d2f71aa1d"
+                "reference": "5fa5eacafd9ef47c8c6ab9143fc901ba0194d3dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CarbonPHP/carbon-doctrine-types/zipball/18ba5ddfec8976260ead6e866180bd5d2f71aa1d",
-                "reference": "18ba5ddfec8976260ead6e866180bd5d2f71aa1d",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon-doctrine-types/zipball/5fa5eacafd9ef47c8c6ab9143fc901ba0194d3dc",
+                "reference": "5fa5eacafd9ef47c8c6ab9143fc901ba0194d3dc",
                 "shasum": ""
             },
             "require": {
@@ -446,6 +446,11 @@
                 "phpunit/phpunit": "^10.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Carbon\\Doctrine\\": "src/Carbon/Doctrine/"
@@ -471,7 +476,7 @@
             ],
             "support": {
                 "issues": "https://github.com/CarbonPHP/carbon-doctrine-types/issues",
-                "source": "https://github.com/CarbonPHP/carbon-doctrine-types/tree/3.2.0"
+                "source": "https://github.com/CarbonPHP/carbon-doctrine-types/tree/3.2.1"
             },
             "funding": [
                 {
@@ -487,7 +492,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-09T16:56:22+00:00"
+            "time": "2026-09-06T14:11:38+00:00"
         },
         {
             "name": "clark-nikdel-powell/post-type-select-for-acf",
@@ -3085,16 +3090,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-form-builder",
-            "version": "4.0.12",
+            "version": "4.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-form-builder.git",
-                "reference": "3b384676695e3adc1e087f11015960cbbdc59848"
+                "reference": "d6358db4a9bc56d320b42b3879bf5d52bfb36664"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-form-builder/zipball/3b384676695e3adc1e087f11015960cbbdc59848",
-                "reference": "3b384676695e3adc1e087f11015960cbbdc59848",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-form-builder/zipball/d6358db4a9bc56d320b42b3879bf5d52bfb36664",
+                "reference": "d6358db4a9bc56d320b42b3879bf5d52bfb36664",
                 "shasum": ""
             },
             "require": {
@@ -3145,9 +3150,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-form-builder/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-form-builder/tree/4.0.12"
+                "source": "https://github.com/helsingborg-stad/modularity-form-builder/tree/4.0.14"
             },
-            "time": "2026-05-21T05:21:13+00:00"
+            "time": "2026-09-03T15:32:47+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-frontend-form",
@@ -3748,16 +3753,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.28.0",
+            "version": "7.28.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "0625d7442aac0caf513685a041301ebd2effd244"
+                "reference": "00b0a4b9066e56e800c055aff83e1d30388431f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/0625d7442aac0caf513685a041301ebd2effd244",
-                "reference": "0625d7442aac0caf513685a041301ebd2effd244",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/00b0a4b9066e56e800c055aff83e1d30388431f8",
+                "reference": "00b0a4b9066e56e800c055aff83e1d30388431f8",
                 "shasum": ""
             },
             "require": {
@@ -3834,9 +3839,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.28.0"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.28.12"
             },
-            "time": "2026-09-04T08:51:38+00:00"
+            "time": "2026-09-07T08:57:07+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -4677,16 +4682,16 @@
         },
         {
             "name": "helsingborg-stad/wpmu-security",
-            "version": "1.9.1",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpmu-security.git",
-                "reference": "7476cfc590faee256ccf67fcb811e78e1354f817"
+                "reference": "f9b50c4fb9d92ed3e8e16fee876c1b9ce2e9276e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/7476cfc590faee256ccf67fcb811e78e1354f817",
-                "reference": "7476cfc590faee256ccf67fcb811e78e1354f817",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/f9b50c4fb9d92ed3e8e16fee876c1b9ce2e9276e",
+                "reference": "f9b50c4fb9d92ed3e8e16fee876c1b9ce2e9276e",
                 "shasum": ""
             },
             "require": {
@@ -4723,9 +4728,9 @@
             "description": "A WordPress MU Plugin for security enhancements",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpmu-security/issues",
-                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.9.1"
+                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.9.2"
             },
-            "time": "2026-03-25T09:43:39+00:00"
+            "time": "2026-09-03T15:32:58+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
