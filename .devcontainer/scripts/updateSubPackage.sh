@@ -162,6 +162,56 @@ dependency_constraint() {
     ' "$composer_json" "$package"
 }
 
+local_blockers() {
+    local root="$1"
+    local package="$2"
+
+    find "$root" \
+        -type d -name vendor -prune \
+        -o -type f -name composer.json -print0 \
+        | while IFS= read -r -d '' composer_json; do
+            php -r '
+                $file = $argv[1];
+                $package = $argv[2];
+                $json = json_decode(file_get_contents($file), true);
+
+                if (!is_array($json) || empty($json["name"])) {
+                    exit(0);
+                }
+
+                foreach (["require", "require-dev"] as $section) {
+                    if (
+                        isset($json[$section]) &&
+                        array_key_exists($package, $json[$section])
+                    ) {
+                        echo $json["name"] . "\n";
+                        exit(0);
+                    }
+                }
+            ' "$composer_json" "$package"
+        done
+}
+
+local_package_path() {
+    local root="$1"
+    local package="$2"
+
+    find "$root" \
+        -type d -name vendor -prune \
+        -o -type f -name composer.json -print0 \
+        | while IFS= read -r -d '' composer_json; do
+            if [[ "$(php -r '
+                $json = json_decode(file_get_contents($argv[1]), true);
+                echo is_array($json) && ($json["name"] ?? "") === $argv[2]
+                    ? "yes"
+                    : "no";
+            ' "$composer_json" "$package")" == "yes" ]]; then
+                dirname "$composer_json"
+                return 0
+            fi
+        done
+}
+
 print_summary() {
     echo
     echo "============================================================"
@@ -351,6 +401,17 @@ done < <(
 )
 
 if [[ ${#BLOCKERS[@]} -eq 0 ]]; then
+    while IFS= read -r blocker; do
+        if [[ -n "$blocker" && "$blocker" != "$PACKAGE" ]]; then
+            BLOCKERS+=("$blocker")
+        fi
+    done < <(
+        local_blockers "$PROJECT_ROOT" "$PACKAGE" \
+            | sort -u
+    )
+fi
+
+if [[ ${#BLOCKERS[@]} -eq 0 ]]; then
     echo "No blockers found for:"
     echo
     echo "  $PACKAGE $VERSION"
@@ -403,19 +464,19 @@ for i in "${!BLOCKERS[@]}"; do
     )"
 
     if [[ -z "$PACKAGE_PATH" ]]; then
+        PACKAGE_PATH="$(local_package_path "$PROJECT_ROOT" "$BLOCKER")"
+    fi
+
+    if [[ -z "$PACKAGE_PATH" ]]; then
         PACKAGE_PATH="${VENDOR_DIR}/${BLOCKER}"
     fi
 
-    if [[ -d "$PACKAGE_PATH/.git" ]] && \
-       [[ -n "$(git -C "$PACKAGE_PATH" status --porcelain)" ]]; then
-        echo "Skipping package with uncommitted changes:"
+    if [[ -d "$PACKAGE_PATH/.git" ]]; then
+        echo "Resetting Git package before reinstall:"
         echo
-        git -C "$PACKAGE_PATH" status --short
+        git -C "$PACKAGE_PATH" reset --hard HEAD
+        git -C "$PACKAGE_PATH" clean -fd
         echo
-
-        SKIPPED+=("$BLOCKER — uncommitted changes")
-
-        continue
     fi
 
     # --------------------------------------------------------
@@ -428,6 +489,7 @@ for i in "${!BLOCKERS[@]}"; do
     if ! composer reinstall \
         "$BLOCKER" \
         --prefer-source \
+        --ignore-platform-reqs \
         --no-interaction; then
 
         fail_package "$BLOCKER" "composer reinstall failed"
@@ -658,6 +720,7 @@ for i in "${!BLOCKERS[@]}"; do
         cd "$PACKAGE_PATH" &&
         composer update \
             --with-all-dependencies \
+            --ignore-platform-reqs \
             --no-interaction \
             -- \
             "$PACKAGE"
@@ -680,6 +743,7 @@ for i in "${!BLOCKERS[@]}"; do
     if ! (
         cd "$PACKAGE_PATH" &&
         composer install \
+            --ignore-platform-reqs \
             --no-interaction
     ); then
         fail_package \
@@ -731,10 +795,9 @@ for i in "${!BLOCKERS[@]}"; do
             echo "  - $changed_file"
         fi
     done < <(
-        {
-            git -C "$PACKAGE_PATH" diff --name-only
-            git -C "$PACKAGE_PATH" diff --cached --name-only
-        } | sort -u
+        git -C "$PACKAGE_PATH" diff --name-only
+        git -C "$PACKAGE_PATH" diff --cached --name-only
+    | sort -u
     )
 
     echo
