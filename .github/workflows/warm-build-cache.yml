@@ -1,0 +1,42 @@
+name: Warm build cache
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - composer.lock
+      - composer.json
+      - build.php
+      - build-pre.php
+      - .github/actions/build/action.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: warm-build-cache-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  warm:
+    name: Warm Municipio build cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Municipio build output
+        id: build-cache
+        uses: actions/cache@v4
+        with:
+          path: build-output
+          key: municipio-build-${{ runner.os }}-${{ hashFiles('composer.lock', 'composer.json', 'build.php', 'build-pre.php', '.github/actions/build/action.yml') }}
+
+      - name: Build Municipio
+        if: steps.build-cache.outputs.cache-hit != 'true'
+        uses: ./.github/actions/build
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          acf-url: ${{ secrets.ACF_URL }}
