@@ -1,0 +1,76 @@
+name: Prune caches
+
+on:
+  workflow_run:
+    workflows: [Release]
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      max_age_days:
+        description: Prune caches not accessed within this many days
+        type: number
+        default: 7
+      dry_run:
+        description: List what would be pruned without deleting
+        type: boolean
+        default: false
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: prune-caches
+  cancel-in-progress: false
+
+jobs:
+  prune:
+    name: Prune caches older than max age
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete stale caches
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MAX_AGE_DAYS: ${{ inputs.max_age_days || 7 }}
+          DRY_RUN: ${{ inputs.dry_run || false }}
+        run: |
+          set -euo pipefail
+
+          cutoff=$(date -u -d "${MAX_AGE_DAYS} days ago" +%s)
+          echo "Pruning caches last accessed before $(date -u -d "@${cutoff}") (max age ${MAX_AGE_DAYS}d)"
+
+          # Listed into a variable first so a failed API call aborts the run
+          # rather than silently reporting "0 pruned".
+          listing=$(gh api --paginate "repos/${REPO}/actions/caches" \
+            --jq '.actions_caches[] | "\(.id)\t\(.last_accessed_at)\t\(.ref)\t\(.key)"')
+          mapfile -t rows <<< "${listing}"
+
+          deleted=0
+          kept=0
+          for row in "${rows[@]}"; do
+            [ -z "${row}" ] && continue
+            IFS=$'\t' read -r id ts ref key <<< "${row}"
+            ts_epoch=$(date -u -d "${ts}" +%s)
+            if [ "${ts_epoch}" -lt "${cutoff}" ]; then
+              if [ "${DRY_RUN}" = "true" ]; then
+                echo "would prune: id=${id} last_accessed=${ts} ref=${ref} key=${key}"
+              else
+                gh api -X DELETE "repos/${REPO}/actions/caches/${id}" >/dev/null
+                echo "pruned: id=${id} last_accessed=${ts} ref=${ref}"
+              fi
+              deleted=$((deleted + 1))
+            else
+              kept=$((kept + 1))
+            fi
+          done
+
+          {
+            echo "### Cache prune"
+            echo ""
+            echo "- Max age: ${MAX_AGE_DAYS} day(s)"
+            echo "- Dry run: ${DRY_RUN}"
+            echo "- Pruned: ${deleted}"
+            echo "- Kept: ${kept}"
+          } >> "${GITHUB_STEP_SUMMARY}"
