@@ -28,6 +28,10 @@
     {
       "type": "composer",
       "url": "https://wpackagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://connect.advancedcustomfields.com"
     }
   ],
   "require": {
@@ -110,7 +114,8 @@
     "wpackagist-plugin/worddown": "1.2.4",
     "wpackagist-plugin/wordpress-importer": "0.9.6",
     "wpackagist-plugin/wp-multi-network": "3.0.0",
-    "wpackagist-plugin/wp-nested-pages": "3.3.2"
+    "wpackagist-plugin/wp-nested-pages": "3.3.2",
+    "wpengine/advanced-custom-fields-pro": "6.8.9"
   },
   "extra": {
     "path": "/",
