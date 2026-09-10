@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb30b7ba56104b8d058f0c4303ce3354",
+    "content-hash": "945b362a9b1140f0e97d9ea8fea1d6fe",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -4828,16 +4828,16 @@
         },
         {
             "name": "helsingborg/modularity-dynamic-guides",
-            "version": "2.1.6",
+            "version": "2.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-dynamic-guides.git",
-                "reference": "c9402d857218710a042552f3ba71bcba11ffb8f9"
+                "reference": "83201da174f0b78c1c68d4f3c88afda01e0c0c2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-dynamic-guides/zipball/c9402d857218710a042552f3ba71bcba11ffb8f9",
-                "reference": "c9402d857218710a042552f3ba71bcba11ffb8f9",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-dynamic-guides/zipball/83201da174f0b78c1c68d4f3c88afda01e0c0c2b",
+                "reference": "83201da174f0b78c1c68d4f3c88afda01e0c0c2b",
                 "shasum": ""
             },
             "require": {
@@ -4880,9 +4880,9 @@
             "description": "A plugin to create dynamic guides",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-dynamic-guides/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-dynamic-guides/tree/2.1.6"
+                "source": "https://github.com/helsingborg-stad/modularity-dynamic-guides/tree/2.1.8"
             },
-            "time": "2026-09-10T08:37:41+00:00"
+            "time": "2026-09-10T11:33:51+00:00"
         },
         {
             "name": "humanmade/s3-uploads",
