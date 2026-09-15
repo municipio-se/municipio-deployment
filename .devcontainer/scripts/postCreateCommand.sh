@@ -27,14 +27,6 @@ fi
 echo "Checking configuration..."
 echo ""
 
-# Check MUNICIPIO_ACF_PRO_KEY
-if [ -z "$MUNICIPIO_ACF_PRO_KEY" ]; then
-    echo "⚠️  MUNICIPIO_ACF_PRO_KEY is not set"
-    MISSING_CONFIG+=("MUNICIPIO_ACF_PRO_KEY - Required for ACF Pro plugin installation")
-else
-    echo "✓ MUNICIPIO_ACF_PRO_KEY is set"
-fi
-
 # Check MUNICIPIO_GITHUB_TOKEN
 if [ -z "$MUNICIPIO_GITHUB_TOKEN" ]; then
     echo "⚠️  MUNICIPIO_GITHUB_TOKEN is not set"

@@ -121,41 +121,7 @@ print_header "Installing Packages"
 "$SCRIPT_DIR/setup-dev-package.sh" -y --skip-select
 print_success "Packages installed"
 
-# Step 3: Install ACF Pro plugin
-print_header "Installing ACF Pro Plugin"
-
-if [ -z "${MUNICIPIO_ACF_PRO_KEY:-}" ]; then
-    print_error "MUNICIPIO_ACF_PRO_KEY is not set. Please set it in .devcontainer/.env"
-    exit 1
-fi
-
-ACF_PLUGIN_DIR="/var/www/html/wp-content/plugins/advanced-custom-fields-pro"
-
-if [ -d "$ACF_PLUGIN_DIR" ]; then
-    print_success "ACF Pro is already installed"
-else
-    # Download ACF Pro
-    if [ ! -d "/tmp/advanced-custom-fields-pro" ]; then
-        print_info "Downloading ACF Pro..."
-        ACF_URL="https://connect.advancedcustomfields.com/v2/plugins/download?s=web&p=pro&k=${MUNICIPIO_ACF_PRO_KEY}"
-        curl -s -o /tmp/acf-pro.zip "$ACF_URL"
-        print_info "Extracting archive..."
-        unzip -q -o /tmp/acf-pro.zip -d /tmp
-        rm -f /tmp/acf-pro.zip
-    fi
-
-    # Install ACF Pro
-    if [ -d "/tmp/advanced-custom-fields-pro" ]; then
-        print_info "Copying to plugins directory..."
-        cp -r /tmp/advanced-custom-fields-pro "$ACF_PLUGIN_DIR"
-        print_success "ACF Pro installed"
-    else
-        print_error "ACF Pro download failed"
-        exit 1
-    fi
-fi
-
-# Step 4: Import database
+# Step 3: Import database
 print_header "Importing Database"
 print_info "Resetting database..."
 wp db reset --quiet --yes --allow-root --url="${LOCAL_SITE_DOMAIN}" --skip-plugins --skip-themes
@@ -170,13 +136,13 @@ print_success "Database imported"
 print_info "Deactivating force-ssl plugin..."
 wp plugin deactivate force-ssl --network --quiet --skip-plugins --skip-themes --allow-root --url="${LOCAL_SITE_DOMAIN}"
 
-# Step 5: Add .htaccess
+# Step 4: Add .htaccess
 print_header "Adding .htaccess"
 print_info "Copying .htaccess from devcontainer config..."
 cp ./.devcontainer/config/.htaccess ./.htaccess
 print_success ".htaccess added"
 
-# Step 6: Set up cache directories
+# Step 5: Set up cache directories
 print_header "Setting Up Cache"
 print_info "Creating blade-cache directory..."
 mkdir -p ./wp-content/uploads/cache/blade-cache
@@ -188,13 +154,13 @@ print_info "Setting permissions on fonts directory..."
 chmod -R 777 ./wp-content/fonts
 print_success "Cache directories configured"
 
-# Step 7: Remove cached fonts
+# Step 6: Remove cached fonts
 print_header "Cleaning Up"
 print_info "Removing cached fonts..."
 rm -rf ./wp-content/fonts/*
 print_success "Cached fonts removed"
 
-# Step 8: Copy mu-plugins
+# Step 7: Copy mu-plugins
 print_header "Setting Up Must-Use Plugins"
 print_info "Copying mu-plugins from devcontainer config..."
 mkdir -p ./wp-content/mu-plugins
