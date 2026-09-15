@@ -223,6 +223,91 @@ The script is composed of modular sub-scripts in `.devcontainer/scripts/dev-pack
 
 These can be run individually if needed.
 
+### Update sub packages
+
+This script scans the project's Composer dependency tree for packages that block an upgrade of a specific dependency and helps align those packages with a common dependency version.
+
+Only packages that already declare the specified dependency in their `composer.json` are modified. The dependency will **not** be added to packages that do not already require it.
+
+#### Usage
+
+```bash
+.devcontainer/scripts/updateSubPackage.sh \
+    --package='helsingborg-stad/wputilservice' \
+    --version='^0.3'
+```
+
+#### Arguments
+
+| Argument       | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+| `--package`    | Composer package whose version constraint should be updated. |
+| `--version`    | The new Composer version constraint to use.                  |
+| `-h`, `--help` | Display usage information.                                   |
+
+For example:
+
+```bash
+.devcontainer/scripts/updateSubPackage.sh \
+    --package='helsingborg-stad/wputilservice' \
+    --version='^0.3'
+```
+
+This finds packages blocking the use of `helsingborg-stad/wputilservice:^0.3` and processes each blocker individually.
+
+#### Process
+
+For each blocking package, the script:
+
+1. Detects the package using `composer prohibits`.
+2. Reinstalls the package using `--prefer-source` to obtain a Git checkout.
+3. Detects and checks out the repository's default branch.
+4. Creates a dedicated update branch.
+5. Updates the existing dependency constraint in `composer.json`.
+6. Updates the Composer lock file and dependencies.
+7. Runs `composer install` to verify that the resulting dependency tree can be installed.
+8. Displays the Git diff for review.
+9. Asks whether the changes should be committed and pushed.
+10. Pushes the update branch and creates a GitHub pull request.
+
+The script processes all detected blockers sequentially.
+
+#### Review options
+
+After displaying the changes for a package, the script provides the following options:
+
+```text
+[p] Push + create PR
+[s] Skip
+[a] Push this and automatically approve remaining packages
+[q] Quit
+```
+
+Selecting `a` allows the remaining blockers to be processed without requiring approval for each individual package.
+
+#### Requirements
+
+The following tools must be installed and available in `PATH`:
+
+* Composer
+* Git
+* GitHub CLI (`gh`)
+
+GitHub CLI must also be authenticated:
+
+```bash
+gh auth login
+```
+
+#### Important
+
+The script operates on Composer packages installed in the project and reinstalls them from source. This includes packages installed by Composer installers under paths such as `wp-content/plugins`.
+
+Local changes inside affected packages under `vendor` may be discarded when the package is prepared for modification. Do not use the script if you have uncommitted work inside these package directories.
+
+At completion, the script displays a summary of successfully created pull requests, failed updates, and skipped packages.
+
+
 ### Notes
 - Ensure you have the necessary permissions to execute the script. You may need to run `chmod +x .devcontainer/scripts/setup-dev-package.sh` to make it executable.
 - Review the script contents to understand its operations and ensure it aligns with your development requirements.
