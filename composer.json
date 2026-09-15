@@ -127,7 +127,7 @@
     "installer-paths": {
       "wp-content/mu-plugins/{$name}": [
         "type:wordpress-muplugin",
-        "type:acf-plugin"
+        "wpengine/advanced-custom-fields-pro"
       ],
       "wp-content/plugins/{$name}": [
         "type:wordpress-plugin"
