@@ -1,0 +1,8 @@
+# Limit the build context to the only two paths .docker/Dockerfile
+# actually consumes: build-output/ (staged by release.yml) and the
+# entrypoint templates. Everything else is irrelevant to the image.
+*
+!build-output
+!build-output/**
+!.docker/templates
+!.docker/templates/**
