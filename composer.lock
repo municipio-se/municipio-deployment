@@ -4778,16 +4778,16 @@
         },
         {
             "name": "helsingborg-stad/wputilservice",
-            "version": "0.3.1",
+            "version": "0.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wputilservice.git",
-                "reference": "538d1266a71e51a5f93471562b812af7c5694486"
+                "reference": "88e23d99e205178a613614f2bff530ad6f85b10f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wputilservice/zipball/538d1266a71e51a5f93471562b812af7c5694486",
-                "reference": "538d1266a71e51a5f93471562b812af7c5694486",
+                "url": "https://api.github.com/repos/helsingborg-stad/wputilservice/zipball/88e23d99e205178a613614f2bff530ad6f85b10f",
+                "reference": "88e23d99e205178a613614f2bff530ad6f85b10f",
                 "shasum": ""
             },
             "require": {
@@ -4820,9 +4820,9 @@
             "description": "Simplifies WordPress development by providing a centralized WpUtilService that exposes a WordPress api wrapped in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wputilservice/issues",
-                "source": "https://github.com/helsingborg-stad/wputilservice/tree/0.3.1"
+                "source": "https://github.com/helsingborg-stad/wputilservice/tree/0.3.2"
             },
-            "time": "2026-09-15T12:54:49+00:00"
+            "time": "2026-09-15T14:03:41+00:00"
         },
         {
             "name": "helsingborg/modularity-dynamic-guides",
