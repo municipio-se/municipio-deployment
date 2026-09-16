@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0e490418c91f6ce66a68b00dbc9836e",
+    "content-hash": "980b0b90b1ef4877f8ddc42afb25a1eb",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -260,16 +260,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.395.2",
+            "version": "3.395.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d027655c121cc80192275e72d189612efa8dd9a9"
+                "reference": "22f2bce297541ae41ca9e03207032ede4e805ad4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d027655c121cc80192275e72d189612efa8dd9a9",
-                "reference": "d027655c121cc80192275e72d189612efa8dd9a9",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/22f2bce297541ae41ca9e03207032ede4e805ad4",
+                "reference": "22f2bce297541ae41ca9e03207032ede4e805ad4",
                 "shasum": ""
             },
             "require": {
@@ -351,9 +351,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.395.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.395.3"
             },
-            "time": "2026-09-14T20:04:40+00:00"
+            "time": "2026-09-15T18:07:56+00:00"
         },
         {
             "name": "brick/math",
@@ -3748,16 +3748,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.38.0",
+            "version": "7.38.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "ce3637d87011bb317460a6191c7b6ba7f3906f1f"
+                "reference": "52a52bbd8028749b3e547e36d155b20822addae6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/ce3637d87011bb317460a6191c7b6ba7f3906f1f",
-                "reference": "ce3637d87011bb317460a6191c7b6ba7f3906f1f",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/52a52bbd8028749b3e547e36d155b20822addae6",
+                "reference": "52a52bbd8028749b3e547e36d155b20822addae6",
                 "shasum": ""
             },
             "require": {
@@ -3834,9 +3834,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.38.0"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.38.2"
             },
-            "time": "2026-09-15T13:17:34+00:00"
+            "time": "2026-09-15T14:32:21+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -4778,16 +4778,16 @@
         },
         {
             "name": "helsingborg-stad/wputilservice",
-            "version": "0.3.2",
+            "version": "0.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wputilservice.git",
-                "reference": "88e23d99e205178a613614f2bff530ad6f85b10f"
+                "reference": "190da938c497b212fa8d684c59a02c3530fc3055"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wputilservice/zipball/88e23d99e205178a613614f2bff530ad6f85b10f",
-                "reference": "88e23d99e205178a613614f2bff530ad6f85b10f",
+                "url": "https://api.github.com/repos/helsingborg-stad/wputilservice/zipball/190da938c497b212fa8d684c59a02c3530fc3055",
+                "reference": "190da938c497b212fa8d684c59a02c3530fc3055",
                 "shasum": ""
             },
             "require": {
@@ -4820,9 +4820,9 @@
             "description": "Simplifies WordPress development by providing a centralized WpUtilService that exposes a WordPress api wrapped in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wputilservice/issues",
-                "source": "https://github.com/helsingborg-stad/wputilservice/tree/0.3.2"
+                "source": "https://github.com/helsingborg-stad/wputilservice/tree/0.3.4"
             },
-            "time": "2026-09-15T14:03:41+00:00"
+            "time": "2026-09-16T07:20:00+00:00"
         },
         {
             "name": "helsingborg/modularity-dynamic-guides",
