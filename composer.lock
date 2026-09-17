@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a753e405b556e669154362fa2b22621d",
+    "content-hash": "ca54dc5163e5d4ab3edba571d783570e",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -4360,6 +4360,43 @@
                 "source": "https://github.com/helsingborg-stad/search-statistics/tree/1.0.8"
             },
             "time": "2026-09-10T06:39:28+00:00"
+        },
+        {
+            "name": "helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early.git",
+                "reference": "871c3f194190220f3f6b7698d3aac9bef9465a1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early/zipball/871c3f194190220f3f6b7698d3aac9bef9465a1a",
+                "reference": "871c3f194190220f3f6b7698d3aac9bef9465a1a",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^2.3",
+                "php": ">=7.4"
+            },
+            "type": "wordpress-muplugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Thulin",
+                    "email": "sebastian.thulin@helsingborg.se"
+                }
+            ],
+            "description": "Throws a descriptive exception when an ACF field is accessed before WordPress has initialized.",
+            "homepage": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early/issues",
+                "source": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early/tree/0.1.0"
+            },
+            "time": "2026-09-17T13:28:39+00:00"
         },
         {
             "name": "helsingborg-stad/wpmu-acf-google-maps-key",
