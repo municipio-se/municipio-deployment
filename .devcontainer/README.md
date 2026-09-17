@@ -22,7 +22,6 @@ This guide provides instructions for setting up and working with the Municipio D
 4. **Configure environment variables**
     The container will auto-create `.devcontainer/.env` from `.env.example` on first start.
     Edit `.devcontainer/.env` and fill in the required values:
-    - `MUNICIPIO_ACF_PRO_KEY` - Required for ACF Pro plugin
     - `MUNICIPIO_GITHUB_TOKEN` - Required for private npm/composer packages
 
 5. **Run setup script**
