@@ -126,8 +126,7 @@
     "wordpress-install-dir": "wp",
     "installer-paths": {
       "wp-content/mu-plugins/{$name}": [
-        "type:wordpress-muplugin",
-        "wpengine/advanced-custom-fields-pro"
+        "type:wordpress-muplugin"
       ],
       "wp-content/plugins/{$name}": [
         "type:wordpress-plugin"
