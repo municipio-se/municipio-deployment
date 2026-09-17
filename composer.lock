@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca54dc5163e5d4ab3edba571d783570e",
+    "content-hash": "136a641f1536ee7bbd8684bc87355288",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -2020,16 +2020,16 @@
         },
         {
             "name": "helsingborg-stad/api-event-manager-integration",
-            "version": "3.1.4",
+            "version": "3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-event-manager-integration.git",
-                "reference": "ea89891345a0bbfc88faf911e5a4a7f8228f098f"
+                "reference": "e78dcfaf3b9a27257ae5b98ee24f8b4c82b82b71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/ea89891345a0bbfc88faf911e5a4a7f8228f098f",
-                "reference": "ea89891345a0bbfc88faf911e5a4a7f8228f098f",
+                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/e78dcfaf3b9a27257ae5b98ee24f8b4c82b82b71",
+                "reference": "e78dcfaf3b9a27257ae5b98ee24f8b4c82b82b71",
                 "shasum": ""
             },
             "require": {
@@ -2071,9 +2071,9 @@
             "description": "Import and display events from Event Manager API.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-event-manager-integration/issues",
-                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.1.4"
+                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.1.6"
             },
-            "time": "2026-03-26T10:06:52+00:00"
+            "time": "2026-09-17T14:00:36+00:00"
         },
         {
             "name": "helsingborg-stad/api-volunteer-manager-integration",
@@ -2716,16 +2716,16 @@
         },
         {
             "name": "helsingborg-stad/like-posts",
-            "version": "3.1.5",
+            "version": "3.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-like.git",
-                "reference": "990bfc259fbbfce14f3d82e2843f709786dc5ba0"
+                "reference": "2e6f372f7797370e31243afc4f968d6630e87f2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-like/zipball/990bfc259fbbfce14f3d82e2843f709786dc5ba0",
-                "reference": "990bfc259fbbfce14f3d82e2843f709786dc5ba0",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-like/zipball/2e6f372f7797370e31243afc4f968d6630e87f2d",
+                "reference": "2e6f372f7797370e31243afc4f968d6630e87f2d",
                 "shasum": ""
             },
             "require": {
@@ -2774,9 +2774,9 @@
             "description": "Lets the users like a post.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-like/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-like/tree/3.1.5"
+                "source": "https://github.com/helsingborg-stad/modularity-like/tree/3.1.7"
             },
-            "time": "2026-09-09T13:10:17+00:00"
+            "time": "2026-09-17T14:14:25+00:00"
         },
         {
             "name": "helsingborg-stad/lix-calculator",
