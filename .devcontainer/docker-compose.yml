@@ -3,11 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        imageVariant: 8.3-bookworm
-
-    ports:
-      - 8080:80
 
     volumes:
       - ../..:/workspaces:cached
@@ -23,6 +18,14 @@ services:
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
     # (Adding the "ports" property to this file will not forward from a Codespace.)
+  
+  server:
+    image: webbutvecklinghelsingborg/gitops:openlitespeed-0.0.4
+    ports:
+      - 8080:80
+    volumes:
+      - ./php-ini-overrides.ini:/usr/local/lsws/lsphp83/etc/php/8.3/mods-available/zz-overrides.ini:cached
+      - ..:/var/www/vhosts/localhost/html:cached
 
   db:
     image: mariadb:12.0.2
