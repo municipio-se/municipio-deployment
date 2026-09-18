@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "13d2f4bc69ef3e74f341639f0d1a47c3",
+    "content-hash": "78447f28418364153123779ee160ede3",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -260,16 +260,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.395.4",
+            "version": "3.395.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "0756c511a913b57ab5415db6136d8c0c250ace15"
+                "reference": "ac892b4a1116808f5d085c42e3a682769dab939c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0756c511a913b57ab5415db6136d8c0c250ace15",
-                "reference": "0756c511a913b57ab5415db6136d8c0c250ace15",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ac892b4a1116808f5d085c42e3a682769dab939c",
+                "reference": "ac892b4a1116808f5d085c42e3a682769dab939c",
                 "shasum": ""
             },
             "require": {
@@ -351,9 +351,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.395.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.395.5"
             },
-            "time": "2026-09-16T18:39:53+00:00"
+            "time": "2026-09-17T18:14:42+00:00"
         },
         {
             "name": "brick/math",
@@ -5572,154 +5572,6 @@
             "time": "2023-10-18T14:34:10+00:00"
         },
         {
-            "name": "johnpbloch/wordpress",
-            "version": "7.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "0f165a6da44b8d7c116321808a917c50bfcae9b9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/0f165a6da44b8d7c116321808a917c50bfcae9b9",
-                "reference": "0f165a6da44b8d7c116321808a917c50bfcae9b9",
-                "shasum": ""
-            },
-            "require": {
-                "johnpbloch/wordpress-core": "7.1.0",
-                "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
-                "php": ">=7.0.0"
-            },
-            "type": "package",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "WordPress Community",
-                    "homepage": "https://wordpress.org/about/"
-                }
-            ],
-            "description": "WordPress is open source software you can use to create a beautiful website, blog, or app.",
-            "homepage": "https://wordpress.org/",
-            "keywords": [
-                "blog",
-                "cms",
-                "wordpress"
-            ],
-            "support": {
-                "docs": "https://developer.wordpress.org/",
-                "forum": "https://wordpress.org/support/",
-                "irc": "irc://irc.freenode.net/wordpress",
-                "issues": "https://core.trac.wordpress.org/",
-                "source": "https://core.trac.wordpress.org/browser"
-            },
-            "time": "2026-08-19T20:43:21+00:00"
-        },
-        {
-            "name": "johnpbloch/wordpress-core",
-            "version": "7.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "ecdd7896958ec6c002b421eb7912b00dda7187b9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/ecdd7896958ec6c002b421eb7912b00dda7187b9",
-                "reference": "ecdd7896958ec6c002b421eb7912b00dda7187b9",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=7.4"
-            },
-            "provide": {
-                "wordpress/core-implementation": "7.1.0"
-            },
-            "type": "wordpress-core",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "WordPress Community",
-                    "homepage": "https://wordpress.org/about/"
-                }
-            ],
-            "description": "WordPress is open source software you can use to create a beautiful website, blog, or app.",
-            "homepage": "https://wordpress.org/",
-            "keywords": [
-                "blog",
-                "cms",
-                "wordpress"
-            ],
-            "support": {
-                "forum": "https://wordpress.org/support/",
-                "irc": "irc://irc.freenode.net/wordpress",
-                "issues": "https://core.trac.wordpress.org/",
-                "source": "https://core.trac.wordpress.org/browser",
-                "wiki": "https://codex.wordpress.org/"
-            },
-            "time": "2026-08-19T20:43:15+00:00"
-        },
-        {
-            "name": "johnpbloch/wordpress-core-installer",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/johnpbloch/wordpress-core-installer.git",
-                "reference": "237faae9a60a4a2e1d45dce1a5836ffa616de63e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/237faae9a60a4a2e1d45dce1a5836ffa616de63e",
-                "reference": "237faae9a60a4a2e1d45dce1a5836ffa616de63e",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.0 || ^2.0",
-                "php": ">=5.6.0"
-            },
-            "conflict": {
-                "composer/installers": "<1.0.6"
-            },
-            "require-dev": {
-                "composer/composer": "^1.0 || ^2.0",
-                "phpunit/phpunit": ">=5.7.27"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "johnpbloch\\Composer\\WordPressCorePlugin"
-            },
-            "autoload": {
-                "psr-0": {
-                    "johnpbloch\\Composer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "John P. Bloch",
-                    "email": "me@johnpbloch.com"
-                }
-            ],
-            "description": "A custom installer to handle deploying WordPress with composer",
-            "keywords": [
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/johnpbloch/wordpress-core-installer/issues",
-                "source": "https://github.com/johnpbloch/wordpress-core-installer/tree/master"
-            },
-            "time": "2020-04-16T21:44:57+00:00"
-        },
-        {
             "name": "justinrainbow/json-schema",
             "version": "5.3.4",
             "source": {
@@ -7756,6 +7608,77 @@
             "time": "2026-09-16T11:39:30+00:00"
         },
         {
+            "name": "roots/wordpress-no-content",
+            "version": "7.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WordPress/WordPress.git",
+                "reference": "7.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/release/wordpress-7.1.1-no-content.zip",
+                "reference": "7.1.1",
+                "shasum": "bb9a161c407ea4bde3f52510d231c93a14e45506"
+            },
+            "require": {
+                "php": ">= 7.4"
+            },
+            "provide": {
+                "wordpress/core-implementation": "7.1.1"
+            },
+            "suggest": {
+                "ext-curl": "Performs remote request operations.",
+                "ext-dom": "Used to validate Text Widget content and to automatically configuring IIS7+.",
+                "ext-exif": "Works with metadata stored in images.",
+                "ext-fileinfo": "Used to detect mimetype of file uploads.",
+                "ext-hash": "Used for hashing, including passwords and update packages.",
+                "ext-imagick": "Provides better image quality for media uploads.",
+                "ext-json": "Used for communications with other servers.",
+                "ext-libsodium": "Validates Signatures and provides securely random bytes.",
+                "ext-mbstring": "Used to properly handle UTF8 text.",
+                "ext-mysqli": "Connects to MySQL for database interactions.",
+                "ext-openssl": "Permits SSL-based connections to other hosts.",
+                "ext-pcre": "Increases performance of pattern matching in code searches.",
+                "ext-xml": "Used for XML parsing, such as from a third-party site.",
+                "ext-zip": "Used for decompressing Plugins, Themes, and WordPress update packages."
+            },
+            "type": "wordpress-core",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "WordPress Community",
+                    "homepage": "https://wordpress.org/about/"
+                }
+            ],
+            "description": "WordPress is open source software you can use to create a beautiful website, blog, or app.",
+            "homepage": "https://wordpress.org/",
+            "keywords": [
+                "blog",
+                "cms",
+                "wordpress"
+            ],
+            "support": {
+                "docs": "https://developer.wordpress.org/",
+                "forum": "https://wordpress.org/support/",
+                "irc": "irc://irc.freenode.net/wordpress",
+                "issues": "https://core.trac.wordpress.org/",
+                "rss": "https://wordpress.org/news/feed/",
+                "source": "https://core.trac.wordpress.org/browser",
+                "wiki": "https://codex.wordpress.org/"
+            },
+            "funding": [
+                {
+                    "url": "https://wordpressfoundation.org/donate/",
+                    "type": "other"
+                }
+            ],
+            "time": "2026-09-17T19:19:18+00:00"
+        },
+        {
             "name": "sabberworm/php-css-parser",
             "version": "v9.4.0",
             "source": {
@@ -9223,7 +9146,7 @@
             "time": "2025-10-29T15:56:20+00:00"
         },
         {
-            "name": "wpackagist-plugin/autodescription",
+            "name": "wp-plugin/autodescription",
             "version": "5.1.4",
             "source": {
                 "type": "svn",
@@ -9235,13 +9158,26 @@
                 "url": "https://downloads.wordpress.org/plugin/autodescription.5.1.4.zip"
             },
             "require": {
-                "composer/installers": "^1.0 || ^2.0"
+                "composer/installers": "~1.0|~2.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/autodescription/"
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Sybre Waaijer"
+                }
+            ],
+            "description": "The fastest feature-complete SEO plugin for professional WordPress websites. Secure, fast, unbranded, and automated SEO. Do less; get better results.",
+            "homepage": "https://theseoframework.com/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/autodescription/#developers",
+                "issues": "https://wordpress.org/support/plugin/autodescription",
+                "source": "https://plugins.svn.wordpress.org/autodescription"
+            },
+            "time": "2026-03-23T19:23:21+00:00"
         },
         {
-            "name": "wpackagist-plugin/cookies-and-content-security-policy",
+            "name": "wp-plugin/cookies-and-content-security-policy",
             "version": "2.41",
             "source": {
                 "type": "svn",
@@ -9253,13 +9189,26 @@
                 "url": "https://downloads.wordpress.org/plugin/cookies-and-content-security-policy.2.41.zip"
             },
             "require": {
-                "composer/installers": "^1.0 || ^2.0"
+                "composer/installers": "~1.0|~2.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/cookies-and-content-security-policy/"
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Johan Jonk Stenström"
+                }
+            ],
+            "description": "Be fully GDPR and CCPA compliant through Content Security Policy. Blocks cookies and unwanted external content.",
+            "homepage": "https://plugins.followmedarling.se/cookies-and-content-security-policy/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/cookies-and-content-security-policy/#developers",
+                "issues": "https://wordpress.org/support/plugin/cookies-and-content-security-policy",
+                "source": "https://plugins.svn.wordpress.org/cookies-and-content-security-policy"
+            },
+            "time": "2026-08-25T09:36:57+00:00"
         },
         {
-            "name": "wpackagist-plugin/fakerpress",
+            "name": "wp-plugin/fakerpress",
             "version": "0.9.2",
             "source": {
                 "type": "svn",
@@ -9271,13 +9220,26 @@
                 "url": "https://downloads.wordpress.org/plugin/fakerpress.0.9.2.zip"
             },
             "require": {
-                "composer/installers": "^1.0 || ^2.0"
+                "composer/installers": "~1.0|~2.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/fakerpress/"
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Gustavo Bordoni"
+                }
+            ],
+            "description": "FakerPress is a clean way to generate fake and dummy content to your WordPress, great for developers who need testing",
+            "homepage": "https://fakerpress.com",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/fakerpress/#developers",
+                "issues": "https://wordpress.org/support/plugin/fakerpress",
+                "source": "https://plugins.svn.wordpress.org/fakerpress"
+            },
+            "time": "2026-07-24T04:51:12+00:00"
         },
         {
-            "name": "wpackagist-plugin/litespeed-cache",
+            "name": "wp-plugin/litespeed-cache",
             "version": "7.9.1",
             "source": {
                 "type": "svn",
@@ -9289,10 +9251,517 @@
                 "url": "https://downloads.wordpress.org/plugin/litespeed-cache.7.9.1.zip"
             },
             "require": {
-                "composer/installers": "^1.0 || ^2.0"
+                "composer/installers": "~1.0|~2.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/litespeed-cache/"
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "LiteSpeed Technologies"
+                }
+            ],
+            "description": "All-in-one unbeatable acceleration & PageSpeed improvement: caching, image/CSS/JS optimization...",
+            "homepage": "https://www.litespeedtech.com/products/cache-plugins/wordpress-acceleration",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/litespeed-cache/#developers",
+                "issues": "https://wordpress.org/support/plugin/litespeed-cache",
+                "source": "https://plugins.svn.wordpress.org/litespeed-cache"
+            },
+            "time": "2026-09-01T21:21:06+00:00"
+        },
+        {
+            "name": "wp-plugin/network-plugin-auditor",
+            "version": "1.10.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/network-plugin-auditor/",
+                "reference": "tags/1.10.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/network-plugin-auditor.1.10.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Katherine Semel-Munson"
+                }
+            ],
+            "description": "For multisite/network installations only.  Adds columns to your network admin to show which sites are using each plugin and theme.",
+            "homepage": "http://wordpress.org/support/plugin/network-plugin-auditor",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/network-plugin-auditor/#developers",
+                "issues": "https://wordpress.org/support/plugin/network-plugin-auditor",
+                "source": "https://plugins.svn.wordpress.org/network-plugin-auditor"
+            },
+            "time": "2026-03-23T19:23:21+00:00"
+        },
+        {
+            "name": "wp-plugin/nginx-helper",
+            "version": "2.4.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/nginx-helper/",
+                "reference": "tags/2.4.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/nginx-helper.2.4.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "rtCamp"
+                }
+            ],
+            "description": "Cleans nginx's fastcgi/proxy cache or redis-cache whenever a post is edited/published. Also does a few more things.",
+            "homepage": "https://rtcamp.com/nginx-helper/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/nginx-helper/#developers",
+                "issues": "https://wordpress.org/support/plugin/nginx-helper",
+                "source": "https://plugins.svn.wordpress.org/nginx-helper"
+            },
+            "time": "2026-09-09T09:26:11+00:00"
+        },
+        {
+            "name": "wp-plugin/post-expirator",
+            "version": "4.10.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/post-expirator/",
+                "reference": "tags/4.10.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.10.5.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "PublishPress"
+                }
+            ],
+            "description": "PublishPress Future can make scheduled changes to your content. You can unpublish posts, move posts to a new status, update the categories, and more.",
+            "homepage": "http://wordpress.org/extend/plugins/post-expirator/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/post-expirator/#developers",
+                "issues": "https://wordpress.org/support/plugin/post-expirator",
+                "source": "https://plugins.svn.wordpress.org/post-expirator"
+            },
+            "time": "2026-09-08T15:26:00+00:00"
+        },
+        {
+            "name": "wp-plugin/pressidium-cookie-consent",
+            "version": "1.9.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/pressidium-cookie-consent/",
+                "reference": "tags/1.9.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/pressidium-cookie-consent.1.9.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "pressidium"
+                }
+            ],
+            "description": "Lightweight, user-friendly and customizable cookie consent banner to help you comply with the EU GDPR cookie law and CCPA regulations.",
+            "homepage": "https://github.com/pressidium/pressidium-cookie-consent/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/pressidium-cookie-consent/#developers",
+                "issues": "https://wordpress.org/support/plugin/pressidium-cookie-consent",
+                "source": "https://plugins.svn.wordpress.org/pressidium-cookie-consent"
+            },
+            "time": "2026-03-23T19:23:21+00:00"
+        },
+        {
+            "name": "wp-plugin/redirection",
+            "version": "5.10.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/redirection/",
+                "reference": "tags/5.10.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/redirection.5.10.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "John Godley"
+                }
+            ],
+            "description": "Manage 301 redirects, track 404 errors, and improve your site. No knowledge of Apache or Nginx required.",
+            "homepage": "https://redirection.me/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/redirection/#developers",
+                "issues": "https://wordpress.org/support/plugin/redirection",
+                "source": "https://plugins.svn.wordpress.org/redirection"
+            },
+            "time": "2026-08-29T15:21:27+00:00"
+        },
+        {
+            "name": "wp-plugin/redis-cache",
+            "version": "2.8.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/redis-cache/",
+                "reference": "tags/2.8.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/redis-cache.2.8.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Till Krüss"
+                }
+            ],
+            "description": "A persistent object cache backend powered by Redis®¹. Supports Predis, PhpRedis, Relay, replication, sentinels, clustering and WP-CLI.",
+            "homepage": "https://wordpress.org/plugins/redis-cache/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/redis-cache/#developers",
+                "issues": "https://wordpress.org/support/plugin/redis-cache",
+                "source": "https://plugins.svn.wordpress.org/redis-cache"
+            },
+            "time": "2026-05-04T18:40:49+00:00"
+        },
+        {
+            "name": "wp-plugin/simple-smtp",
+            "version": "1.3.4.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/simple-smtp/",
+                "reference": "tags/1.3.4.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/simple-smtp.1.3.4.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Casey"
+                }
+            ],
+            "description": "Adds a simple mail configuration panel into your WordPress installation. Supports temporary logging and config variables.",
+            "homepage": "https://github.com/soup-bowl/wp-simple-smtp",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/simple-smtp/#developers",
+                "issues": "https://wordpress.org/support/plugin/simple-smtp",
+                "source": "https://plugins.svn.wordpress.org/simple-smtp"
+            },
+            "time": "2026-03-23T19:23:21+00:00"
+        },
+        {
+            "name": "wp-plugin/simplify-admin-menus",
+            "version": "2.0.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/simplify-admin-menus/",
+                "reference": "tags/2.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/simplify-admin-menus.2.0.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Adam Alexandersson"
+                }
+            ],
+            "description": "Simplify your WordPress admin interface by customizing menu items and admin bar elements per user role or individual user.",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/simplify-admin-menus/#developers",
+                "issues": "https://wordpress.org/support/plugin/simplify-admin-menus",
+                "source": "https://plugins.svn.wordpress.org/simplify-admin-menus"
+            },
+            "time": "2026-08-18T11:28:46+00:00"
+        },
+        {
+            "name": "wp-plugin/stream",
+            "version": "4.4.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/stream/",
+                "reference": "tags/4.4.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/stream.4.4.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "XWP"
+                }
+            ],
+            "description": "Real-time activity log and audit log for WordPress. Track every user action — logins, edits, plugin & settings changes — and get alerts.",
+            "homepage": "https://xwp.co/work/stream/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/stream/#developers",
+                "issues": "https://wordpress.org/support/plugin/stream",
+                "source": "https://plugins.svn.wordpress.org/stream"
+            },
+            "time": "2026-08-31T13:45:59+00:00"
+        },
+        {
+            "name": "wp-plugin/user-switching",
+            "version": "1.12.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/user-switching/",
+                "reference": "tags/1.12.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/user-switching.1.12.2.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "John Blackbourn"
+                }
+            ],
+            "description": "Instant switching between user accounts in WordPress and WooCommerce.",
+            "homepage": "https://wordpress.org/plugins/user-switching/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/user-switching/#developers",
+                "issues": "https://wordpress.org/support/plugin/user-switching",
+                "source": "https://plugins.svn.wordpress.org/user-switching"
+            },
+            "time": "2026-08-29T20:46:10+00:00"
+        },
+        {
+            "name": "wp-plugin/username-changer",
+            "version": "3.3.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/username-changer/",
+                "reference": "tags/3.3.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/username-changer.3.3.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "DigitalME"
+                }
+            ],
+            "description": "Unlock the power to change WordPress usernames with complete security and data integrity.",
+            "homepage": "https://www.digitalme.cc",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/username-changer/#developers",
+                "issues": "https://wordpress.org/support/plugin/username-changer",
+                "source": "https://plugins.svn.wordpress.org/username-changer"
+            },
+            "time": "2026-08-27T17:01:08+00:00"
+        },
+        {
+            "name": "wp-plugin/varnish-http-purge",
+            "version": "5.12.3",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/varnish-http-purge/",
+                "reference": "tags/5.12.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/varnish-http-purge.5.12.3.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Danila Vershinin"
+                }
+            ],
+            "description": "Automatically empty proxy cached content when your site is modified.",
+            "homepage": "https://github.com/dvershinin/varnish-http-purge",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/varnish-http-purge/#developers",
+                "issues": "https://wordpress.org/support/plugin/varnish-http-purge",
+                "source": "https://plugins.svn.wordpress.org/varnish-http-purge"
+            },
+            "time": "2026-09-02T17:01:35+00:00"
+        },
+        {
+            "name": "wp-plugin/worddown",
+            "version": "1.2.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/worddown/",
+                "reference": "tags/1.2.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/worddown.1.2.4.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Adam Alexandersson"
+                }
+            ],
+            "description": "Export WordPress pages and posts to markdown files for AI chatbots with support for custom page builders and multilingual content.",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/worddown/#developers",
+                "issues": "https://wordpress.org/support/plugin/worddown",
+                "source": "https://plugins.svn.wordpress.org/worddown"
+            },
+            "time": "2026-08-18T10:41:41+00:00"
+        },
+        {
+            "name": "wp-plugin/wordpress-importer",
+            "version": "0.9.6",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wordpress-importer/",
+                "reference": "tags/0.9.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.9.6.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "WordPress.org"
+                }
+            ],
+            "description": "Import posts, pages, comments, custom fields, categories, tags and more from a WordPress export file.",
+            "homepage": "https://wordpress.org/plugins/wordpress-importer/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/wordpress-importer/#developers",
+                "issues": "https://wordpress.org/support/plugin/wordpress-importer",
+                "source": "https://plugins.svn.wordpress.org/wordpress-importer"
+            },
+            "time": "2026-08-27T11:41:30+00:00"
+        },
+        {
+            "name": "wp-plugin/wp-multi-network",
+            "version": "3.0.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-multi-network/",
+                "reference": "tags/3.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-multi-network.3.0.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "John James Jacoby"
+                }
+            ],
+            "description": "A WordPress plugin that provides a network management interface for global multisite administrators.",
+            "homepage": "https://wordpress.org/plugins/wp-multi-network/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/wp-multi-network/#developers",
+                "issues": "https://wordpress.org/support/plugin/wp-multi-network",
+                "source": "https://plugins.svn.wordpress.org/wp-multi-network"
+            },
+            "time": "2026-03-23T19:23:21+00:00"
+        },
+        {
+            "name": "wp-plugin/wp-nested-pages",
+            "version": "3.3.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-nested-pages/",
+                "reference": "tags/3.3.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-nested-pages.3.3.2.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "Hook & Filter"
+                }
+            ],
+            "description": "Nested Pages provides a drag and drop interface for managing pages & posts in the WordPress admin, while maintaining quick edit functionality.",
+            "homepage": "http://hookandfilter.com/products/nested-pages",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/wp-nested-pages/#developers",
+                "issues": "https://wordpress.org/support/plugin/wp-nested-pages",
+                "source": "https://plugins.svn.wordpress.org/wp-nested-pages"
+            },
+            "time": "2026-09-03T19:56:04+00:00"
         },
         {
             "name": "wpackagist-plugin/miniorange-saml-20-single-sign-on",
@@ -9311,294 +9780,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/miniorange-saml-20-single-sign-on/"
-        },
-        {
-            "name": "wpackagist-plugin/network-plugin-auditor",
-            "version": "1.10.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/network-plugin-auditor/",
-                "reference": "tags/1.10.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/network-plugin-auditor.1.10.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/network-plugin-auditor/"
-        },
-        {
-            "name": "wpackagist-plugin/nginx-helper",
-            "version": "2.4.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/nginx-helper/",
-                "reference": "tags/2.4.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/nginx-helper.2.4.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/nginx-helper/"
-        },
-        {
-            "name": "wpackagist-plugin/post-expirator",
-            "version": "4.10.5",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/post-expirator/",
-                "reference": "tags/4.10.5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.10.5.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/post-expirator/"
-        },
-        {
-            "name": "wpackagist-plugin/pressidium-cookie-consent",
-            "version": "1.9.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/pressidium-cookie-consent/",
-                "reference": "tags/1.9.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/pressidium-cookie-consent.1.9.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/pressidium-cookie-consent/"
-        },
-        {
-            "name": "wpackagist-plugin/redirection",
-            "version": "5.10.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/redirection/",
-                "reference": "tags/5.10.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redirection.5.10.0.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/redirection/"
-        },
-        {
-            "name": "wpackagist-plugin/redis-cache",
-            "version": "2.8.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/redis-cache/",
-                "reference": "tags/2.8.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redis-cache.2.8.0.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/redis-cache/"
-        },
-        {
-            "name": "wpackagist-plugin/simple-smtp",
-            "version": "1.3.4.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/simple-smtp/",
-                "reference": "tags/1.3.4.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/simple-smtp.1.3.4.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/simple-smtp/"
-        },
-        {
-            "name": "wpackagist-plugin/simplify-admin-menus",
-            "version": "2.0.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/simplify-admin-menus/",
-                "reference": "tags/2.0.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/simplify-admin-menus.2.0.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/simplify-admin-menus/"
-        },
-        {
-            "name": "wpackagist-plugin/stream",
-            "version": "4.4.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/stream/",
-                "reference": "tags/4.4.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/stream.4.4.0.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/stream/"
-        },
-        {
-            "name": "wpackagist-plugin/user-switching",
-            "version": "1.12.2",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/user-switching/",
-                "reference": "tags/1.12.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/user-switching.1.12.2.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/user-switching/"
-        },
-        {
-            "name": "wpackagist-plugin/username-changer",
-            "version": "3.3.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/username-changer/",
-                "reference": "tags/3.3.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/username-changer.3.3.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/username-changer/"
-        },
-        {
-            "name": "wpackagist-plugin/varnish-http-purge",
-            "version": "5.12.3",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/varnish-http-purge/",
-                "reference": "tags/5.12.3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/varnish-http-purge.5.12.3.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/varnish-http-purge/"
-        },
-        {
-            "name": "wpackagist-plugin/worddown",
-            "version": "1.2.4",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/worddown/",
-                "reference": "tags/1.2.4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/worddown.1.2.4.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/worddown/"
-        },
-        {
-            "name": "wpackagist-plugin/wordpress-importer",
-            "version": "0.9.6",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wordpress-importer/",
-                "reference": "tags/0.9.6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.9.6.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wordpress-importer/"
-        },
-        {
-            "name": "wpackagist-plugin/wp-multi-network",
-            "version": "3.0.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wp-multi-network/",
-                "reference": "tags/3.0.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-multi-network.3.0.0.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wp-multi-network/"
-        },
-        {
-            "name": "wpackagist-plugin/wp-nested-pages",
-            "version": "3.3.2",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wp-nested-pages/",
-                "reference": "tags/3.3.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-nested-pages.3.3.2.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wp-nested-pages/"
         },
         {
             "name": "wpengine/advanced-custom-fields-pro",
