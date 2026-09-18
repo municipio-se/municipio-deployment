@@ -89,6 +89,7 @@
     "helsingborg-stad/webhooks-manager": "1.3.2",
     "helsingborg-stad/wp-page-for-post-type": "2.0.16",
     "helsingborg-stad/wp-search-statistics": "1.0.8",
+    "helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early": "^0.1.0",
     "helsingborg-stad/wpmu-acf-google-maps-key": "1.0.1",
     "helsingborg-stad/wpmu-correct-file-paths": "1.2.2",
     "helsingborg-stad/wpmu-focus-point": "0.2.6",
@@ -131,7 +132,8 @@
     "wordpress-install-dir": "wp",
     "installer-paths": {
       "wp-content/mu-plugins/{$name}": [
-        "type:wordpress-muplugin"
+        "type:wordpress-muplugin",
+        "wpengine/advanced-custom-fields-pro"
       ],
       "wp-content/plugins/{$name}": [
         "type:wordpress-plugin"
