@@ -31,7 +31,7 @@ LOCAL_SITE_SLUG="${LOCAL_SITE_SLUG:?LOCAL_SITE_SLUG not set}"
 CDN_DOMAIN="${CDN_DOMAIN:?CDN_DOMAIN not set}"
 
 ### LOCAL SETUP ###
-LOCAL_PATH="/var/www/html"
+LOCAL_PATH="/var/www/vhosts/localhost/html"
 LOCAL_SITE_DOMAIN="localhost:8080"
 LOCAL_MU_SITE_URL="http://${LOCAL_SITE_DOMAIN}"
 LOCAL_PREFIX="mun_"

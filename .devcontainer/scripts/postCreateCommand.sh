@@ -47,25 +47,6 @@ fi
 
 echo ""
 
-# Install and enable the php-imagick extension (required by freshleafmedia/autofocus)
-if ! php -m | grep -qi '^imagick$'; then
-    echo "→ Installing php imagick extension..."
-    sudo apt-get update -qq
-    sudo apt-get install -y libmagickwand-dev pkg-config
-    yes '' | sudo env PATH="$PATH" pecl install imagick
-    PHP_INI_DIR="$(php -i | grep '^Scan this dir for additional .ini files' | awk -F'=> ' '{print $2}' | xargs)"
-    echo "extension=imagick.so" | sudo tee "$PHP_INI_DIR/20-imagick.ini" > /dev/null
-    echo "✓ php imagick extension installed and enabled"
-else
-    echo "✓ php imagick extension already enabled"
-fi
-
-echo ""
-
-# Always create symlink to /var/www/html
-sudo chmod a+x "$(pwd)" && sudo rm -rf /var/www/html && sudo ln -s "$(pwd)" /var/www/html
-echo "✓ Symlink created: $(pwd) → /var/www/html"
-
 # Show summary if there are missing configurations
 if [ ${#MISSING_CONFIG[@]} -gt 0 ]; then
     echo ""
