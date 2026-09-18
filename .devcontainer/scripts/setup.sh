@@ -26,6 +26,19 @@ fi
 
 ### CONFIGURATION ###
 LOCAL_SITE_DOMAIN="localhost:8080"
+LOCAL_SITE_URL="http://${LOCAL_SITE_DOMAIN}"
+
+# Install as "single" or "multisite" (subfolder network). Override with SITE_TYPE env var.
+SITE_TYPE="${SITE_TYPE:-}"
+
+# WordPress admin/site defaults, overridable via .devcontainer/.env
+SITE_TITLE="${SITE_TITLE:-Municipio Local}"
+ADMIN_USER="${ADMIN_USER:-superadmin}"
+ADMIN_PASSWORD="${ADMIN_PASSWORD:-superadmin}"
+ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
+
+# Plugins to activate after a fresh install (network-activated in multisite mode)
+REQUIRED_PLUGINS=("advanced-custom-fields-pro" "s3-uploads" "s3-local-index" "redis-cache" "litespeed-cache")
 
 #############################################################################
 # Helper Functions
@@ -52,6 +65,21 @@ print_info() {
 
 print_warning() {
     echo "⚠️  $1"
+}
+
+# Retry a command a few times: freshly composer-installed plugin files can be
+# momentarily invisible to wp-cli on the virtiofs-mounted workspace, which
+# makes activation fail with e.g. "No plugins network activated."
+run_with_retry() {
+    local attempt
+    for attempt in 1 2 3; do
+        if "$@"; then
+            return 0
+        fi
+        wp cache flush --allow-root --skip-plugins --skip-themes || true
+        sleep 1
+    done
+    "$@"
 }
 
 # Confirm action with user
@@ -85,6 +113,28 @@ check_existing_setup() {
     echo $setup_detected
 }
 
+# Ask the user whether to install a single site or a subfolder multisite network
+prompt_site_type() {
+    if [[ -n "$SITE_TYPE" ]]; then
+        return
+    fi
+
+    if [[ ! -t 0 ]]; then
+        SITE_TYPE="multisite"
+        return
+    fi
+
+    while true; do
+        read -p "Install as (s)ingle site or (m)ultisite subfolder network? [s/m] (default: m): " choice
+        choice=${choice:-m}
+        case "$choice" in
+            s|S|single) SITE_TYPE="single"; return ;;
+            m|M|multisite) SITE_TYPE="multisite"; return ;;
+            *) echo "Please answer s or m" ;;
+        esac
+    done
+}
+
 #############################################################################
 # Main Script
 #############################################################################
@@ -106,14 +156,25 @@ if [ "$(check_existing_setup)" -eq 1 ]; then
     echo ""
 fi
 
+prompt_site_type
+print_info "Site type: ${SITE_TYPE}"
+
 # Step 1: Add required config files
 print_header "Adding Config Files"
 print_info "Creating config directory..."
 mkdir -p ./config
 print_info "Copying config-example files..."
-cp ./config-example/* ./config
+if [[ "$SITE_TYPE" == "single" ]]; then
+    find ./config-example -maxdepth 1 -type f ! -name 'multisite.php' -exec cp {} ./config \;
+else
+    cp ./config-example/* ./config
+fi
 print_info "Copying devcontainer wp-config files..."
-cp ./.devcontainer/config/wp-config/* ./config
+if [[ "$SITE_TYPE" == "single" ]]; then
+    find ./.devcontainer/config/wp-config -maxdepth 1 -type f ! -name 'multisite.php' -exec cp {} ./config \;
+else
+    cp ./.devcontainer/config/wp-config/* ./config
+fi
 print_success "Config files added"
 
 # Step 2: Install packages
@@ -121,20 +182,60 @@ print_header "Installing Packages"
 "$SCRIPT_DIR/setup-dev-package.sh" -y --skip-select
 print_success "Packages installed"
 
-# Step 3: Import database
-print_header "Importing Database"
+# Step 3: Install WordPress
+print_header "Installing WordPress (${SITE_TYPE})"
 print_info "Resetting database..."
-wp db reset --quiet --yes --allow-root --url="${LOCAL_SITE_DOMAIN}" --skip-plugins --skip-themes
-print_info "Importing seed.sql..."
-wp db import ./db/seed.sql --quiet --skip-plugins --skip-themes --allow-root --url="${LOCAL_SITE_DOMAIN}" 
-print_info "Running search-replace for local domain..."
-wp search-replace dev.local.municipio.tech "${LOCAL_SITE_DOMAIN}" --quiet --skip-plugins --skip-themes --network --all-tables --allow-root --url="${LOCAL_SITE_DOMAIN}"
-wp search-replace "https://${LOCAL_SITE_DOMAIN}" "http://${LOCAL_SITE_DOMAIN}" --quiet --skip-plugins --skip-themes --network --all-tables --allow-root --url="${LOCAL_SITE_DOMAIN}"
+wp db reset --quiet --yes --allow-root --skip-plugins --skip-themes
+print_info "Flushing object cache (stale entries survive db reset)..."
+wp cache flush --allow-root --skip-plugins --skip-themes || true
 
-print_success "Database imported"
+if [[ "$SITE_TYPE" == "multisite" ]]; then
+    print_info "Running multisite network install..."
+    wp core multisite-install \
+        --url="${LOCAL_SITE_URL}" \
+        --base=/ \
+        --title="${SITE_TITLE}" \
+        --admin_user="${ADMIN_USER}" \
+        --admin_password="${ADMIN_PASSWORD}" \
+        --admin_email="${ADMIN_EMAIL}" \
+        --skip-email \
+        --skip-plugins \
+        --skip-themes \
+        --allow-root
+else
+    print_info "Running single site install..."
+    wp core install \
+        --url="${LOCAL_SITE_URL}" \
+        --title="${SITE_TITLE}" \
+        --admin_user="${ADMIN_USER}" \
+        --admin_password="${ADMIN_PASSWORD}" \
+        --admin_email="${ADMIN_EMAIL}" \
+        --skip-email \
+        --skip-plugins \
+        --skip-themes \
+        --allow-root
+fi
+print_success "WordPress installed"
 
-print_info "Deactivating force-ssl plugin..."
-wp plugin deactivate force-ssl --network --quiet --skip-plugins --skip-themes --allow-root --url="${LOCAL_SITE_DOMAIN}"
+print_info "Activating required plugins..."
+for plugin in "${REQUIRED_PLUGINS[@]}"; do
+    # --skip-themes: municipio (the only theme present, loaded via WP_DEFAULT_THEME
+    # fallback) hard-fails all wp-cli commands via cli_init until ACF is active.
+    if [[ "$SITE_TYPE" == "multisite" ]]; then
+        run_with_retry wp plugin activate "$plugin" --network --skip-themes --quiet --allow-root --url="${LOCAL_SITE_URL}"
+    else
+        run_with_retry wp plugin activate "$plugin" --skip-themes --quiet --allow-root --url="${LOCAL_SITE_URL}"
+    fi
+done
+
+# Theme activation depends on ACF being active first
+print_info "Activating municipio theme..."
+if [[ "$SITE_TYPE" == "multisite" ]]; then
+    run_with_retry wp theme enable municipio --network --activate --quiet --allow-root --url="${LOCAL_SITE_URL}"
+else
+    run_with_retry wp theme activate municipio --quiet --allow-root --url="${LOCAL_SITE_URL}"
+fi
+print_success "Site configured"
 
 # Step 4: Add .htaccess
 print_header "Adding .htaccess"
@@ -166,6 +267,8 @@ print_info "Copying mu-plugins from devcontainer config..."
 mkdir -p ./wp-content/mu-plugins
 cp ./.devcontainer/mu-plugins/* ./wp-content/mu-plugins
 print_success "Must-Use Plugins set up"
+
+# Step 8
 
 # Final success message
 print_header "Setup Complete! 🎉"

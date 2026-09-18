@@ -10,8 +10,7 @@ services:
 
     volumes:
       - ./php-ini-overrides.ini:/usr/local/lsws/lsphp83/etc/php/8.3/mods-available/zz-overrides.ini:cached
-      - ..:/var/www/vhosts/localhost/html:cached
-      - ../..:/workspaces:cached
+      - ..:/var/www/vhosts/localhost/html
       - ${HOME}/.ssh:/home/vscode/.ssh:ro
 
   redis:
@@ -88,3 +87,4 @@ volumes:
   valkey-socket:
   typesense-data:
   minio-data: {}
+  composer-cache:
