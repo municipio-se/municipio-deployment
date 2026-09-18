@@ -23,6 +23,7 @@ This guide provides instructions for setting up and working with the Municipio D
     The container will auto-create `.devcontainer/.env` from `.env.example` on first start.
     Edit `.devcontainer/.env` and fill in the required values:
     - `MUNICIPIO_GITHUB_TOKEN` - Required for private npm/composer packages
+    - `ACF_PRO_KEY` - Required for ACF Pro packages
 
 5. **Run setup script**
     In the terminal, run:
@@ -69,7 +70,7 @@ The script will:
 4. **Add .htaccess** - Copies the `.htaccess` file for URL rewriting
 5. **Clean up** - Removes cached fonts
 
-**Note:** This script requires `MUNICIPIO_ACF_PRO_KEY` to be set in `.devcontainer/.env`.
+**Note:** This script requires `ACF_PRO_KEY` to be set in `.devcontainer/.env`.
 
 ## Migrating a Remote Site
 
