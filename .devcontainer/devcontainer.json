@@ -3,10 +3,10 @@
 {
     "name": "Municipio Deployment(PHP & MariaDB)",
     "dockerComposeFile": "docker-compose.yml",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "workspaceFolder": "/var/www/vhosts/localhost/html",
     "service": "app",
     "forwardPorts": [
-        "80:8080",
+        80,
         8306,
         8090
     ],
@@ -17,12 +17,19 @@
     "postCreateCommand": {
         "setup": "chmod +x .devcontainer/scripts/postCreateCommand.sh && bash .devcontainer/scripts/postCreateCommand.sh"
     },
-    "postStartCommand": "chmod +x .devcontainer/scripts/postStartCommand.sh && bash .devcontainer/scripts/postStartCommand.sh",
     // Features to add to the dev container. More info: https://containers.dev/features.
     "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "username": "automatic"
+        },
         "ghcr.io/devcontainers/features/node:1": {
-            "version": "24"
-        }
+            "version": "lts"
+        },
+        "ghcr.io/devcontainers-extra/features/composer": {
+            "version": "latest"
+        },
+        "./features/wp-cli": {}
     },
     "waitFor": "postCreateCommand",
     // Configure tool-specific properties.
@@ -38,7 +45,7 @@
             "settings": {
                 "remote.autoForwardPorts": false,
                 "remote.portsAttributes": {
-                    "80:8080": {
+                    "80": {
                         "label": "WordPress - HTTP",
                         "onAutoForward": "notify",
                         "requireLocalPort": true,
@@ -62,7 +69,6 @@
                 "intelephense.environment.phpVersion": "8.3"
             }
         }
-    }
-    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-    // "remoteUser": "root"
+    },
+    "remoteUser": "vscode"
 }

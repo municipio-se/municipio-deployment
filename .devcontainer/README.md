@@ -23,6 +23,7 @@ This guide provides instructions for setting up and working with the Municipio D
     The container will auto-create `.devcontainer/.env` from `.env.example` on first start.
     Edit `.devcontainer/.env` and fill in the required values:
     - `MUNICIPIO_GITHUB_TOKEN` - Required for private npm/composer packages
+    - `ACF_PRO_KEY` - Required for ACF Pro packages
 
 5. **Run setup script**
     In the terminal, run:
@@ -63,13 +64,18 @@ The `setup.sh` script configures your local development environment from scratch
 
 The script will:
 
-1. **Add config files** - Copies configuration from `config-example/` and `.devcontainer/config/wp-config/`
-2. **Install ACF Pro** - Downloads and installs the ACF Pro plugin using your license key
-3. **Import database** - Resets the database and imports `db/seed.sql`
-4. **Add .htaccess** - Copies the `.htaccess` file for URL rewriting
-5. **Clean up** - Removes cached fonts
+1. **Ask for a site type** - Choose `single` site or `multisite` subfolder network (or set the `SITE_TYPE` env var to skip the prompt)
+2. **Add config files** - Copies configuration from `config-example/` and `.devcontainer/config/wp-config/` (skipping `multisite.php` for single-site installs)
+3. **Install ACF Pro** - Downloads and installs the ACF Pro plugin using your license key
+4. **Install WordPress** - Resets the database and runs `wp core install` (single site) or `wp core multisite-install` (multisite) to create a fresh WordPress install, then activates the `municipio` theme and required plugins
+5. **Add .htaccess** - Copies the `.htaccess` file for URL rewriting
+6. **Clean up** - Removes cached fonts
 
-**Note:** This script requires `MUNICIPIO_ACF_PRO_KEY` to be set in `.devcontainer/.env`.
+**Note:** This script requires `ACF_PRO_KEY` to be set in `.devcontainer/.env`.
+
+**Site defaults:** Default admin login is `superadmin` / `superadmin`. Override `SITE_TYPE`, `SITE_TITLE`, `ADMIN_USER`, `ADMIN_PASSWORD`, or `ADMIN_EMAIL` in `.devcontainer/.env` to customize the install.
+
+**Note:** `db/seed.sql` and `db/update-seed.sh` are no longer used by `setup.sh` but remain in the repo for reference/manual use.
 
 ## Migrating a Remote Site
 

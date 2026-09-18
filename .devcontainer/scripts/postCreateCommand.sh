@@ -45,11 +45,19 @@ else
     echo "✓ Composer GitHub token configured"
 fi
 
-echo ""
+# Check ACF_PRO_KEY
+if [ -z "$ACF_PRO_KEY" ]; then
+    echo "⚠️  ACF_PRO_KEY is not set"
+    MISSING_CONFIG+=("ACF_PRO_KEY - Required for ACF Pro packages")
+else
+    echo "✓ ACF_PRO_KEY is set"
 
-# Always create symlink to /var/www/html
-sudo chmod a+x "$(pwd)" && sudo rm -rf /var/www/html && sudo ln -s "$(pwd)" /var/www/html
-echo "✓ Symlink created: $(pwd) → /var/www/html"
+    # Set the ACF Pro Composer credentials
+    composer config --global --auth http-basic.connect.advancedcustomfields.com "$ACF_PRO_KEY" http://localhost
+    echo "✓ ACF Pro Composer credentials configured"
+fi
+
+echo ""
 
 # Show summary if there are missing configurations
 if [ ${#MISSING_CONFIG[@]} -gt 0 ]; then
