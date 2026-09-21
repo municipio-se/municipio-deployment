@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02fa68c1a1ac3c01eba0d3509b471537",
+    "content-hash": "174ab3dfc581f99528f9f544f2b131b2",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3838,6 +3838,44 @@
                 "source": "https://github.com/helsingborg-stad/Municipio/tree/7.38.6"
             },
             "time": "2026-09-17T14:34:25+00:00"
+        },
+        {
+            "name": "helsingborg-stad/municipio-clone",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/municipio-clone.git",
+                "reference": "dcc2f4ce0bed5949cec431262a8e2d854ede9caa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/municipio-clone/zipball/dcc2f4ce0bed5949cec431262a8e2d854ede9caa",
+                "reference": "dcc2f4ce0bed5949cec431262a8e2d854ede9caa",
+                "shasum": ""
+            },
+            "require": {
+                "helsingborg-stad/wpservice": "2.0.9",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^12.5"
+            },
+            "type": "wordpress-plugin",
+            "autoload": {
+                "psr-4": {
+                    "MunicipioClone\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "WordPress plugin that enables WP-CLI command for cloning remote WordPress sites.",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/municipio-clone/issues",
+                "source": "https://github.com/helsingborg-stad/municipio-clone/tree/v1.1.1"
+            },
+            "time": "2026-09-21T09:48:27+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -9905,12 +9943,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
