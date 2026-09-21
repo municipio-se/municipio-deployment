@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78447f28418364153123779ee160ede3",
+    "content-hash": "02fa68c1a1ac3c01eba0d3509b471537",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -2020,16 +2020,16 @@
         },
         {
             "name": "helsingborg-stad/api-event-manager-integration",
-            "version": "3.1.4",
+            "version": "3.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-event-manager-integration.git",
-                "reference": "ea89891345a0bbfc88faf911e5a4a7f8228f098f"
+                "reference": "f06280f42cdf7198a278460961879dc3b260b595"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/ea89891345a0bbfc88faf911e5a4a7f8228f098f",
-                "reference": "ea89891345a0bbfc88faf911e5a4a7f8228f098f",
+                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/f06280f42cdf7198a278460961879dc3b260b595",
+                "reference": "f06280f42cdf7198a278460961879dc3b260b595",
                 "shasum": ""
             },
             "require": {
@@ -2071,9 +2071,9 @@
             "description": "Import and display events from Event Manager API.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-event-manager-integration/issues",
-                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.1.4"
+                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.1.8"
             },
-            "time": "2026-03-26T10:06:52+00:00"
+            "time": "2026-09-18T12:36:04+00:00"
         },
         {
             "name": "helsingborg-stad/api-volunteer-manager-integration",
@@ -2716,16 +2716,16 @@
         },
         {
             "name": "helsingborg-stad/like-posts",
-            "version": "3.1.5",
+            "version": "3.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-like.git",
-                "reference": "990bfc259fbbfce14f3d82e2843f709786dc5ba0"
+                "reference": "2e6f372f7797370e31243afc4f968d6630e87f2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-like/zipball/990bfc259fbbfce14f3d82e2843f709786dc5ba0",
-                "reference": "990bfc259fbbfce14f3d82e2843f709786dc5ba0",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-like/zipball/2e6f372f7797370e31243afc4f968d6630e87f2d",
+                "reference": "2e6f372f7797370e31243afc4f968d6630e87f2d",
                 "shasum": ""
             },
             "require": {
@@ -2774,9 +2774,9 @@
             "description": "Lets the users like a post.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-like/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-like/tree/3.1.5"
+                "source": "https://github.com/helsingborg-stad/modularity-like/tree/3.1.7"
             },
-            "time": "2026-09-09T13:10:17+00:00"
+            "time": "2026-09-17T14:14:25+00:00"
         },
         {
             "name": "helsingborg-stad/lix-calculator",
@@ -3749,16 +3749,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.38.4",
+            "version": "7.38.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "980fff42867ab5f23a505295e103ed7e773cd719"
+                "reference": "a0271b1cf4977b59b2a3f4fc2b949653d0f4ebb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/980fff42867ab5f23a505295e103ed7e773cd719",
-                "reference": "980fff42867ab5f23a505295e103ed7e773cd719",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/a0271b1cf4977b59b2a3f4fc2b949653d0f4ebb4",
+                "reference": "a0271b1cf4977b59b2a3f4fc2b949653d0f4ebb4",
                 "shasum": ""
             },
             "require": {
@@ -3835,9 +3835,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.38.4"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.38.6"
             },
-            "time": "2026-09-17T10:56:31+00:00"
+            "time": "2026-09-17T14:34:25+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -4360,6 +4360,43 @@
                 "source": "https://github.com/helsingborg-stad/search-statistics/tree/1.0.8"
             },
             "time": "2026-09-10T06:39:28+00:00"
+        },
+        {
+            "name": "helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early.git",
+                "reference": "53cb467dc8ee7378ebdb57a5b60f91754bd11919"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early/zipball/53cb467dc8ee7378ebdb57a5b60f91754bd11919",
+                "reference": "53cb467dc8ee7378ebdb57a5b60f91754bd11919",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^2.3",
+                "php": ">=7.4"
+            },
+            "type": "wordpress-muplugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Thulin",
+                    "email": "sebastian.thulin@helsingborg.se"
+                }
+            ],
+            "description": "Throws a descriptive exception when an ACF field is accessed before WordPress has initialized.",
+            "homepage": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early/issues",
+                "source": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early/tree/0.1.2"
+            },
+            "time": "2026-09-18T07:11:49+00:00"
         },
         {
             "name": "helsingborg-stad/wpmu-acf-google-maps-key",
@@ -7606,6 +7643,73 @@
                 "source": "https://github.com/ramsey/uuid/tree/4.9.4"
             },
             "time": "2026-09-16T11:39:30+00:00"
+        },
+        {
+            "name": "roots/wordpress-core-installer",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/roots/wordpress-core-installer.git",
+                "reference": "85d3589252eb93eee836facf33b54ce30c565bea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/roots/wordpress-core-installer/zipball/85d3589252eb93eee836facf33b54ce30c565bea",
+                "reference": "85d3589252eb93eee836facf33b54ce30c565bea",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "php": ">=7.2.24"
+            },
+            "conflict": {
+                "composer/installers": "<1.0.6"
+            },
+            "replace": {
+                "johnpbloch/wordpress-core-installer": "*"
+            },
+            "require-dev": {
+                "composer/composer": "^2.0",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Roots\\Composer\\WordPressCorePlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Roots\\Composer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "John P. Bloch",
+                    "email": "me@johnpbloch.com"
+                },
+                {
+                    "name": "Roots",
+                    "email": "team@roots.io"
+                }
+            ],
+            "description": "A Composer custom installer to handle installing WordPress as a dependency",
+            "keywords": [
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/roots/wordpress-core-installer/issues",
+                "source": "https://github.com/roots/wordpress-core-installer/tree/v4.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/roots",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-03-22T03:17:23+00:00"
         },
         {
             "name": "roots/wordpress-no-content",
