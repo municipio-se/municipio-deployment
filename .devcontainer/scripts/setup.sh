@@ -38,7 +38,7 @@ ADMIN_PASSWORD="${ADMIN_PASSWORD:-superadmin}"
 ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
 
 # Plugins to activate after a fresh install (network-activated in multisite mode)
-REQUIRED_PLUGINS=("advanced-custom-fields-pro" "s3-uploads" "s3-local-index" "redis-cache" "litespeed-cache")
+REQUIRED_PLUGINS=("advanced-custom-fields-pro" "s3-uploads" "s3-local-index" "redis-cache" "litespeed-cache" "municipio-clone")
 
 #############################################################################
 # Helper Functions
