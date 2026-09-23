@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Enable wp cache
+ */
+define( 'WP_CACHE', true );
+
+/**
  * Memcache/Redis key salt
  * @var string
  */
