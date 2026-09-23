@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d7e3b15e563f4639bbbd83a571b2e99",
+    "content-hash": "6e6084cf6a87b8693346ea6a076d8ff5",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -260,16 +260,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.395.7",
+            "version": "3.396.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "575425a1c7c1dabb808badc7995e67874cba102a"
+                "reference": "0c289e1083c336efaf2ccd78a0520ed5c49af758"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/575425a1c7c1dabb808badc7995e67874cba102a",
-                "reference": "575425a1c7c1dabb808badc7995e67874cba102a",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0c289e1083c336efaf2ccd78a0520ed5c49af758",
+                "reference": "0c289e1083c336efaf2ccd78a0520ed5c49af758",
                 "shasum": ""
             },
             "require": {
@@ -351,9 +351,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.395.7"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.396.0"
             },
-            "time": "2026-09-21T18:22:34+00:00"
+            "time": "2026-09-22T18:06:28+00:00"
         },
         {
             "name": "brick/math",
@@ -3749,16 +3749,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.38.6",
+            "version": "7.41.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "a0271b1cf4977b59b2a3f4fc2b949653d0f4ebb4"
+                "reference": "0cfe764b8f031e6610ca3bac121d4ed194cd50f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/a0271b1cf4977b59b2a3f4fc2b949653d0f4ebb4",
-                "reference": "a0271b1cf4977b59b2a3f4fc2b949653d0f4ebb4",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/0cfe764b8f031e6610ca3bac121d4ed194cd50f9",
+                "reference": "0cfe764b8f031e6610ca3bac121d4ed194cd50f9",
                 "shasum": ""
             },
             "require": {
@@ -3835,9 +3835,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.38.6"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.41.4"
             },
-            "time": "2026-09-17T14:34:25+00:00"
+            "time": "2026-09-23T08:12:07+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -4402,16 +4402,16 @@
         },
         {
             "name": "helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early",
-            "version": "0.1.2",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early.git",
-                "reference": "53cb467dc8ee7378ebdb57a5b60f91754bd11919"
+                "reference": "54cf6039015bff567c264ebe73d2899c878454ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early/zipball/53cb467dc8ee7378ebdb57a5b60f91754bd11919",
-                "reference": "53cb467dc8ee7378ebdb57a5b60f91754bd11919",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early/zipball/54cf6039015bff567c264ebe73d2899c878454ab",
+                "reference": "54cf6039015bff567c264ebe73d2899c878454ab",
                 "shasum": ""
             },
             "require": {
@@ -4433,9 +4433,9 @@
             "homepage": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early/issues",
-                "source": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early/tree/0.1.2"
+                "source": "https://github.com/helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early/tree/0.2.0"
             },
-            "time": "2026-09-18T07:11:49+00:00"
+            "time": "2026-09-18T13:33:50+00:00"
         },
         {
             "name": "helsingborg-stad/wpmu-acf-google-maps-key",
@@ -7752,23 +7752,23 @@
         },
         {
             "name": "roots/wordpress-no-content",
-            "version": "7.1.1",
+            "version": "7.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress.git",
-                "reference": "7.1.1"
+                "reference": "7.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/release/wordpress-7.1.1-no-content.zip",
-                "reference": "7.1.1",
-                "shasum": "bb9a161c407ea4bde3f52510d231c93a14e45506"
+                "url": "https://downloads.wordpress.org/release/wordpress-7.1.2-no-content.zip",
+                "reference": "7.1.2",
+                "shasum": "52c0250854a52621dc024651b63d1e088287ee16"
             },
             "require": {
                 "php": ">= 7.4"
             },
             "provide": {
-                "wordpress/core-implementation": "7.1.1"
+                "wordpress/core-implementation": "7.1.2"
             },
             "suggest": {
                 "ext-curl": "Performs remote request operations.",
@@ -7819,7 +7819,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2026-09-17T19:19:18+00:00"
+            "time": "2026-09-22T13:36:10+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -9393,15 +9393,15 @@
         },
         {
             "name": "wp-plugin/redirection",
-            "version": "5.10.0",
+            "version": "5.10.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redirection/",
-                "reference": "tags/5.10.0"
+                "reference": "tags/5.10.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redirection.5.10.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/redirection.5.10.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9424,15 +9424,15 @@
         },
         {
             "name": "wp-plugin/redis-cache",
-            "version": "2.8.0",
+            "version": "3.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redis-cache/",
-                "reference": "tags/2.8.0"
+                "reference": "tags/3.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redis-cache.2.8.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/redis-cache.3.0.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9799,12 +9799,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }
