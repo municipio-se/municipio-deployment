@@ -12,7 +12,7 @@ This guide describes the local development environment for Municipio Deployment.
 
 1. Clone the repository and open it in VS Code.
 2. Run `Dev Containers: Reopen in Container` from the command palette.
-3. On first start, `postCreateCommand.sh` creates `.devcontainer/.env` from `.env.example` and configures Composer and npm credentials when tokens are present.
+3. On first start, `postCreateCommand.sh` creates `.devcontainer/.env` and configures package credentials when present.
 4. Edit `.devcontainer/.env` and set:
     - `GH_TOKEN` to a GitHub personal access token with the `read:packages` scope for private Composer and npm packages.
    - `ACF_PRO_KEY` for Advanced Custom Fields Pro Composer packages.
@@ -31,6 +31,10 @@ This guide describes the local development environment for Municipio Deployment.
 6. Open [http://localhost:8080](http://localhost:8080).
 
 The default administrator is `superadmin` with password `superadmin`. Set `SITE_TITLE`, `ADMIN_USER`, `ADMIN_PASSWORD`, and `ADMIN_EMAIL` in `.devcontainer/.env` to override the defaults.
+
+The dev container prints an attach-time status banner when VS Code attaches. Run `.devcontainer/scripts/status.sh` to show the same status again.
+
+The dev container prints a configuration status banner when VS Code attaches. Run `.devcontainer/scripts/status.sh` to show the same status again.
 
 ### GitHub Codespaces
 

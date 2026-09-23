@@ -87,3 +87,10 @@ else
     echo ""
     echo "✓ All configuration complete!"
 fi
+
+echo ""
+echo "=========================================="
+echo "  Dev container setup complete"
+echo "=========================================="
+echo "VS Code prints configuration status whenever it attaches to the container."
+echo "Run .devcontainer/scripts/status.sh to show configuration status again."
