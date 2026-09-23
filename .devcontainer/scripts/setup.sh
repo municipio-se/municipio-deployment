@@ -218,6 +218,9 @@ else
 fi
 print_success "WordPress installed"
 
+print_info "Setting home URL to site root..."
+wp option update home "${LOCAL_SITE_URL}" --allow-root --url="${LOCAL_SITE_URL}" --quiet --skip-plugins --skip-themes
+
 print_info "Activating required plugins..."
 for plugin in "${REQUIRED_PLUGINS[@]}"; do
     # --skip-themes: municipio (the only theme present, loaded via WP_DEFAULT_THEME
