@@ -29,7 +29,8 @@
         "ghcr.io/devcontainers-extra/features/composer": {
             "version": "latest"
         },
-        "./features/wp-cli": {}
+        "./features/wp-cli": {},
+        "./features/gh-cli": {}
     },
     "waitFor": "postCreateCommand",
     // Configure tool-specific properties.
