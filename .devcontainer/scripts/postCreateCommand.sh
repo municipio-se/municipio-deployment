@@ -7,6 +7,11 @@
 
 MISSING_CONFIG=()
 
+# Codespaces secrets and variables inherited by the container take precedence
+# over values in the local configuration file.
+INHERITED_GH_TOKEN="${GH_TOKEN:-}"
+INHERITED_ACF_PRO_KEY="${ACF_PRO_KEY:-}"
+
 # Create .env file from example if not present
 if [ ! -f .devcontainer/.env ]; then
     echo "→ .devcontainer/.env file not found, creating from .env.example..."
@@ -23,25 +28,33 @@ if [ -f .devcontainer/.env ]; then
     set +a
 fi
 
+if [ -n "$INHERITED_GH_TOKEN" ]; then
+    GH_TOKEN="$INHERITED_GH_TOKEN"
+fi
+
+if [ -n "$INHERITED_ACF_PRO_KEY" ]; then
+    ACF_PRO_KEY="$INHERITED_ACF_PRO_KEY"
+fi
+
 # Check required variables and configure what we can
 echo "Checking configuration..."
 echo ""
 
-# Check MUNICIPIO_GITHUB_TOKEN
-if [ -z "$MUNICIPIO_GITHUB_TOKEN" ]; then
-    echo "⚠️  MUNICIPIO_GITHUB_TOKEN is not set"
-    MISSING_CONFIG+=("MUNICIPIO_GITHUB_TOKEN - Required for npm and composer packages")
+# Check GH_TOKEN
+if [ -z "$GH_TOKEN" ]; then
+    echo "⚠️  GH_TOKEN is not set"
+    MISSING_CONFIG+=("GH_TOKEN - GitHub personal access token with read:packages scope")
 else
-    echo "✓ MUNICIPIO_GITHUB_TOKEN is set"
+    echo "✓ GH_TOKEN is set"
 
     # Create .npmrc file
     > ~/.npmrc
     echo "@helsingborg-stad:registry=https://npm.pkg.github.com" > ~/.npmrc
-    echo "//npm.pkg.github.com/:_authToken=${MUNICIPIO_GITHUB_TOKEN}" >> ~/.npmrc
+    echo "//npm.pkg.github.com/:_authToken=${GH_TOKEN}" >> ~/.npmrc
     echo "✓ .npmrc file configured"
 
     # Set the GitHub token for Composer
-    composer config github-oauth.github.com $MUNICIPIO_GITHUB_TOKEN 2>/dev/null
+    composer config github-oauth.github.com $GH_TOKEN 2>/dev/null
     echo "✓ Composer GitHub token configured"
 fi
 

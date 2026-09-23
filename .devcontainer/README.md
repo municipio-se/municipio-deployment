@@ -14,7 +14,7 @@ This guide describes the local development environment for Municipio Deployment.
 2. Run `Dev Containers: Reopen in Container` from the command palette.
 3. On first start, `postCreateCommand.sh` creates `.devcontainer/.env` from `.env.example` and configures Composer and npm credentials when tokens are present.
 4. Edit `.devcontainer/.env` and set:
-   - `MUNICIPIO_GITHUB_TOKEN` for private Composer and npm packages.
+    - `GH_TOKEN` to a GitHub personal access token with the `read:packages` scope for private Composer and npm packages.
    - `ACF_PRO_KEY` for Advanced Custom Fields Pro Composer packages.
 5. Run the local site setup:
 
@@ -31,6 +31,12 @@ This guide describes the local development environment for Municipio Deployment.
 6. Open [http://localhost:8080](http://localhost:8080).
 
 The default administrator is `superadmin` with password `superadmin`. Set `SITE_TITLE`, `ADMIN_USER`, `ADMIN_PASSWORD`, and `ADMIN_EMAIL` in `.devcontainer/.env` to override the defaults.
+
+### GitHub Codespaces
+
+Add `GH_TOKEN` and `ACF_PRO_KEY` as Codespaces repository secrets before creating the codespace. `GH_TOKEN` must be a GitHub personal access token with the `read:packages` scope. Codespaces exposes the secrets to the dev container automatically, so no `.env` file is required for startup. Environment values take precedence over values copied from `.env.example`.
+
+The container can also start without these credentials. Package installation that requires private GitHub packages or ACF Pro remains unavailable until the corresponding credential is configured, but the missing values no longer prevent container creation.
 
 ## Services
 
