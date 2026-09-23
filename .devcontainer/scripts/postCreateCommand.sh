@@ -47,14 +47,13 @@ if [ -z "$GH_TOKEN" ]; then
 else
     echo "✓ GH_TOKEN is set"
 
-    # Create .npmrc file
-    > ~/.npmrc
-    echo "@helsingborg-stad:registry=https://npm.pkg.github.com" > ~/.npmrc
-    echo "//npm.pkg.github.com/:_authToken=${GH_TOKEN}" >> ~/.npmrc
+    # Update only the required npm settings, preserving other user configuration.
+    npm config set "@helsingborg-stad:registry=https://npm.pkg.github.com" --location=user
+    npm config set "//npm.pkg.github.com/:_authToken=${GH_TOKEN}" --location=user
     echo "✓ .npmrc file configured"
 
     # Set the GitHub token for Composer
-    composer config github-oauth.github.com $GH_TOKEN 2>/dev/null
+    composer config --global --auth github-oauth.github.com "$GH_TOKEN" 2>/dev/null
     echo "✓ Composer GitHub token configured"
 fi
 
