@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eab993322c8bc94fde1f4fd61ed71ead",
+    "content-hash": "6413fe7a67171615b20797a934c2e82b",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -2363,16 +2363,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.40.1",
+            "version": "5.41.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "f4a34ec60de33cb3c8de1db78540d5348530f518"
+                "reference": "5e99568106b01fce5240cfbd1bf17a4858e92706"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/f4a34ec60de33cb3c8de1db78540d5348530f518",
-                "reference": "f4a34ec60de33cb3c8de1db78540d5348530f518",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/5e99568106b01fce5240cfbd1bf17a4858e92706",
+                "reference": "5e99568106b01fce5240cfbd1bf17a4858e92706",
                 "shasum": ""
             },
             "require": {
@@ -2404,9 +2404,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.40.1"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.41.0"
             },
-            "time": "2026-09-21T20:38:38+00:00"
+            "time": "2026-09-23T13:58:34+00:00"
         },
         {
             "name": "helsingborg-stad/coordinate-transformation-library",
@@ -3757,16 +3757,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.43.1",
+            "version": "7.43.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "36981618790e6cdddc86b39b3ed2fd172483e10f"
+                "reference": "6bca5b1b15ef41c8f5776e025f6474663df9c118"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/36981618790e6cdddc86b39b3ed2fd172483e10f",
-                "reference": "36981618790e6cdddc86b39b3ed2fd172483e10f",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/6bca5b1b15ef41c8f5776e025f6474663df9c118",
+                "reference": "6bca5b1b15ef41c8f5776e025f6474663df9c118",
                 "shasum": ""
             },
             "require": {
@@ -3782,7 +3782,7 @@
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
                 "helsingborg-stad/schema-library": "0.5.7",
-                "helsingborg-stad/styleguide": "3.31.4",
+                "helsingborg-stad/styleguide": "3.32.2",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "0.3.5",
                 "jeradin/acf-dynamic-table-field": "dev-master",
@@ -3843,9 +3843,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.43.1"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.43.3"
             },
-            "time": "2026-09-23T13:35:02+00:00"
+            "time": "2026-09-23T14:22:27+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -4136,21 +4136,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.31.4",
+            "version": "3.32.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "0edf1c75b4b3f390ff6001c2114cf625bd2f9984"
+                "reference": "ed7e3f4afa770a9d7ae7d9682ab4e356e6845675"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/0edf1c75b4b3f390ff6001c2114cf625bd2f9984",
-                "reference": "0edf1c75b4b3f390ff6001c2114cf625bd2f9984",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/ed7e3f4afa770a9d7ae7d9682ab4e356e6845675",
+                "reference": "ed7e3f4afa770a9d7ae7d9682ab4e356e6845675",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.40.1",
+                "helsingborg-stad/component-library": "5.41.0",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -4189,9 +4189,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.31.4"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.32.2"
             },
-            "time": "2026-09-22T06:22:49+00:00"
+            "time": "2026-09-23T14:13:54+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
