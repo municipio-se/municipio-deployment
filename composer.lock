@@ -1157,16 +1157,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v7.1.1",
+            "version": "v7.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/php-jwt.git",
-                "reference": "9bc93bd7e3ee5bead4cd23c365ec12f3c1fb0a6a"
+                "reference": "f502cdbf279cd7532060b041f7c22a05208c0b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/php-jwt/zipball/9bc93bd7e3ee5bead4cd23c365ec12f3c1fb0a6a",
-                "reference": "9bc93bd7e3ee5bead4cd23c365ec12f3c1fb0a6a",
+                "url": "https://api.github.com/repos/googleapis/php-jwt/zipball/f502cdbf279cd7532060b041f7c22a05208c0b93",
+                "reference": "f502cdbf279cd7532060b041f7c22a05208c0b93",
                 "shasum": ""
             },
             "require": {
@@ -1176,7 +1176,7 @@
                 "guzzlehttp/guzzle": "^7.4||^8.0",
                 "phpfastcache/phpfastcache": "^9.2",
                 "phpseclib/phpseclib": "~3.0",
-                "phpspec/prophecy-phpunit": "^2.0",
+                "phpspec/prophecy-phpunit": "^2.2",
                 "phpunit/phpunit": "^9.5",
                 "psr/cache": "^2.0||^3.0",
                 "psr/http-client": "^1.0",
@@ -1188,6 +1188,14 @@
                 "phpseclib/phpseclib": "Support PS256 (RSASSA-PSS) signatures"
             },
             "type": "library",
+            "extra": {
+                "component": {
+                    "id": "jwt",
+                    "path": "Jwt",
+                    "entry": "README.md",
+                    "target": "googleapis/php-jwt.git"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Firebase\\JWT\\": "src"
@@ -1217,9 +1225,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/php-jwt/issues",
-                "source": "https://github.com/googleapis/php-jwt/tree/v7.1.1"
+                "source": "https://github.com/googleapis/php-jwt/tree/v7.2.0"
             },
-            "time": "2026-09-14T17:48:47+00:00"
+            "time": "2026-09-21T19:29:58+00:00"
         },
         {
             "name": "freshleafmedia/autofocus",
@@ -2355,16 +2363,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.36.13",
+            "version": "5.40.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "b576e3b1cdf69fa714b7f710d2ffddd4ae8f7b51"
+                "reference": "f4a34ec60de33cb3c8de1db78540d5348530f518"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/b576e3b1cdf69fa714b7f710d2ffddd4ae8f7b51",
-                "reference": "b576e3b1cdf69fa714b7f710d2ffddd4ae8f7b51",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/f4a34ec60de33cb3c8de1db78540d5348530f518",
+                "reference": "f4a34ec60de33cb3c8de1db78540d5348530f518",
                 "shasum": ""
             },
             "require": {
@@ -2396,9 +2404,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.36.13"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.40.1"
             },
-            "time": "2026-09-17T10:34:14+00:00"
+            "time": "2026-09-21T20:38:38+00:00"
         },
         {
             "name": "helsingborg-stad/coordinate-transformation-library",
@@ -3749,16 +3757,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.41.4",
+            "version": "7.42.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "0cfe764b8f031e6610ca3bac121d4ed194cd50f9"
+                "reference": "cdfd50a6b6c87212684be2737bcd8af0f669fa55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/0cfe764b8f031e6610ca3bac121d4ed194cd50f9",
-                "reference": "0cfe764b8f031e6610ca3bac121d4ed194cd50f9",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/cdfd50a6b6c87212684be2737bcd8af0f669fa55",
+                "reference": "cdfd50a6b6c87212684be2737bcd8af0f669fa55",
                 "shasum": ""
             },
             "require": {
@@ -3768,20 +3776,20 @@
                 "composer/installers": "^2.3",
                 "dompdf/dompdf": "v3.1.6",
                 "enshrined/svg-sanitize": "dev-master",
-                "firebase/php-jwt": "v7.1.1",
+                "firebase/php-jwt": "v7.2.0",
                 "freshleafmedia/autofocus": "^1.0",
                 "helsingborg-stad/acf-export-manager": ">=1.0.0",
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
                 "helsingborg-stad/schema-library": "0.5.7",
-                "helsingborg-stad/styleguide": "3.24.18",
+                "helsingborg-stad/styleguide": "3.31.4",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "0.3.5",
                 "jeradin/acf-dynamic-table-field": "dev-master",
                 "jeradin/acf-website-field": "dev-master",
                 "johannheyne/advanced-custom-fields-table-field": "dev-master",
                 "landrok/language-detector": "dev-master",
-                "league/commonmark": "2.10.1",
+                "league/commonmark": "2.10.3",
                 "league/config": "v1.2.0",
                 "ooksanen/acf-focuspoint": "^1.2.1",
                 "php": "^8.2",
@@ -3835,9 +3843,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.41.4"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.42.2"
             },
-            "time": "2026-09-23T08:12:07+00:00"
+            "time": "2026-09-23T13:02:53+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -4128,21 +4136,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.24.18",
+            "version": "3.31.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "9c10f31948bcae38cf9ad827ca863e083bfd027e"
+                "reference": "0edf1c75b4b3f390ff6001c2114cf625bd2f9984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/9c10f31948bcae38cf9ad827ca863e083bfd027e",
-                "reference": "9c10f31948bcae38cf9ad827ca863e083bfd027e",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/0edf1c75b4b3f390ff6001c2114cf625bd2f9984",
+                "reference": "0edf1c75b4b3f390ff6001c2114cf625bd2f9984",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.36.13",
+                "helsingborg-stad/component-library": "5.40.1",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -4181,9 +4189,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.24.18"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.31.4"
             },
-            "time": "2026-09-17T10:42:31+00:00"
+            "time": "2026-09-22T06:22:49+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
@@ -5770,16 +5778,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.10.1",
+            "version": "2.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "9d489ab67a02960fd8ffe624d93f751daf95439e"
+                "reference": "6efbd9c472b91db0a3350fcd601c8332c2382e1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/9d489ab67a02960fd8ffe624d93f751daf95439e",
-                "reference": "9d489ab67a02960fd8ffe624d93f751daf95439e",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/6efbd9c472b91db0a3350fcd601c8332c2382e1f",
+                "reference": "6efbd9c472b91db0a3350fcd601c8332c2382e1f",
                 "shasum": ""
             },
             "require": {
@@ -5873,7 +5881,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-07T13:44:26+00:00"
+            "time": "2026-09-21T13:07:34+00:00"
         },
         {
             "name": "league/config",
