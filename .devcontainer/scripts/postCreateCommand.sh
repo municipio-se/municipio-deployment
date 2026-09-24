@@ -47,6 +47,21 @@ fi
 
 echo ""
 
+# Check MUNICIPIO_ACF_PRO_KEY
+if [ -z "${MUNICIPIO_ACF_PRO_KEY:-}" ]; then
+    echo "⚠️  MUNICIPIO_ACF_PRO_KEY is not set"
+    MISSING_CONFIG+=("MUNICIPIO_ACF_PRO_KEY - Required for installing ACF Pro via Composer")
+else
+    echo "✓ MUNICIPIO_ACF_PRO_KEY is set"
+
+    # ACF's connect API requires the licence key as basic-auth username and the
+    # registered site URL (with scheme) as the password.
+    composer config http-basic.connect.advancedcustomfields.com "$MUNICIPIO_ACF_PRO_KEY" "http://${LOCAL_SITE_DOMAIN:-localhost:8080}" 2>/dev/null
+    echo "✓ Composer ACF Pro key configured"
+fi
+
+echo ""
+
 # Always create symlink to /var/www/html
 sudo chmod a+x "$(pwd)" && sudo rm -rf /var/www/html && sudo ln -s "$(pwd)" /var/www/html
 echo "✓ Symlink created: $(pwd) → /var/www/html"
