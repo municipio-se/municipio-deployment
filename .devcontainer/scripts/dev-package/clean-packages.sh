@@ -46,7 +46,7 @@ if [ -d wp-content/mu-plugins ]; then
   # Keep loader.php
   while IFS= read -r -d '' entry; do
     rm_rf_retry "$entry"
-  done < <(find wp-content/mu-plugins/ -mindepth 1 -maxdepth 1 ! -name 'loader.php' ! -name 'migrate.php' -print0)
+  done < <(find wp-content/mu-plugins/ -mindepth 1 -maxdepth 1 ! -name 'loader.php' -print0)
 fi
 
 if [ -d wp-content/themes ]; then
