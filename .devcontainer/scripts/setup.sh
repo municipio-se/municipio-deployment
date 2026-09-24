@@ -147,9 +147,11 @@ PHP
 
 # Ask the user whether to install a single site or a subfolder multisite network
 prompt_site_type() {
-    if [[ -n "$SITE_TYPE" ]]; then
-        return
-    fi
+    case "$SITE_TYPE" in
+        single|multisite) return ;;
+        "") ;;
+        *) print_error "SITE_TYPE must be 'single' or 'multisite'."; exit 1 ;;
+    esac
 
     if [[ ! -t 0 ]]; then
         SITE_TYPE="multisite"
