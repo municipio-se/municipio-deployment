@@ -15,3 +15,4 @@ if [[ "$(wp eval 'echo is_multisite() ? "1" : "0";' "${WP_ARGS[@]}")" == "1" ]];
 fi
 
 wp plugin activate redis-cache litespeed-cache "${WP_ARGS[@]}" "${PLUGIN_SCOPE[@]}"
+wp redis enable "${WP_ARGS[@]}"

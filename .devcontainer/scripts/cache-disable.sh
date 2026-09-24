@@ -20,4 +20,5 @@ if wp plugin is-active litespeed-cache "${WP_SAFE_ARGS[@]}" "${PLUGIN_SCOPE[@]}"
 fi
 
 wp cache flush "${WP_SAFE_ARGS[@]}"
-wp plugin deactivate redis-cache litespeed-cache "${WP_SAFE_ARGS[@]}" "${PLUGIN_SCOPE[@]}"
+wp redis disable "${WP_SAFE_ARGS[@]}"
+wp plugin deactivate litespeed-cache "${WP_SAFE_ARGS[@]}" "${PLUGIN_SCOPE[@]}"
