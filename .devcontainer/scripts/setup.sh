@@ -222,10 +222,8 @@ print_success "Packages installed"
 # Step 3: Install WordPress
 print_header "Installing WordPress (${SITE_TYPE})"
 print_info "Resetting database..."
+wp cache flush --allow-root --skip-plugins --skip-themes || true
 wp db reset --yes --allow-root --skip-plugins --skip-themes
-if wp core is-installed --allow-root --skip-plugins --skip-themes >/dev/null 2>&1; then
-    wp cache flush --allow-root --skip-plugins --skip-themes || true
-fi
 
 if [[ "$SITE_TYPE" == "multisite" ]]; then
     print_info "Running multisite network install..."
