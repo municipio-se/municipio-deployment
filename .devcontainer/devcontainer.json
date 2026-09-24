@@ -63,10 +63,6 @@
                         "requireLocalPort": false
                     }
                 },
-                "intelephense.environment.includePaths": [
-                    "/tmp/wordpress-tests-lib",
-                    "/tmp/wordpress"
-                ],
                 "intelephense.environment.phpVersion": "8.3"
             }
         }

@@ -114,6 +114,37 @@ check_existing_setup() {
     echo $setup_detected
 }
 
+# Remove multisite constants that wp-cli may have written directly to wp-config.php
+# during previous installs. Multisite mode is controlled by config/multisite.php.
+remove_root_multisite_config() {
+    if [[ ! -f "./wp-config.php" ]]; then
+        return
+    fi
+
+    php <<'PHP'
+<?php
+$path = 'wp-config.php';
+$contents = file_get_contents($path);
+$pattern = <<<'REGEX'
+~
+\n+\s*define\(\s*['"]WP_ALLOW_MULTISITE['"]\s*,\s*true\s*\)\s*;\s*\n
+\s*define\(\s*['"]MULTISITE['"]\s*,\s*true\s*\)\s*;\s*\n
+\s*define\(\s*['"]SUBDOMAIN_INSTALL['"]\s*,\s*(?:true|false)\s*\)\s*;\s*\n
+(?:\s*\$base\s*=\s*['"][^'"]*['"]\s*;\s*\n)?
+\s*define\(\s*['"]DOMAIN_CURRENT_SITE['"]\s*,\s*['"][^'"]+['"]\s*\)\s*;\s*\n
+\s*define\(\s*['"]PATH_CURRENT_SITE['"]\s*,\s*['"][^'"]*['"]\s*\)\s*;\s*\n
+\s*define\(\s*['"]SITE_ID_CURRENT_SITE['"]\s*,\s*\d+\s*\)\s*;\s*\n
+\s*define\(\s*['"]BLOG_ID_CURRENT_SITE['"]\s*,\s*\d+\s*\)\s*;\s*\n
+~x
+REGEX;
+$updated = preg_replace($pattern, "\n", $contents);
+
+if ($updated !== $contents) {
+    file_put_contents($path, $updated);
+}
+PHP
+}
+
 # Ask the user whether to install a single site or a subfolder multisite network
 prompt_site_type() {
     if [[ -n "$SITE_TYPE" ]]; then
@@ -164,6 +195,9 @@ print_info "Site type: ${SITE_TYPE}"
 print_header "Adding Config Files"
 print_info "Creating config directory..."
 mkdir -p ./config
+print_info "Removing stale multisite config..."
+rm -f ./config/multisite.php
+remove_root_multisite_config
 print_info "Copying config-example files..."
 if [[ "$SITE_TYPE" == "single" ]]; then
     find ./config-example -maxdepth 1 -type f ! -name 'multisite.php' -exec cp {} ./config \;
@@ -186,9 +220,10 @@ print_success "Packages installed"
 # Step 3: Install WordPress
 print_header "Installing WordPress (${SITE_TYPE})"
 print_info "Resetting database..."
-wp db reset --quiet --yes --allow-root --skip-plugins --skip-themes
-print_info "Flushing object cache (stale entries survive db reset)..."
-wp cache flush --allow-root --skip-plugins --skip-themes || true
+wp db reset --yes --allow-root --skip-plugins --skip-themes
+if wp core is-installed --allow-root --skip-plugins --skip-themes >/dev/null 2>&1; then
+    wp cache flush --allow-root --skip-plugins --skip-themes || true
+fi
 
 if [[ "$SITE_TYPE" == "multisite" ]]; then
     print_info "Running multisite network install..."

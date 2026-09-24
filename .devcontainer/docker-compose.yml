@@ -1,11 +1,8 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: webbutvecklinghelsingborg/gitops:openlitespeed-0.0.4
     ports:
       - 8080:80
-
     volumes:
       - ./php-ini-overrides.ini:/usr/local/lsws/lsphp83/etc/php/8.3/mods-available/zz-overrides.ini:cached
       - ..:/var/www/vhosts/localhost/html
