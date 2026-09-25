@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca69c3e99beca22b30de96f46807e631",
+    "content-hash": "6e84c31239ccada2065caa9dfcabb8cf",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3160,16 +3160,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-frontend-form",
-            "version": "0.84.0",
+            "version": "0.84.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-frontend-form.git",
-                "reference": "f95f3985fc047a14c2543550f45b00037bfbbacb"
+                "reference": "4c16c74a913da8e952e8571dc8562ca242b9bbf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-frontend-form/zipball/f95f3985fc047a14c2543550f45b00037bfbbacb",
-                "reference": "f95f3985fc047a14c2543550f45b00037bfbbacb",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-frontend-form/zipball/4c16c74a913da8e952e8571dc8562ca242b9bbf0",
+                "reference": "4c16c74a913da8e952e8571dc8562ca242b9bbf0",
                 "shasum": ""
             },
             "require": {
@@ -3207,9 +3207,9 @@
             "description": "Frontend Form for Modularity.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-frontend-form/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-frontend-form/tree/0.84.0"
+                "source": "https://github.com/helsingborg-stad/modularity-frontend-form/tree/0.84.4"
             },
-            "time": "2026-09-15T06:47:34+00:00"
+            "time": "2026-09-25T11:25:21+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-guides",
@@ -9807,12 +9807,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
