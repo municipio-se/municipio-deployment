@@ -17,7 +17,8 @@
     "allow-plugins": {
       "composer/installers": true,
       "php-http/discovery": true,
-      "roots/wordpress-core-installer": true
+      "roots/wordpress-core-installer": true,
+      "johnpbloch/wordpress-core-installer": false
     },
     "optimize-autoloader": true,
     "process-timeout": 21600
@@ -80,14 +81,14 @@
     "helsingborg-stad/modularity-timeline": "5.0.6",
     "helsingborg-stad/multi-network-urls": "2.0.0",
     "helsingborg-stad/multisite-role-propagation": "3.0.7",
-    "helsingborg-stad/municipio": "7.43.13",
-    "helsingborg-stad/municipio-clone": "1.4.1",
+    "helsingborg-stad/municipio": "7.44.24",
+    "helsingborg-stad/municipio-clone": "v1.4.2",
     "helsingborg-stad/redirection-extended": "3.0.8",
     "helsingborg-stad/s3-local-index": "1.2.0",
     "helsingborg-stad/s3-uploads-custom-endpoint": "2.0.0",
     "helsingborg-stad/search-notices": "3.0.6",
     "helsingborg-stad/visit-custom-posttypes-taxonomies": "2.0.10",
-    "helsingborg-stad/webhooks-manager": "1.3.2",
+    "helsingborg-stad/webhooks-manager": "1.3.3",
     "helsingborg-stad/wp-page-for-post-type": "2.0.16",
     "helsingborg-stad/wp-search-statistics": "1.0.8",
     "helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early": "0.2.0",
@@ -154,7 +155,8 @@
     ],
     "post-install-cmd": [
       "php composer-local-merge.php post-install",
-      "mkdir -p wp-content/uploads/cache/blade-cache"
+      "mkdir -p wp-content/uploads/cache/blade-cache",
+      "cp wp-content/plugins/redis-cache/includes/object-cache.php wp-content/object-cache.php"
     ],
     "pre-update-cmd": [
       "php composer-local-merge.php pre-install"
