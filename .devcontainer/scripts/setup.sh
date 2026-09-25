@@ -300,15 +300,6 @@ print_info "Removing cached fonts..."
 rm -rf ./wp-content/fonts/*
 print_success "Cached fonts removed"
 
-# Step 7: Copy mu-plugins
-print_header "Setting Up Must-Use Plugins"
-print_info "Copying mu-plugins from devcontainer config..."
-mkdir -p ./wp-content/mu-plugins
-cp ./.devcontainer/mu-plugins/* ./wp-content/mu-plugins
-print_success "Must-Use Plugins set up"
-
-# Step 8
-
 # Final success message
 print_header "Setup Complete! 🎉"
 echo ""
