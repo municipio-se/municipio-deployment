@@ -17,7 +17,8 @@
     "allow-plugins": {
       "composer/installers": true,
       "php-http/discovery": true,
-      "roots/wordpress-core-installer": true
+      "roots/wordpress-core-installer": true,
+      "johnpbloch/wordpress-core-installer": false
     },
     "optimize-autoloader": true,
     "process-timeout": 21600
@@ -80,7 +81,7 @@
     "helsingborg-stad/modularity-timeline": "5.0.6",
     "helsingborg-stad/multi-network-urls": "2.0.0",
     "helsingborg-stad/multisite-role-propagation": "3.0.7",
-    "helsingborg-stad/municipio": "7.44.18",
+    "helsingborg-stad/municipio": "7.44.24",
     "helsingborg-stad/municipio-clone": "v1.4.2",
     "helsingborg-stad/redirection-extended": "3.0.8",
     "helsingborg-stad/s3-local-index": "1.2.0",
