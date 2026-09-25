@@ -154,7 +154,8 @@
     ],
     "post-install-cmd": [
       "php composer-local-merge.php post-install",
-      "mkdir -p wp-content/uploads/cache/blade-cache"
+      "mkdir -p wp-content/uploads/cache/blade-cache",
+      "cp wp-content/plugins/redis-cache/includes/object-cache.php wp-content/object-cache.php"
     ],
     "pre-update-cmd": [
       "php composer-local-merge.php pre-install"
