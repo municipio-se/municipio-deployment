@@ -89,8 +89,8 @@ ErrorDocument 404 /index.php?error=404
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
-  RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L]
-  RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
+  RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) wp/$2 [L]
+  RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ wp/$2 [L]
   RewriteRule . index.php [L]
 </IfModule>
 # END WordPress
