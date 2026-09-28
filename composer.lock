@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9b2b9ec923c9a459555d878cbffab98",
+    "content-hash": "3ea8083a6fa46f91dbc9f4da350a628b",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -260,16 +260,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.398.0",
+            "version": "3.398.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "1b6f116bd571bd461126b7edff8bf7e173b36ea2"
+                "reference": "42abd470c300c143972e27778b3bbb0ce7402e41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1b6f116bd571bd461126b7edff8bf7e173b36ea2",
-                "reference": "1b6f116bd571bd461126b7edff8bf7e173b36ea2",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/42abd470c300c143972e27778b3bbb0ce7402e41",
+                "reference": "42abd470c300c143972e27778b3bbb0ce7402e41",
                 "shasum": ""
             },
             "require": {
@@ -351,9 +351,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.398.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.398.1"
             },
-            "time": "2026-09-24T18:07:06+00:00"
+            "time": "2026-09-25T18:11:40+00:00"
         },
         {
             "name": "brick/math",
@@ -3757,16 +3757,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.45.0",
+            "version": "7.45.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "9dc6b9420ee03406f2a61173a1c7218bb88c3373"
+                "reference": "8507a5a22676e1c316d37191a50075020c1d3c16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/9dc6b9420ee03406f2a61173a1c7218bb88c3373",
-                "reference": "9dc6b9420ee03406f2a61173a1c7218bb88c3373",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/8507a5a22676e1c316d37191a50075020c1d3c16",
+                "reference": "8507a5a22676e1c316d37191a50075020c1d3c16",
                 "shasum": ""
             },
             "require": {
@@ -3843,9 +3843,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.45.0"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.45.3"
             },
-            "time": "2026-09-25T13:08:34+00:00"
+            "time": "2026-09-28T09:08:59+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -9736,7 +9736,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-multi-network",
                 "source": "https://plugins.svn.wordpress.org/wp-multi-network"
             },
-            "time": "2026-03-23T19:23:21+00:00"
+            "time": "2026-09-27T07:21:06+00:00"
         },
         {
             "name": "wp-plugin/wp-nested-pages",
@@ -9767,7 +9767,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-nested-pages",
                 "source": "https://plugins.svn.wordpress.org/wp-nested-pages"
             },
-            "time": "2026-09-03T19:56:04+00:00"
+            "time": "2026-09-25T19:01:48+00:00"
         },
         {
             "name": "wpackagist-plugin/miniorange-saml-20-single-sign-on",
@@ -9807,12 +9807,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }
