@@ -1,6 +1,6 @@
 # Municipio Deployment Dev Container
 
-This guide provides instructions for setting up and working with the Municipio Deployment Dev Container.
+This guide covers setting up a local WordPress site, cloning a remote site, and developing Municipio packages inside the dev container. Run the commands below in the VS Code terminal inside the container, from the repository root unless stated otherwise.
 
 ## Prerequisites
 
@@ -10,225 +10,124 @@ This guide provides instructions for setting up and working with the Municipio D
 
 ## Getting Started
 
-1. **Clone the repository**
-    `git clone <repository-url>`
+1. Clone the repository, open it in VS Code, and run `Dev Containers: Reopen in Container` from the command palette. Wait for container creation to finish.
+2. On first start, the container copies `.devcontainer/.env.example` to `.devcontainer/.env` if the latter does not exist. Edit `.devcontainer/.env` and set `GH_TOKEN` to a GitHub personal access token with `read:packages` access and `ACF_PRO_KEY` to your Advanced Custom Fields Pro Composer key. You can also set `SITE_TYPE` (`single` or `multisite`), `SITE_TITLE`, `ADMIN_USER`, `ADMIN_PASSWORD`, and `ADMIN_EMAIL` for the local install.
+3. If you added package credentials after the container was created, apply them to Composer and npm before installing packages:
 
-2. **Open the repository in VS Code**
+    ```bash
+    bash .devcontainer/scripts/postCreateCommand.sh
+    ```
 
-3. **Reopen in Container**
-    Open the command palette (`Cmd+Shift+P` or `Ctrl+Shift+P`) and run:
-    `Dev Containers: Reopen in Container`
+4. Set up WordPress. This resets the local database and generated configuration, so do not rerun it to preserve local content:
 
-4. **Configure environment variables**
-    The container will auto-create `.devcontainer/.env` from `.env.example` on first start.
-    Edit `.devcontainer/.env` and fill in the required values:
-    - `MUNICIPIO_GITHUB_TOKEN` - Required for private npm/composer packages
+    ```bash
+    composer devcontainer:reset
+    ```
 
-5. **Run setup script**
-    In the terminal, run:
-    `.devcontainer/scripts/setup.sh`
+5. Open [http://localhost:8080](http://localhost:8080) and sign in. The default administrator credentials are `superadmin` / `superadmin` unless overridden in `.devcontainer/.env`.
 
-6. **Access the local site**
-    Open your browser and navigate to [http://localhost:8080](http://localhost:8080).
+VS Code shows a configuration status banner when you attach to the container. Run `.devcontainer/scripts/status.sh` to see it again.
 
-### Accessing the Local Site
+### Xdebug
 
-- Navigate to [http://localhost:8080](http://localhost:8080) in your browser.
-- Default login credentials:
-  - **Username:** `superadmin`
-  - **Password:** `superadmin`
-
-## Working with Packages in the Container
-
-To develop or debug specific Composer packages within the container:
-
-- **Reinstall a package from source:**  
-  `composer reinstall <vendor>/<package> --prefer-source`
-
-- **Open a package in a new VS Code window:**  
-  `code <path-to-package>`
-
-- **Install package dependencies:**  
-  In the package directory, run:  
-  - `composer install`  
-  - `npm install` (if applicable)
-
-## Running the Setup Script
-
-The `setup.sh` script configures your local development environment from scratch. It will reset the database and apply all necessary configuration.
+Start the `Listen for Xdebug` configuration in VS Code before triggering a session. Web requests start a session when requested with `?XDEBUG_TRIGGER=1` (or with an `XDEBUG_TRIGGER=1` cookie). For example, open `http://localhost:8080/?XDEBUG_TRIGGER=1`. CLI sessions can be triggered with:
 
 ```bash
-.devcontainer/scripts/setup.sh
+XDEBUG_TRIGGER=1 wp post list --allow-root
 ```
 
-The script will:
+The debugger pauses at the first line of a triggered request or command.
 
-1. **Add config files** - Copies configuration from `config-example/` and `.devcontainer/config/wp-config/`
-2. **Install ACF Pro** - Downloads and installs the ACF Pro plugin using your license key
-3. **Import database** - Resets the database and imports `db/seed.sql`
-4. **Add .htaccess** - Copies the `.htaccess` file for URL rewriting
-5. **Clean up** - Removes cached fonts
+### GitHub Codespaces
 
-**Note:** This script requires `MUNICIPIO_ACF_PRO_KEY` to be set in `.devcontainer/.env`.
+Add `GH_TOKEN` and `ACF_PRO_KEY` as Codespaces repository secrets before creating the codespace. `GH_TOKEN` must be a GitHub personal access token with the `read:packages` scope. Codespaces exposes the secrets to the dev container automatically, so you do not need to put credentials in `.devcontainer/.env`. The container still creates that file from `.env.example` on first start; inherited credentials take precedence during credential setup.
 
-## Migrating a Remote Site
+The container can also start without these credentials. Package installation that requires private GitHub packages or ACF Pro remains unavailable until the corresponding credential is configured, but the missing values no longer prevent container creation.
 
-The `migrate.sh` script migrates a remote WordPress subdomain multisite to your local subfolder multisite setup.
+## Services
 
-### Configuration
+| Service | Address | Purpose |
+| --- | --- | --- |
+| WordPress | [http://localhost:8080](http://localhost:8080) | Local site |
+| MariaDB | `localhost:8306` | WordPress database |
+| phpMyAdmin | [http://localhost:8090](http://localhost:8090) | Database administration |
+| Valkey | `localhost:6379` | Object cache |
+| Typesense | `localhost:8108` | Search service |
+| MinIO API | `localhost:9000` | S3-compatible object storage |
+| MinIO console | [http://localhost:9091](http://localhost:9091) | Object storage administration |
 
-Before running the migration, configure the required environment variables in `.devcontainer/.env`:
+The MinIO development credentials are `minioadmin` / `minioadmin`. The `municipio` bucket is created automatically.
 
-| Variable | Description |
-|----------|-------------|
-| `SSH_PORT` | SSH port for remote server |
-| `REMOTE_SSH` | SSH connection string (user@host) |
-| `REMOTE_PATH` | WordPress installation path on remote |
-| `REMOTE_SITE_PROTOCOL` | Protocol of remote site (`http://` or `https://`) |
-| `REMOTE_SITE_DOMAIN` | Domain(s) of remote site(s) to migrate; supports single value, comma-separated list, bash array, or `*` (all remote sites) |
-| `REMOTE_PREFIX` | Database table prefix on remote |
-| `LOCAL_SITE_SLUG` | Local slug(s); supports single value, comma-separated list, bash array, or `*` (auto-generate per remote site) |
+## Local Site Setup
 
-If list/array values are used, `REMOTE_SITE_DOMAIN` and `LOCAL_SITE_SLUG` must have the same number of items.
+`composer devcontainer:reset` runs `.devcontainer/scripts/setup.sh`. It resets the MariaDB database, replaces generated configuration, reinstalls packages, installs WordPress, activates the required plugins and Municipio theme, creates cache directories, and copies the devcontainer `.htaccess` file. Back up any local content and package changes you need before running it again.
 
-If wildcard is used, both variables must be set to `*`.
+Choose `single` for one WordPress site or `multisite` for a network with sites under paths such as `/somesite`. Setup asks which to install when run interactively; set `SITE_TYPE=single` or `SITE_TYPE=multisite` in `.devcontainer/.env` to skip the prompt. Without a terminal or a configured `SITE_TYPE`, setup defaults to `multisite`.
 
-=======
-| `REMOTE_SITE_DOMAIN` | Domain(s) of remote site(s) to migrate; supports single value, comma-separated list, or bash array |
-| `REMOTE_PREFIX` | Database table prefix on remote |
-| `LOCAL_SITE_SLUG` | Local slug(s); supports single value, comma-separated list, or bash array |
+ACF Pro is installed as a must-use plugin and loads automatically. Setup activates `s3-uploads`, `s3-local-index`, and `municipio-clone` (network-wide on multisite). Redis and LiteSpeed cache plugins are installed but remain inactive by default. `ACF_PRO_KEY` configures Composer access to ACF Pro.
 
-If list/array values are used, `REMOTE_SITE_DOMAIN` and `LOCAL_SITE_SLUG` must have the same number of items.
+Redis object caching and LiteSpeed page caching are disabled by default, including after a setup/reset. Enable them for the current site with `.devcontainer/scripts/cache-enable.sh`; turn them off with `.devcontainer/scripts/cache-disable.sh`.
 
-```bash
-# Single site (backward compatible)
-REMOTE_SITE_DOMAIN=example.com
-LOCAL_SITE_SLUG=mysite
+## Clone a Site
 
-# Multiple sites (comma-separated)
-REMOTE_SITE_DOMAIN=example.com,example-two.com
-LOCAL_SITE_SLUG=mysite,mysite-two
+Use this workflow after setting up the local site. You need access to the remote WordPress site and an application password for a remote user. For a subfolder target such as `/somesite`, install the local site as multisite first.
 
-# Multiple sites (bash array)
-REMOTE_SITE_DOMAIN=("example.com" "example-two.com")
-LOCAL_SITE_SLUG=("mysite" "mysite-two")
+1. Copy the example config from the repository root:
 
-# Import all remote multisite blogs one by one
-# Local slug format: remote-<blog_id>-<domain>
-REMOTE_SITE_DOMAIN=*
-LOCAL_SITE_SLUG=*
+    ```bash
+    cp .devcontainer/sites.example.json .devcontainer/sites.json
+    ```
 
-See `.env.example` for a template.
+2. Edit `.devcontainer/sites.json`. Each entry in `mappings` pairs a remote `source_url` with a local `target` (the example uses `http://localhost:8080/somesite`). Set `username_env` and `application_password_env` to the *names* of environment variables holding the remote username and application password, not the credentials themselves. Set `keep_remote_media_urls` to `true` to reference remote media instead of copying it.
 
-### Running the Migration
+3. Export those variables in the terminal running Composer. The example expects `MUNICIPIO_CLONE_USERNAME` and `MUNICIPIO_CLONE_APPLICATION_PASSWORD`. Then run:
 
-```bash
-.devcontainer/scripts/migrate.sh
+    ```bash
+    composer devcontainer:clone
+    ```
 
-# Auto-confirm all migration script prompts
-.devcontainer/scripts/migrate.sh --no-interaction
+This runs `wp municipio clone-batch --config=.devcontainer/sites.json` using the mappings in your copied configuration.
 
-# Via Composer
-composer devcontainer:migrate -- --no-interaction
-```
+## Developing a Package
 
-The script will:
+Run this when you need to edit a `helsingborg-stad/*` or `municipio-se/*` package from source rather than use the installed release. The script removes installed packages, reinstalls them from the configured Composer repositories, then optionally reinstalls one selected package from source. **Commit or stash local changes inside installed package directories first:** the cleanup removes tracked and untracked changes there.
 
-1. **Check dependencies** - Verifies `wp`, `ssh`, and `scp` are available
-2. **Export remote database** - Connects via SSH and exports site tables
-3. **Download database** - Transfers the SQL file to local machine
-4. **Create local site** - Creates a new subfolder site in the local multisite
-5. **Import database** - Imports the remote database tables
-6. **Rename tables** - Updates table prefixes to match local site ID
-7. **Update URLs** - Replaces remote domain with local domain in database
+Interactive mode:
 
-### Notes
-
-- You may be prompted for your SSH password/key passphrase
-- If the local site already exists, you'll be asked whether to delete it
-- Use `--no-interaction` to answer yes to the migration script prompts automatically
-- The script requires SSH access to the remote server
-- After migration, access your site at `http://localhost:8080/<LOCAL_SITE_SLUG>`
-
-### SSH Troubleshooting in Devcontainer
-
-If migration fails with either of these errors:
-
-- `Permission denied (publickey)`
-- `Error connecting to agent: Permission denied`
-
-then the container cannot use your SSH key yet.
-
-Run these checks inside the container:
-
-```bash
-echo "$SSH_AUTH_SOCK"
-ls -l "$SSH_AUTH_SOCK"
-ssh-add -l
-ssh -p <SSH_PORT> <REMOTE_SSH>
-```
-
-If `ssh-add -l` fails with `Error connecting to agent: Permission denied`, rebuild/reopen the devcontainer so the latest SSH socket mount and group settings are applied.
-
-## Documentation for setup-dev-package.sh Script
-The `setup-dev-package.sh` script is a utility designed to streamline the development process by providing a clean and efficient development environment. It automates the process of downloading an editable version of the selected plugin. All other plugins in the environment will be reset to their production release versions. This ensures that only the selected plugin is in a development state, avoiding unnecessary builds for untouched packages.
-
-### Features
-- **Environment Setup**: Automatically configures the development environment with necessary dependencies.
-- **Cleanup**: Ensures the development environment remains clean by removing uncommitted files and resetting configurations as needed.
-- **Automation**: Simplifies repetitive tasks, allowing developers to focus on coding rather than setup.
-- **Compatibility**: Works seamlessly with the existing project structure and dependencies.
-- **Scriptable**: Supports command-line flags for non-interactive use in CI/CD or other scripts.
-
-### Usage
-
-**Interactive mode** (default):
 ```bash
 .devcontainer/scripts/setup-dev-package.sh
 ```
 
-**Non-interactive mode** (for automation):
+To skip prompts (for example, in a scripted environment):
+
 ```bash
-# Clean and install only, skip package selection
+# Reinstall packages without selecting one for source development
 .devcontainer/scripts/setup-dev-package.sh -y --skip-select
 
-# Specify a package directly
-.devcontainer/scripts/setup-dev-package.sh -y -p helsingborg-stad/municipio
+# Set up a package from source without opening another editor
+.devcontainer/scripts/setup-dev-package.sh -y \
+    -p helsingborg-stad/municipio --no-editor
 
-# Skip opening the editor
-.devcontainer/scripts/setup-dev-package.sh -y -p helsingborg-stad/municipio --no-editor
+# Composer alias
+composer dev
 ```
 
-### Options
+Options:
 
 | Flag | Description |
-|------|-------------|
-| `-y, --yes` | Skip confirmation prompt |
-| `-s, --skip-select` | Skip package selection (only clean and install) |
-| `-p, --package <name>` | Specify package name directly |
-| `-e, --editor <cmd>` | Editor command (default: `code`) |
-| `--no-editor` | Don't open editor after setup |
-| `-h, --help` | Show help message |
+| --- | --- |
+| `-y`, `--yes` | Skip the confirmation prompt |
+| `-s`, `--skip-select` | Skip package selection |
+| `-p`, `--package <name>` | Select a package directly |
+| `-e`, `--editor <cmd>` | Editor command, default `code` |
+| `--no-editor` | Do not open the package in an editor |
+| `-h`, `--help` | Show help |
 
-### Sub-scripts
+Package installation validates Composer files and runs `composer install --prefer-dist --no-interaction --ignore-platform-reqs`. If validation fails, the script removes `composer.lock` before installing; check changes to the lockfile afterward.
 
-The script is composed of modular sub-scripts in `.devcontainer/scripts/dev-package/`:
+## Updating Sub-packages
 
-| Script | Purpose |
-|--------|---------|
-| `clean-packages.sh` | Removes vendor, plugins, mu-plugins, and themes |
-| `install-packages.sh` | Runs `composer install --prefer-dist` |
-| `select-dev-package.sh` | Lists packages and reinstalls selected one from source |
-
-These can be run individually if needed.
-
-### Update sub packages
-
-This script scans the project's Composer dependency tree for packages that block an upgrade of a specific dependency and helps align those packages with a common dependency version.
-
-Only packages that already declare the specified dependency in their `composer.json` are modified. The dependency will **not** be added to packages that do not already require it.
-
-#### Usage
+`updateSubPackage.sh` finds installed packages blocking a dependency update, updates the existing dependency constraint, verifies the result, and can push a branch and create a GitHub pull request for each package.
 
 ```bash
 .devcontainer/scripts/updateSubPackage.sh \
@@ -236,84 +135,6 @@ Only packages that already declare the specified dependency in their `composer.j
     --version='^0.3'
 ```
 
-#### Arguments
+Requirements are Composer, Git, and an authenticated GitHub CLI (`gh auth login`). The script only updates dependencies already declared by a package. It may discard local changes when reinstalling affected packages from source, so save those changes before running it.
 
-| Argument       | Description                                                  |
-| -------------- | ------------------------------------------------------------ |
-| `--package`    | Composer package whose version constraint should be updated. |
-| `--version`    | The new Composer version constraint to use.                  |
-| `-h`, `--help` | Display usage information.                                   |
-
-For example:
-
-```bash
-.devcontainer/scripts/updateSubPackage.sh \
-    --package='helsingborg-stad/wputilservice' \
-    --version='^0.3'
-```
-
-This finds packages blocking the use of `helsingborg-stad/wputilservice:^0.3` and processes each blocker individually.
-
-#### Process
-
-For each blocking package, the script:
-
-1. Detects the package using `composer prohibits`.
-2. Reinstalls the package using `--prefer-source` to obtain a Git checkout.
-3. Detects and checks out the repository's default branch.
-4. Creates a dedicated update branch.
-5. Updates the existing dependency constraint in `composer.json`.
-6. Updates the Composer lock file and dependencies.
-7. Runs `composer install` to verify that the resulting dependency tree can be installed.
-8. Displays the Git diff for review.
-9. Asks whether the changes should be committed and pushed.
-10. Pushes the update branch and creates a GitHub pull request.
-
-The script processes all detected blockers sequentially.
-
-#### Review options
-
-After displaying the changes for a package, the script provides the following options:
-
-```text
-[p] Push + create PR
-[s] Skip
-[a] Push this and automatically approve remaining packages
-[q] Quit
-```
-
-Selecting `a` allows the remaining blockers to be processed without requiring approval for each individual package.
-
-#### Requirements
-
-The following tools must be installed and available in `PATH`:
-
-* Composer
-* Git
-* GitHub CLI (`gh`)
-
-GitHub CLI must also be authenticated:
-
-```bash
-gh auth login
-```
-
-#### Important
-
-The script operates on Composer packages installed in the project and reinstalls them from source. This includes packages installed by Composer installers under paths such as `wp-content/plugins`.
-
-Local changes inside affected packages under `vendor` may be discarded when the package is prepared for modification. Do not use the script if you have uncommitted work inside these package directories.
-
-At completion, the script displays a summary of successfully created pull requests, failed updates, and skipped packages.
-
-
-### Notes
-- Ensure you have the necessary permissions to execute the script. You may need to run `chmod +x .devcontainer/scripts/setup-dev-package.sh` to make it executable.
-- Review the script contents to understand its operations and ensure it aligns with your development requirements.
-- For troubleshooting or customization, refer to the script's inline comments or contact the project maintainers.
-
-By using the `setup-dev-package.sh` script, developers can save time and maintain a consistent development workflow across the team.
-
----
-
-For additional troubleshooting or advanced configuration, refer to the [Dev Containers documentation](https://code.visualstudio.com/docs/devcontainers/containers).
+For more information, see the [Dev Containers documentation](https://code.visualstudio.com/docs/devcontainers/containers).
