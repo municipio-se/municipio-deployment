@@ -10,9 +10,6 @@
         8306,
         8090
     ],
-    "containerEnv": {
-        "XDEBUG_MODE": "off"
-    },
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": "bash .devcontainer/scripts/postCreateCommand.sh",
     // Show configuration status whenever VS Code attaches to the container.
@@ -30,7 +27,8 @@
             "version": "latest"
         },
         "./features/wp-cli": {},
-        "./features/gh-cli": {}
+        "./features/gh-cli": {},
+        "./features/xdebug": {}
     },
     "waitFor": "postCreateCommand",
     // Configure tool-specific properties.
@@ -41,7 +39,8 @@
                 "ritwickdey.liveserver",
                 "ms-vscode.remote-server",
                 "cjhowe7.laravel-blade",
-                "github.vscode-github-actions"
+                "github.vscode-github-actions",
+                "xdebug.php-debug"
             ],
             "settings": {
                 "remote.autoForwardPorts": false,
@@ -67,5 +66,5 @@
             }
         }
     },
-    "remoteUser": "vscode"
+    "remoteUser": "root"
 }

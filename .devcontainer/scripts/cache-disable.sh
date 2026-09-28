@@ -20,5 +20,9 @@ if wp plugin is-active litespeed-cache "${WP_SAFE_ARGS[@]}" "${PLUGIN_SCOPE[@]}"
 fi
 
 wp cache flush "${WP_SAFE_ARGS[@]}"
-wp redis disable "${WP_SAFE_ARGS[@]}"
 wp plugin deactivate litespeed-cache "${WP_SAFE_ARGS[@]}" "${PLUGIN_SCOPE[@]}"
+
+if wp plugin is-active redis-cache "${WP_SAFE_ARGS[@]}" "${PLUGIN_SCOPE[@]}" &&
+	[[ "$(wp eval 'echo file_exists(WP_CONTENT_DIR . "/object-cache.php") ? "1" : "0";' "${WP_SAFE_ARGS[@]}")" == "1" ]]; then
+	wp redis disable "${WP_ARGS[@]}" --skip-themes
+fi

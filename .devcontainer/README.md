@@ -36,6 +36,16 @@ The dev container prints an attach-time status banner when VS Code attaches. Run
 
 The dev container prints a configuration status banner when VS Code attaches. Run `.devcontainer/scripts/status.sh` to show the same status again.
 
+### Xdebug
+
+Start the `Listen for Xdebug` configuration in VS Code before triggering a session. Web requests start a session when requested with `?XDEBUG_TRIGGER=1` (or with an `XDEBUG_TRIGGER=1` cookie). For example, open `http://localhost:8080/?XDEBUG_TRIGGER=1`. CLI sessions can be triggered with:
+
+```bash
+XDEBUG_TRIGGER=1 wp post list --allow-root
+```
+
+The debugger pauses at the first line of a triggered request or command.
+
 ### GitHub Codespaces
 
 Add `GH_TOKEN` and `ACF_PRO_KEY` as Codespaces repository secrets before creating the codespace. `GH_TOKEN` must be a GitHub personal access token with the `read:packages` scope. Codespaces exposes the secrets to the dev container automatically, so no `.env` file is required for startup. Environment values take precedence over values copied from `.env.example`.
