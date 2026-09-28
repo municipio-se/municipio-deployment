@@ -78,6 +78,24 @@ Redis object caching and LiteSpeed page caching are disabled by default, includi
 
 Setup is destructive: running it again resets the database and overwrites generated configuration files.
 
+## Clone a Site
+
+After local site setup, copy the example clone configuration and edit the mapping for each site you want to clone:
+
+```bash
+cp .devcontainer/sites.example.json .devcontainer/sites.json
+```
+
+In `.devcontainer/sites.json`, set `source_url` to the remote site and `target` to the local site URL (for example, `http://localhost:8080/somesite`). Set `username_env` and `application_password_env` to the names of environment variables containing a remote WordPress username and application password. Set `keep_remote_media_urls` to `true` to keep media URLs pointing to the remote site.
+
+Export the named variables in the shell running Composer (the example uses `MUNICIPIO_CLONE_USERNAME` and `MUNICIPIO_CLONE_APPLICATION_PASSWORD`), then run the alias from the repository root:
+
+```bash
+composer devcontainer:clone
+```
+
+This runs `wp municipio clone-batch --config=.devcontainer/sites.json` using the mappings in your copied configuration.
+
 ## Developing a Package
 
 The package setup script removes installed packages and reinstalls them from the configured Composer repositories. It can then reinstall one selected `helsingborg-stad/*` or `municipio-se/*` package from source. Local changes inside installed package directories are lost, so commit or stash them first.
