@@ -17,7 +17,8 @@
     "allow-plugins": {
       "composer/installers": true,
       "php-http/discovery": true,
-      "roots/wordpress-core-installer": true
+      "roots/wordpress-core-installer": true,
+      "johnpbloch/wordpress-core-installer": false
     },
     "optimize-autoloader": true,
     "process-timeout": 21600
@@ -69,7 +70,7 @@
     "helsingborg-stad/modularity-contact-banner": "4.0.28",
     "helsingborg-stad/modularity-entryscape": "5.0.22",
     "helsingborg-stad/modularity-form-builder": "4.0.16",
-    "helsingborg-stad/modularity-frontend-form": "0.84.0",
+    "helsingborg-stad/modularity-frontend-form": "0.84.6",
     "helsingborg-stad/modularity-guides": "5.0.16",
     "helsingborg-stad/modularity-json-render": "4.0.18",
     "helsingborg-stad/modularity-open-street-map": "3.1.20",
@@ -80,7 +81,7 @@
     "helsingborg-stad/modularity-timeline": "5.0.6",
     "helsingborg-stad/multi-network-urls": "2.0.0",
     "helsingborg-stad/multisite-role-propagation": "3.0.7",
-    "helsingborg-stad/municipio": "7.44.7",
+    "helsingborg-stad/municipio": "7.45.3",
     "helsingborg-stad/municipio-clone": "v1.4.2",
     "helsingborg-stad/redirection-extended": "3.0.8",
     "helsingborg-stad/s3-local-index": "1.2.0",
@@ -154,7 +155,8 @@
     ],
     "post-install-cmd": [
       "php composer-local-merge.php post-install",
-      "mkdir -p wp-content/uploads/cache/blade-cache"
+      "mkdir -p wp-content/uploads/cache/blade-cache",
+      "cp wp-content/plugins/redis-cache/includes/object-cache.php wp-content/object-cache.php"
     ],
     "pre-update-cmd": [
       "php composer-local-merge.php pre-install"
