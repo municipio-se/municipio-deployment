@@ -72,7 +72,9 @@ The MinIO development credentials are `minioadmin` / `minioadmin`. The `municipi
 
 By default, setup prompts for a single site or a subfolder multisite network. Set `SITE_TYPE=single` or `SITE_TYPE=multisite` to skip the prompt. A non-interactive run defaults to `multisite` when `SITE_TYPE` is unset.
 
-The required plugins are `advanced-custom-fields-pro`, `s3-uploads`, `s3-local-index`, `redis-cache`, `litespeed-cache`, and `municipio-clone`. `ACF_PRO_KEY` configures Composer access to ACF Pro; package installation is performed by Composer.
+The required plugins are `advanced-custom-fields-pro`, `s3-uploads`, `s3-local-index`, and `municipio-clone`. Redis and LiteSpeed cache plugins are installed but remain inactive by default. `ACF_PRO_KEY` configures Composer access to ACF Pro; package installation is performed by Composer.
+
+Redis object caching and LiteSpeed page caching are disabled by default, including after a setup/reset. Enable them for the current site with `.devcontainer/scripts/cache-enable.sh`; turn them off with `.devcontainer/scripts/cache-disable.sh`.
 
 Setup is destructive: running it again resets the database and overwrites generated configuration files.
 

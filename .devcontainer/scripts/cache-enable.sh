@@ -7,12 +7,14 @@ PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 
 cd "$PROJECT_ROOT"
 
-WP_ARGS=(--allow-root --skip-plugins --skip-themes)
+WP_ARGS=(--allow-root)
+WP_SAFE_ARGS=(--allow-root --skip-plugins --skip-themes)
 PLUGIN_SCOPE=()
 
-if [[ "$(wp eval 'echo is_multisite() ? "1" : "0";' "${WP_ARGS[@]}")" == "1" ]]; then
+if [[ "$(wp eval 'echo is_multisite() ? "1" : "0";' "${WP_SAFE_ARGS[@]}")" == "1" ]]; then
 	PLUGIN_SCOPE=(--network)
 fi
 
-wp plugin activate redis-cache litespeed-cache "${WP_ARGS[@]}" "${PLUGIN_SCOPE[@]}"
+touch ./config/.cache-enabled
+wp plugin activate redis-cache litespeed-cache "${WP_SAFE_ARGS[@]}" "${PLUGIN_SCOPE[@]}"
 wp redis enable "${WP_ARGS[@]}"

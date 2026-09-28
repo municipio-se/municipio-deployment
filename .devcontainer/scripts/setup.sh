@@ -39,7 +39,7 @@ ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
 
 # Standard plugins to activate after a fresh install (network-activated in multisite mode).
 # ACF Pro is installed as an MU plugin and is active automatically.
-REQUIRED_PLUGINS=("s3-uploads" "s3-local-index" "redis-cache" "litespeed-cache" "municipio-clone")
+REQUIRED_PLUGINS=("s3-uploads" "s3-local-index" "municipio-clone")
 
 #############################################################################
 # Helper Functions
@@ -197,6 +197,8 @@ print_info "Site type: ${SITE_TYPE}"
 print_header "Adding Config Files"
 print_info "Creating config directory..."
 mkdir -p ./config
+print_info "Disabling optional caches for this reset..."
+rm -f ./config/.cache-enabled
 print_info "Removing stale multisite config..."
 rm -f ./config/multisite.php
 remove_root_multisite_config
