@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f43ab9848ac4ea52bd10043ad100fba6",
+    "content-hash": "a639cc02f56611d9707f2422c2fe90b7",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3757,16 +3757,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.48.0",
+            "version": "7.49.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "9871cb03a5097ed16be656af1d7dadf6884e831b"
+                "reference": "aaa0728e6d61480eb155cd109dffc64132a1cfca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/9871cb03a5097ed16be656af1d7dadf6884e831b",
-                "reference": "9871cb03a5097ed16be656af1d7dadf6884e831b",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/aaa0728e6d61480eb155cd109dffc64132a1cfca",
+                "reference": "aaa0728e6d61480eb155cd109dffc64132a1cfca",
                 "shasum": ""
             },
             "require": {
@@ -3841,9 +3841,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.48.0"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.49.0"
             },
-            "time": "2026-09-29T08:49:04+00:00"
+            "time": "2026-09-29T10:54:42+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -3979,16 +3979,16 @@
         },
         {
             "name": "helsingborg-stad/s3-local-index",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/s3-local-index.git",
-                "reference": "e01bbbfebe4eaf66dbe7da9b202ed6ee54340171"
+                "reference": "f9a3a5e902cef358904c29638d9fea4763319d68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/s3-local-index/zipball/e01bbbfebe4eaf66dbe7da9b202ed6ee54340171",
-                "reference": "e01bbbfebe4eaf66dbe7da9b202ed6ee54340171",
+                "url": "https://api.github.com/repos/helsingborg-stad/s3-local-index/zipball/f9a3a5e902cef358904c29638d9fea4763319d68",
+                "reference": "f9a3a5e902cef358904c29638d9fea4763319d68",
                 "shasum": ""
             },
             "require": {
@@ -4016,9 +4016,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/s3-local-index/issues",
-                "source": "https://github.com/helsingborg-stad/s3-local-index/tree/1.2.0"
+                "source": "https://github.com/helsingborg-stad/s3-local-index/tree/1.2.1"
             },
-            "time": "2026-02-04T10:09:03+00:00"
+            "time": "2026-09-29T09:06:10+00:00"
         },
         {
             "name": "helsingborg-stad/s3-uploads-custom-endpoint",
