@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a470bb9562ccc0a03a6d9519dfe1c477",
+    "content-hash": "f7cc4fdb604ba8e97501743ee277beb0",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -260,16 +260,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.398.3",
+            "version": "3.398.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4a8bc490c38316ad7f6934bd89049da1971c462c"
+                "reference": "1dc5a7813aa23b65de0bfb6239b93387971f7143"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4a8bc490c38316ad7f6934bd89049da1971c462c",
-                "reference": "4a8bc490c38316ad7f6934bd89049da1971c462c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1dc5a7813aa23b65de0bfb6239b93387971f7143",
+                "reference": "1dc5a7813aa23b65de0bfb6239b93387971f7143",
                 "shasum": ""
             },
             "require": {
@@ -351,9 +351,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.398.3"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.398.4"
             },
-            "time": "2026-09-29T18:22:38+00:00"
+            "time": "2026-09-30T18:20:49+00:00"
         },
         {
             "name": "brick/math",
@@ -2363,20 +2363,21 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.43.2",
+            "version": "5.44.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "96e98a3f15b85e0c3a9c7c2a47fcc047bdfc67aa"
+                "reference": "721fe11029048f07c86129bc536554356f52860e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/96e98a3f15b85e0c3a9c7c2a47fcc047bdfc67aa",
-                "reference": "96e98a3f15b85e0c3a9c7c2a47fcc047bdfc67aa",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/721fe11029048f07c86129bc536554356f52860e",
+                "reference": "721fe11029048f07c86129bc536554356f52860e",
                 "shasum": ""
             },
             "require": {
                 "helsingborg-stad/blade": "^3.5.0",
+                "helsingborg-stad/material-design-icons-json-svg-font": "^1.0.0",
                 "helsingborg-stad/wpservice": "^2.0",
                 "php": "^8.0"
             },
@@ -2404,9 +2405,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.43.2"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.44.1"
             },
-            "time": "2026-09-29T11:06:56+00:00"
+            "time": "2026-09-30T11:55:50+00:00"
         },
         {
             "name": "helsingborg-stad/coordinate-transformation-library",
@@ -2824,6 +2825,41 @@
             "time": "2025-11-20T09:21:46+00:00"
         },
         {
+            "name": "helsingborg-stad/material-design-icons-json-svg-font",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font.git",
+                "reference": "6bf0854a29c655b7bea1d9f2f4706891f4c01288"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/material-design-icons-json-svg-font/zipball/6bf0854a29c655b7bea1d9f2f4706891f4c01288",
+                "reference": "6bf0854a29c655b7bea1d9f2f4706891f4c01288",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HelsingborgStad\\MaterialSymbols\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Material Symbols extracted from Google's variable fonts as SVG, JSON, and fonts",
+            "homepage": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font/issues",
+                "source": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font"
+            },
+            "time": "2026-10-01T04:38:13+00:00"
+        },
+        {
             "name": "helsingborg-stad/media-usage",
             "version": "3.0.8",
             "source": {
@@ -3160,16 +3196,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-frontend-form",
-            "version": "0.84.6",
+            "version": "0.84.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-frontend-form.git",
-                "reference": "009572378ee6d99c37b4c42b8952d1408c1f8858"
+                "reference": "74b75f7389a1a8f509c0e0722aef3737cf702ba1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-frontend-form/zipball/009572378ee6d99c37b4c42b8952d1408c1f8858",
-                "reference": "009572378ee6d99c37b4c42b8952d1408c1f8858",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-frontend-form/zipball/74b75f7389a1a8f509c0e0722aef3737cf702ba1",
+                "reference": "74b75f7389a1a8f509c0e0722aef3737cf702ba1",
                 "shasum": ""
             },
             "require": {
@@ -3207,9 +3243,9 @@
             "description": "Frontend Form for Modularity.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-frontend-form/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-frontend-form/tree/0.84.6"
+                "source": "https://github.com/helsingborg-stad/modularity-frontend-form/tree/0.84.14"
             },
-            "time": "2026-09-28T10:00:04+00:00"
+            "time": "2026-10-01T07:32:38+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-guides",
@@ -3757,16 +3793,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.51.12",
+            "version": "7.54.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "f186aa6c82384b2bfea0efe42a8f62f4a7240334"
+                "reference": "ac5c16db61d538addde24174493e6a1c7e883038"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/f186aa6c82384b2bfea0efe42a8f62f4a7240334",
-                "reference": "f186aa6c82384b2bfea0efe42a8f62f4a7240334",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/ac5c16db61d538addde24174493e6a1c7e883038",
+                "reference": "ac5c16db61d538addde24174493e6a1c7e883038",
                 "shasum": ""
             },
             "require": {
@@ -3781,9 +3817,8 @@
                 "helsingborg-stad/acf-export-manager": ">=1.0.0",
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
-                "helsingborg-stad/component-library": "5.43.2",
                 "helsingborg-stad/schema-library": "0.5.8",
-                "helsingborg-stad/styleguide": "3.34.7",
+                "helsingborg-stad/styleguide": "3.36.3",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "0.3.5",
                 "jeradin/acf-dynamic-table-field": "dev-master",
@@ -3795,8 +3830,8 @@
                 "ooksanen/acf-focuspoint": "^1.2.1",
                 "php": "^8.2",
                 "pragmarx/ia-arr": "^7.3",
-                "symfony/polyfill-mbstring": "v1.38.2",
-                "symfony/polyfill-php80": "v1.37.0"
+                "symfony/polyfill-mbstring": "v1.43.0",
+                "symfony/polyfill-php80": "v1.43.0"
             },
             "require-dev": {
                 "carthage-software/mago": "1.26.0",
@@ -3841,9 +3876,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.51.12"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.54.2"
             },
-            "time": "2026-09-29T14:39:42+00:00"
+            "time": "2026-10-01T10:00:17+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -4134,21 +4169,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.34.7",
+            "version": "3.36.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "411b716bb4a225afbcda919930b6c0284f0f361b"
+                "reference": "f664a6c7e81f6b207264086cb473ced60599cf1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/411b716bb4a225afbcda919930b6c0284f0f361b",
-                "reference": "411b716bb4a225afbcda919930b6c0284f0f361b",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/f664a6c7e81f6b207264086cb473ced60599cf1d",
+                "reference": "f664a6c7e81f6b207264086cb473ced60599cf1d",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.43.2",
+                "helsingborg-stad/component-library": "5.44.1",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -4157,6 +4192,26 @@
                 "phpunit/phpunit": "^9.6"
             },
             "type": "library",
+            "extra": {
+                "helsingborg-stad/material-design-icons-json-svg-font": {
+                    "formats": [
+                        "svg",
+                        "woff2"
+                    ],
+                    "weights": [
+                        200,
+                        400,
+                        600
+                    ],
+                    "variants": [
+                        "outlined",
+                        "rounded",
+                        "sharp"
+                    ],
+                    "staticFonts": false,
+                    "variableFonts": true
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "MunicipioStyleGuide\\": "source/php/",
@@ -4187,9 +4242,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.34.7"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.36.3"
             },
-            "time": "2026-09-29T11:38:22+00:00"
+            "time": "2026-10-01T09:46:15+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
@@ -8437,16 +8492,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.38.2",
+            "version": "v1.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6"
+                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
-                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
+                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
                 "shasum": ""
             },
             "require": {
@@ -8498,7 +8553,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.38.2"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.43.0"
             },
             "funding": [
                 {
@@ -8518,20 +8573,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-27T06:59:30+00:00"
+            "time": "2026-09-24T15:19:04+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.37.0",
+            "version": "v1.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "dfb55726c3a76ea3b6459fcfda1ec2d80a682411"
+                "reference": "9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/dfb55726c3a76ea3b6459fcfda1ec2d80a682411",
-                "reference": "dfb55726c3a76ea3b6459fcfda1ec2d80a682411",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74",
+                "reference": "9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74",
                 "shasum": ""
             },
             "require": {
@@ -8582,7 +8637,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.37.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.43.0"
             },
             "funding": [
                 {
@@ -8602,7 +8657,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-10T16:19:22+00:00"
+            "time": "2026-09-25T15:50:05+00:00"
         },
         {
             "name": "symfony/polyfill-php82",
