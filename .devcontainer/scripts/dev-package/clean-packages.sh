@@ -15,22 +15,44 @@ echo "==========================================================================
 echo "🧹 Removing all installed resources (vendor, plugins, mu-plugins, themes)"
 echo "=========================================================================="
 
+# Retry deletion a few times: the app container can serve a request mid-cleanup
+# and have a plugin (e.g. miniorange-saml) write files back into its own folder,
+# which makes "rm -rf" transiently fail with "Directory not empty".
+rm_rf_retry() {
+  local target="$1"
+  local attempt
+  for attempt in 1 2 3; do
+    rm -rf "$target" && return 0
+    [ -e "$target" ] || return 0
+    sleep 1
+  done
+  rm -rf "$target"
+}
+
 if [ -d vendor ]; then
-  rm -rf vendor/*
+  for entry in vendor/*; do
+    [ -e "$entry" ] && rm_rf_retry "$entry"
+  done
 fi
 
 if [ -d wp-content/plugins ]; then
   # Keep advanced-custom-fields-pro (temporary fix)
-  find wp-content/plugins/ -mindepth 1 -maxdepth 1 ! -name 'advanced-custom-fields-pro' -exec rm -rf {} +
+  while IFS= read -r -d '' entry; do
+    rm_rf_retry "$entry"
+  done < <(find wp-content/plugins/ -mindepth 1 -maxdepth 1 ! -name 'advanced-custom-fields-pro' -print0)
 fi
 
 if [ -d wp-content/mu-plugins ]; then
   # Keep loader.php
-  find wp-content/mu-plugins/ -mindepth 1 -maxdepth 1 ! -name 'loader.php' ! -name 'migrate.php' -exec rm -rf {} +
+  while IFS= read -r -d '' entry; do
+    rm_rf_retry "$entry"
+  done < <(find wp-content/mu-plugins/ -mindepth 1 -maxdepth 1 ! -name 'loader.php' -print0)
 fi
 
 if [ -d wp-content/themes ]; then
-  rm -rf wp-content/themes/*
+  for entry in wp-content/themes/*; do
+    [ -e "$entry" ] && rm_rf_retry "$entry"
+  done
 fi
 
 echo "=========================================================================="

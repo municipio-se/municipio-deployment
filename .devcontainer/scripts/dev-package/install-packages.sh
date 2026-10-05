@@ -11,7 +11,7 @@ PROJECT_ROOT="${1:-$(cd "$(dirname "$0")/../../.." && pwd)}"
 
 cd "$PROJECT_ROOT"
 
-echo "🔄 Installing all packages with --prefer-dist, --no-cache"
+echo "🔄 Installing all packages with --prefer-dist (using local composer cache)"
 
 # Check if composer.json and composer.lock align
 if ! composer validate --no-check-publish ; then
@@ -19,7 +19,7 @@ if ! composer validate --no-check-publish ; then
   rm -f composer.lock
 fi
 
-if ! composer install --prefer-dist --no-interaction --ignore-platform-reqs --no-cache ; then
+if ! composer install --prefer-dist --no-interaction --ignore-platform-reqs ; then
   echo "❌ Composer install failed. Please check your setup."
   exit 1
 fi

@@ -17,8 +17,10 @@ db/*.sql
 # Devcontainer
 .htaccess
 .devcontainer/.env
+.devcontainer/sites.json
 /.devcontainer/scripts/db-cache/
 !/.devcontainer/config/.htaccess
+
 *.pem
 *.key
 *.crt
