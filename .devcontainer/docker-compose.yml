@@ -1,6 +1,6 @@
 services:
   app:
-    image: webbutvecklinghelsingborg/gitops:openlitespeed-0.0.4
+    image: ghcr.io/helsingborg-stad/ols-docker-hbg:0.1.0-php8.3
     ports:
       - 8080:80
     volumes:
