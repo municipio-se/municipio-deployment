@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a5901c8550086a8b8d7c415d22af093",
+    "content-hash": "50e26e47fb5174335615bf6a70b7103d",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -260,16 +260,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.399.0",
+            "version": "3.399.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "3010fb79822bf331de82e9413eaa2c898aeb02ec"
+                "reference": "cd7cf43b7d42e49579bf3f09ab58d4724d64152c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3010fb79822bf331de82e9413eaa2c898aeb02ec",
-                "reference": "3010fb79822bf331de82e9413eaa2c898aeb02ec",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/cd7cf43b7d42e49579bf3f09ab58d4724d64152c",
+                "reference": "cd7cf43b7d42e49579bf3f09ab58d4724d64152c",
                 "shasum": ""
             },
             "require": {
@@ -351,9 +351,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.399.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.399.1"
             },
-            "time": "2026-10-01T18:15:12+00:00"
+            "time": "2026-10-02T18:16:16+00:00"
         },
         {
             "name": "brick/math",
@@ -3193,16 +3193,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-frontend-form",
-            "version": "0.84.14",
+            "version": "0.84.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-frontend-form.git",
-                "reference": "74b75f7389a1a8f509c0e0722aef3737cf702ba1"
+                "reference": "5ac35a409368adabca699e82bf4829d2fe8155a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-frontend-form/zipball/74b75f7389a1a8f509c0e0722aef3737cf702ba1",
-                "reference": "74b75f7389a1a8f509c0e0722aef3737cf702ba1",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-frontend-form/zipball/5ac35a409368adabca699e82bf4829d2fe8155a8",
+                "reference": "5ac35a409368adabca699e82bf4829d2fe8155a8",
                 "shasum": ""
             },
             "require": {
@@ -3240,9 +3240,9 @@
             "description": "Frontend Form for Modularity.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-frontend-form/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-frontend-form/tree/0.84.14"
+                "source": "https://github.com/helsingborg-stad/modularity-frontend-form/tree/0.84.16"
             },
-            "time": "2026-10-01T07:32:38+00:00"
+            "time": "2026-10-05T07:52:30+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-guides",
@@ -3791,16 +3791,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.54.11",
+            "version": "7.54.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "350231bdd29850f4422a69ab29d3136216fea524"
+                "reference": "166155cb31b2d17e1e43ed4bf51b282f69f162f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/350231bdd29850f4422a69ab29d3136216fea524",
-                "reference": "350231bdd29850f4422a69ab29d3136216fea524",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/166155cb31b2d17e1e43ed4bf51b282f69f162f4",
+                "reference": "166155cb31b2d17e1e43ed4bf51b282f69f162f4",
                 "shasum": ""
             },
             "require": {
@@ -3892,9 +3892,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.54.11"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.54.15"
             },
-            "time": "2026-10-02T12:33:41+00:00"
+            "time": "2026-10-05T08:15:56+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -9805,7 +9805,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-multi-network",
                 "source": "https://plugins.svn.wordpress.org/wp-multi-network"
             },
-            "time": "2026-09-27T07:21:06+00:00"
+            "time": "2026-10-04T06:06:56+00:00"
         },
         {
             "name": "wp-plugin/wp-nested-pages",
@@ -9876,12 +9876,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }
