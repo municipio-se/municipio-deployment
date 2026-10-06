@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a07b32d890253ad054e826f64dceac09",
+    "content-hash": "fb82df655a4d779f2da59a5f2cd2f86d",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -2554,46 +2554,6 @@
             "time": "2026-09-09T14:37:59+00:00"
         },
         {
-            "name": "helsingborg-stad/easy-to-read-alternative",
-            "version": "3.0.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helsingborg-stad/easy-to-read-alternative.git",
-                "reference": "322600524cee82ef22e0171c733b21006cfff24a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/easy-to-read-alternative/zipball/322600524cee82ef22e0171c733b21006cfff24a",
-                "reference": "322600524cee82ef22e0171c733b21006cfff24a",
-                "shasum": ""
-            },
-            "require": {
-                "helsingborg-stad/acf-export-manager": ">=1.0.0"
-            },
-            "type": "wordpress-plugin",
-            "autoload": {
-                "psr-4": {
-                    "EasyReading\\": "source/php/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jonatan Hanson",
-                    "email": "jonatan.hanson@hiq.se"
-                }
-            ],
-            "description": "Adds easy to read alternative content version.",
-            "support": {
-                "issues": "https://github.com/helsingborg-stad/easy-to-read-alternative/issues",
-                "source": "https://github.com/helsingborg-stad/easy-to-read-alternative/tree/3.0.9"
-            },
-            "time": "2026-05-05T15:43:35+00:00"
-        },
-        {
             "name": "helsingborg-stad/force-ssl",
             "version": "3.0.3",
             "source": {
@@ -3791,16 +3751,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.54.15",
+            "version": "7.55.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "166155cb31b2d17e1e43ed4bf51b282f69f162f4"
+                "reference": "402fef57a0b2e1542b50cd63f2d828ad82a9838c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/166155cb31b2d17e1e43ed4bf51b282f69f162f4",
-                "reference": "166155cb31b2d17e1e43ed4bf51b282f69f162f4",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/402fef57a0b2e1542b50cd63f2d828ad82a9838c",
+                "reference": "402fef57a0b2e1542b50cd63f2d828ad82a9838c",
                 "shasum": ""
             },
             "require": {
@@ -3892,9 +3852,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.54.15"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.55.2"
             },
-            "time": "2026-10-05T08:15:56+00:00"
+            "time": "2026-10-06T06:54:40+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -9876,12 +9836,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }
