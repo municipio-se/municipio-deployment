@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb82df655a4d779f2da59a5f2cd2f86d",
+    "content-hash": "2c5d0242ae819579a4e0ed727e4dbc5c",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -4726,6 +4726,43 @@
                 "source": "https://github.com/helsingborg-stad/wpmu-network-admin-url/tree/2.0.4"
             },
             "time": "2026-01-23T12:25:48+00:00"
+        },
+        {
+            "name": "helsingborg-stad/wpmu-noindex-by-config",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/wpmu-noindex-by-config.git",
+                "reference": "d53c80a52ab3a137f4dcf98d52c9779028b51824"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-noindex-by-config/zipball/d53c80a52ab3a137f4dcf98d52c9779028b51824",
+                "reference": "d53c80a52ab3a137f4dcf98d52c9779028b51824",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^2.3",
+                "php": ">=7.4"
+            },
+            "type": "wordpress-muplugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thor Brink",
+                    "email": "thor.brink@helsingborg.se"
+                }
+            ],
+            "description": "Disables indexing for the all sites based on configuration.",
+            "homepage": "https://github.com/helsingborg-stad/wpmu-noindex-by-config",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/wpmu-noindex-by-config/issues",
+                "source": "https://github.com/helsingborg-stad/wpmu-noindex-by-config/tree/0.1.2"
+            },
+            "time": "2026-10-06T06:45:09+00:00"
         },
         {
             "name": "helsingborg-stad/wpmu-propagate-miniorange-saml-sso-settings",
@@ -9836,12 +9873,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
