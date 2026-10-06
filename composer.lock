@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "df09cf2c89316f8d434caff65ddfc5b8",
+    "content-hash": "3c20e4abd1e3a40e623a77b64286d6d4",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3751,16 +3751,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.57.4",
+            "version": "7.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "f306b4bad403c6909558bf8ed36f64b869e62c27"
+                "reference": "1df9da9e49b422067cabc0f1cb9a606e7be804e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/f306b4bad403c6909558bf8ed36f64b869e62c27",
-                "reference": "f306b4bad403c6909558bf8ed36f64b869e62c27",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/1df9da9e49b422067cabc0f1cb9a606e7be804e3",
+                "reference": "1df9da9e49b422067cabc0f1cb9a606e7be804e3",
                 "shasum": ""
             },
             "require": {
@@ -3852,9 +3852,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.57.4"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.58.0"
             },
-            "time": "2026-10-06T11:05:43+00:00"
+            "time": "2026-10-06T14:17:29+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -4828,16 +4828,16 @@
         },
         {
             "name": "helsingborg-stad/wpmu-security",
-            "version": "1.10.2",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpmu-security.git",
-                "reference": "f70848c12485bd968ba2bd9c8480d2981ddc4889"
+                "reference": "d9f42bd174ba16dd7b54f2f494d430aa025f4e9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/f70848c12485bd968ba2bd9c8480d2981ddc4889",
-                "reference": "f70848c12485bd968ba2bd9c8480d2981ddc4889",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/d9f42bd174ba16dd7b54f2f494d430aa025f4e9a",
+                "reference": "d9f42bd174ba16dd7b54f2f494d430aa025f4e9a",
                 "shasum": ""
             },
             "require": {
@@ -4874,9 +4874,9 @@
             "description": "A WordPress MU Plugin for security enhancements",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpmu-security/issues",
-                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.10.2"
+                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.12.0"
             },
-            "time": "2026-09-29T11:24:19+00:00"
+            "time": "2026-10-06T13:26:02+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
