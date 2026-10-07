@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "539bf97707d2b0f71bad9846f1877fd2",
+    "content-hash": "b8599c48df382ba3e94a15850584153b",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3273,16 +3273,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-json-render",
-            "version": "4.1.0",
+            "version": "4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-json-render.git",
-                "reference": "902936a51e23c8bbbd77ac08992298c5947f9e8d"
+                "reference": "f12f594f1a7263f5350abe5486eafa00d8933c01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/902936a51e23c8bbbd77ac08992298c5947f9e8d",
-                "reference": "902936a51e23c8bbbd77ac08992298c5947f9e8d",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/f12f594f1a7263f5350abe5486eafa00d8933c01",
+                "reference": "f12f594f1a7263f5350abe5486eafa00d8933c01",
                 "shasum": ""
             },
             "require": {
@@ -3326,22 +3326,22 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-json-render/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.1.0"
+                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.1.2"
             },
-            "time": "2026-10-01T12:45:23+00:00"
+            "time": "2026-10-07T13:25:05+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-open-street-map",
-            "version": "3.1.22",
+            "version": "3.1.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-openstreetmap.git",
-                "reference": "717f7ebb5a7b6751322f74ec802aa32346b0db62"
+                "reference": "5c7231ce6f93c9b3360fa6fa1ac55ef20349945d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-openstreetmap/zipball/717f7ebb5a7b6751322f74ec802aa32346b0db62",
-                "reference": "717f7ebb5a7b6751322f74ec802aa32346b0db62",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-openstreetmap/zipball/5c7231ce6f93c9b3360fa6fa1ac55ef20349945d",
+                "reference": "5c7231ce6f93c9b3360fa6fa1ac55ef20349945d",
                 "shasum": ""
             },
             "require": {
@@ -3384,9 +3384,9 @@
             "description": "Open Street Map integration",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-openstreetmap/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-openstreetmap/tree/3.1.22"
+                "source": "https://github.com/helsingborg-stad/modularity-openstreetmap/tree/3.1.24"
             },
-            "time": "2026-09-28T11:54:19+00:00"
+            "time": "2026-10-07T13:28:17+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-products",
@@ -3751,16 +3751,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.58.2",
+            "version": "7.58.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "4664c9f59007121357e7a76e02353b6d0bcaccc9"
+                "reference": "5c6926898fa2086c5fb642dc05be36ad043b5c24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/4664c9f59007121357e7a76e02353b6d0bcaccc9",
-                "reference": "4664c9f59007121357e7a76e02353b6d0bcaccc9",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/5c6926898fa2086c5fb642dc05be36ad043b5c24",
+                "reference": "5c6926898fa2086c5fb642dc05be36ad043b5c24",
                 "shasum": ""
             },
             "require": {
@@ -3852,9 +3852,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.58.2"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.58.4"
             },
-            "time": "2026-10-07T07:06:48+00:00"
+            "time": "2026-10-07T13:30:27+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -4828,16 +4828,16 @@
         },
         {
             "name": "helsingborg-stad/wpmu-security",
-            "version": "1.12.0",
+            "version": "1.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpmu-security.git",
-                "reference": "d9f42bd174ba16dd7b54f2f494d430aa025f4e9a"
+                "reference": "005187c51f63f063cade21aaf194fa4b2ab72cce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/d9f42bd174ba16dd7b54f2f494d430aa025f4e9a",
-                "reference": "d9f42bd174ba16dd7b54f2f494d430aa025f4e9a",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/005187c51f63f063cade21aaf194fa4b2ab72cce",
+                "reference": "005187c51f63f063cade21aaf194fa4b2ab72cce",
                 "shasum": ""
             },
             "require": {
@@ -4874,9 +4874,9 @@
             "description": "A WordPress MU Plugin for security enhancements",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpmu-security/issues",
-                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.12.0"
+                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.12.1"
             },
-            "time": "2026-10-06T13:26:02+00:00"
+            "time": "2026-10-07T12:12:32+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -9405,15 +9405,15 @@
         },
         {
             "name": "wp-plugin/post-expirator",
-            "version": "4.10.6",
+            "version": "4.10.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/post-expirator/",
-                "reference": "tags/4.10.6"
+                "reference": "tags/4.10.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.10.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.10.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9432,7 +9432,7 @@
                 "issues": "https://wordpress.org/support/plugin/post-expirator",
                 "source": "https://plugins.svn.wordpress.org/post-expirator"
             },
-            "time": "2026-10-06T23:07:20+00:00"
+            "time": "2026-10-07T12:52:36+00:00"
         },
         {
             "name": "wp-plugin/pressidium-cookie-consent",
