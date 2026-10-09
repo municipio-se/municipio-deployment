@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f06928ac28b99a7e2088b2614daa1ce7",
+    "content-hash": "97796c8fd13618578fa644946f3d417a",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -1967,16 +1967,16 @@
         },
         {
             "name": "helsingborg-stad/api-alarm-integration",
-            "version": "5.0.21",
+            "version": "5.0.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-alarm-integration.git",
-                "reference": "dfa64e0a257df4df7b14b7277dfa1fc193f6df3d"
+                "reference": "20465fabfa473a820ebae5f3bbd443b3e9ce8254"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-alarm-integration/zipball/dfa64e0a257df4df7b14b7277dfa1fc193f6df3d",
-                "reference": "dfa64e0a257df4df7b14b7277dfa1fc193f6df3d",
+                "url": "https://api.github.com/repos/helsingborg-stad/api-alarm-integration/zipball/20465fabfa473a820ebae5f3bbd443b3e9ce8254",
+                "reference": "20465fabfa473a820ebae5f3bbd443b3e9ce8254",
                 "shasum": ""
             },
             "require": {
@@ -2022,9 +2022,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-alarm-integration/issues",
-                "source": "https://github.com/helsingborg-stad/api-alarm-integration/tree/5.0.21"
+                "source": "https://github.com/helsingborg-stad/api-alarm-integration/tree/5.0.23"
             },
-            "time": "2026-10-01T14:17:30+00:00"
+            "time": "2026-10-09T07:34:23+00:00"
         },
         {
             "name": "helsingborg-stad/api-event-manager-integration",
@@ -3751,16 +3751,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.63.1",
+            "version": "7.64.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "f3992ab7dc92a675cec3ccffd763bafb2a1b8015"
+                "reference": "0e46a0a9f80ecaf6223cdf3f5d8b10c73b20baef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/f3992ab7dc92a675cec3ccffd763bafb2a1b8015",
-                "reference": "f3992ab7dc92a675cec3ccffd763bafb2a1b8015",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/0e46a0a9f80ecaf6223cdf3f5d8b10c73b20baef",
+                "reference": "0e46a0a9f80ecaf6223cdf3f5d8b10c73b20baef",
                 "shasum": ""
             },
             "require": {
@@ -3852,9 +3852,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.63.1"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.64.0"
             },
-            "time": "2026-10-08T14:37:29+00:00"
+            "time": "2026-10-09T14:00:16+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
