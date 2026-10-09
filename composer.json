@@ -80,7 +80,7 @@
     "helsingborg-stad/modularity-timeline": "5.0.8",
     "helsingborg-stad/multi-network-urls": "2.0.1",
     "helsingborg-stad/multisite-role-propagation": "3.0.7",
-    "helsingborg-stad/municipio": "7.62.2",
+    "helsingborg-stad/municipio": "7.63.1",
     "helsingborg-stad/municipio-clone": "v1.5.0",
     "helsingborg-stad/redirection-extended": "3.0.8",
     "helsingborg-stad/s3-local-index": "1.2.1",
@@ -125,7 +125,7 @@
     "wp-plugin/varnish-http-purge": "5.12.3",
     "wp-plugin/worddown": "1.2.4",
     "wp-plugin/wordpress-importer": "0.9.6",
-    "wp-plugin/wp-multi-network": "3.1.0",
+    "wp-plugin/wp-multi-network": "3.2.0",
     "wp-plugin/wp-nested-pages": "3.3.3",
     "wpengine/advanced-custom-fields-pro": "6.8.10"
   },
