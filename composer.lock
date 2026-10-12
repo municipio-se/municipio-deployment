@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f04b40dbe72fc5ec60fe1291881b351",
+    "content-hash": "48ca05bf231565db5bf4cd6efda5d0dc",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3751,16 +3751,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.65.1",
+            "version": "7.65.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "510d6b78d8383c985e53a36c0836e822569041bb"
+                "reference": "fb35e0b3f2a0c3ef2f202cd5f645930b939f4e91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/510d6b78d8383c985e53a36c0836e822569041bb",
-                "reference": "510d6b78d8383c985e53a36c0836e822569041bb",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/fb35e0b3f2a0c3ef2f202cd5f645930b939f4e91",
+                "reference": "fb35e0b3f2a0c3ef2f202cd5f645930b939f4e91",
                 "shasum": ""
             },
             "require": {
@@ -3852,9 +3852,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.65.1"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.65.3"
             },
-            "time": "2026-10-12T10:13:06+00:00"
+            "time": "2026-10-12T13:24:26+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -9873,12 +9873,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
