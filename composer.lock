@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cab414feff50caf60096c6bcdfebb49e",
+    "content-hash": "3da696adbdf6b9366c1f47f5284ff26b",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -2028,16 +2028,16 @@
         },
         {
             "name": "helsingborg-stad/api-event-manager-integration",
-            "version": "3.1.8",
+            "version": "3.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-event-manager-integration.git",
-                "reference": "f06280f42cdf7198a278460961879dc3b260b595"
+                "reference": "505a782ac20aa4c5d57d33f9d84a3fff0469244d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/f06280f42cdf7198a278460961879dc3b260b595",
-                "reference": "f06280f42cdf7198a278460961879dc3b260b595",
+                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/505a782ac20aa4c5d57d33f9d84a3fff0469244d",
+                "reference": "505a782ac20aa4c5d57d33f9d84a3fff0469244d",
                 "shasum": ""
             },
             "require": {
@@ -2079,9 +2079,9 @@
             "description": "Import and display events from Event Manager API.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-event-manager-integration/issues",
-                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.1.8"
+                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.1.10"
             },
-            "time": "2026-09-18T12:36:04+00:00"
+            "time": "2026-10-13T12:36:36+00:00"
         },
         {
             "name": "helsingborg-stad/api-volunteer-manager-integration",
