@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32f85e76e5b7708da8f7d7240ed33816",
+    "content-hash": "9b0e790752116bf0fc67dcc0348e5981",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -4513,16 +4513,16 @@
         },
         {
             "name": "helsingborg-stad/wpmu-allow-sentry-agent",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent.git",
-                "reference": "d97526d437c84d5be68894223d05c5a2bc99c434"
+                "reference": "de823047296e145f648c577dda70454638f15e76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-allow-sentry-agent/zipball/d97526d437c84d5be68894223d05c5a2bc99c434",
-                "reference": "d97526d437c84d5be68894223d05c5a2bc99c434",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-allow-sentry-agent/zipball/de823047296e145f648c577dda70454638f15e76",
+                "reference": "de823047296e145f648c577dda70454638f15e76",
                 "shasum": ""
             },
             "require": {
@@ -4545,9 +4545,9 @@
             "homepage": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent/issues",
-                "source": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent/tree/0.1.0"
+                "source": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent/tree/0.1.1"
             },
-            "time": "2026-10-14T13:14:06+00:00"
+            "time": "2026-10-14T13:44:15+00:00"
         },
         {
             "name": "helsingborg-stad/wpmu-correct-file-paths",
