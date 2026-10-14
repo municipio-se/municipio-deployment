@@ -92,6 +92,7 @@
     "helsingborg-stad/wp-search-statistics": "1.0.8",
     "helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early": "0.2.0",
     "helsingborg-stad/wpmu-acf-google-maps-key": "1.0.1",
+    "helsingborg-stad/wpmu-allow-sentry-agent": "0.1.1",
     "helsingborg-stad/wpmu-correct-file-paths": "1.2.2",
     "helsingborg-stad/wpmu-focus-point": "0.2.6",
     "helsingborg-stad/wpmu-invalidate-login-pagecache": "1.1.1",
