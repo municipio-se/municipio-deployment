@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78d289e67c7db66416d462c2f2fd33a8",
+    "content-hash": "1c91f1a61d07a6a57df1664e46d3ff18",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -9836,6 +9836,37 @@
             "time": "2026-09-25T19:01:48+00:00"
         },
         {
+            "name": "wp-plugin/wp-sentry-integration",
+            "version": "8.12.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-sentry-integration/",
+                "reference": "tags/8.12.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-sentry-integration.8.12.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "stayallive"
+                }
+            ],
+            "description": "A (unofficial) WordPress plugin to report PHP errors and Browser (JavaScript) errors to Sentry.",
+            "homepage": "https://github.com/stayallive/wp-sentry",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/wp-sentry-integration/#developers",
+                "issues": "https://wordpress.org/support/plugin/wp-sentry-integration",
+                "source": "https://plugins.svn.wordpress.org/wp-sentry-integration"
+            },
+            "time": "2026-08-18T06:51:33+00:00"
+        },
+        {
             "name": "wpackagist-plugin/miniorange-saml-20-single-sign-on",
             "version": "5.2.4",
             "source": {
@@ -9873,12 +9904,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
