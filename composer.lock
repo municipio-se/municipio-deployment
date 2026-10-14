@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4598f15b58722411d150ade1d3359b0",
+    "content-hash": "4b7edfcaa4bba029d906967fba03e5a5",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3273,16 +3273,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-json-render",
-            "version": "4.1.4",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-json-render.git",
-                "reference": "9ce7c60d60f2dc1567b41dd55fb23843308d1938"
+                "reference": "358eba40b5d2499253efcd1e6f53229a9f0cb648"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/9ce7c60d60f2dc1567b41dd55fb23843308d1938",
-                "reference": "9ce7c60d60f2dc1567b41dd55fb23843308d1938",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/358eba40b5d2499253efcd1e6f53229a9f0cb648",
+                "reference": "358eba40b5d2499253efcd1e6f53229a9f0cb648",
                 "shasum": ""
             },
             "require": {
@@ -3326,9 +3326,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-json-render/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.1.4"
+                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.2.0"
             },
-            "time": "2026-10-14T11:26:57+00:00"
+            "time": "2026-10-14T12:19:57+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-open-street-map",
@@ -7974,6 +7974,59 @@
             "time": "2026-09-20T15:02:00+00:00"
         },
         {
+            "name": "sentry/sentry-agent",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getsentry/sentry-php-agent.git",
+                "reference": "244ca737e7ba5f3b381a57e9d6637b7d4040c545"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getsentry/sentry-php-agent/zipball/244ca737e7ba5f3b381a57e9d6637b7d4040c545",
+                "reference": "244ca737e7ba5f3b381a57e9d6637b7d4040c545",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.2|^8"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.70"
+            },
+            "bin": [
+                "bin/sentry-agent"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sentry",
+                    "email": "accounts@sentry.io"
+                }
+            ],
+            "description": "Sentry Agent for PHP (https://sentry.io)",
+            "homepage": "https://sentry.io",
+            "support": {
+                "issues": "https://github.com/getsentry/sentry-php-agent/issues",
+                "source": "https://github.com/getsentry/sentry-php-agent/tree/1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://sentry.io/",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://sentry.io/pricing/",
+                    "type": "custom"
+                }
+            ],
+            "time": "2026-06-10T09:41:48+00:00"
+        },
+        {
             "name": "symfony/deprecation-contracts",
             "version": "v3.7.1",
             "source": {
@@ -9219,15 +9272,15 @@
         },
         {
             "name": "wp-plugin/autodescription",
-            "version": "5.1.4",
+            "version": "5.2.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "tags/5.1.4"
+                "reference": "tags/5.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.5.1.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/autodescription.5.2.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9246,7 +9299,7 @@
                 "issues": "https://wordpress.org/support/plugin/autodescription",
                 "source": "https://plugins.svn.wordpress.org/autodescription"
             },
-            "time": "2026-10-14T02:41:10+00:00"
+            "time": "2026-10-14T12:07:30+00:00"
         },
         {
             "name": "wp-plugin/cookies-and-content-security-policy",
@@ -9834,6 +9887,37 @@
                 "source": "https://plugins.svn.wordpress.org/wp-nested-pages"
             },
             "time": "2026-09-25T19:01:48+00:00"
+        },
+        {
+            "name": "wp-plugin/wp-sentry-integration",
+            "version": "8.12.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-sentry-integration/",
+                "reference": "tags/8.12.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-sentry-integration.8.12.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "stayallive"
+                }
+            ],
+            "description": "A (unofficial) WordPress plugin to report PHP errors and Browser (JavaScript) errors to Sentry.",
+            "homepage": "https://github.com/stayallive/wp-sentry",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/wp-sentry-integration/#developers",
+                "issues": "https://wordpress.org/support/plugin/wp-sentry-integration",
+                "source": "https://plugins.svn.wordpress.org/wp-sentry-integration"
+            },
+            "time": "2026-08-18T06:51:33+00:00"
         },
         {
             "name": "wpackagist-plugin/miniorange-saml-20-single-sign-on",
