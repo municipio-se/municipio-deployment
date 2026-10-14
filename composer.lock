@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c91f1a61d07a6a57df1664e46d3ff18",
+    "content-hash": "1d3e395d2a3dcac859883293d58c33c2",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -7972,6 +7972,59 @@
                 "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v9.5.0"
             },
             "time": "2026-09-20T15:02:00+00:00"
+        },
+        {
+            "name": "sentry/sentry-agent",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getsentry/sentry-php-agent.git",
+                "reference": "244ca737e7ba5f3b381a57e9d6637b7d4040c545"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getsentry/sentry-php-agent/zipball/244ca737e7ba5f3b381a57e9d6637b7d4040c545",
+                "reference": "244ca737e7ba5f3b381a57e9d6637b7d4040c545",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.2|^8"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.70"
+            },
+            "bin": [
+                "bin/sentry-agent"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sentry",
+                    "email": "accounts@sentry.io"
+                }
+            ],
+            "description": "Sentry Agent for PHP (https://sentry.io)",
+            "homepage": "https://sentry.io",
+            "support": {
+                "issues": "https://github.com/getsentry/sentry-php-agent/issues",
+                "source": "https://github.com/getsentry/sentry-php-agent/tree/1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://sentry.io/",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://sentry.io/pricing/",
+                    "type": "custom"
+                }
+            ],
+            "time": "2026-06-10T09:41:48+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
