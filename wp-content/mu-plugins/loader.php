@@ -15,11 +15,11 @@ if (!is_blog_installed()) {
 	return;
 }
 
-add_action('muplugins_loaded', function () {
+(function(){
 	$loader = new MustUseLoader();
 	$pluginFiles = $loader->getMuPluginFiles();
 	$loader->includePluginFiles($pluginFiles);
-});
+})();
 
 /**
  * Class must_use_loader
