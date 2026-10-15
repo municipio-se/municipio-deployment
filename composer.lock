@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78d289e67c7db66416d462c2f2fd33a8",
+    "content-hash": "7ed754fcebffa51970289d23be9b9285",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -260,16 +260,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.401.1",
+            "version": "3.401.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4cdda6c2d836fa91a8177535530952c96a582f57"
+                "reference": "b1af9196bd0f94bcebdb6588a150dd85dc240758"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4cdda6c2d836fa91a8177535530952c96a582f57",
-                "reference": "4cdda6c2d836fa91a8177535530952c96a582f57",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b1af9196bd0f94bcebdb6588a150dd85dc240758",
+                "reference": "b1af9196bd0f94bcebdb6588a150dd85dc240758",
                 "shasum": ""
             },
             "require": {
@@ -351,9 +351,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.401.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.401.2"
             },
-            "time": "2026-10-13T18:14:25+00:00"
+            "time": "2026-10-14T18:09:34+00:00"
         },
         {
             "name": "brick/math",
@@ -3273,16 +3273,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-json-render",
-            "version": "4.1.2",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-json-render.git",
-                "reference": "f12f594f1a7263f5350abe5486eafa00d8933c01"
+                "reference": "358eba40b5d2499253efcd1e6f53229a9f0cb648"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/f12f594f1a7263f5350abe5486eafa00d8933c01",
-                "reference": "f12f594f1a7263f5350abe5486eafa00d8933c01",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-json-render/zipball/358eba40b5d2499253efcd1e6f53229a9f0cb648",
+                "reference": "358eba40b5d2499253efcd1e6f53229a9f0cb648",
                 "shasum": ""
             },
             "require": {
@@ -3326,9 +3326,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-json-render/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.1.2"
+                "source": "https://github.com/helsingborg-stad/modularity-json-render/tree/4.2.0"
             },
-            "time": "2026-10-07T13:25:05+00:00"
+            "time": "2026-10-14T12:19:57+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-open-street-map",
@@ -3751,16 +3751,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.66.0",
+            "version": "7.67.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "9dabbdfacf10325bee40e719619a984a907f85fe"
+                "reference": "94d5d299cb1a2d7be6e7d86cab503f4fe319cd50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/9dabbdfacf10325bee40e719619a984a907f85fe",
-                "reference": "9dabbdfacf10325bee40e719619a984a907f85fe",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/94d5d299cb1a2d7be6e7d86cab503f4fe319cd50",
+                "reference": "94d5d299cb1a2d7be6e7d86cab503f4fe319cd50",
                 "shasum": ""
             },
             "require": {
@@ -3852,9 +3852,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.66.0"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.67.7"
             },
-            "time": "2026-10-13T14:40:50+00:00"
+            "time": "2026-10-14T13:28:54+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -4510,6 +4510,44 @@
                 "source": "https://github.com/helsingborg-stad/wpmu-acf-google-maps-key/tree/1.0.1"
             },
             "time": "2026-01-23T12:19:10+00:00"
+        },
+        {
+            "name": "helsingborg-stad/wpmu-allow-sentry-agent",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent.git",
+                "reference": "718c6bd15e2929372ebef8472b325aa3a20027b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-allow-sentry-agent/zipball/718c6bd15e2929372ebef8472b325aa3a20027b3",
+                "reference": "718c6bd15e2929372ebef8472b325aa3a20027b3",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^2.3",
+                "php": ">=7.4",
+                "sentry/sentry": "^4.34"
+            },
+            "type": "wordpress-muplugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thor Brink",
+                    "email": "thor.brink@helsingborg.se"
+                }
+            ],
+            "description": "Allow connecting to a local Sentry agent.",
+            "homepage": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent/issues",
+                "source": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent/tree/0.1.2"
+            },
+            "time": "2026-10-15T05:37:17+00:00"
         },
         {
             "name": "helsingborg-stad/wpmu-correct-file-paths",
@@ -5624,6 +5662,66 @@
                 "source": "https://github.com/laravel/framework"
             },
             "time": "2022-04-14T13:47:10+00:00"
+        },
+        {
+            "name": "jean85/pretty-package-versions",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Jean85/pretty-package-versions.git",
+                "reference": "4d7aa5dab42e2a76d99559706022885de0e18e1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Jean85/pretty-package-versions/zipball/4d7aa5dab42e2a76d99559706022885de0e18e1a",
+                "reference": "4d7aa5dab42e2a76d99559706022885de0e18e1a",
+                "shasum": ""
+            },
+            "require": {
+                "composer-runtime-api": "^2.1.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.2",
+                "jean85/composer-provided-replaced-stub-package": "^1.0",
+                "phpstan/phpstan": "^2.0",
+                "phpunit/phpunit": "^7.5|^8.5|^9.6",
+                "rector/rector": "^2.0",
+                "vimeo/psalm": "^4.3 || ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jean85\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alessandro Lai",
+                    "email": "alessandro.lai85@gmail.com"
+                }
+            ],
+            "description": "A library to get pretty versions strings of installed dependencies",
+            "keywords": [
+                "composer",
+                "package",
+                "release",
+                "versions"
+            ],
+            "support": {
+                "issues": "https://github.com/Jean85/pretty-package-versions/issues",
+                "source": "https://github.com/Jean85/pretty-package-versions/tree/2.1.1"
+            },
+            "time": "2025-03-19T14:43:43+00:00"
         },
         {
             "name": "jeradin/acf-dynamic-table-field",
@@ -7974,6 +8072,156 @@
             "time": "2026-09-20T15:02:00+00:00"
         },
         {
+            "name": "sentry/sentry",
+            "version": "4.34.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getsentry/sentry-php.git",
+                "reference": "3d8f4e56becb10ede64e2ac6f8077f6434715461"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/3d8f4e56becb10ede64e2ac6f8077f6434715461",
+                "reference": "3d8f4e56becb10ede64e2ac6f8077f6434715461",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "guzzlehttp/psr7": "^1.8.4|^2.1.1|^3.0.0",
+                "jean85/pretty-package-versions": "^1.5|^2.0.4",
+                "php": "^7.2|^8.0",
+                "psr/log": "^1.0|^2.0|^3.0",
+                "symfony/options-resolver": "^4.4.30|^5.0.11|^6.0|^7.0|^8.0"
+            },
+            "conflict": {
+                "raven/raven": "*"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.30.0",
+                "friendsofphp/php-cs-fixer": "^3.4",
+                "guzzlehttp/guzzle": "^7.0|^8.0",
+                "guzzlehttp/promises": "^2.0.3|^3.0.0",
+                "monolog/monolog": "^1.6|^2.0|^3.0",
+                "nyholm/psr7": "^1.8",
+                "open-telemetry/api": "^1.1",
+                "open-telemetry/context": "^1.1",
+                "open-telemetry/exporter-otlp": "^1.1",
+                "open-telemetry/gen-otlp-protobuf": "^1.2.1",
+                "open-telemetry/sdk": "^1.1",
+                "open-telemetry/sem-conv": "^1.27",
+                "phpstan/phpstan": "^2.2",
+                "phpunit/phpunit": "^8.5.52|^9.6.34",
+                "spiral/roadrunner-http": "^3.6",
+                "spiral/roadrunner-worker": "^3.6"
+            },
+            "suggest": {
+                "ext-excimer": "Enable Sentry profiling with the Excimer PHP extension.",
+                "monolog/monolog": "Allow sending log messages to Sentry by using the included Monolog handler."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Sentry\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sentry",
+                    "email": "accounts@sentry.io"
+                }
+            ],
+            "description": "PHP SDK for Sentry (http://sentry.io)",
+            "homepage": "http://sentry.io",
+            "keywords": [
+                "crash-reporting",
+                "crash-reports",
+                "error-handler",
+                "error-monitoring",
+                "log",
+                "logging",
+                "profiling",
+                "sentry",
+                "tracing"
+            ],
+            "support": {
+                "issues": "https://github.com/getsentry/sentry-php/issues",
+                "source": "https://github.com/getsentry/sentry-php/tree/4.34.0"
+            },
+            "funding": [
+                {
+                    "url": "https://sentry.io/",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://sentry.io/pricing/",
+                    "type": "custom"
+                }
+            ],
+            "time": "2026-10-08T11:25:58+00:00"
+        },
+        {
+            "name": "sentry/sentry-agent",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getsentry/sentry-php-agent.git",
+                "reference": "244ca737e7ba5f3b381a57e9d6637b7d4040c545"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getsentry/sentry-php-agent/zipball/244ca737e7ba5f3b381a57e9d6637b7d4040c545",
+                "reference": "244ca737e7ba5f3b381a57e9d6637b7d4040c545",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.2|^8"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.70"
+            },
+            "bin": [
+                "bin/sentry-agent"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sentry",
+                    "email": "accounts@sentry.io"
+                }
+            ],
+            "description": "Sentry Agent for PHP (https://sentry.io)",
+            "homepage": "https://sentry.io",
+            "support": {
+                "issues": "https://github.com/getsentry/sentry-php-agent/issues",
+                "source": "https://github.com/getsentry/sentry-php-agent/tree/1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://sentry.io/",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://sentry.io/pricing/",
+                    "type": "custom"
+                }
+            ],
+            "time": "2026-06-10T09:41:48+00:00"
+        },
+        {
             "name": "symfony/deprecation-contracts",
             "version": "v3.7.1",
             "source": {
@@ -9219,15 +9467,15 @@
         },
         {
             "name": "wp-plugin/autodescription",
-            "version": "5.1.4",
+            "version": "5.2.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "tags/5.1.4"
+                "reference": "tags/5.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.5.1.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/autodescription.5.2.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9246,7 +9494,7 @@
                 "issues": "https://wordpress.org/support/plugin/autodescription",
                 "source": "https://plugins.svn.wordpress.org/autodescription"
             },
-            "time": "2026-10-14T02:41:10+00:00"
+            "time": "2026-10-14T12:07:30+00:00"
         },
         {
             "name": "wp-plugin/cookies-and-content-security-policy",
@@ -9836,6 +10084,37 @@
             "time": "2026-09-25T19:01:48+00:00"
         },
         {
+            "name": "wp-plugin/wp-sentry-integration",
+            "version": "8.12.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-sentry-integration/",
+                "reference": "tags/8.12.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-sentry-integration.8.12.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "stayallive"
+                }
+            ],
+            "description": "A (unofficial) WordPress plugin to report PHP errors and Browser (JavaScript) errors to Sentry.",
+            "homepage": "https://github.com/stayallive/wp-sentry",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/wp-sentry-integration/#developers",
+                "issues": "https://wordpress.org/support/plugin/wp-sentry-integration",
+                "source": "https://plugins.svn.wordpress.org/wp-sentry-integration"
+            },
+            "time": "2026-08-18T06:51:33+00:00"
+        },
+        {
             "name": "wpackagist-plugin/miniorange-saml-20-single-sign-on",
             "version": "5.2.4",
             "source": {
@@ -9873,12 +10152,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
