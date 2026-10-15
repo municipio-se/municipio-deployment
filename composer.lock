@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33400777a15b0028c9cf916a94bf950b",
+    "content-hash": "7ed754fcebffa51970289d23be9b9285",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -260,16 +260,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.401.1",
+            "version": "3.401.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4cdda6c2d836fa91a8177535530952c96a582f57"
+                "reference": "b1af9196bd0f94bcebdb6588a150dd85dc240758"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4cdda6c2d836fa91a8177535530952c96a582f57",
-                "reference": "4cdda6c2d836fa91a8177535530952c96a582f57",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b1af9196bd0f94bcebdb6588a150dd85dc240758",
+                "reference": "b1af9196bd0f94bcebdb6588a150dd85dc240758",
                 "shasum": ""
             },
             "require": {
@@ -351,9 +351,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.401.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.401.2"
             },
-            "time": "2026-10-13T18:14:25+00:00"
+            "time": "2026-10-14T18:09:34+00:00"
         },
         {
             "name": "brick/math",
@@ -4513,16 +4513,16 @@
         },
         {
             "name": "helsingborg-stad/wpmu-allow-sentry-agent",
-            "version": "0.1.1",
+            "version": "0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent.git",
-                "reference": "de823047296e145f648c577dda70454638f15e76"
+                "reference": "718c6bd15e2929372ebef8472b325aa3a20027b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-allow-sentry-agent/zipball/de823047296e145f648c577dda70454638f15e76",
-                "reference": "de823047296e145f648c577dda70454638f15e76",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-allow-sentry-agent/zipball/718c6bd15e2929372ebef8472b325aa3a20027b3",
+                "reference": "718c6bd15e2929372ebef8472b325aa3a20027b3",
                 "shasum": ""
             },
             "require": {
@@ -4545,9 +4545,9 @@
             "homepage": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent/issues",
-                "source": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent/tree/0.1.1"
+                "source": "https://github.com/helsingborg-stad/wpmu-allow-sentry-agent/tree/0.1.2"
             },
-            "time": "2026-10-14T13:44:15+00:00"
+            "time": "2026-10-15T05:37:17+00:00"
         },
         {
             "name": "helsingborg-stad/wpmu-correct-file-paths",
@@ -10152,12 +10152,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
