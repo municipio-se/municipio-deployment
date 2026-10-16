@@ -1,6 +1,17 @@
 services:
   app:
     image: ghcr.io/helsingborg-stad/ols-docker-hbg:0.1.0-php8.3
+    depends_on:
+      redis:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+      typesense:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      createbuckets:
+        condition: service_completed_successfully
     ports:
       - 8080:80
     volumes:
@@ -12,10 +23,13 @@ services:
     image: valkey/valkey:9.1.2
     command: >
       valkey-server --port 6379 --unixsocket /var/run/valkey/valkey.sock --unixsocketperm 777
-    ports:
-      - "6379:6379"
     volumes:
       - valkey-socket:/var/run/valkey
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
 
   db:
     image: mariadb:12.0.2
@@ -29,6 +43,11 @@ services:
       MYSQL_DATABASE: mariadb
       MYSQL_USER: mariadb
       MYSQL_PASSWORD: mariadb
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "--host=localhost", "--user=root", "--password=mariadb"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -47,6 +66,11 @@ services:
     volumes:
       - typesense-data:/data
     command: '--data-dir /data --api-key=xyz --enable-cors'
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/8108 && printf 'GET /health HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && IFS= read -r -t 2 status <&3 && [[ $$status == *' 200 '* ]]"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
 
   # S3-compatible object storage used to offload uploads instead of storing
   # them on the container filesystem.
