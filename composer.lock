@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "df456d7c8fa7a2ad936da9eac7b37620",
+    "content-hash": "f53aaf964d9b4735e00908c04bc00726",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3859,16 +3859,16 @@
         },
         {
             "name": "helsingborg-stad/municipio-clone",
-            "version": "v1.5.3",
+            "version": "v1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/municipio-clone.git",
-                "reference": "a46fbd623440eb3f68cbc189e50ed7dc72062cd1"
+                "reference": "f9d5f00d8b95c3561203f0c4634fdf161b2b8746"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/municipio-clone/zipball/a46fbd623440eb3f68cbc189e50ed7dc72062cd1",
-                "reference": "a46fbd623440eb3f68cbc189e50ed7dc72062cd1",
+                "url": "https://api.github.com/repos/helsingborg-stad/municipio-clone/zipball/f9d5f00d8b95c3561203f0c4634fdf161b2b8746",
+                "reference": "f9d5f00d8b95c3561203f0c4634fdf161b2b8746",
                 "shasum": ""
             },
             "require": {
@@ -3892,9 +3892,9 @@
             "description": "WordPress plugin that enables WP-CLI command for cloning remote WordPress sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/municipio-clone/issues",
-                "source": "https://github.com/helsingborg-stad/municipio-clone/tree/v1.5.3"
+                "source": "https://github.com/helsingborg-stad/municipio-clone/tree/v1.5.4"
             },
-            "time": "2026-10-19T05:35:04+00:00"
+            "time": "2026-10-19T06:05:06+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -9557,7 +9557,7 @@
                 "issues": "https://wordpress.org/support/plugin/fakerpress",
                 "source": "https://plugins.svn.wordpress.org/fakerpress"
             },
-            "time": "2026-10-19T05:31:10+00:00"
+            "time": "2026-10-19T05:36:51+00:00"
         },
         {
             "name": "wp-plugin/litespeed-cache",
