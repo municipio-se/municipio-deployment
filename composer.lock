@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e3f9d1165870530cea8561c885d7fb5",
+    "content-hash": "03a2e9d33a3c916507797994d0c3a9f3",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3859,16 +3859,16 @@
         },
         {
             "name": "helsingborg-stad/municipio-clone",
-            "version": "v1.6.0",
+            "version": "v1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/municipio-clone.git",
-                "reference": "451d2247c29c17b3d61afa0472216367435dbb2c"
+                "reference": "d3aa72d75f8084bf8c9c835c999e6b5b147a881d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/municipio-clone/zipball/451d2247c29c17b3d61afa0472216367435dbb2c",
-                "reference": "451d2247c29c17b3d61afa0472216367435dbb2c",
+                "url": "https://api.github.com/repos/helsingborg-stad/municipio-clone/zipball/d3aa72d75f8084bf8c9c835c999e6b5b147a881d",
+                "reference": "d3aa72d75f8084bf8c9c835c999e6b5b147a881d",
                 "shasum": ""
             },
             "require": {
@@ -3892,9 +3892,9 @@
             "description": "WordPress plugin that enables WP-CLI command for cloning remote WordPress sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/municipio-clone/issues",
-                "source": "https://github.com/helsingborg-stad/municipio-clone/tree/v1.6.0"
+                "source": "https://github.com/helsingborg-stad/municipio-clone/tree/v1.6.1"
             },
-            "time": "2026-10-19T06:35:22+00:00"
+            "time": "2026-10-19T06:48:31+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
