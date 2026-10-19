@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5f0dbb46866bc3c3056bc9ad608b05d",
+    "content-hash": "f85de50aeeb3fd769c9e7d8db65783fb",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -1059,12 +1059,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/darylldoyle/svg-sanitizer.git",
-                "reference": "6e2ed57aac2b8852e18e1e0aea0f42315b12c7b4"
+                "reference": "9ba9001493f5da737759303f13bd965ebdaa778c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/6e2ed57aac2b8852e18e1e0aea0f42315b12c7b4",
-                "reference": "6e2ed57aac2b8852e18e1e0aea0f42315b12c7b4",
+                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/9ba9001493f5da737759303f13bd965ebdaa778c",
+                "reference": "9ba9001493f5da737759303f13bd965ebdaa778c",
                 "shasum": ""
             },
             "require": {
@@ -1097,7 +1097,7 @@
                 "issues": "https://github.com/darylldoyle/svg-sanitizer/issues",
                 "source": "https://github.com/darylldoyle/svg-sanitizer/tree/master"
             },
-            "time": "2026-09-01T11:02:16+00:00"
+            "time": "2026-10-19T12:01:32+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -2029,16 +2029,16 @@
         },
         {
             "name": "helsingborg-stad/api-event-manager-integration",
-            "version": "3.1.10",
+            "version": "3.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-event-manager-integration.git",
-                "reference": "505a782ac20aa4c5d57d33f9d84a3fff0469244d"
+                "reference": "b3569ff5c16c8b173c277fe341c83ed2ccf5e12c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/505a782ac20aa4c5d57d33f9d84a3fff0469244d",
-                "reference": "505a782ac20aa4c5d57d33f9d84a3fff0469244d",
+                "url": "https://api.github.com/repos/helsingborg-stad/api-event-manager-integration/zipball/b3569ff5c16c8b173c277fe341c83ed2ccf5e12c",
+                "reference": "b3569ff5c16c8b173c277fe341c83ed2ccf5e12c",
                 "shasum": ""
             },
             "require": {
@@ -2080,9 +2080,9 @@
             "description": "Import and display events from Event Manager API.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-event-manager-integration/issues",
-                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.1.10"
+                "source": "https://github.com/helsingborg-stad/api-event-manager-integration/tree/3.1.12"
             },
-            "time": "2026-10-13T12:36:36+00:00"
+            "time": "2026-10-19T07:34:21+00:00"
         },
         {
             "name": "helsingborg-stad/api-volunteer-manager-integration",
@@ -3154,16 +3154,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-frontend-form",
-            "version": "0.84.16",
+            "version": "0.84.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-frontend-form.git",
-                "reference": "5ac35a409368adabca699e82bf4829d2fe8155a8"
+                "reference": "d28acd874e1994db90e05388c659c29df6115379"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-frontend-form/zipball/5ac35a409368adabca699e82bf4829d2fe8155a8",
-                "reference": "5ac35a409368adabca699e82bf4829d2fe8155a8",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-frontend-form/zipball/d28acd874e1994db90e05388c659c29df6115379",
+                "reference": "d28acd874e1994db90e05388c659c29df6115379",
                 "shasum": ""
             },
             "require": {
@@ -3201,9 +3201,9 @@
             "description": "Frontend Form for Modularity.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-frontend-form/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-frontend-form/tree/0.84.16"
+                "source": "https://github.com/helsingborg-stad/modularity-frontend-form/tree/0.84.18"
             },
-            "time": "2026-10-05T07:52:30+00:00"
+            "time": "2026-10-19T06:54:35+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-guides",
@@ -3752,16 +3752,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.67.15",
+            "version": "7.67.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "f39e152cf25088835c5e88f828a0c9990c44e78b"
+                "reference": "00982320a412cfce747aefecae60222f5111c0c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/f39e152cf25088835c5e88f828a0c9990c44e78b",
-                "reference": "f39e152cf25088835c5e88f828a0c9990c44e78b",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/00982320a412cfce747aefecae60222f5111c0c7",
+                "reference": "00982320a412cfce747aefecae60222f5111c0c7",
                 "shasum": ""
             },
             "require": {
@@ -3853,9 +3853,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.67.15"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.67.21"
             },
-            "time": "2026-10-16T08:51:05+00:00"
+            "time": "2026-10-19T10:27:20+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -9530,15 +9530,15 @@
         },
         {
             "name": "wp-plugin/fakerpress",
-            "version": "0.9.2",
+            "version": "0.10.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/fakerpress/",
-                "reference": "tags/0.9.2"
+                "reference": "tags/0.10.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/fakerpress.0.9.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/fakerpress.0.10.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -10153,12 +10153,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }
