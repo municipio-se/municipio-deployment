@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45ca98c2c10833afc1fd3c81f6a9a481",
+    "content-hash": "481cd86c68e63f9699254f9131902b36",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3860,16 +3860,16 @@
         },
         {
             "name": "helsingborg-stad/municipio-clone",
-            "version": "v1.6.4",
+            "version": "v1.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/municipio-clone.git",
-                "reference": "ab2d30f3183f1156ca9099ed4e35e8e972a44386"
+                "reference": "1766f1a66dadaaea7c9abe6d4ad883e09776d281"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/municipio-clone/zipball/ab2d30f3183f1156ca9099ed4e35e8e972a44386",
-                "reference": "ab2d30f3183f1156ca9099ed4e35e8e972a44386",
+                "url": "https://api.github.com/repos/helsingborg-stad/municipio-clone/zipball/1766f1a66dadaaea7c9abe6d4ad883e09776d281",
+                "reference": "1766f1a66dadaaea7c9abe6d4ad883e09776d281",
                 "shasum": ""
             },
             "require": {
@@ -3893,9 +3893,9 @@
             "description": "WordPress plugin that enables WP-CLI command for cloning remote WordPress sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/municipio-clone/issues",
-                "source": "https://github.com/helsingborg-stad/municipio-clone/tree/v1.6.4"
+                "source": "https://github.com/helsingborg-stad/municipio-clone/tree/v1.6.5"
             },
-            "time": "2026-10-20T15:28:16+00:00"
+            "time": "2026-10-21T10:46:11+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -10154,12 +10154,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
