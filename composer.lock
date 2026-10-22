@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9915d806a72ce9feed2e6c8f439876bf",
+    "content-hash": "78b136e8093e373e920850902bc10b11",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3753,16 +3753,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.70.3",
+            "version": "7.71.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "5412e31e206ea25c1745ad0425129cb250ab3838"
+                "reference": "eab80225d6e2105421b87c9833c0face0fa551e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/5412e31e206ea25c1745ad0425129cb250ab3838",
-                "reference": "5412e31e206ea25c1745ad0425129cb250ab3838",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/eab80225d6e2105421b87c9833c0face0fa551e6",
+                "reference": "eab80225d6e2105421b87c9833c0face0fa551e6",
                 "shasum": ""
             },
             "require": {
@@ -3854,9 +3854,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.70.3"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.71.0"
             },
-            "time": "2026-10-22T11:05:19+00:00"
+            "time": "2026-10-22T13:53:38+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
