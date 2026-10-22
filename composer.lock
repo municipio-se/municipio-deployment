@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ca6ea5717f92440fd3a4e09f8ee6c08",
+    "content-hash": "9915d806a72ce9feed2e6c8f439876bf",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -261,16 +261,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.401.4",
+            "version": "3.401.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "b5941e2da9fb860f06ad5046d96219c4288ab6b8"
+                "reference": "4d304660ba59e185e86a17946c6be6ab07bf8546"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b5941e2da9fb860f06ad5046d96219c4288ab6b8",
-                "reference": "b5941e2da9fb860f06ad5046d96219c4288ab6b8",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4d304660ba59e185e86a17946c6be6ab07bf8546",
+                "reference": "4d304660ba59e185e86a17946c6be6ab07bf8546",
                 "shasum": ""
             },
             "require": {
@@ -352,9 +352,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.401.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.401.5"
             },
-            "time": "2026-10-20T18:15:27+00:00"
+            "time": "2026-10-21T18:10:10+00:00"
         },
         {
             "name": "brick/math",
@@ -2973,16 +2973,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-contact-banner",
-            "version": "4.0.28",
+            "version": "4.0.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-contact-banner.git",
-                "reference": "4865b40799b3e074c50fbd35585f3dae0236a599"
+                "reference": "c5fe6711fcb4cc3035b070c94a691b08af9d790a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-contact-banner/zipball/4865b40799b3e074c50fbd35585f3dae0236a599",
-                "reference": "4865b40799b3e074c50fbd35585f3dae0236a599",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-contact-banner/zipball/c5fe6711fcb4cc3035b070c94a691b08af9d790a",
+                "reference": "c5fe6711fcb4cc3035b070c94a691b08af9d790a",
                 "shasum": ""
             },
             "require": {
@@ -3025,9 +3025,9 @@
             "description": "Contact Banner",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-contact-banner/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-contact-banner/tree/4.0.28"
+                "source": "https://github.com/helsingborg-stad/modularity-contact-banner/tree/4.0.30"
             },
-            "time": "2026-09-09T13:16:29+00:00"
+            "time": "2026-10-21T11:06:00+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-entryscape",
@@ -3753,16 +3753,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.69.4",
+            "version": "7.70.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "55ae6ec97c4b2397446e6bae0b28cc4f960990f1"
+                "reference": "5412e31e206ea25c1745ad0425129cb250ab3838"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/55ae6ec97c4b2397446e6bae0b28cc4f960990f1",
-                "reference": "55ae6ec97c4b2397446e6bae0b28cc4f960990f1",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/5412e31e206ea25c1745ad0425129cb250ab3838",
+                "reference": "5412e31e206ea25c1745ad0425129cb250ab3838",
                 "shasum": ""
             },
             "require": {
@@ -3854,9 +3854,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.69.4"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.70.3"
             },
-            "time": "2026-10-21T09:36:27+00:00"
+            "time": "2026-10-22T11:05:19+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -6404,16 +6404,16 @@
         },
         {
             "name": "nette/schema",
-            "version": "v1.3.7",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/schema.git",
-                "reference": "c1162897273bf9499ca57924c4688a19d82c9310"
+                "reference": "af9fa8a86bfca9b02b10346220db26e62ef942ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/schema/zipball/c1162897273bf9499ca57924c4688a19d82c9310",
-                "reference": "c1162897273bf9499ca57924c4688a19d82c9310",
+                "url": "https://api.github.com/repos/nette/schema/zipball/af9fa8a86bfca9b02b10346220db26e62ef942ec",
+                "reference": "af9fa8a86bfca9b02b10346220db26e62ef942ec",
                 "shasum": ""
             },
             "require": {
@@ -6421,16 +6421,16 @@
                 "php": "8.1 - 8.6"
             },
             "require-dev": {
-                "nette/phpstan-rules": "^1.0",
+                "nette/phpstan-rules": "^1.0.7",
                 "nette/tester": "^2.6",
                 "phpstan/extension-installer": "^1.4@stable",
-                "phpstan/phpstan": "^2.1.39@stable",
+                "phpstan/phpstan": "^2.3@stable",
                 "tracy/tracy": "^2.8"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -6451,23 +6451,23 @@
                 {
                     "name": "David Grudl",
                     "homepage": "https://davidgrudl.com"
-                },
-                {
-                    "name": "Nette Community",
-                    "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "📐 Nette Schema: validating data structures against a given Schema.",
-            "homepage": "https://nette.org",
+            "description": "📐 Nette Schema: validates and normalizes data such as configuration or API input against a schema described in a few readable lines of PHP, with precise error messages.",
+            "homepage": "https://doc.nette.org/schema",
             "keywords": [
-                "config",
-                "nette"
+                "configuration",
+                "data validation",
+                "nette",
+                "normalization",
+                "schema",
+                "validation"
             ],
             "support": {
                 "issues": "https://github.com/nette/schema/issues",
-                "source": "https://github.com/nette/schema/tree/v1.3.7"
+                "source": "https://github.com/nette/schema/tree/v1.4.0"
             },
-            "time": "2026-10-20T15:46:50+00:00"
+            "time": "2026-10-22T02:12:50+00:00"
         },
         {
             "name": "nette/utils",
@@ -9655,15 +9655,15 @@
         },
         {
             "name": "wp-plugin/post-expirator",
-            "version": "4.11.0",
+            "version": "4.11.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/post-expirator/",
-                "reference": "tags/4.11.0"
+                "reference": "tags/4.11.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.11.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.11.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9682,7 +9682,7 @@
                 "issues": "https://wordpress.org/support/plugin/post-expirator",
                 "source": "https://plugins.svn.wordpress.org/post-expirator"
             },
-            "time": "2026-10-20T19:26:27+00:00"
+            "time": "2026-10-21T19:51:41+00:00"
         },
         {
             "name": "wp-plugin/pressidium-cookie-consent",
@@ -10154,12 +10154,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }
