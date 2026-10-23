@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78b136e8093e373e920850902bc10b11",
+    "content-hash": "0964e48fab3c6fb87801ebc1080c43db",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -261,16 +261,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.401.5",
+            "version": "3.402.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4d304660ba59e185e86a17946c6be6ab07bf8546"
+                "reference": "661f6a54f2a63ac5137390c291535c74cfe6019e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4d304660ba59e185e86a17946c6be6ab07bf8546",
-                "reference": "4d304660ba59e185e86a17946c6be6ab07bf8546",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/661f6a54f2a63ac5137390c291535c74cfe6019e",
+                "reference": "661f6a54f2a63ac5137390c291535c74cfe6019e",
                 "shasum": ""
             },
             "require": {
@@ -282,7 +282,7 @@
                 "guzzlehttp/promises": "^2.0.3 || ^3.0",
                 "guzzlehttp/psr7": "^2.6.3 || ^3.0",
                 "mtdowling/jmespath.php": "^2.9.1",
-                "php": ">=8.1",
+                "php": ">=8.2",
                 "psr/http-message": "^1.0 || ^2.0",
                 "symfony/filesystem": "^v5.4.45 || ^v6.4.3 || ^v7.1.0 || ^v8.0.0"
             },
@@ -352,9 +352,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.401.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.402.0"
             },
-            "time": "2026-10-21T18:10:10+00:00"
+            "time": "2026-10-22T18:09:05+00:00"
         },
         {
             "name": "brick/math",
@@ -1347,16 +1347,16 @@
         },
         {
             "name": "giggsey/locale",
-            "version": "2.9.0",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/Locale.git",
-                "reference": "fe741e99ae6ccbe8132f3d63d8ec89924e689778"
+                "reference": "c13d22635eac0e51d1dcd7f09b99fd7475209a51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/Locale/zipball/fe741e99ae6ccbe8132f3d63d8ec89924e689778",
-                "reference": "fe741e99ae6ccbe8132f3d63d8ec89924e689778",
+                "url": "https://api.github.com/repos/giggsey/Locale/zipball/c13d22635eac0e51d1dcd7f09b99fd7475209a51",
+                "reference": "c13d22635eac0e51d1dcd7f09b99fd7475209a51",
                 "shasum": ""
             },
             "require": {
@@ -1399,9 +1399,9 @@
             "description": "Locale functions required by libphonenumber-for-php",
             "support": {
                 "issues": "https://github.com/giggsey/Locale/issues",
-                "source": "https://github.com/giggsey/Locale/tree/2.9.0"
+                "source": "https://github.com/giggsey/Locale/tree/2.10.0"
             },
-            "time": "2026-02-24T15:32:13+00:00"
+            "time": "2026-10-22T19:31:33+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -3753,16 +3753,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.71.0",
+            "version": "7.72.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "eab80225d6e2105421b87c9833c0face0fa551e6"
+                "reference": "0156813dbda87a116ea07cd6404f8c8593c6f080"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/eab80225d6e2105421b87c9833c0face0fa551e6",
-                "reference": "eab80225d6e2105421b87c9833c0face0fa551e6",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/0156813dbda87a116ea07cd6404f8c8593c6f080",
+                "reference": "0156813dbda87a116ea07cd6404f8c8593c6f080",
                 "shasum": ""
             },
             "require": {
@@ -3854,9 +3854,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.71.0"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.72.2"
             },
-            "time": "2026-10-22T13:53:38+00:00"
+            "time": "2026-10-23T14:30:45+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -9655,15 +9655,15 @@
         },
         {
             "name": "wp-plugin/post-expirator",
-            "version": "4.11.1",
+            "version": "4.11.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/post-expirator/",
-                "reference": "tags/4.11.1"
+                "reference": "tags/4.11.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.11.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.11.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9682,19 +9682,19 @@
                 "issues": "https://wordpress.org/support/plugin/post-expirator",
                 "source": "https://plugins.svn.wordpress.org/post-expirator"
             },
-            "time": "2026-10-21T19:51:41+00:00"
+            "time": "2026-10-22T14:29:38+00:00"
         },
         {
             "name": "wp-plugin/pressidium-cookie-consent",
-            "version": "1.9.1",
+            "version": "1.9.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/pressidium-cookie-consent/",
-                "reference": "tags/1.9.1"
+                "reference": "tags/1.9.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/pressidium-cookie-consent.1.9.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/pressidium-cookie-consent.1.9.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9713,7 +9713,7 @@
                 "issues": "https://wordpress.org/support/plugin/pressidium-cookie-consent",
                 "source": "https://plugins.svn.wordpress.org/pressidium-cookie-consent"
             },
-            "time": "2026-03-23T19:23:21+00:00"
+            "time": "2026-10-22T17:22:36+00:00"
         },
         {
             "name": "wp-plugin/redirection",
