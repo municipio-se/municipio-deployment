@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f85de50aeeb3fd769c9e7d8db65783fb",
+    "content-hash": "1c7249eac574a94a5f43f676b4f4dd57",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -62,22 +62,23 @@
         },
         {
             "name": "algolia/algoliasearch-client-php",
-            "version": "4.49.0",
+            "version": "4.50.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/algolia/algoliasearch-client-php.git",
-                "reference": "0e8832da117e60ca2d8bfe0ee9d3271ea9471019"
+                "reference": "3b82fdb2e7730af8a58be6d485f2b5d8cf15c6bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/algolia/algoliasearch-client-php/zipball/0e8832da117e60ca2d8bfe0ee9d3271ea9471019",
-                "reference": "0e8832da117e60ca2d8bfe0ee9d3271ea9471019",
+                "url": "https://api.github.com/repos/algolia/algoliasearch-client-php/zipball/3b82fdb2e7730af8a58be6d485f2b5d8cf15c6bf",
+                "reference": "3b82fdb2e7730af8a58be6d485f2b5d8cf15c6bf",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
+                "ext-zlib": "*",
                 "guzzlehttp/psr7": "^2.0 || ^3.0",
                 "php": ">=8.1 !=8.3.0",
                 "psr/http-message": "^1.1 || ^2.0",
@@ -124,9 +125,9 @@
             ],
             "support": {
                 "issues": "https://github.com/algolia/algoliasearch-client-php/issues",
-                "source": "https://github.com/algolia/algoliasearch-client-php/tree/4.49.0"
+                "source": "https://github.com/algolia/algoliasearch-client-php/tree/4.50.0"
             },
-            "time": "2026-09-09T15:24:38+00:00"
+            "time": "2026-10-12T14:57:42+00:00"
         },
         {
             "name": "astrotomic/php-deepface",
@@ -260,16 +261,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.401.3",
+            "version": "3.402.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7b8541e8a4f09cf4375eeef4de6c638dfb2dadbb"
+                "reference": "661f6a54f2a63ac5137390c291535c74cfe6019e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7b8541e8a4f09cf4375eeef4de6c638dfb2dadbb",
-                "reference": "7b8541e8a4f09cf4375eeef4de6c638dfb2dadbb",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/661f6a54f2a63ac5137390c291535c74cfe6019e",
+                "reference": "661f6a54f2a63ac5137390c291535c74cfe6019e",
                 "shasum": ""
             },
             "require": {
@@ -281,7 +282,7 @@
                 "guzzlehttp/promises": "^2.0.3 || ^3.0",
                 "guzzlehttp/psr7": "^2.6.3 || ^3.0",
                 "mtdowling/jmespath.php": "^2.9.1",
-                "php": ">=8.1",
+                "php": ">=8.2",
                 "psr/http-message": "^1.0 || ^2.0",
                 "symfony/filesystem": "^v5.4.45 || ^v6.4.3 || ^v7.1.0 || ^v8.0.0"
             },
@@ -351,9 +352,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.401.3"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.402.0"
             },
-            "time": "2026-10-19T18:11:47+00:00"
+            "time": "2026-10-22T18:09:05+00:00"
         },
         {
             "name": "brick/math",
@@ -1059,12 +1060,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/darylldoyle/svg-sanitizer.git",
-                "reference": "9ba9001493f5da737759303f13bd965ebdaa778c"
+                "reference": "1976ff93c8d8a234cdd3ff99626bd43ecf11bf49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/9ba9001493f5da737759303f13bd965ebdaa778c",
-                "reference": "9ba9001493f5da737759303f13bd965ebdaa778c",
+                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/1976ff93c8d8a234cdd3ff99626bd43ecf11bf49",
+                "reference": "1976ff93c8d8a234cdd3ff99626bd43ecf11bf49",
                 "shasum": ""
             },
             "require": {
@@ -1097,7 +1098,7 @@
                 "issues": "https://github.com/darylldoyle/svg-sanitizer/issues",
                 "source": "https://github.com/darylldoyle/svg-sanitizer/tree/master"
             },
-            "time": "2026-10-19T12:01:32+00:00"
+            "time": "2026-10-20T09:45:10+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -1346,16 +1347,16 @@
         },
         {
             "name": "giggsey/locale",
-            "version": "2.9.0",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/Locale.git",
-                "reference": "fe741e99ae6ccbe8132f3d63d8ec89924e689778"
+                "reference": "c13d22635eac0e51d1dcd7f09b99fd7475209a51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/Locale/zipball/fe741e99ae6ccbe8132f3d63d8ec89924e689778",
-                "reference": "fe741e99ae6ccbe8132f3d63d8ec89924e689778",
+                "url": "https://api.github.com/repos/giggsey/Locale/zipball/c13d22635eac0e51d1dcd7f09b99fd7475209a51",
+                "reference": "c13d22635eac0e51d1dcd7f09b99fd7475209a51",
                 "shasum": ""
             },
             "require": {
@@ -1398,22 +1399,22 @@
             "description": "Locale functions required by libphonenumber-for-php",
             "support": {
                 "issues": "https://github.com/giggsey/Locale/issues",
-                "source": "https://github.com/giggsey/Locale/tree/2.9.0"
+                "source": "https://github.com/giggsey/Locale/tree/2.10.0"
             },
-            "time": "2026-02-24T15:32:13+00:00"
+            "time": "2026-10-22T19:31:33+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "8.3.0",
+            "version": "8.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "b920e5fcaf81d761b8fabe600ca90999beaefdb7"
+                "reference": "7d9b1f430bb65ac664e120af227bf9a795ad6333"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b920e5fcaf81d761b8fabe600ca90999beaefdb7",
-                "reference": "b920e5fcaf81d761b8fabe600ca90999beaefdb7",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/7d9b1f430bb65ac664e120af227bf9a795ad6333",
+                "reference": "7d9b1f430bb65ac664e120af227bf9a795ad6333",
                 "shasum": ""
             },
             "require": {
@@ -1510,7 +1511,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/8.3.0"
+                "source": "https://github.com/guzzle/guzzle/tree/8.3.1"
             },
             "funding": [
                 {
@@ -1526,7 +1527,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-18T13:38:43+00:00"
+            "time": "2026-10-25T21:35:34+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1968,16 +1969,16 @@
         },
         {
             "name": "helsingborg-stad/api-alarm-integration",
-            "version": "5.0.25",
+            "version": "5.0.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-alarm-integration.git",
-                "reference": "53f40981c97fd8e1a8cd8288da9384777374b045"
+                "reference": "f344c56c4e290727e50c09c6ee5155b1e1a80505"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-alarm-integration/zipball/53f40981c97fd8e1a8cd8288da9384777374b045",
-                "reference": "53f40981c97fd8e1a8cd8288da9384777374b045",
+                "url": "https://api.github.com/repos/helsingborg-stad/api-alarm-integration/zipball/f344c56c4e290727e50c09c6ee5155b1e1a80505",
+                "reference": "f344c56c4e290727e50c09c6ee5155b1e1a80505",
                 "shasum": ""
             },
             "require": {
@@ -2023,9 +2024,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-alarm-integration/issues",
-                "source": "https://github.com/helsingborg-stad/api-alarm-integration/tree/5.0.25"
+                "source": "https://github.com/helsingborg-stad/api-alarm-integration/tree/5.0.27"
             },
-            "time": "2026-10-13T14:41:12+00:00"
+            "time": "2026-10-20T08:29:10+00:00"
         },
         {
             "name": "helsingborg-stad/api-event-manager-integration",
@@ -2364,16 +2365,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.44.5",
+            "version": "5.45.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "1d39c5f9723e3ef93fb99fd647f0dc09d5b2a500"
+                "reference": "13fb0566196086b84602925cb14480c452b1a9cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/1d39c5f9723e3ef93fb99fd647f0dc09d5b2a500",
-                "reference": "1d39c5f9723e3ef93fb99fd647f0dc09d5b2a500",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/13fb0566196086b84602925cb14480c452b1a9cd",
+                "reference": "13fb0566196086b84602925cb14480c452b1a9cd",
                 "shasum": ""
             },
             "require": {
@@ -2406,9 +2407,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.44.5"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.45.1"
             },
-            "time": "2026-10-02T12:14:09+00:00"
+            "time": "2026-10-20T09:34:22+00:00"
         },
         {
             "name": "helsingborg-stad/coordinate-transformation-library",
@@ -2972,16 +2973,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-contact-banner",
-            "version": "4.0.28",
+            "version": "4.0.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-contact-banner.git",
-                "reference": "4865b40799b3e074c50fbd35585f3dae0236a599"
+                "reference": "c5fe6711fcb4cc3035b070c94a691b08af9d790a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-contact-banner/zipball/4865b40799b3e074c50fbd35585f3dae0236a599",
-                "reference": "4865b40799b3e074c50fbd35585f3dae0236a599",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-contact-banner/zipball/c5fe6711fcb4cc3035b070c94a691b08af9d790a",
+                "reference": "c5fe6711fcb4cc3035b070c94a691b08af9d790a",
                 "shasum": ""
             },
             "require": {
@@ -3024,9 +3025,9 @@
             "description": "Contact Banner",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-contact-banner/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-contact-banner/tree/4.0.28"
+                "source": "https://github.com/helsingborg-stad/modularity-contact-banner/tree/4.0.30"
             },
-            "time": "2026-09-09T13:16:29+00:00"
+            "time": "2026-10-21T11:06:00+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-entryscape",
@@ -3333,16 +3334,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-open-street-map",
-            "version": "3.1.24",
+            "version": "3.1.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-openstreetmap.git",
-                "reference": "5c7231ce6f93c9b3360fa6fa1ac55ef20349945d"
+                "reference": "47797311c6e64937d043481804a40e0542534fdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-openstreetmap/zipball/5c7231ce6f93c9b3360fa6fa1ac55ef20349945d",
-                "reference": "5c7231ce6f93c9b3360fa6fa1ac55ef20349945d",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-openstreetmap/zipball/47797311c6e64937d043481804a40e0542534fdd",
+                "reference": "47797311c6e64937d043481804a40e0542534fdd",
                 "shasum": ""
             },
             "require": {
@@ -3385,9 +3386,9 @@
             "description": "Open Street Map integration",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-openstreetmap/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-openstreetmap/tree/3.1.24"
+                "source": "https://github.com/helsingborg-stad/modularity-openstreetmap/tree/3.1.26"
             },
-            "time": "2026-10-07T13:28:17+00:00"
+            "time": "2026-10-26T08:33:48+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-products",
@@ -3752,20 +3753,20 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.67.21",
+            "version": "7.72.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "00982320a412cfce747aefecae60222f5111c0c7"
+                "reference": "1b6f3ada8363f7dab6dc6be87d7d4f00cd945c23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/00982320a412cfce747aefecae60222f5111c0c7",
-                "reference": "00982320a412cfce747aefecae60222f5111c0c7",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/1b6f3ada8363f7dab6dc6be87d7d4f00cd945c23",
+                "reference": "1b6f3ada8363f7dab6dc6be87d7d4f00cd945c23",
                 "shasum": ""
             },
             "require": {
-                "algolia/algoliasearch-client-php": "4.49.0",
+                "algolia/algoliasearch-client-php": "4.50.0",
                 "astrotomic/php-deepface": "0.5.0",
                 "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
                 "composer/installers": "^2.3",
@@ -3777,14 +3778,14 @@
                 "helsingborg-stad/acf-select-image-field": "1.6.1",
                 "helsingborg-stad/acfservice": "^1.0.0",
                 "helsingborg-stad/schema-library": "0.5.8",
-                "helsingborg-stad/styleguide": "3.36.14",
+                "helsingborg-stad/styleguide": "3.42.3",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "0.3.5",
                 "jeradin/acf-dynamic-table-field": "dev-master",
                 "jeradin/acf-website-field": "dev-master",
                 "johannheyne/advanced-custom-fields-table-field": "dev-master",
                 "landrok/language-detector": "dev-master",
-                "league/commonmark": "2.10.3",
+                "league/commonmark": "2.10.4",
                 "league/config": "v1.2.0",
                 "ooksanen/acf-focuspoint": "^1.2.1",
                 "php": "^8.2",
@@ -3853,22 +3854,22 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.67.21"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.72.4"
             },
-            "time": "2026-10-19T10:27:20+00:00"
+            "time": "2026-10-23T14:50:47+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
-            "version": "v1.6.3",
+            "version": "v1.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/municipio-clone.git",
-                "reference": "99ddc24fd01e054acd975838f5273f2370ab92a7"
+                "reference": "9d45cb013fff6a18fd9b832ae242071e6b8b402f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/municipio-clone/zipball/99ddc24fd01e054acd975838f5273f2370ab92a7",
-                "reference": "99ddc24fd01e054acd975838f5273f2370ab92a7",
+                "url": "https://api.github.com/repos/helsingborg-stad/municipio-clone/zipball/9d45cb013fff6a18fd9b832ae242071e6b8b402f",
+                "reference": "9d45cb013fff6a18fd9b832ae242071e6b8b402f",
                 "shasum": ""
             },
             "require": {
@@ -3892,9 +3893,9 @@
             "description": "WordPress plugin that enables WP-CLI command for cloning remote WordPress sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/municipio-clone/issues",
-                "source": "https://github.com/helsingborg-stad/municipio-clone/tree/v1.6.3"
+                "source": "https://github.com/helsingborg-stad/municipio-clone/tree/v1.6.6"
             },
-            "time": "2026-10-19T08:02:44+00:00"
+            "time": "2026-10-21T12:28:57+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
@@ -4146,21 +4147,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.36.14",
+            "version": "3.42.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "d55bca1da6bb0a9ca3955b86e11ae9382cd19ffb"
+                "reference": "00ae603fe4d6da6f1406a89e7d644db515354252"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/d55bca1da6bb0a9ca3955b86e11ae9382cd19ffb",
-                "reference": "d55bca1da6bb0a9ca3955b86e11ae9382cd19ffb",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/00ae603fe4d6da6f1406a89e7d644db515354252",
+                "reference": "00ae603fe4d6da6f1406a89e7d644db515354252",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.44.5",
+                "helsingborg-stad/component-library": "5.45.1",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -4219,9 +4220,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.36.14"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.42.3"
             },
-            "time": "2026-10-02T12:23:54+00:00"
+            "time": "2026-10-23T13:08:17+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
@@ -5943,16 +5944,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.10.3",
+            "version": "2.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "6efbd9c472b91db0a3350fcd601c8332c2382e1f"
+                "reference": "40821b7606d8d946bac57dbd2290076c722e3a65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/6efbd9c472b91db0a3350fcd601c8332c2382e1f",
-                "reference": "6efbd9c472b91db0a3350fcd601c8332c2382e1f",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/40821b7606d8d946bac57dbd2290076c722e3a65",
+                "reference": "40821b7606d8d946bac57dbd2290076c722e3a65",
                 "shasum": ""
             },
             "require": {
@@ -6046,7 +6047,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-21T13:07:34+00:00"
+            "time": "2026-10-17T19:59:50+00:00"
         },
         {
             "name": "league/config",
@@ -6132,20 +6133,21 @@
         },
         {
             "name": "masterminds/html5",
-            "version": "2.11.0",
+            "version": "2.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Masterminds/html5-php.git",
-                "reference": "a1e7a2f88ee13635d86fc61cfbdf2306a76ddfc7"
+                "reference": "15e16663bd6f512352209d0e3a789c0a691c0d9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/a1e7a2f88ee13635d86fc61cfbdf2306a76ddfc7",
-                "reference": "a1e7a2f88ee13635d86fc61cfbdf2306a76ddfc7",
+                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/15e16663bd6f512352209d0e3a789c0a691c0d9b",
+                "reference": "15e16663bd6f512352209d0e3a789c0a691c0d9b",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
+                "ext-mbstring": "*",
                 "php": ">=7.4"
             },
             "require-dev": {
@@ -6193,9 +6195,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Masterminds/html5-php/issues",
-                "source": "https://github.com/Masterminds/html5-php/tree/2.11.0"
+                "source": "https://github.com/Masterminds/html5-php/tree/2.12.0"
             },
-            "time": "2026-08-18T06:18:41+00:00"
+            "time": "2026-10-25T08:57:58+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -6403,33 +6405,33 @@
         },
         {
             "name": "nette/schema",
-            "version": "v1.3.6",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/schema.git",
-                "reference": "c54350438cd6914616f790a49cb424605f421562"
+                "reference": "af9fa8a86bfca9b02b10346220db26e62ef942ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/schema/zipball/c54350438cd6914616f790a49cb424605f421562",
-                "reference": "c54350438cd6914616f790a49cb424605f421562",
+                "url": "https://api.github.com/repos/nette/schema/zipball/af9fa8a86bfca9b02b10346220db26e62ef942ec",
+                "reference": "af9fa8a86bfca9b02b10346220db26e62ef942ec",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "^4.0",
-                "php": "8.1 - 8.5"
+                "php": "8.1 - 8.6"
             },
             "require-dev": {
-                "nette/phpstan-rules": "^1.0",
+                "nette/phpstan-rules": "^1.0.7",
                 "nette/tester": "^2.6",
                 "phpstan/extension-installer": "^1.4@stable",
-                "phpstan/phpstan": "^2.1.39@stable",
+                "phpstan/phpstan": "^2.3@stable",
                 "tracy/tracy": "^2.8"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -6450,40 +6452,40 @@
                 {
                     "name": "David Grudl",
                     "homepage": "https://davidgrudl.com"
-                },
-                {
-                    "name": "Nette Community",
-                    "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "📐 Nette Schema: validating data structures against a given Schema.",
-            "homepage": "https://nette.org",
+            "description": "📐 Nette Schema: validates and normalizes data such as configuration or API input against a schema described in a few readable lines of PHP, with precise error messages.",
+            "homepage": "https://doc.nette.org/schema",
             "keywords": [
-                "config",
-                "nette"
+                "configuration",
+                "data validation",
+                "nette",
+                "normalization",
+                "schema",
+                "validation"
             ],
             "support": {
                 "issues": "https://github.com/nette/schema/issues",
-                "source": "https://github.com/nette/schema/tree/v1.3.6"
+                "source": "https://github.com/nette/schema/tree/v1.4.0"
             },
-            "time": "2026-08-16T21:58:41+00:00"
+            "time": "2026-10-22T02:12:50+00:00"
         },
         {
             "name": "nette/utils",
-            "version": "v4.1.5",
+            "version": "v4.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "b043439dbdf954e6c28b5ea7e34b0100f83165e0"
+                "reference": "6bf24518accf32cf845bca305e0b92078700fd01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/b043439dbdf954e6c28b5ea7e34b0100f83165e0",
-                "reference": "b043439dbdf954e6c28b5ea7e34b0100f83165e0",
+                "url": "https://api.github.com/repos/nette/utils/zipball/6bf24518accf32cf845bca305e0b92078700fd01",
+                "reference": "6bf24518accf32cf845bca305e0b92078700fd01",
                 "shasum": ""
             },
             "require": {
-                "php": "8.2 - 8.5"
+                "php": "8.2 - 8.6"
             },
             "conflict": {
                 "nette/finder": "<3",
@@ -6555,9 +6557,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v4.1.5"
+                "source": "https://github.com/nette/utils/tree/v4.1.6"
             },
-            "time": "2026-07-17T23:02:45+00:00"
+            "time": "2026-10-20T17:07:56+00:00"
         },
         {
             "name": "nyholm/psr7",
@@ -9561,15 +9563,15 @@
         },
         {
             "name": "wp-plugin/litespeed-cache",
-            "version": "7.9.1",
+            "version": "7.9.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/litespeed-cache/",
-                "reference": "tags/7.9.1"
+                "reference": "tags/7.9.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/litespeed-cache.7.9.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/litespeed-cache.7.9.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9588,7 +9590,7 @@
                 "issues": "https://wordpress.org/support/plugin/litespeed-cache",
                 "source": "https://plugins.svn.wordpress.org/litespeed-cache"
             },
-            "time": "2026-09-01T21:21:06+00:00"
+            "time": "2026-10-20T18:12:25+00:00"
         },
         {
             "name": "wp-plugin/network-plugin-auditor",
@@ -9654,15 +9656,15 @@
         },
         {
             "name": "wp-plugin/post-expirator",
-            "version": "4.10.7",
+            "version": "4.11.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/post-expirator/",
-                "reference": "tags/4.10.7"
+                "reference": "tags/4.11.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.10.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.11.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9681,19 +9683,19 @@
                 "issues": "https://wordpress.org/support/plugin/post-expirator",
                 "source": "https://plugins.svn.wordpress.org/post-expirator"
             },
-            "time": "2026-10-07T12:52:36+00:00"
+            "time": "2026-10-22T14:29:38+00:00"
         },
         {
             "name": "wp-plugin/pressidium-cookie-consent",
-            "version": "1.9.1",
+            "version": "1.9.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/pressidium-cookie-consent/",
-                "reference": "tags/1.9.1"
+                "reference": "tags/1.9.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/pressidium-cookie-consent.1.9.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/pressidium-cookie-consent.1.9.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9712,7 +9714,7 @@
                 "issues": "https://wordpress.org/support/plugin/pressidium-cookie-consent",
                 "source": "https://plugins.svn.wordpress.org/pressidium-cookie-consent"
             },
-            "time": "2026-03-23T19:23:21+00:00"
+            "time": "2026-10-22T17:22:36+00:00"
         },
         {
             "name": "wp-plugin/redirection",
@@ -9993,15 +9995,15 @@
         },
         {
             "name": "wp-plugin/wordpress-importer",
-            "version": "0.9.6",
+            "version": "0.9.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wordpress-importer/",
-                "reference": "tags/0.9.6"
+                "reference": "tags/0.9.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.9.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.9.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -10020,7 +10022,7 @@
                 "issues": "https://wordpress.org/support/plugin/wordpress-importer",
                 "source": "https://plugins.svn.wordpress.org/wordpress-importer"
             },
-            "time": "2026-08-27T11:41:30+00:00"
+            "time": "2026-10-20T08:27:50+00:00"
         },
         {
             "name": "wp-plugin/wp-multi-network",
