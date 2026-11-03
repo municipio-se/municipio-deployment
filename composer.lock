@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb977c45ff788cd3f22337a763c7c60a",
+    "content-hash": "149dd2574dcbf4f9b7d35928f57eb44e",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -1269,54 +1269,55 @@
             "time": "2023-11-30T14:50:21+00:00"
         },
         {
-            "name": "giggsey/libphonenumber-for-php",
-            "version": "8.13.55",
+            "name": "giggsey/libphonenumber-for-php-lite",
+            "version": "9.0.42",
             "source": {
                 "type": "git",
-                "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "6e28b3d53cf96d7f41c83d9b80b6021ecbd00537"
+                "url": "https://github.com/giggsey/libphonenumber-for-php-lite.git",
+                "reference": "6b9f5e5e2ff347b566ee6ea558cd56f878a3ea2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/6e28b3d53cf96d7f41c83d9b80b6021ecbd00537",
-                "reference": "6e28b3d53cf96d7f41c83d9b80b6021ecbd00537",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php-lite/zipball/6b9f5e5e2ff347b566ee6ea558cd56f878a3ea2e",
+                "reference": "6b9f5e5e2ff347b566ee6ea558cd56f878a3ea2e",
                 "shasum": ""
             },
             "require": {
-                "giggsey/locale": "^2.0",
-                "php": "^7.4|^8.0",
+                "php": "^8.1",
                 "symfony/polyfill-mbstring": "^1.17"
             },
-            "replace": {
-                "giggsey/libphonenumber-for-php-lite": "self.version"
+            "conflict": {
+                "giggsey/libphonenumber-for-php": "*"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.64",
-                "pear/pear-core-minimal": "^1.10",
-                "pear/pear_exception": "^1.0",
-                "pear/versioncontrol_git": "^0.7",
-                "phing/phing": "^3.0",
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^9.6",
-                "symfony/console": "^v5.2",
-                "symfony/var-exporter": "^5.2"
+                "ext-dom": "*",
+                "friendsofphp/php-cs-fixer": "^3.71",
+                "infection/infection": "^0.29|^0.31.0",
+                "nette/php-generator": "^4.1",
+                "php-coveralls/php-coveralls": "^2.7",
+                "phpstan/extension-installer": "^1.4.3",
+                "phpstan/phpstan": "^2.1.7",
+                "phpstan/phpstan-deprecation-rules": "^2.0.1",
+                "phpstan/phpstan-phpunit": "^2.0.4",
+                "phpstan/phpstan-strict-rules": "^2.0.3",
+                "phpunit/phpunit": "^10.5.45",
+                "symfony/console": "^6.4",
+                "symfony/filesystem": "^6.4",
+                "symfony/process": "^6.4"
+            },
+            "suggest": {
+                "giggsey/libphonenumber-for-php": "Use libphonenumber-for-php for geocoding, carriers, timezones and matching"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "8.x-dev"
+                    "dev-master": "9.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "libphonenumber\\": "src/"
-                },
-                "exclude-from-classmap": [
-                    "/src/data/",
-                    "/src/carrier/data/",
-                    "/src/geocoding/data/",
-                    "/src/timezone/data/"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1329,8 +1330,8 @@
                     "homepage": "https://giggsey.com/"
                 }
             ],
-            "description": "PHP Port of Google's libphonenumber",
-            "homepage": "https://github.com/giggsey/libphonenumber-for-php",
+            "description": "A lite version of giggsey/libphonenumber-for-php, which is a PHP Port of Google's libphonenumber",
+            "homepage": "https://github.com/giggsey/libphonenumber-for-php-lite",
             "keywords": [
                 "geocoding",
                 "geolocation",
@@ -1340,68 +1341,10 @@
                 "validation"
             ],
             "support": {
-                "issues": "https://github.com/giggsey/libphonenumber-for-php/issues",
-                "source": "https://github.com/giggsey/libphonenumber-for-php"
+                "issues": "https://github.com/giggsey/libphonenumber-for-php-lite/issues",
+                "source": "https://github.com/giggsey/libphonenumber-for-php-lite"
             },
-            "time": "2025-02-14T08:14:08+00:00"
-        },
-        {
-            "name": "giggsey/locale",
-            "version": "2.10.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/giggsey/Locale.git",
-                "reference": "c13d22635eac0e51d1dcd7f09b99fd7475209a51"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/Locale/zipball/c13d22635eac0e51d1dcd7f09b99fd7475209a51",
-                "reference": "c13d22635eac0e51d1dcd7f09b99fd7475209a51",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.1"
-            },
-            "require-dev": {
-                "ext-json": "*",
-                "friendsofphp/php-cs-fixer": "^3.66",
-                "infection/infection": "^0.29|^0.32.0",
-                "php-coveralls/php-coveralls": "^2.7",
-                "phpstan/extension-installer": "^1.4.3",
-                "phpstan/phpstan": "^2.1.7",
-                "phpstan/phpstan-deprecation-rules": "^2.0.1",
-                "phpstan/phpstan-phpunit": "^2.0.4",
-                "phpstan/phpstan-strict-rules": "^2.0.3",
-                "phpunit/phpunit": "^10.5.45",
-                "symfony/console": "^6.4",
-                "symfony/filesystem": "^6.4",
-                "symfony/finder": "^6.4",
-                "symfony/process": "^6.4",
-                "symfony/var-exporter": "^6.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Giggsey\\Locale\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Joshua Gigg",
-                    "email": "giggsey@gmail.com",
-                    "homepage": "https://giggsey.com/"
-                }
-            ],
-            "description": "Locale functions required by libphonenumber-for-php",
-            "support": {
-                "issues": "https://github.com/giggsey/Locale/issues",
-                "source": "https://github.com/giggsey/Locale/tree/2.10.0"
-            },
-            "time": "2026-10-22T19:31:33+00:00"
+            "time": "2026-10-28T09:47:32+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2087,21 +2030,21 @@
         },
         {
             "name": "helsingborg-stad/api-volunteer-manager-integration",
-            "version": "5.1.9",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-volunteer-manager-integration.git",
-                "reference": "41804a922ceb56fd08a7ed0ee525830b727bf430"
+                "reference": "967a0bc2bc83d6ee542d3dd410f6ca1ab88fb54d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-volunteer-manager-integration/zipball/41804a922ceb56fd08a7ed0ee525830b727bf430",
-                "reference": "41804a922ceb56fd08a7ed0ee525830b727bf430",
+                "url": "https://api.github.com/repos/helsingborg-stad/api-volunteer-manager-integration/zipball/967a0bc2bc83d6ee542d3dd410f6ca1ab88fb54d",
+                "reference": "967a0bc2bc83d6ee542d3dd410f6ca1ab88fb54d",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "giggsey/libphonenumber-for-php": "^8.13",
+                "giggsey/libphonenumber-for-php-lite": "^9.0",
                 "nyholm/psr7": "^1.8",
                 "php": "^8.0",
                 "php-http/curl-client": "^2.3.3",
@@ -2139,9 +2082,9 @@
             "description": "Frontend integration for api-volunteer-manager.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-volunteer-manager-integration/issues",
-                "source": "https://github.com/helsingborg-stad/api-volunteer-manager-integration/tree/5.1.9"
+                "source": "https://github.com/helsingborg-stad/api-volunteer-manager-integration/tree/5.2.0"
             },
-            "time": "2026-06-15T17:54:58+00:00"
+            "time": "2026-11-03T14:19:11+00:00"
         },
         {
             "name": "helsingborg-stad/attachment-revisions",
@@ -10155,12 +10098,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
