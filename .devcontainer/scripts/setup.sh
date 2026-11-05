@@ -28,7 +28,7 @@ fi
 
 if [ "${CODESPACE_NAME:-}" ]; then
     LOCAL_SITE_DOMAIN="${CODESPACE_NAME}"
-    LOCAL_SITE_URL="https://${LOCAL_SITE_DOMAIN}"
+    LOCAL_SITE_URL="https://${LOCAL_SITE_DOMAIN}-80.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
 else
     LOCAL_SITE_DOMAIN="localhost:8080"
     LOCAL_SITE_URL="http://${LOCAL_SITE_DOMAIN}"
@@ -248,6 +248,7 @@ if [[ "$SITE_TYPE" == "multisite" ]]; then
         --allow-root
 else
     print_info "Running single site install..."
+    set -x
     wp core install \
         --url="${LOCAL_SITE_URL}" \
         --title="${SITE_TITLE}" \
