@@ -36,6 +36,9 @@ if [ -n "$INHERITED_ACF_PRO_KEY" ]; then
     ACF_PRO_KEY="$INHERITED_ACF_PRO_KEY"
 fi
 
+if [ "${CODESPACES:-}" = "true" ]; then
+    git config --global --add safe.directory /workspaces/municipio-deployment
+fi
 # Check required variables and configure what we can
 echo "Checking configuration..."
 echo ""
