@@ -248,7 +248,6 @@ if [[ "$SITE_TYPE" == "multisite" ]]; then
         --allow-root
 else
     print_info "Running single site install..."
-    set -x
     wp core install \
         --url="${LOCAL_SITE_URL}" \
         --title="${SITE_TITLE}" \

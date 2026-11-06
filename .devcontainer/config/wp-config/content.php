@@ -5,7 +5,7 @@
  */
 
 define('WP_CONTENT_DIR', dirname(dirname(__FILE__)) . '/wp-content');
-define('WP_CONTENT_URL', '/wp-content');
+define('WP_CONTENT_URL', municipio_get_site_url() . '/wp-content');
     
 /**
  * Use municipio as default theme.
