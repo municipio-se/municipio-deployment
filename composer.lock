@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27b4e32e3c55146fab6d8ae1223267c4",
+    "content-hash": "491edcebfd6303f90df3e461dec89ac3",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -2915,16 +2915,16 @@
         },
         {
             "name": "helsingborg-stad/mod-my-pages",
-            "version": "2.0.3",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/mod-my-pages.git",
-                "reference": "02b95904d3778c83290850e55febcf3058011e40"
+                "reference": "83c51de63845d3471b20df7a02485c27c3870665"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/mod-my-pages/zipball/02b95904d3778c83290850e55febcf3058011e40",
-                "reference": "02b95904d3778c83290850e55febcf3058011e40",
+                "url": "https://api.github.com/repos/helsingborg-stad/mod-my-pages/zipball/83c51de63845d3471b20df7a02485c27c3870665",
+                "reference": "83c51de63845d3471b20df7a02485c27c3870665",
                 "shasum": ""
             },
             "require": {
@@ -2958,10 +2958,10 @@
             "description": "Modularity Wordpress Plugin",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/mod-my-pages/issues",
-                "source": "https://github.com/helsingborg-stad/mod-my-pages/tree/2.0.3"
+                "source": "https://github.com/helsingborg-stad/mod-my-pages/tree/2.0.7"
             },
-            "time": "2026-02-23T08:41:17+00:00",
-            "published-time": "2026-02-23T08:41:21+00:00"
+            "time": "2026-11-06T14:00:38+00:00",
+            "published-time": "2026-11-06T14:00:45+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-contact-banner",
@@ -3759,16 +3759,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.80.5",
+            "version": "7.80.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "6818658c0c0d7cf823eaf04fd776acdd4ef0eb3c"
+                "reference": "021b784613dd07d653ba9ca4c46454e4ef039e02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/6818658c0c0d7cf823eaf04fd776acdd4ef0eb3c",
-                "reference": "6818658c0c0d7cf823eaf04fd776acdd4ef0eb3c",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/021b784613dd07d653ba9ca4c46454e4ef039e02",
+                "reference": "021b784613dd07d653ba9ca4c46454e4ef039e02",
                 "shasum": ""
             },
             "require": {
@@ -3860,10 +3860,10 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.80.5"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.80.7"
             },
-            "time": "2026-11-06T12:48:00+00:00",
-            "published-time": "2026-11-06T12:48:15+00:00"
+            "time": "2026-11-06T13:42:10+00:00",
+            "published-time": "2026-11-06T13:42:27+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
