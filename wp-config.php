@@ -31,6 +31,7 @@ if( !defined('ABSPATH') ) {
  * All declared configuration files are loaded if they exist.
  */
 $configFiles = [
+    'domain.php',
     'memory.php',
     'salts.php',
     'content.php',
