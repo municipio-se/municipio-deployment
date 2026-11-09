@@ -162,10 +162,6 @@ git -C "$PACKAGE_PATH" checkout HEAD || true
 cd "$PACKAGE_PATH"
 git checkout main || git checkout master || true
 
-if [ "${CODESPACES:-}" = "true" ]; then
-    git config --global --add safe.directory "$PACKAGE_PATH"
-fi
-
 echo "=========================================================================="
 echo "✅ Package $PACKAGE is ready for development at $PACKAGE_PATH"
 echo "=========================================================================="
