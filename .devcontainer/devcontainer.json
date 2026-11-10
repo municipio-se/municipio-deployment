@@ -3,10 +3,10 @@
 {
     "name": "Municipio Deployment(PHP & MariaDB)",
     "dockerComposeFile": "docker-compose.yml",
-    "workspaceFolder": "/workspaces/municipio-deployment",
+    "workspaceFolder": "/var/www/vhosts/localhost/html",
     "service": "app",
     "remoteUser": "vscode",
-    "onCreateCommand": "if [ \"${CODESPACES:-}\" = true ]; then sudo -n chown -R -- \"$(id -u):$(id -g)\" \"$PWD\"; fi",
+    "updateRemoteUserUID": true,
     "forwardPorts": [
         80,
         8306,
