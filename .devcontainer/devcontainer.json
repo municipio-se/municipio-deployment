@@ -14,6 +14,8 @@
     ],
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": "bash .devcontainer/scripts/postCreateCommand.sh",
+    // Make Codespaces forwarding variables available to web PHP on each start.
+    "postStartCommand": "bash .devcontainer/scripts/codespaces-env.sh",
     // Show configuration status whenever VS Code attaches to the container.
     "postAttachCommand": "bash .devcontainer/scripts/status.sh",
     // Features to add to the dev container. More info: https://containers.dev/features.
