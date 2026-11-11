@@ -39,7 +39,7 @@ COPY . .
 RUN --mount=type=secret,id=acf_pro_key,required=true \
     ACF_PRO_KEY="$(cat /run/secrets/acf_pro_key)" && \
     export COMPOSER_AUTH='{"http-basic": {"connect.advancedcustomfields.com": {"username": "'"$ACF_PRO_KEY"'", "password": "http://localhost"}}}' && \
-    composer install --prefer-dist --no-progress --optimize-autoloader --classmap-authoritative --ignore-platform-req=ext-imagick && \
+    php composer-local-merge.php install --prefer-dist --no-progress --optimize-autoloader --classmap-authoritative --ignore-platform-req=ext-imagick && \
     php ./build.php --cleanup --no-composer-in-child-packages --install-npm && \
     rm -rf .git config-example docker && \
     chmod -R 755 .

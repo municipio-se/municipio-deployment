@@ -30,3 +30,4 @@ db/db.sqlite
 .claude/settings.local.json
 .composer-merge-active
 composer.*.bkup
+/.composer-local.generated.json

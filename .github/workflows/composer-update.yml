@@ -22,4 +22,4 @@ jobs:
           rm -rf vendor
           composer clear-cache
       - name: Run composer update
-        run: composer update
+        run: php composer-local-merge.php update

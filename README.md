@@ -57,24 +57,28 @@ You may add your own dependencies in the `composer.local.json` file. Add package
 ```
 
 ### How it works
-The build process uses `composer-local-merge.php` to handle local customisations without permanently modifying version-controlled files:
-
-1. **Pre-install** — `composer.json` (and `composer.lock` if present) are backed up, and the contents of `composer.local.json` (`repositories`, `require`, `require-dev`) are merged in. Repository entries already present in `composer.json` are deduplicated automatically. `composer.lock` is removed so Composer resolves the full dependency tree fresh with the new sources.
-2. **Install** — `composer install` runs against the merged `composer.json`.
-3. **Post-install** — The original `composer.json` and `composer.lock` are restored from backup, leaving no trace of the local merge in version-controlled files.
-
-If `composer.local.json` is absent or contains no `repositories`, `require`, or `require-dev` entries the script exits immediately and nothing is changed.
-
-### Running locally (without the build script)
-If you run `composer install` or `composer update` directly on your local machine, you must wrap it with the merge script manually:
+Run Composer through the wrapper from the project root:
 
 ```bash
-php composer-local-merge.php pre-install
-composer install
-php composer-local-merge.php post-install
+php composer-local-merge.php install
 ```
 
-Skipping this means your local packages will not be resolved and any custom repositories will not be available to Composer.
+When `composer.local.json` has no `repositories`, `require`, or `require-dev` entries, the wrapper uses `composer.json` and `composer.lock` as usual. Otherwise, it generates the ignored `.composer-local.generated.json` **before** starting Composer. Local requirements override root constraints for the same package; local repositories take priority over root repositories. Only these three sections are merged.
+
+The combined manifest uses a separate `.composer-local.generated.lock`. To create it or update dependencies after changing either manifest, run:
+
+```bash
+php composer-local-merge.php update
+git add composer.local.json .composer-local.generated.lock
+```
+
+Commit the local lock file in your fork. Installs validate it and fail if it is missing or out of date; they do not resolve new versions implicitly. The original `composer.json` and `composer.lock` are never temporarily modified. Updating local dependencies does not update the upstream lock: maintain `composer.lock` on a branch without local overrides, then update the local lock after merging upstream changes.
+
+The wrapper also accepts `validate`, `show`, `reinstall`, `prohibits`, and `config`, and passes Composer options through, for example `php composer-local-merge.php install --no-dev`. Its `manifest` command prints the selected manifest path. It does not support `composer require`: edit the local requirements and run `update` instead. Do not set `COMPOSER` or change the working directory through wrapper options. Composer hooks reject direct `install` and `update` when local overrides exist; `--no-scripts` bypasses that protection and must not be used to install the root project directly. The `pin-all-latest` script also requires a branch without local overrides, because it updates the upstream manifest and lock.
+
+The Docker and devcontainer builds use the wrapper. The shared GitHub deployment action versions 4.1 and 4.2 support it through their pre-install and post-install steps and `GITHUB_ENV`. Version 4.0 does not run those steps; deployments using it must switch to 4.2 or explicitly run the wrapper. The legacy `build-pre.php` entry point now delegates to the GitHub Actions pre-install step instead of deleting the root lock. Older interrupted runs may have left `.composer-merge-active` and `composer.*.bkup` files: inspect them and restore the original files before upgrading this script.
+
+The Composer local workflow is tested in GitHub Actions on pull requests and pushes to `master`. To run the same offline integration tests locally, use `bash test-composer-merge.sh` with PHP and Composer 2 installed. The tests use temporary fixture packages; they do not install the application's production dependencies.
 
 You may also add plugins locally to your server with the folder name of the plugin prefixed with "local_". Normally they would be removed during the deploy to ensure one source of truth, however the deploy script will respect the "local_" prefix and keep them. 
 
@@ -141,8 +145,7 @@ Municipio runs better with these additional packages, applications and settings.
 - S3 Compatible Object storage (Tested with Swift)
 
 ### Adding a package
-If you want to add a package, register it using Composer as usual (see the Composer require command: https://getcomposer.org/doc/03-cli.md#require-r).
-In some cases, Composer may fail due to dependency conflicts caused by leftover local cache or build artifacts. If this happens, run the composer update-lockfile command. This will execute Composer inside an isolated container and automatically clear any leftover residue from previous runs. The lockfile MUST be committed in all cases. 
+Add custom packages in `composer.local.json` and update and commit the combined lock as described in [Adding custom dependencies](#adding-custom-dependencies). Upstream dependencies belong in `composer.json` and its `composer.lock`.
 
 ### Resources
 What resources you should give the machine is highly individual depending on your anticipated amount of traffic. But let each PHP process have at least 512MB memory to allocate. This high amount is due to some image processing being made in runtime. 

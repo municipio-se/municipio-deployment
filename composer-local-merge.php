@@ -1,365 +1,272 @@
-#!/bin/php
+#!/usr/bin/env php
 <?php
 
 declare(strict_types=1);
 
 /**
- * Composer Local Merge Handler
- * 
- * Replaces Wikimedia Composer Merge plugin with a deterministic, script-based workflow.
- * This script temporarily injects local composer requirements only when needed.
- * 
- * Workflow:
- * 1. pre-install: Detect local overrides, backup, merge, and prepare for install
- * 2. post-install: Restore original files and clean up backups
+ * Runs Composer with a manifest containing this deployment's local dependencies.
  */
-
-class ComposerLocalMerge
+final class ComposerLocalMerge
 {
-    private const COMPOSER_JSON = 'composer.json';
-    private const COMPOSER_LOCAL_JSON = 'composer.local.json';
-    private const COMPOSER_LOCK = 'composer.lock';
-    private const BACKUP_SUFFIX = '.bkup';
+    private const GENERATED_MANIFEST = '.composer-local.generated.json';
+    private const GENERATED_LOCK = '.composer-local.generated.lock';
 
-    private string $rootPath;
-    private bool $hasMerged = false;
-    private string $flagFile;
-
-    public function __construct(string $rootPath)
+    /**
+     * @param string $rootPath Directory containing the root Composer manifest.
+     */
+    public function __construct(private string $rootPath)
     {
-        $this->rootPath = rtrim($rootPath, '/');
-        $this->flagFile = $this->rootPath . '/.composer-merge-active';
     }
 
     /**
-     * Pre-install hook: Backup and merge local requirements if present
+     * Run a supported Composer command or check a Composer event hook.
+     *
+     * @param list<string> $arguments Arguments following the script name.
+     * @return int Process exit status.
+     * @throws RuntimeException If a manifest is invalid or Composer cannot be started.
      */
-    public function preInstall(): void
+    public function run(array $arguments): int
     {
-        echo "=== Composer Local Merge: Pre-Install ===\n";
-
-        // If a merge is already active, skip to avoid backing up/overwriting backups
-        if (file_exists($this->flagFile)) {
-            echo "Merge already active - skipping pre-install\n";
-            return;
-        }
-
-        $localPath = $this->getPath(self::COMPOSER_LOCAL_JSON);
-        
-        if (!file_exists($localPath)) {
-            echo "No composer.local.json found - skipping merge\n";
-            return;
-        }
-
-        $localRequirements = $this->getLocalRequirements($localPath);
-        
-        if (empty($localRequirements['require']) && empty($localRequirements['require-dev'])) {
-            echo "composer.local.json has no requirements - skipping merge\n";
-            return;
-        }
-
-        try {
-            $this->performMerge($localRequirements);
-            echo "Successfully merged local requirements\n";
-        } catch (Exception $e) {
-            echo "ERROR: " . $e->getMessage() . "\n";
-            $this->rollback();
-            exit(1);
-        }
-    }
-
-    /**
-     * Post-install hook: Restore original files and clean up
-     */
-    public function postInstall(): void
-    {
-        echo "=== Composer Local Merge: Post-Install ===\n";
-
-        if (!file_exists($this->flagFile)) {
-            echo "No merge was performed - skipping restore\n";
-            return;
-        }
-
-        try {
-            $this->restore();
-            echo "Successfully restored original files\n";
-        } catch (Exception $e) {
-            echo "ERROR during restore: " . $e->getMessage() . "\n";
-            exit(1);
-        }
-    }
-
-    /**
-     * Perform the merge operation
-     */
-    private function performMerge(array $localRequirements): void
-    {
-        $composerPath = $this->getPath(self::COMPOSER_JSON);
-        $lockPath = $this->getPath(self::COMPOSER_LOCK);
-
-        // Step 1: Backup composer.json
-        $this->backup($composerPath);
-        echo "✓ Backed up composer.json\n";
-
-        // Step 2: Backup composer.lock if it exists
-        if (file_exists($lockPath)) {
-            $this->backup($lockPath);
-            echo "✓ Backed up composer.lock\n";
-            
-            // Step 3: Remove composer.lock to force fresh resolution
-            if (!unlink($lockPath)) {
-                throw new Exception("Failed to remove composer.lock");
+        $command = $arguments[0] ?? '';
+        foreach (['.composer-merge-active', 'composer.json.bkup', 'composer.lock.bkup'] as $legacyFile) {
+            if (file_exists($this->rootPath . '/' . $legacyFile)) {
+                throw new RuntimeException("Found {$legacyFile} from an interrupted legacy merge. Restore the original files before continuing.");
             }
-            echo "✓ Removed composer.lock\n";
+        }
+        $local = $this->readLocal();
+
+        if ($command === 'post-install') {
+            $this->writeGithubEnvironment('COMPOSER=');
+            return 0;
         }
 
-        // Step 4: Merge requirements into composer.json
-        // Note: Local requirements override existing ones - this allows developers
-        // to test specific versions or patches during development
-        $composer = $this->readJson($composerPath);
-        
-        if (!empty($localRequirements['require'])) {
-            $composer['require'] = array_merge(
-                $composer['require'] ?? [],
-                $localRequirements['require']
-            );
-            echo "✓ Merged " . count($localRequirements['require']) . " require dependencies\n";
-        }
-        
-        if (!empty($localRequirements['require-dev'])) {
-            $composer['require-dev'] = array_merge(
-                $composer['require-dev'] ?? [],
-                $localRequirements['require-dev']
-            );
-            echo "✓ Merged " . count($localRequirements['require-dev']) . " require-dev dependencies\n";
-        }
-
-        if (!empty($localRequirements['repositories'])) {
-            $composerRepos = $composer['repositories'] ?? [];
-            $originalCount = count($composerRepos);
-            $composer['repositories'] = $this->mergeRepositories($composerRepos, $localRequirements['repositories']);
-            $mergedCount = count($composer['repositories']) - $originalCount;
-            echo "✓ Merged " . max(0, $mergedCount) . " repositories\n";
-        }
-
-        $this->writeJson($composerPath, $composer);
-        
-        // Create flag file to indicate merge was performed
-        if (file_put_contents($this->flagFile, time()) === false) {
-            throw new Exception("Failed to create merge flag file");
-        }
-        
-        $this->hasMerged = true;
-    }
-
-    /**
-     * Restore original files from backups
-     */
-    private function restore(): void
-    {
-        $composerPath = $this->getPath(self::COMPOSER_JSON);
-        $lockPath = $this->getPath(self::COMPOSER_LOCK);
-        
-        // Restore composer.json
-        $this->restoreFromBackup($composerPath);
-        echo "✓ Restored composer.json\n";
-
-        // Restore composer.lock if backup exists
-        $lockBackup = $lockPath . self::BACKUP_SUFFIX;
-        if (file_exists($lockBackup)) {
-            $this->restoreFromBackup($lockPath);
-            echo "✓ Restored composer.lock\n";
-        }
-
-        // Clean up flag file
-        if (file_exists($this->flagFile)) {
-            unlink($this->flagFile);
-        }
-    }
-
-    /**
-     * Rollback changes in case of error
-     */
-    private function rollback(): void
-    {
-        echo "Rolling back changes...\n";
-        
-        try {
-            $composerPath = $this->getPath(self::COMPOSER_JSON);
-            $composerBackup = $composerPath . self::BACKUP_SUFFIX;
-            
-            if (file_exists($composerBackup)) {
-                $this->restoreFromBackup($composerPath);
-                echo "✓ Rolled back composer.json\n";
+        if ($command === 'guard') {
+            if ($this->hasOverrides($local) && getenv('COMPOSER') !== self::GENERATED_MANIFEST) {
+                throw new RuntimeException(
+                    'Local Composer overrides require php composer-local-merge.php install or update.'
+                );
             }
-
-            $lockPath = $this->getPath(self::COMPOSER_LOCK);
-            $lockBackup = $lockPath . self::BACKUP_SUFFIX;
-            
-            if (file_exists($lockBackup)) {
-                $this->restoreFromBackup($lockPath);
-                echo "✓ Rolled back composer.lock\n";
-            }
-
-            if (file_exists($this->flagFile)) {
-                unlink($this->flagFile);
-            }
-        } catch (Exception $e) {
-            echo "ERROR during rollback: " . $e->getMessage() . "\n";
-        }
-    }
-
-    /**
-     * Get local requirements from composer.local.json
-     */
-    private function getLocalRequirements(string $path): array
-    {
-        $data = $this->readJson($path);
-        
-        return [
-            'require' => $data['require'] ?? [],
-            'require-dev' => $data['require-dev'] ?? [],
-            'repositories' => $data['repositories'] ?? []
-        ];
-    }
-
-    /**
-     * Merge incoming repositories into existing ones with deduplication
-     */
-    private function mergeRepositories(array $existing, array $incoming): array
-    {
-        $seen = [];
-        $result = [];
-
-        foreach ($existing as $repo) {
-            $key = json_encode($this->sortKeysRecursive($repo), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-            $seen[$key] = true;
-            $result[] = $repo;
+            return 0;
         }
 
-        foreach ($incoming as $repo) {
-            $key = json_encode($this->sortKeysRecursive($repo), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-            if (!isset($seen[$key])) {
-                $seen[$key] = true;
-                $result[] = $repo;
+        if (!in_array($command, ['install', 'update', 'validate', 'show', 'reinstall', 'prohibits', 'config', 'manifest', 'pre-install'], true)) {
+            throw new RuntimeException('Usage: php composer-local-merge.php [install|update|validate|show|reinstall|prohibits|config|manifest] [options]');
+        }
+
+        foreach (array_slice($arguments, 1) as $argument) {
+            if (str_starts_with($argument, '-d') || str_starts_with($argument, '--working-dir')) {
+                throw new RuntimeException('The Composer working directory cannot be changed through this wrapper.');
             }
         }
 
-        return $result;
-    }
+        if (getenv('COMPOSER') !== false && getenv('COMPOSER') !== '') {
+            throw new RuntimeException('Unset COMPOSER before running the local Composer wrapper.');
+        }
 
-    /**
-     * Recursively sort array keys for stable encoding
-     */
-    private function sortKeysRecursive(array $arr): array
-    {
-        foreach ($arr as $k => $v) {
-            if (is_array($v)) {
-                $arr[$k] = $this->sortKeysRecursive($v);
+        if ($this->hasOverrides($local)) {
+            $manifest = $this->merge($this->readJson($this->rootPath . '/composer.json'), $local);
+            $encoded = json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+            if (file_put_contents($this->rootPath . '/' . self::GENERATED_MANIFEST, $encoded . "\n", LOCK_EX) === false) {
+                throw new RuntimeException('Could not write the generated Composer manifest.');
+            }
+            if (in_array($command, ['install', 'reinstall', 'prohibits', 'validate', 'pre-install'], true) &&
+                !is_file($this->rootPath . '/' . self::GENERATED_LOCK)) {
+                throw new RuntimeException(
+                    'The local lock file is missing. Run php composer-local-merge.php update and commit ' .
+                    self::GENERATED_LOCK . ' before installing.'
+                );
+            }
+            putenv('COMPOSER=' . self::GENERATED_MANIFEST);
+            if (in_array($command, ['install', 'reinstall', 'prohibits', 'pre-install'], true)) {
+                $status = $this->runComposer(['validate', '--no-check-publish', '--no-check-all', '--check-lock', '--no-plugins', '--no-scripts']);
+                if ($status !== 0) {
+                    throw new RuntimeException('The local lock file is invalid or out of date. Run php composer-local-merge.php update.');
+                }
             }
         }
 
-        ksort($arr);
+        if ($command === 'manifest') {
+            if (count($arguments) !== 1) {
+                throw new RuntimeException('The manifest command does not accept arguments.');
+            }
+            echo $this->hasOverrides($local) ? self::GENERATED_MANIFEST . "\n" : "composer.json\n";
+            return 0;
+        }
 
-        return $arr;
+        if ($command === 'pre-install') {
+            if ($this->hasOverrides($local)) {
+                $this->writeGithubEnvironment('COMPOSER=' . self::GENERATED_MANIFEST);
+            } elseif (!getenv('GITHUB_ENV')) {
+                throw new RuntimeException('pre-install is only supported by the GitHub deployment action. Use install instead.');
+            }
+            return 0;
+        }
+
+        return $this->runComposer($arguments);
     }
 
     /**
-     * Create backup of a file
+     * Run Composer in the project directory.
+     *
+     * @param list<string> $arguments Composer arguments.
+     * @return int Composer exit status.
+     * @throws RuntimeException If Composer cannot be started.
      */
-    private function backup(string $path): void
+    private function runComposer(array $arguments): int
     {
-        $backup = $path . self::BACKUP_SUFFIX;
-        
-        if (!copy($path, $backup)) {
-            throw new Exception("Failed to backup: {$path}");
+        $process = proc_open(
+            array_merge(['composer'], $arguments),
+            [STDIN, STDOUT, STDERR],
+            $pipes,
+            $this->rootPath
+        );
+        if (!is_resource($process)) {
+            throw new RuntimeException('Could not start Composer.');
+        }
+
+        return proc_close($process);
+    }
+
+    /**
+     * Pass the selected manifest to subsequent steps in the shared deployment action.
+     *
+     * @param string $entry GitHub Actions environment entry.
+     * @return void
+     * @throws RuntimeException If the GitHub environment file is unavailable.
+     */
+    private function writeGithubEnvironment(string $entry): void
+    {
+        $path = getenv('GITHUB_ENV');
+        if (!$path || file_put_contents($path, $entry . "\n", FILE_APPEND | LOCK_EX) === false) {
+            throw new RuntimeException('The legacy pre-install and post-install commands require GITHUB_ENV.');
         }
     }
 
     /**
-     * Restore file from backup
+     * Read the optional local manifest.
+     *
+     * @return stdClass Local configuration.
+     * @throws RuntimeException If the manifest cannot be read or is invalid.
      */
-    private function restoreFromBackup(string $path): void
+    private function readLocal(): stdClass
     {
-        $backup = $path . self::BACKUP_SUFFIX;
-        
-        if (!file_exists($backup)) {
-            throw new Exception("Backup not found: {$backup}");
-        }
-        
-        if (!copy($backup, $path)) {
-            throw new Exception("Failed to restore: {$path}");
-        }
-        
-        unlink($backup);
+        $path = $this->rootPath . '/composer.local.json';
+        return is_file($path) ? $this->readJson($path) : new stdClass();
     }
 
     /**
-     * Read and decode JSON file
+     * Read a JSON object from disk.
+     *
+     * @param string $path Manifest path.
+     * @return stdClass Decoded manifest.
+     * @throws RuntimeException If the manifest cannot be read or is not an object.
+     * @throws JsonException If JSON is malformed.
      */
-    private function readJson(string $path): array
+    private function readJson(string $path): stdClass
     {
-        if (!file_exists($path)) {
-            throw new Exception("File not found: {$path}");
-        }
-        
         $content = file_get_contents($path);
-        $data = json_decode($content, true);
-        
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception("Invalid JSON in {$path}: " . json_last_error_msg());
+        if ($content === false) {
+            throw new RuntimeException("Could not read {$path}.");
         }
-        
+        $data = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+        if (!$data instanceof stdClass) {
+            throw new RuntimeException("Expected a JSON object in {$path}.");
+        }
         return $data;
     }
 
     /**
-     * Encode and write JSON file
+     * Validate supported sections and determine whether any local overrides exist.
+     *
+     * @param stdClass $local Local configuration.
+     * @return bool Whether local overrides exist.
+     * @throws RuntimeException If a supported section has an invalid shape.
      */
-    private function writeJson(string $path, array $data): void
+    private function hasOverrides(stdClass $local): bool
     {
-        $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        
-        if ($json === false) {
-            throw new Exception("Failed to encode JSON: " . json_last_error_msg());
+        $hasOverrides = false;
+        foreach (['require', 'require-dev'] as $section) {
+            if (property_exists($local, $section) && !$local->{$section} instanceof stdClass) {
+                throw new RuntimeException("Local {$section} must be a JSON object.");
+            }
+            $hasOverrides = $hasOverrides || !empty((array) ($local->{$section} ?? new stdClass()));
         }
-        
-        // Add newline at end of file to match standard formatting
-        $json .= "\n";
-        
-        if (file_put_contents($path, $json) === false) {
-            throw new Exception("Failed to write file: {$path}");
+        if (property_exists($local, 'repositories') && !is_array($local->repositories) && !$local->repositories instanceof stdClass) {
+            throw new RuntimeException('Local repositories must be a JSON array or object.');
         }
+        return $hasOverrides || !empty((array) ($local->repositories ?? []));
     }
 
     /**
-     * Get full path for a file
+     * Merge dependency constraints and prioritise local repositories.
+     *
+     * @param stdClass $root Root Composer manifest.
+     * @param stdClass $local Local configuration.
+     * @return stdClass Combined manifest.
+     * @throws RuntimeException If a root section has an invalid shape.
      */
-    private function getPath(string $filename): string
+    private function merge(stdClass $root, stdClass $local): stdClass
     {
-        return $this->rootPath . '/' . $filename;
+        foreach (['require', 'require-dev'] as $section) {
+            if (isset($root->{$section}) && !$root->{$section} instanceof stdClass) {
+                throw new RuntimeException("Root {$section} must be a JSON object.");
+            }
+            if (isset($local->{$section})) {
+                $root->{$section} = (object) array_merge(
+                    (array) ($root->{$section} ?? new stdClass()),
+                    (array) $local->{$section}
+                );
+            }
+        }
+
+        if (!empty((array) ($local->repositories ?? []))) {
+            $existing = $root->repositories ?? [];
+            if (!is_array($existing) && !$existing instanceof stdClass) {
+                throw new RuntimeException('Root repositories must be a JSON array or object.');
+            }
+            $repositories = new stdClass();
+            $sources = ['local' => $local->repositories, 'root' => $existing];
+            $namedRepositories = [];
+            foreach ($sources as $entries) {
+                foreach ($entries as $key => $_repository) {
+                    if (is_string($key)) {
+                        $namedRepositories[$key] = true;
+                    }
+                }
+            }
+            foreach ($sources as $source => $entries) {
+                foreach ($entries as $key => $repository) {
+                    if (is_int($key) && $repository instanceof stdClass &&
+                        count((array) $repository) === 1 &&
+                        (property_exists($repository, 'packagist.org') || property_exists($repository, 'packagist'))) {
+                        $key = property_exists($repository, 'packagist.org') ? 'packagist.org' : 'packagist';
+                        $repository = $repository->{$key};
+                    }
+                    $name = is_int($key) ? $source . '-' . $key : $key;
+                    if (is_int($key)) {
+                        while (isset($namedRepositories[$name]) || property_exists($repositories, $name)) {
+                            $name = '_' . $name;
+                        }
+                    }
+                    if (!property_exists($repositories, (string) $name)) {
+                        $repositories->{(string) $name} = $repository;
+                    }
+                }
+            }
+            $root->repositories = $repositories;
+        }
+        return $root;
     }
 }
 
-// Main execution
 if (PHP_SAPI !== 'cli') {
-    echo "This script must be run from the command line\n";
+    fwrite(STDERR, "This script must be run from the command line.\n");
     exit(1);
 }
 
-$action = $argv[1] ?? '';
-$rootPath = getcwd();
-
-$merger = new ComposerLocalMerge($rootPath);
-
-switch ($action) {
-    case 'pre-install':
-        $merger->preInstall();
-        break;
-    case 'post-install':
-        $merger->postInstall();
-        break;
-    default:
-        echo "Usage: php composer-local-merge.php [pre-install|post-install]\n";
-        exit(1);
+try {
+    exit((new ComposerLocalMerge(__DIR__))->run(array_slice($argv, 1)));
+} catch (RuntimeException | JsonException $exception) {
+    fwrite(STDERR, 'Composer local error: ' . $exception->getMessage() . "\n");
+    exit(1);
 }

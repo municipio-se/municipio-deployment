@@ -123,7 +123,8 @@ Options:
 | `--no-editor` | Do not open the package in an editor |
 | `-h`, `--help` | Show help |
 
-Package installation validates Composer files and runs `composer install --prefer-dist --no-interaction --ignore-platform-reqs`. If validation fails, the script removes `composer.lock` before installing; check changes to the lockfile afterward.
+Package installation validates the selected Composer manifest and lock, then runs `php composer-local-merge.php install --prefer-dist --no-interaction --ignore-platform-reqs`. Validation failures stop installation without deleting the lock. See the [custom dependency guide](../README.md#adding-custom-dependencies) for creating and updating the local lock.
+Package selection includes direct dependencies from both the root and local manifests, including development dependencies, and reinstalls the selected package using the combined Composer configuration.
 
 ## Updating Sub-packages
 
@@ -135,6 +136,6 @@ Package installation validates Composer files and runs `composer install --prefe
     --version='^0.3'
 ```
 
-Requirements are Composer, Git, and an authenticated GitHub CLI (`gh auth login`). The script only updates dependencies already declared by a package. It may discard local changes when reinstalling affected packages from source, so save those changes before running it.
+Requirements are Composer, Git, and an authenticated GitHub CLI (`gh auth login`). Root dependency queries and reinstalls use the combined Composer configuration; updates inside child packages use their own manifests. The script only updates dependencies already declared by a package. It may discard local changes when reinstalling affected packages from source, so save those changes before running it.
 
 For more information, see the [Dev Containers documentation](https://code.visualstudio.com/docs/devcontainers/containers).
