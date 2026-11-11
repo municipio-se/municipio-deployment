@@ -343,11 +343,25 @@ PROJECT_ROOT="$(find_composer_root)" || {
 
 cd "$PROJECT_ROOT" || exit 1
 
+root_composer() {
+    if [[ -f "$PROJECT_ROOT/composer-local-merge.php" ]]; then
+        php "$PROJECT_ROOT/composer-local-merge.php" "$@"
+    else
+        composer "$@"
+    fi
+}
+
+if [[ -f "$PROJECT_ROOT/composer-local-merge.php" ]] &&
+    ! root_composer validate --no-check-publish --no-check-all --check-lock; then
+    echo "ERROR: Composer manifest or lock validation failed."
+    exit 1
+fi
+
 # ============================================================
 # Project configuration
 # ============================================================
 
-VENDOR_DIR="$(composer config vendor-dir --absolute)"
+VENDOR_DIR="$(root_composer config vendor-dir --absolute)" || exit 1
 
 SAFE_PACKAGE="$(safe_slug "$PACKAGE")"
 SAFE_VERSION="$(safe_slug "$VERSION")"
@@ -374,7 +388,7 @@ echo "Finding blockers..."
 echo
 
 BLOCKER_OUTPUT="$(
-    composer prohibits "$PACKAGE" "$VERSION" 2>&1 || true
+    root_composer prohibits "$PACKAGE" "$VERSION" 2>&1 || true
 )"
 
 echo "$BLOCKER_OUTPUT"
@@ -458,7 +472,7 @@ for i in "${!BLOCKERS[@]}"; do
     echo
 
     PACKAGE_PATH="$(
-        composer show --path "$BLOCKER" 2>/dev/null \
+        root_composer show --path "$BLOCKER" 2>/dev/null \
             | sed -n "s#^[[:space:]]*${BLOCKER}[[:space:]]*##p" \
             | head -n 1
     )"
@@ -486,7 +500,7 @@ for i in "${!BLOCKERS[@]}"; do
     echo "Reinstalling package as source..."
     echo
 
-    if ! composer reinstall \
+    if ! root_composer reinstall \
         "$BLOCKER" \
         --prefer-source \
         --ignore-platform-reqs \

@@ -56,11 +56,12 @@ echo "==========================================================================
 echo "📦 Available packages for development:"
 echo "=========================================================================="
 
-# Get all installed packages
-PACKAGES=($(composer show --name-only))
+# Get all installed packages using the combined project manifest.
+MANIFEST="$(php composer-local-merge.php manifest)"
+PACKAGES=($(php composer-local-merge.php show --name-only))
 
-# Filter packages to include only those listed in composer.json and matching patterns
-REQUIRED_PACKAGES=$(jq -r '.require | keys[]' composer.json)
+# Filter packages to include only directly required packages matching the patterns.
+REQUIRED_PACKAGES=$(jq -r '[(.require // {}), (."require-dev" // {})] | map(keys[]) | .[]' "$MANIFEST")
 FILTERED_PACKAGES=()
 for pkg in "${PACKAGES[@]}"; do
   for pattern in "${AVAILABLE_PACKAGES_TO_EDIT[@]}"; do
@@ -74,7 +75,7 @@ PACKAGES=("${FILTERED_PACKAGES[@]}")
 
 if [ ${#PACKAGES[@]} -eq 0 ]; then
   echo "=========================================================================="
-  echo "❌ No matching packages found in composer.json or AVAILABLE_PACKAGES_TO_EDIT."
+  echo "❌ No matching direct dependencies found in $MANIFEST or AVAILABLE_PACKAGES_TO_EDIT."
   echo "=========================================================================="
   exit 1
 fi
@@ -123,19 +124,16 @@ echo "==========================================================================
 echo "🛠 Reinstalling $PACKAGE as source"
 echo "=========================================================================="
 
-# Get the version of the selected package from composer.json
-PACKAGE_VERSION=$(jq -r --arg package "$PACKAGE" '.require[$package]' composer.json)
-
 # Reinstall the selected package as source
-composer reinstall --no-interaction --ignore-platform-reqs --prefer-source $PACKAGE
+php composer-local-merge.php reinstall --no-interaction --ignore-platform-reqs --prefer-source "$PACKAGE"
 
 # Determine the correct installation path for the package
 PACKAGE_PATH=""
-INSTALLER_PATHS=$(jq -r '.extra["installer-paths"] | to_entries[] | .key + " " + (.value | join(","))' composer.json)
+INSTALLER_PATHS=$(jq -r '.extra["installer-paths"] | to_entries[] | .key + " " + (.value | join(","))' "$MANIFEST")
 for entry in $INSTALLER_PATHS; do
   IFS=' ' read -r path types <<< "$entry"
   for type in ${types//,/ }; do
-    if composer show "$PACKAGE" --format=json | jq -e ".type == \"$type\"" > /dev/null; then
+    if php composer-local-merge.php show "$PACKAGE" --format=json | jq -e ".type == \"$type\"" > /dev/null; then
       PACKAGE_PATH="${path//\$name/${PACKAGE##*/}}"
       break 2
     fi
@@ -144,7 +142,7 @@ done
 
 # Fallback: Use composer show to get the path if installer-paths does not resolve
 if [ -z "$PACKAGE_PATH" ]; then
-  PACKAGE_PATH=$(composer show "$PACKAGE" --format=json | jq -r '.path // empty')
+  PACKAGE_PATH=$(php composer-local-merge.php show "$PACKAGE" --format=json | jq -r '.path // empty')
 fi
 
 if [ -z "$PACKAGE_PATH" ]; then
