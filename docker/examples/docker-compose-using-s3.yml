@@ -1,0 +1,88 @@
+services:
+  municipio:
+    build:
+      context: ../..
+      dockerfile: docker/Dockerfile
+      secrets:
+        - acf_pro_key
+    environment:
+      WP_CONF_DB_NAME: municipio
+      WP_CONF_DB_USER: municipio
+      WP_CONF_DB_PASSWORD: municipio
+      WP_CONF_DB_HOST: db
+      WP_CONF_WP_SITEURL: http://localhost:9090/wp
+      WP_CONF_WP_HOME: http://localhost:9090
+      WP_CONF_DB_TABLE_PREFIX: mun_
+      WP_CONF_WP_SITE_TITLE: Municipio
+      WP_CONF_WP_ADMIN_USER: admin
+      WP_CONF_WP_ADMIN_PASSWORD: admin
+      WP_CONF_WP_ADMIN_EMAIL: admin@example.com
+      WP_CONF_WP_REDIS_DISABLED: true
+      # S3-compatible object storage (MinIO) for media offloading, consumed by
+      # the bundled s3-uploads plugin. These become WordPress constants via
+      # the WP_CONF_EXTRA_ mechanism (config/env.php). The endpoint override
+      # must be S3_UPLOADS_CUSTOM_ENDPOINT -- that's the constant the bundled
+      # "S3 Uploads custom endpoint" mu-plugin reads (s3-uploads itself has no
+      # S3_UPLOADS_ENDPOINT constant, so that name is silently ignored).
+      WP_CONF_EXTRA_S3_UPLOADS_BUCKET: municipio
+      WP_CONF_EXTRA_S3_UPLOADS_KEY: minioadmin
+      WP_CONF_EXTRA_S3_UPLOADS_SECRET: minioadmin
+      WP_CONF_EXTRA_S3_UPLOADS_REGION: us-east-1
+      WP_CONF_EXTRA_S3_UPLOADS_CUSTOM_ENDPOINT: http://minio:9000
+      WP_CONF_EXTRA_S3_UPLOADS_BUCKET_URL: http://localhost:9000/municipio
+
+    # s3-uploads ships with the deployment but isn't active by default.
+    command: wp plugin activate s3-uploads s3-local-index --allow-root
+
+    depends_on:
+      db:
+        condition: service_started
+      minio:
+        condition: service_healthy
+      createbuckets:
+        condition: service_completed_successfully
+
+    ports:
+      - "9090:80"
+
+  db:
+    extends:
+      file: common-services.yml
+      service: database
+
+  # S3-compatible object storage used to offload uploads instead of storing
+  # them on the container filesystem.
+  minio:
+    image: quay.io/minio/minio:latest
+    command: server /data --console-address ":9091"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9091:9091"
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: [ "CMD", "mc", "ready", "local" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # One-off job that creates the bucket used by S3_UPLOADS_BUCKET on first
+  # start; MinIO does not create buckets automatically.
+  createbuckets:
+    image: quay.io/minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c " mc alias set local http://minio:9000 minioadmin minioadmin && mc mb --ignore-existing local/municipio && mc anonymous set download local/municipio "
+
+volumes:
+  db-data: {}
+  minio-data: {}
+
+secrets:
+  acf_pro_key:
+    environment: ACF_PRO_KEY

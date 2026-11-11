@@ -1,0 +1,30 @@
+services:
+  redis:
+    # image: redis:latest
+    image: valkey/valkey:9.1.2
+    # unixsocketperm 777: both the municipio (uid 1000) and valkey containers
+    # need read/write access to the socket file; fine for local dev, tighten
+    # (matching uids/gid) before using this pattern anywhere less trusted.
+    command: >
+      valkey-server
+      --port 6379
+      --unixsocket /var/run/valkey/valkey.sock
+      --unixsocketperm 777
+    ports:
+      - "6379:6379"
+    volumes:
+      - valkey-socket:/var/run/valkey
+
+  database:
+    image: mariadb:latest
+    environment:
+      MARIADB_DATABASE: municipio
+      MARIADB_USER: municipio
+      MARIADB_PASSWORD: municipio
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
+  valkey-socket:

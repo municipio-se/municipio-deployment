@@ -29,6 +29,10 @@ This will ensure that deployments can be made by fetching the upstream of the fo
 2. Setup deployment details according to the tables below (source:  https://github.com/helsingborg-stad/municipio-deploy/tree/master/4.0).
 3. Update to upstream, whenever you want to update your production enviroment with the latest version of Municipio.
 
+## Container image
+
+The `docker/` directory contains the optional runnable container image and its release workflows. Release candidates are built from eligible semver-titled pull requests; final images are built directly from unprefixed semver source tags. Images publish to `ghcr.io/${{ github.repository }}`, giving each fork its own image path. Configure `ACF_PRO_KEY`, `DOCKERHUB_USERNAME`, and `DOCKERHUB_TOKEN` to enable builds. See the [container image guide](docker/README.md) for tag conventions, permissions, fork setup, and local builds.
+
 ## Adding custom dependencies
 You may add your own dependencies in the `composer.local.json` file. Add packages to the `require` or `require-dev` sections as needed. You can also add custom `repositories` entries (VCS, package, path, etc.) for packages that are not available on Packagist or wpackagist:
 
