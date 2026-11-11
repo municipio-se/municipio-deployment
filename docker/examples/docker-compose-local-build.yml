@@ -1,0 +1,38 @@
+services:
+  municipio:
+    build:
+      context: ../..
+      dockerfile: docker/Dockerfile
+      secrets:
+        - acf_pro_key
+    environment:
+      WP_CONF_DB_NAME: municipio
+      WP_CONF_DB_USER: municipio
+      WP_CONF_DB_PASSWORD: municipio
+      WP_CONF_DB_HOST: db
+      WP_CONF_WP_SITEURL: http://localhost:9090/wp
+      WP_CONF_WP_HOME: http://localhost:9090
+      WP_CONF_DB_TABLE_PREFIX: mun_
+      WP_CONF_WP_SITE_TITLE: Municipio
+      WP_CONF_WP_ADMIN_USER: admin
+      WP_CONF_WP_ADMIN_PASSWORD: admin
+      WP_CONF_WP_ADMIN_EMAIL: admin@example.com
+      WP_CONF_WP_REDIS_DISABLED: true
+
+    depends_on:
+      - db
+
+    ports:
+      - "9090:80"
+
+  db:
+    extends:
+      file: common-services.yml
+      service: database
+
+volumes:
+  db-data: {}
+
+secrets:
+  acf_pro_key:
+    environment: ACF_PRO_KEY

@@ -3,8 +3,10 @@
 {
     "name": "Municipio Deployment(PHP & MariaDB)",
     "dockerComposeFile": "docker-compose.yml",
-    "workspaceFolder": "/var/www/vhosts/localhost/html",
+    "workspaceFolder": "/workspaces/municipio-deployment",
     "service": "app",
+    "remoteUser": "vscode",
+    "onCreateCommand": "if [ \"${CODESPACES:-}\" = true ]; then sudo -n chown -R -- \"$(id -u):$(id -g)\" \"$PWD\"; fi",
     "forwardPorts": [
         80,
         8306,
@@ -18,7 +20,7 @@
     "features": {
         "ghcr.io/devcontainers/features/common-utils:2": {
             "installZsh": true,
-            "username": "automatic"
+            "username": "vscode"
         },
         "ghcr.io/devcontainers/features/node:1": {
             "version": "lts"
@@ -65,6 +67,5 @@
                 "intelephense.environment.phpVersion": "8.3"
             }
         }
-    },
-    "remoteUser": "vscode"
+    }
 }

@@ -13,7 +13,7 @@
  */
 
 // Local site domain (fixed for devcontainer)
-$localSiteDomain = 'localhost:8080';
+$LOCAL_SITE_URL = municipio_get_site_url();
 
 // Activate debug mode on all environments using ?debug flag.
 if (isset($_GET['debug'])) {
@@ -21,11 +21,11 @@ if (isset($_GET['debug'])) {
 }
 
 if (!defined('WP_SITEURL')) {
-  define('WP_SITEURL', 'http://' . $localSiteDomain . '/wp');
+  define('WP_SITEURL', $LOCAL_SITE_URL . '/wp');
 }
 
 if (!defined('WP_HOME')) {
-  define('WP_HOME', 'http://' . $localSiteDomain);
+  define('WP_HOME', $LOCAL_SITE_URL);
 }
 
 if (!defined('WP_ENVIRONMENT_TYPE')) {

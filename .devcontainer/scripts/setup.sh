@@ -25,8 +25,14 @@ else
 fi
 
 ### CONFIGURATION ###
-LOCAL_SITE_DOMAIN="localhost:8080"
-LOCAL_SITE_URL="http://${LOCAL_SITE_DOMAIN}"
+
+if [ "${CODESPACE_NAME:-}" ]; then
+    LOCAL_SITE_DOMAIN="${CODESPACE_NAME}"
+    LOCAL_SITE_URL="https://${LOCAL_SITE_DOMAIN}-80.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+else
+    LOCAL_SITE_DOMAIN="localhost:8080"
+    LOCAL_SITE_URL="http://${LOCAL_SITE_DOMAIN}"
+fi
 
 # Install as "single" or "multisite" (subfolder network). Override with SITE_TYPE env var.
 SITE_TYPE="${SITE_TYPE:-}"
@@ -306,6 +312,6 @@ print_success "Cached fonts removed"
 print_header "Setup Complete! 🎉"
 echo ""
 echo "Your local site is now available at:"
-echo "  http://${LOCAL_SITE_DOMAIN}"
+echo "  ${LOCAL_SITE_URL}"
 echo ""
 print_success "All done!"
