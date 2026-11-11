@@ -1,0 +1,10 @@
+.git
+.github
+.devcontainer
+.claude
+.vscode
+config-example
+db
+guide
+images
+tests

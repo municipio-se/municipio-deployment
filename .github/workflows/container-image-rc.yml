@@ -1,0 +1,173 @@
+name: Build container release candidate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: municipio-image-rc-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      eligible: ${{ steps.context.outputs.eligible }}
+      version: ${{ steps.context.outputs.version }}
+      head_sha: ${{ steps.context.outputs.head_sha }}
+      rc: ${{ steps.context.outputs.rc }}
+    steps:
+      - name: Check release pull request
+        id: context
+        env:
+          ACTION: ${{ github.event.action }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          BASE_REPO: ${{ github.event.pull_request.base.repo.full_name }}
+          BASE_DEFAULT_BRANCH: ${{ github.event.pull_request.base.repo.default_branch }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          TITLE: ${{ github.event.pull_request.title }}
+          TITLE_CHANGED: ${{ github.event.changes.title != null }}
+        run: |
+          if [[ "$ACTION" == edited && "$TITLE_CHANGED" != true ]]; then
+            echo "Skipping edit that did not change the pull request title."
+            exit 0
+          fi
+          if [[ "$BASE_REPO" != "$GITHUB_REPOSITORY" || "$HEAD_REPO" != "$GITHUB_REPOSITORY" ]]; then
+            echo "Skipping release candidates from fork pull requests."
+            exit 0
+          fi
+          if [[ "$BASE_REF" != "$BASE_DEFAULT_BRANCH" ]]; then
+            echo "Skipping pull request targeting a non-default branch."
+            exit 0
+          fi
+          if ! [[ "$TITLE" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Skipping pull request whose title is not X.Y.Z."
+            exit 0
+          fi
+
+          rc="v${TITLE}-rc.${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}"
+          {
+            echo "eligible=true"
+            echo "version=$TITLE"
+            echo "head_sha=$HEAD_SHA"
+            echo "rc=$rc"
+          } >> "$GITHUB_OUTPUT"
+          echo "Building \`$rc\` from \`$HEAD_SHA\`." >> "$GITHUB_STEP_SUMMARY"
+
+  build:
+    needs: prepare
+    if: needs.prepare.outputs.eligible == 'true'
+    name: Build ${{ matrix.platform }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-latest
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+    steps:
+      - name: Check out release pull request head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.head_sha }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        id: build
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: docker/Dockerfile
+          platforms: ${{ matrix.platform }}
+          outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=true
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.version=${{ needs.prepare.outputs.version }}
+            org.opencontainers.image.revision=${{ needs.prepare.outputs.head_sha }}
+            municipio-se.source-ref=${{ needs.prepare.outputs.head_sha }}
+            municipio-se.rc=${{ needs.prepare.outputs.rc }}
+            municipio-se.pr=${{ github.event.pull_request.number }}
+            municipio-se.run=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          secrets: |
+            "acf_pro_key=${{ secrets.ACF_PRO_KEY }}"
+
+      - name: Export image digest
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+          PLATFORM: ${{ matrix.platform }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/digests"
+          touch "$RUNNER_TEMP/digests/${DIGEST#sha256:}"
+          echo "platform_slug=${PLATFORM//\//-}" >> "$GITHUB_ENV"
+
+      - name: Upload image digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: digest-${{ env.platform_slug }}
+          path: ${{ runner.temp }}/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    needs: [prepare, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download image digests
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ runner.temp }}/digests
+          pattern: digest-*
+          merge-multiple: true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish multi-platform release candidate
+        working-directory: ${{ runner.temp }}/digests
+        env:
+          RC: ${{ needs.prepare.outputs.rc }}
+        run: |
+          shopt -s nullglob
+          digests=(*)
+          if [[ ${#digests[@]} -ne 2 ]]; then
+            echo "::error::Expected two platform image digests, found ${#digests[@]}."
+            exit 1
+          fi
+          sources=()
+          for digest in "${digests[@]}"; do
+            sources+=("$IMAGE@sha256:$digest")
+          done
+          docker buildx imagetools create -t "$IMAGE:$RC" "${sources[@]}"
+          docker buildx imagetools inspect "$IMAGE:$RC"
