@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd7387c70863152d7fdf2a82fc3cea9d",
+    "content-hash": "5a9b8d0dc5ecafeb396a1f5d8bdfd2f4",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -62,16 +62,16 @@
         },
         {
             "name": "algolia/algoliasearch-client-php",
-            "version": "4.51.0",
+            "version": "4.54.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/algolia/algoliasearch-client-php.git",
-                "reference": "22cd3779cd3be38cded450bfc62b941e2c43c857"
+                "reference": "c2ffaae6d366b64bb4e3ad1825c6bdb54106493e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/algolia/algoliasearch-client-php/zipball/22cd3779cd3be38cded450bfc62b941e2c43c857",
-                "reference": "22cd3779cd3be38cded450bfc62b941e2c43c857",
+                "url": "https://api.github.com/repos/algolia/algoliasearch-client-php/zipball/c2ffaae6d366b64bb4e3ad1825c6bdb54106493e",
+                "reference": "c2ffaae6d366b64bb4e3ad1825c6bdb54106493e",
                 "shasum": ""
             },
             "require": {
@@ -125,9 +125,9 @@
             ],
             "support": {
                 "issues": "https://github.com/algolia/algoliasearch-client-php/issues",
-                "source": "https://github.com/algolia/algoliasearch-client-php/tree/4.51.0"
+                "source": "https://github.com/algolia/algoliasearch-client-php/tree/4.54.0"
             },
-            "time": "2026-10-29T09:00:57+00:00"
+            "time": "2026-11-10T20:39:52+00:00"
         },
         {
             "name": "astrotomic/php-deepface",
@@ -3698,20 +3698,20 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.83.0",
+            "version": "7.83.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "34182e96122cef4a1d7d1c5ef2d0490b0a95e617"
+                "reference": "a6ad463cb650db2535119da9c9974c4832cadc9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/34182e96122cef4a1d7d1c5ef2d0490b0a95e617",
-                "reference": "34182e96122cef4a1d7d1c5ef2d0490b0a95e617",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/a6ad463cb650db2535119da9c9974c4832cadc9b",
+                "reference": "a6ad463cb650db2535119da9c9974c4832cadc9b",
                 "shasum": ""
             },
             "require": {
-                "algolia/algoliasearch-client-php": "4.51.0",
+                "algolia/algoliasearch-client-php": "4.54.0",
                 "astrotomic/php-deepface": "0.5.0",
                 "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
                 "composer/installers": "^2.3",
@@ -3723,7 +3723,7 @@
                 "helsingborg-stad/acf-select-image-field": "1.6.2",
                 "helsingborg-stad/acfservice": "^1.0.0",
                 "helsingborg-stad/schema-library": "0.5.8",
-                "helsingborg-stad/styleguide": "3.45.4",
+                "helsingborg-stad/styleguide": "3.47.0",
                 "helsingborg-stad/wpservice": "^2.0",
                 "helsingborg-stad/wputilservice": "0.3.5",
                 "jeradin/acf-dynamic-table-field": "dev-master",
@@ -3799,9 +3799,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.83.0"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.83.2"
             },
-            "time": "2026-11-11T13:16:00+00:00"
+            "time": "2026-11-11T13:33:33+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -4092,16 +4092,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.45.4",
+            "version": "3.47.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "2d3d86e5e1ec061ec23d1e46ce493d57f85e7727"
+                "reference": "6478d7a055b1e78857cf0b16c8e56b77d1b7942a"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/helsingborg-stad/styleguide/releases/download/%prettyVersion%/styleguide-%prettyVersion%.zip",
-                "reference": "2d3d86e5e1ec061ec23d1e46ce493d57f85e7727"
+                "reference": "6478d7a055b1e78857cf0b16c8e56b77d1b7942a"
             },
             "require": {
                 "erusev/parsedown": "^1.7",
@@ -4164,9 +4164,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.45.4"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.47.0"
             },
-            "time": "2026-11-06T12:38:35+00:00"
+            "time": "2026-11-11T13:19:24+00:00"
         },
         {
             "name": "helsingborg-stad/visit-custom-posttypes-taxonomies",
