@@ -74,9 +74,9 @@ git add composer.local.json .composer-local.generated.lock
 
 Commit the local lock file in your fork. Installs validate it and fail if it is missing or out of date; they do not resolve new versions implicitly. The original `composer.json` and `composer.lock` are never temporarily modified. Updating local dependencies does not update the upstream lock: maintain `composer.lock` on a branch without local overrides, then update the local lock after merging upstream changes.
 
-The wrapper also accepts `validate` and passes Composer options through, for example `php composer-local-merge.php install --no-dev`. It does not support `composer require`: edit the local requirements and run `update` instead. Do not set `COMPOSER` or change the working directory through wrapper options. Composer hooks reject direct `install` and `update` when local overrides exist; `--no-scripts` bypasses that protection and must not be used to install the root project directly. The `pin-all-latest` script also requires a branch without local overrides, because it updates the upstream manifest and lock.
+The wrapper also accepts `validate`, `show`, `reinstall`, `prohibits`, and `config`, and passes Composer options through, for example `php composer-local-merge.php install --no-dev`. Its `manifest` command prints the selected manifest path. It does not support `composer require`: edit the local requirements and run `update` instead. Do not set `COMPOSER` or change the working directory through wrapper options. Composer hooks reject direct `install` and `update` when local overrides exist; `--no-scripts` bypasses that protection and must not be used to install the root project directly. The `pin-all-latest` script also requires a branch without local overrides, because it updates the upstream manifest and lock.
 
-The Docker and devcontainer builds use the wrapper. The shared GitHub deployment action's existing pre-install and post-install steps are supported through `GITHUB_ENV`. Older interrupted runs may have left `.composer-merge-active` and `composer.*.bkup` files: inspect them and restore the original files before upgrading this script.
+The Docker and devcontainer builds use the wrapper. The shared GitHub deployment action versions 4.1 and 4.2 support it through their pre-install and post-install steps and `GITHUB_ENV`. Version 4.0 does not run those steps; deployments using it must switch to 4.2 or explicitly run the wrapper. The legacy `build-pre.php` entry point now delegates to the GitHub Actions pre-install step instead of deleting the root lock. Older interrupted runs may have left `.composer-merge-active` and `composer.*.bkup` files: inspect them and restore the original files before upgrading this script.
 
 The Composer local workflow is tested in GitHub Actions on pull requests and pushes to `master`. To run the same offline integration tests locally, use `bash test-composer-merge.sh` with PHP and Composer 2 installed. The tests use temporary fixture packages; they do not install the application's production dependencies.
 
@@ -145,8 +145,7 @@ Municipio runs better with these additional packages, applications and settings.
 - S3 Compatible Object storage (Tested with Swift)
 
 ### Adding a package
-If you want to add a package, register it using Composer as usual (see the Composer require command: https://getcomposer.org/doc/03-cli.md#require-r).
-In some cases, Composer may fail due to dependency conflicts caused by leftover local cache or build artifacts. If this happens, run the composer update-lockfile command. This will execute Composer inside an isolated container and automatically clear any leftover residue from previous runs. The lockfile MUST be committed in all cases. 
+Add custom packages in `composer.local.json` and update and commit the combined lock as described in [Adding custom dependencies](#adding-custom-dependencies). Upstream dependencies belong in `composer.json` and its `composer.lock`.
 
 ### Resources
 What resources you should give the machine is highly individual depending on your anticipated amount of traffic. But let each PHP process have at least 512MB memory to allocate. This high amount is due to some image processing being made in runtime. 

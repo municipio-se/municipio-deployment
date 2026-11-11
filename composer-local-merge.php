@@ -49,8 +49,8 @@ final class ComposerLocalMerge
             return 0;
         }
 
-        if (!in_array($command, ['install', 'update', 'validate', 'pre-install'], true)) {
-            throw new RuntimeException('Usage: php composer-local-merge.php [install|update|validate] [options]');
+        if (!in_array($command, ['install', 'update', 'validate', 'show', 'reinstall', 'prohibits', 'config', 'manifest', 'pre-install'], true)) {
+            throw new RuntimeException('Usage: php composer-local-merge.php [install|update|validate|show|reinstall|prohibits|config|manifest] [options]');
         }
 
         foreach (array_slice($arguments, 1) as $argument) {
@@ -69,7 +69,7 @@ final class ComposerLocalMerge
             if (file_put_contents($this->rootPath . '/' . self::GENERATED_MANIFEST, $encoded . "\n", LOCK_EX) === false) {
                 throw new RuntimeException('Could not write the generated Composer manifest.');
             }
-            if (in_array($command, ['install', 'pre-install'], true) &&
+            if (in_array($command, ['install', 'reinstall', 'prohibits', 'validate', 'pre-install'], true) &&
                 !is_file($this->rootPath . '/' . self::GENERATED_LOCK)) {
                 throw new RuntimeException(
                     'The local lock file is missing. Run php composer-local-merge.php update and commit ' .
@@ -77,12 +77,20 @@ final class ComposerLocalMerge
                 );
             }
             putenv('COMPOSER=' . self::GENERATED_MANIFEST);
-            if (in_array($command, ['install', 'pre-install'], true)) {
+            if (in_array($command, ['install', 'reinstall', 'prohibits', 'pre-install'], true)) {
                 $status = $this->runComposer(['validate', '--no-check-publish', '--no-check-all', '--check-lock', '--no-plugins', '--no-scripts']);
                 if ($status !== 0) {
                     throw new RuntimeException('The local lock file is invalid or out of date. Run php composer-local-merge.php update.');
                 }
             }
+        }
+
+        if ($command === 'manifest') {
+            if (count($arguments) !== 1) {
+                throw new RuntimeException('The manifest command does not accept arguments.');
+            }
+            echo $this->hasOverrides($local) ? self::GENERATED_MANIFEST . "\n" : "composer.json\n";
+            return 0;
         }
 
         if ($command === 'pre-install') {
