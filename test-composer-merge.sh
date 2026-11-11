@@ -127,7 +127,7 @@ GITHUB_ENV="$test_dir/github-env" php composer-local-merge.php pre-install
 grep -qx 'COMPOSER=.composer-local.generated.json' github-env
 GITHUB_ENV="$test_dir/github-env" php build-pre.php
 test "$(tail -1 github-env)" = 'COMPOSER=.composer-local.generated.json'
-if php build-pre.php; then
+if GITHUB_ENV= php build-pre.php; then
     echo "Legacy build preparation unexpectedly ran outside GitHub Actions" >&2
     exit 1
 fi
