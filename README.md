@@ -78,6 +78,8 @@ The wrapper also accepts `validate` and passes Composer options through, for exa
 
 The Docker and devcontainer builds use the wrapper. The shared GitHub deployment action's existing pre-install and post-install steps are supported through `GITHUB_ENV`. Older interrupted runs may have left `.composer-merge-active` and `composer.*.bkup` files: inspect them and restore the original files before upgrading this script.
 
+The Composer local workflow is tested in GitHub Actions on pull requests and pushes to `master`. To run the same offline integration tests locally, use `bash test-composer-merge.sh` with PHP and Composer 2 installed. The tests use temporary fixture packages; they do not install the application's production dependencies.
+
 You may also add plugins locally to your server with the folder name of the plugin prefixed with "local_". Normally they would be removed during the deploy to ensure one source of truth, however the deploy script will respect the "local_" prefix and keep them. 
 
 ## Parameters
