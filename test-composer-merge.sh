@@ -1,132 +1,163 @@
-#!/bin/bash
-# Test script for composer-local-merge.php
-# This script validates the merge and restore workflow
+#!/usr/bin/env bash
+set -euo pipefail
 
-set -e
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+test_dir="$(mktemp -d)"
+trap 'rm -rf "$test_dir"' EXIT
+cp "$script_dir/composer-local-merge.php" "$test_dir/"
+cd "$test_dir"
+export COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_DISABLE_NETWORK=1
+unset COMPOSER
 
-echo "==================================="
-echo "Testing Composer Local Merge Script"
-echo "==================================="
-echo ""
-
-# Save current directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
-
-# Create temporary test files
-TEST_DIR="/tmp/composer-merge-test-$$"
-mkdir -p "$TEST_DIR"
-
-# Cleanup function
-cleanup() {
-    echo ""
-    echo "Cleaning up test files..."
-    rm -rf "$TEST_DIR"
-    # Restore original composer.local.json if needed
-    if [ -f "$SCRIPT_DIR/.composer.local.json.test.bkup" ]; then
-        mv "$SCRIPT_DIR/.composer.local.json.test.bkup" "$SCRIPT_DIR/composer.local.json"
-    fi
-    echo "Cleanup complete"
-}
-
-trap cleanup EXIT
-
-echo "Test 1: Empty composer.local.json (should skip merge)"
-echo "------------------------------------------------------"
-# Backup current composer.local.json if it exists
-if [ -f "$SCRIPT_DIR/composer.local.json" ]; then
-    cp "$SCRIPT_DIR/composer.local.json" "$SCRIPT_DIR/.composer.local.json.test.bkup"
-fi
-
-# Create empty composer.local.json
-cat > "$SCRIPT_DIR/composer.local.json" << 'EOF'
+cat > composer.json <<'JSON'
 {
-  "name": "municipio-se/municipio-deployment-custom",
+  "name": "example/project",
+  "description": "Offline integration test",
   "license": "MIT",
-  "description": "Additions for your own install of Municipio.",
-  "require": {}
-}
-EOF
-
-php "$SCRIPT_DIR/composer-local-merge.php" pre-install
-if [ -f "$SCRIPT_DIR/.composer-merge-active" ]; then
-    echo "FAIL: Merge was performed when it shouldn't have been"
-    exit 1
-fi
-echo "✓ Test 1 passed: Merge correctly skipped for empty requirements"
-echo ""
-
-echo "Test 2: composer.local.json with requirements (should merge and restore)"
-echo "------------------------------------------------------------------------"
-# Create composer.local.json with test requirements
-cat > "$SCRIPT_DIR/composer.local.json" << 'EOF'
-{
-  "name": "municipio-se/municipio-deployment-custom",
-  "license": "MIT",
-  "description": "Additions for your own install of Municipio.",
-  "require": {
-    "test/package": "1.0.0"
-  },
-  "require-dev": {
-    "test/dev-package": "2.0.0"
+  "repositories": [
+    {"type": "package", "package": {"name": "example/base", "version": "1.0.0", "type": "metapackage"}},
+    {"type": "package", "package": {"name": "example/override", "version": "1.0.0", "type": "metapackage"}},
+    {"packagist.org": false}
+  ],
+  "require": {"example/base": "1.0.0", "example/override": "1.0.0"},
+  "scripts": {
+    "pre-install-cmd": "php composer-local-merge.php guard",
+    "pre-update-cmd": "php composer-local-merge.php guard",
+    "pin-test": ["php composer-local-merge.php guard", "touch pin-ran"]
   }
 }
-EOF
+JSON
+printf '{"require": {}}\n' > composer.local.json
 
-# Save original composer.json content
-ORIGINAL_COMPOSER=$(cat "$SCRIPT_DIR/composer.json")
+# An empty local manifest must use the normal Composer lock.
+php composer-local-merge.php update --no-interaction --no-progress
+test -f composer.lock
+test ! -e .composer-local.generated.json
+cp composer.json original.json
+cp composer.lock original.lock
+php composer-local-merge.php install --no-interaction --no-progress
+cmp composer.lock original.lock
+touch github-env
+GITHUB_ENV="$test_dir/github-env" php composer-local-merge.php pre-install
+composer install --no-interaction --no-progress
+GITHUB_ENV="$test_dir/github-env" php composer-local-merge.php post-install
+tail -1 github-env | grep -qx 'COMPOSER='
+rm github-env
 
-# Run pre-install
-php "$SCRIPT_DIR/composer-local-merge.php" pre-install
+cat > composer.local.json <<'JSON'
+{
+  "repositories": [
+    {"type": "package", "package": {"name": "example/override", "version": "2.0.0", "type": "metapackage"}},
+    {"type": "package", "package": {"name": "example/dev", "version": "1.0.0", "type": "metapackage"}}
+  ],
+  "require": {"example/override": "2.0.0"},
+  "require-dev": {"example/dev": "1.0.0"}
+}
+JSON
 
-# Check if merge flag exists
-if [ ! -f "$SCRIPT_DIR/.composer-merge-active" ]; then
-    echo "FAIL: Merge flag not created"
+# Direct Composer and a wrapper install without the local lock must fail.
+if composer install --no-interaction --no-progress; then
+    echo "Direct Composer unexpectedly accepted local overrides" >&2
     exit 1
 fi
-
-# Check if test package was added to composer.json
-if ! grep -q "test/package" "$SCRIPT_DIR/composer.json"; then
-    echo "FAIL: Test package not found in composer.json after merge"
+if composer update --no-interaction --no-progress; then
+    echo "Direct Composer update unexpectedly accepted local overrides" >&2
     exit 1
 fi
-
-# Check if backups were created
-if [ ! -f "$SCRIPT_DIR/composer.json.bkup" ]; then
-    echo "FAIL: composer.json backup not created"
+if composer run pin-test; then
+    echo "Pin command unexpectedly accepted local overrides" >&2
     exit 1
 fi
-
-echo "✓ Pre-install: Merge performed correctly"
-
-# Run post-install
-php "$SCRIPT_DIR/composer-local-merge.php" post-install
-
-# Check if merge flag was removed
-if [ -f "$SCRIPT_DIR/.composer-merge-active" ]; then
-    echo "FAIL: Merge flag not removed after post-install"
+test ! -e pin-ran
+if php composer-local-merge.php install --no-interaction --no-progress; then
+    echo "Install unexpectedly succeeded without a local lock" >&2
     exit 1
 fi
+cmp composer.json original.json
+cmp composer.lock original.lock
 
-# Check if test package was removed from composer.json
-if grep -q "test/package" "$SCRIPT_DIR/composer.json"; then
-    echo "FAIL: Test package still in composer.json after restore"
+# Update resolves both sets of requirements, giving local repositories priority.
+php composer-local-merge.php update --no-interaction --no-progress
+test -f .composer-local.generated.lock
+COMPOSER=.composer-local.generated.json composer show --locked example/override | grep -q '2.0.0'
+COMPOSER=.composer-local.generated.json composer show --locked example/dev | grep -q '1.0.0'
+cp .composer-local.generated.lock original-local.lock
+cp composer.local.json original-local.json
+php composer-local-merge.php install --no-interaction --no-progress
+cmp .composer-local.generated.lock original-local.lock
+cmp composer.json original.json
+cmp composer.lock original.lock
+php composer-local-merge.php install --no-dev --no-interaction --no-progress
+if composer show example/dev >/dev/null 2>&1; then
+    echo "Dev dependency was installed with --no-dev" >&2
     exit 1
 fi
+php composer-local-merge.php install --no-interaction --no-progress
+composer show example/dev >/dev/null
 
-# Check if backups were cleaned up
-if [ -f "$SCRIPT_DIR/composer.json.bkup" ]; then
-    echo "FAIL: Backup files not cleaned up"
+# A repository-only change also invalidates the combined lock.
+php -r '$data = json_decode(file_get_contents("composer.local.json")); $data->repositories[] = (object) ["type" => "package", "package" => (object) ["name" => "example/extra", "version" => "1.0.0", "type" => "metapackage"]]; file_put_contents("composer.local.json", json_encode($data));'
+if php composer-local-merge.php install --no-interaction --no-progress; then
+    echo "Install unexpectedly accepted changed repositories" >&2
     exit 1
 fi
+cp original-local.json composer.local.json
+cmp .composer-local.generated.lock original-local.lock
 
-echo "✓ Post-install: Restore performed correctly"
-echo "✓ Test 2 passed: Merge and restore completed successfully"
-echo ""
+# The shared GitHub deployment action runs the legacy pre/install/post steps.
+touch github-env
+GITHUB_ENV="$test_dir/github-env" php composer-local-merge.php pre-install
+grep -qx 'COMPOSER=.composer-local.generated.json' github-env
+COMPOSER=.composer-local.generated.json composer install --no-interaction --no-progress
+GITHUB_ENV="$test_dir/github-env" COMPOSER=.composer-local.generated.json php composer-local-merge.php post-install
+tail -1 github-env | grep -qx 'COMPOSER='
+COMPOSER= composer validate --no-check-publish --no-check-all
+cmp composer.json original.json
+cmp composer.lock original.lock
 
-# Restore original composer.local.json
-mv "$SCRIPT_DIR/.composer.local.json.test.bkup" "$SCRIPT_DIR/composer.local.json"
+# An out-of-date local lock must fail rather than silently omit dependencies.
+cat > composer.local.json <<'JSON'
+{"require": {"example/base": "2.0.0"}}
+JSON
+if php composer-local-merge.php install --no-interaction --no-progress; then
+    echo "Install unexpectedly accepted an incompatible local lock" >&2
+    exit 1
+fi
+cmp composer.json original.json
+cmp composer.lock original.lock
+cmp .composer-local.generated.lock original-local.lock
 
-echo "==================================="
-echo "All tests passed! ✓"
-echo "==================================="
+# Repository-only overrides still select the local manifest.
+cat > composer.local.json <<'JSON'
+{"repositories": [{"type": "package", "package": {"name": "example/extra", "version": "1.0.0", "type": "metapackage"}}]}
+JSON
+php composer-local-merge.php update --no-interaction --no-progress
+php composer-local-merge.php install --no-interaction --no-progress
+php -r '$manifest = json_decode(file_get_contents(".composer-local.generated.json")); if (!isset($manifest->repositories->{"local-0"})) { exit(1); }'
+cmp composer.json original.json
+cmp composer.lock original.lock
+
+# Invalid configuration and failed resolution leave both original files intact.
+printf '{"require": []}\n' > composer.local.json
+if php composer-local-merge.php update --no-interaction --no-progress; then
+    echo "Invalid local requirements were accepted" >&2
+    exit 1
+fi
+printf '{"repositories": null}\n' > composer.local.json
+if php composer-local-merge.php update --no-interaction --no-progress; then
+    echo "Invalid local repositories were accepted" >&2
+    exit 1
+fi
+printf '{"require": {"example/missing": "1.0.0"}}\n' > composer.local.json
+if php composer-local-merge.php update --no-interaction --no-progress; then
+    echo "Missing dependency unexpectedly resolved" >&2
+    exit 1
+fi
+cmp composer.json original.json
+cmp composer.lock original.lock
+touch .composer-merge-active
+if php composer-local-merge.php update --no-interaction --no-progress; then
+    echo "An interrupted legacy merge was ignored" >&2
+    exit 1
+fi
+echo "Composer local integration tests passed."

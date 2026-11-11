@@ -123,7 +123,7 @@ Options:
 | `--no-editor` | Do not open the package in an editor |
 | `-h`, `--help` | Show help |
 
-Package installation validates Composer files and runs `composer install --prefer-dist --no-interaction --ignore-platform-reqs`. If validation fails, the script removes `composer.lock` before installing; check changes to the lockfile afterward.
+Package installation validates the selected Composer manifest and lock, then runs `php composer-local-merge.php install --prefer-dist --no-interaction --ignore-platform-reqs`. Validation failures stop installation without deleting the lock. See the [custom dependency guide](../README.md#adding-custom-dependencies) for creating and updating the local lock.
 
 ## Updating Sub-packages
 

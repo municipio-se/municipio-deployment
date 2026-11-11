@@ -38,6 +38,8 @@ $removables = [
     'build.php',
     'composer.json',
     'composer.local.json',
+    '.composer-local.generated.json',
+    '.composer-local.generated.lock',
     'post-install.php',
     'composer.lock',
     'images',

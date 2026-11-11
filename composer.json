@@ -154,19 +154,17 @@
   "scripts": {
     "pre-autoload-dump": "Aws\\Script\\Composer\\Composer::removeUnusedServices",
     "pre-install-cmd": [
-      "php composer-local-merge.php pre-install"
+      "php composer-local-merge.php guard"
     ],
     "post-install-cmd": [
-      "php composer-local-merge.php post-install",
       "mkdir -p wp-content/uploads/cache/blade-cache",
       "cp wp-content/plugins/redis-cache/includes/object-cache.php wp-content/object-cache.php"
     ],
     "pre-update-cmd": [
-      "php composer-local-merge.php pre-install"
+      "php composer-local-merge.php guard"
     ],
     "post-update-cmd": [
-      "php composer-local-merge.php post-install",
-      "composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/"
+      "env -u COMPOSER composer dump-autoload -o --working-dir ./wp-content/plugins/s3-uploads/"
     ],
     "update-lockfile": "command -v act >/dev/null 2>&1 || brew install act; act -j composer-update --bind",
     "resolve-conflicts": [
@@ -176,6 +174,7 @@
       "git commit --no-edit || true"
     ],
     "pin-all-latest": [
+      "php composer-local-merge.php guard",
       "bash -c 'set -euo pipefail; composer outdated --direct --format=json --ignore-platform-req=ext-imagick | jq -c \".installed[] | select(.latest != null and .latest != \\\"[none matched]\\\" and (.latest | startswith(\\\"dev-\\\") | not)) | {name:.name, version:.latest}\" | while read -r row; do PKG=$(echo \"$row\" | jq -r .name); VER=$(echo \"$row\" | jq -r .version); CURRENT=$(jq -r --arg p \"$PKG\" \".require[\\$p] // \\\"\\\"\" composer.json); if [ -z \"$CURRENT\" ]; then echo \"Skipping $PKG (not in root composer.json)\"; elif [[ \"$CURRENT\" == dev-* ]]; then echo \"Skipping $PKG (current version is dev)\"; else echo \"Updating $PKG to $VER\"; jq --arg p \"$PKG\" --arg v \"$VER\" \".require[\\$p] = \\$v\" composer.json > composer.json.tmp && mv composer.json.tmp composer.json; fi; done'",
       "composer update --lock --ignore-platform-req=ext-imagick -W"
     ],
