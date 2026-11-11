@@ -149,8 +149,14 @@ if php composer-local-merge.php update --no-interaction --no-progress; then
     exit 1
 fi
 printf '{"require": {"example/missing": "1.0.0"}}\n' > composer.local.json
-if php composer-local-merge.php update --no-interaction --no-progress; then
+if php composer-local-merge.php update --no-interaction --no-progress > missing-dependency.log 2>&1; then
     echo "Missing dependency unexpectedly resolved" >&2
+    cat missing-dependency.log >&2
+    exit 1
+fi
+if ! grep -q 'example/missing' missing-dependency.log; then
+    echo "Update failed for an unexpected reason" >&2
+    cat missing-dependency.log >&2
     exit 1
 fi
 cmp composer.json original.json
