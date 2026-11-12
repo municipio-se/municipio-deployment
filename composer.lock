@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a9b8d0dc5ecafeb396a1f5d8bdfd2f4",
+    "content-hash": "6336d5b344b8a1110ba14a000f4b3fd9",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -261,16 +261,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.403.3",
+            "version": "3.403.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "50a3ac24774b729bf8a2ac28f2b469630aaff73a"
+                "reference": "2d01207539928fe943a3f8d8981952b3655e2fc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/50a3ac24774b729bf8a2ac28f2b469630aaff73a",
-                "reference": "50a3ac24774b729bf8a2ac28f2b469630aaff73a",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2d01207539928fe943a3f8d8981952b3655e2fc1",
+                "reference": "2d01207539928fe943a3f8d8981952b3655e2fc1",
                 "shasum": ""
             },
             "require": {
@@ -352,9 +352,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.403.3"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.403.4"
             },
-            "time": "2026-11-10T19:04:16+00:00"
+            "time": "2026-11-11T19:03:26+00:00"
         },
         {
             "name": "brick/math",
@@ -3453,16 +3453,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-sections",
-            "version": "4.0.8",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-sections.git",
-                "reference": "dbefb84f327c390bba2cc4916072ea410f08eac0"
+                "reference": "fc71d9d0dda52e02cd9f666bcc55b33a0855d2f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-sections/zipball/dbefb84f327c390bba2cc4916072ea410f08eac0",
-                "reference": "dbefb84f327c390bba2cc4916072ea410f08eac0",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-sections/zipball/fc71d9d0dda52e02cd9f666bcc55b33a0855d2f5",
+                "reference": "fc71d9d0dda52e02cd9f666bcc55b33a0855d2f5",
                 "shasum": ""
             },
             "require": {
@@ -3509,9 +3509,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-sections/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-sections/tree/4.0.8"
+                "source": "https://github.com/helsingborg-stad/modularity-sections/tree/4.1.0"
             },
-            "time": "2026-11-06T09:00:56+00:00"
+            "time": "2026-11-11T15:47:12+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-testimonials",
@@ -3698,16 +3698,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.83.2",
+            "version": "7.84.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "a6ad463cb650db2535119da9c9974c4832cadc9b"
+                "reference": "56880e2b5d79895d23b373e20d8576e59320e915"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/a6ad463cb650db2535119da9c9974c4832cadc9b",
-                "reference": "a6ad463cb650db2535119da9c9974c4832cadc9b",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/56880e2b5d79895d23b373e20d8576e59320e915",
+                "reference": "56880e2b5d79895d23b373e20d8576e59320e915",
                 "shasum": ""
             },
             "require": {
@@ -3799,9 +3799,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.83.2"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.84.0"
             },
-            "time": "2026-11-11T13:33:33+00:00"
+            "time": "2026-11-11T15:51:39+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -5019,16 +5019,16 @@
         },
         {
             "name": "humanmade/s3-uploads",
-            "version": "3.0.13",
+            "version": "3.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/humanmade/S3-Uploads.git",
-                "reference": "c09bd3057747b181eeb9c22e380da9d904ba260a"
+                "reference": "36b1ac24f6f1e26826ba2004f8d2b433faf0dcbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/c09bd3057747b181eeb9c22e380da9d904ba260a",
-                "reference": "c09bd3057747b181eeb9c22e380da9d904ba260a",
+                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/36b1ac24f6f1e26826ba2004f8d2b433faf0dcbc",
+                "reference": "36b1ac24f6f1e26826ba2004f8d2b433faf0dcbc",
                 "shasum": ""
             },
             "require": {
@@ -5068,7 +5068,7 @@
                 "issues": "https://github.com/humanmade/s3-uploads/issues",
                 "source": "https://github.com/humanmade/s3-uploads"
             },
-            "time": "2026-02-25T17:57:09+00:00"
+            "time": "2026-11-11T15:50:13+00:00"
         },
         {
             "name": "illuminate/bus",
@@ -8020,16 +8020,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "4.36.0",
+            "version": "4.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "7df5eefacff197c0aae0925a4848e3f91719d37c"
+                "reference": "635a94908528ca5c4f0804640a0ec578e51639b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/7df5eefacff197c0aae0925a4848e3f91719d37c",
-                "reference": "7df5eefacff197c0aae0925a4848e3f91719d37c",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/635a94908528ca5c4f0804640a0ec578e51639b3",
+                "reference": "635a94908528ca5c4f0804640a0ec578e51639b3",
                 "shasum": ""
             },
             "require": {
@@ -8101,7 +8101,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/4.36.0"
+                "source": "https://github.com/getsentry/sentry-php/tree/4.37.0"
             },
             "funding": [
                 {
@@ -8113,7 +8113,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-11-05T16:26:18+00:00"
+            "time": "2026-11-11T15:29:22+00:00"
         },
         {
             "name": "sentry/sentry-agent",
