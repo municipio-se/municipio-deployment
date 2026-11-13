@@ -44,6 +44,8 @@ Add `GH_TOKEN` and `ACF_PRO_KEY` as Codespaces repository secrets before creatin
 
 The container can also start without these credentials. Package installation that requires private GitHub packages or ACF Pro remains unavailable until the corresponding credential is configured, but the missing values no longer prevent container creation.
 
+On each container start, `CODESPACE_NAME` and `GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN` are made available to web PHP for the forwarded site URL. When running locally, these variables are normally absent and the site uses localhost. Rebuild an existing dev container to load the PHP configuration change.
+
 ## Services
 
 | Service | Address | Purpose |
