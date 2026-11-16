@@ -44,9 +44,8 @@
     }
   ],
   "require": {
-    "wpackagist-plugin/authldap": "*",
-    "wpackagist-plugin/acf-extended": "0.9.2.3",
-    "wpackagist-plugin/worddown": "1.2.5",
+    "wp-plugin/authldap": "*",
+    "wp-plugin/acf-extended": "0.9.2.3",
     "alingsas-kommun/data-importer": "1.0.4",
     "alingsas-kommun/modular-ai": "1.0.9",
     "alingsas-kommun/modularity-alingsashero": "dev-codex/styleguide-v3-button-template",

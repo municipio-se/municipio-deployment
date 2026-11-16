@@ -1,0 +1,7 @@
+{
+    "id": "gh-cli",
+    "version": "1.0.0",
+    "name": "GitHub CLI",
+    "description": "Installs GitHub CLI",
+    "options": {}
+}

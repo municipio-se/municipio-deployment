@@ -1,0 +1,11 @@
+{
+    "mappings": [
+        {
+            "source_url": "https://somesite.com",
+            "target": "http://localhost:8080/somesite",
+            "username_env": "MUNICIPIO_CLONE_USERNAME",
+            "application_password_env": "MUNICIPIO_CLONE_APPLICATION_PASSWORD",
+            "keep_remote_media_urls": true
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "id": "wp-cli",
+    "version": "1.0.0",
+    "name": "WP-CLI",
+    "description": "Installs WP-CLI",
+    "options": {
+        "version": {
+            "type": "string",
+            "proposals": [
+                "latest"
+            ],
+            "default": "latest",
+            "description": "WP-CLI version to install"
+        }
+    }
+}

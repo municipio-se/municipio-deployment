@@ -91,7 +91,7 @@ Used for branch names: production, master
 | WEB_SERVER_USER_PROD            | Host web server user                                                         | true     |
 | PHP_VERSION                     | What version of PHP that should be used (target env, build)                  | true     |
 | GITHUB_TOKEN                    | Github token for github npm package usage, use built in secrets.GITHUB_TOKEN | true     |
-| ACF URL                         | A url where a zip-file with ACF PRO can be found (ACF provides a url).       | true     |
+| ACF_PRO_KEY                     | Advanced Custom Fields Pro Composer key, used to install ACF Pro packages.   | true     |
 
 ### Configuration - Stage
 Used for branch names: stage, beta, test
@@ -107,7 +107,7 @@ Used for branch names: stage, beta, test
 | WEB_SERVER_USER_STAGE           | Host web server user                                                         | true     |
 | PHP_VERSION                     | What version of PHP that should be used (target env, build)                  | true     |
 | GITHUB_TOKEN                    | Github token for github npm package usage, use built in secrets.GITHUB_TOKEN | true     |
-| ACF URL                         | A url where a zip-file with ACF PRO can be found (ACF provides a url).       | true     |
+| ACF_PRO_KEY                     | Advanced Custom Fields Pro Composer key, used to install ACF Pro packages.   | true     |
 
 ## Additional Setup
 A fully functional website will not be automatically created when this deployment script has been executed. Some local site configuration has to be created in the a ./config/ folder on the the local machine. This is basically a wp-config.php split in multiple files for a better overview of the configuration.

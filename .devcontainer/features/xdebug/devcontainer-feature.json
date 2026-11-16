@@ -1,0 +1,26 @@
+{
+    "id": "xdebug",
+    "version": "1.0.0",
+    "name": "Xdebug for lsphp",
+    "description": "Builds and enables Xdebug for OpenLiteSpeed's lsphp (shared by web and CLI)",
+    "options": {
+        "version": {
+            "type": "string",
+            "proposals": [
+                "latest"
+            ],
+            "default": "latest",
+            "description": "Xdebug version to install from PECL"
+        },
+        "phpVersion": {
+            "type": "string",
+            "default": "8.3",
+            "description": "lsphp version to build Xdebug for"
+        },
+        "clientPort": {
+            "type": "string",
+            "default": "9003",
+            "description": "Port the IDE listens on for Xdebug connections"
+        }
+    }
+}

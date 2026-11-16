@@ -7,6 +7,11 @@
 
 MISSING_CONFIG=()
 
+# Codespaces secrets and variables inherited by the container take precedence
+# over values in the local configuration file.
+INHERITED_GH_TOKEN="${GH_TOKEN:-}"
+INHERITED_ACF_PRO_KEY="${ACF_PRO_KEY:-}"
+
 # Create .env file from example if not present
 if [ ! -f .devcontainer/.env ]; then
     echo "→ .devcontainer/.env file not found, creating from .env.example..."
@@ -23,41 +28,48 @@ if [ -f .devcontainer/.env ]; then
     set +a
 fi
 
+if [ -n "$INHERITED_GH_TOKEN" ]; then
+    GH_TOKEN="$INHERITED_GH_TOKEN"
+fi
+
+if [ -n "$INHERITED_ACF_PRO_KEY" ]; then
+    ACF_PRO_KEY="$INHERITED_ACF_PRO_KEY"
+fi
+
 # Check required variables and configure what we can
 echo "Checking configuration..."
 echo ""
 
-# Check MUNICIPIO_ACF_PRO_KEY
-if [ -z "$MUNICIPIO_ACF_PRO_KEY" ]; then
-    echo "⚠️  MUNICIPIO_ACF_PRO_KEY is not set"
-    MISSING_CONFIG+=("MUNICIPIO_ACF_PRO_KEY - Required for ACF Pro plugin installation")
+# Check GH_TOKEN
+if [ -z "$GH_TOKEN" ]; then
+    echo "⚠️  GH_TOKEN is not set"
+    MISSING_CONFIG+=("GH_TOKEN - GitHub personal access token with read:packages scope")
 else
-    echo "✓ MUNICIPIO_ACF_PRO_KEY is set"
-fi
+    echo "✓ GH_TOKEN is set"
 
-# Check MUNICIPIO_GITHUB_TOKEN
-if [ -z "$MUNICIPIO_GITHUB_TOKEN" ]; then
-    echo "⚠️  MUNICIPIO_GITHUB_TOKEN is not set"
-    MISSING_CONFIG+=("MUNICIPIO_GITHUB_TOKEN - Required for npm and composer packages")
-else
-    echo "✓ MUNICIPIO_GITHUB_TOKEN is set"
-
-    # Create .npmrc file
-    > ~/.npmrc
-    echo "@helsingborg-stad:registry=https://npm.pkg.github.com" > ~/.npmrc
-    echo "//npm.pkg.github.com/:_authToken=${MUNICIPIO_GITHUB_TOKEN}" >> ~/.npmrc
+    # Update only the required npm settings, preserving other user configuration.
+    npm config set "@helsingborg-stad:registry=https://npm.pkg.github.com" --location=user
+    npm config set "//npm.pkg.github.com/:_authToken=${GH_TOKEN}" --location=user
     echo "✓ .npmrc file configured"
 
     # Set the GitHub token for Composer
-    composer config github-oauth.github.com $MUNICIPIO_GITHUB_TOKEN 2>/dev/null
+    composer config --global --auth github-oauth.github.com "$GH_TOKEN" 2>/dev/null
     echo "✓ Composer GitHub token configured"
 fi
 
-echo ""
+# Check ACF_PRO_KEY
+if [ -z "$ACF_PRO_KEY" ]; then
+    echo "⚠️  ACF_PRO_KEY is not set"
+    MISSING_CONFIG+=("ACF_PRO_KEY - Required for ACF Pro packages")
+else
+    echo "✓ ACF_PRO_KEY is set"
 
-# Always create symlink to /var/www/html
-sudo chmod a+x "$(pwd)" && sudo rm -rf /var/www/html && sudo ln -s "$(pwd)" /var/www/html
-echo "✓ Symlink created: $(pwd) → /var/www/html"
+    # Set the ACF Pro Composer credentials
+    composer config --global --auth http-basic.connect.advancedcustomfields.com "$ACF_PRO_KEY" http://localhost
+    echo "✓ ACF Pro Composer credentials configured"
+fi
+
+echo ""
 
 # Show summary if there are missing configurations
 if [ ${#MISSING_CONFIG[@]} -gt 0 ]; then
@@ -75,3 +87,10 @@ else
     echo ""
     echo "✓ All configuration complete!"
 fi
+
+echo ""
+echo "=========================================="
+echo "  Dev container setup complete"
+echo "=========================================="
+echo "VS Code prints configuration status whenever it attaches to the container."
+echo "Run .devcontainer/scripts/status.sh to show configuration status again."

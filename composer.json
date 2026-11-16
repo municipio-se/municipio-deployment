@@ -16,39 +16,20 @@
     "sort-packages": true,
     "allow-plugins": {
       "composer/installers": true,
-      "johnpbloch/wordpress-core-installer": true,
-      "php-http/discovery": true
+      "php-http/discovery": true,
+      "roots/wordpress-core-installer": true,
+      "johnpbloch/wordpress-core-installer": false
     },
     "optimize-autoloader": true,
-    "process-timeout": 21600,
-    "policy": {
-      "advisories": {
-        "ignore-id": {
-          "PKSA-cv56-2228-pzr6": "dompdf/dompdf pinned to exact v3.1.5 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=3.1.6.",
-          "PKSA-6r8f-nxsb-67bq": "dompdf/dompdf pinned to exact v3.1.5 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=3.1.6.",
-          "PKSA-gh7h-hhy4-byg7": "dompdf/dompdf pinned to exact v3.1.5 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=3.1.6.",
-          "PKSA-mwt3-h9tv-kx78": "dompdf/dompdf pinned to exact v3.1.5 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=3.1.6.",
-          "PKSA-hp6n-n4kz-21wk": "dompdf/dompdf pinned to exact v3.1.5 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=3.1.6.",
-          "PKSA-mckv-s5hg-868k": "dompdf/dompdf pinned to exact v3.1.5 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=3.1.6.",
-          "PKSA-5mzr-szzf-z6cn": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.9.0.",
-          "PKSA-cqd6-fg4n-nxpf": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.9.0.",
-          "PKSA-1q6p-sqkj-8mmj": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.9.0.",
-          "PKSA-mc58-w91n-f5gv": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.9.0.",
-          "PKSA-t21r-vtr5-3mdz": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.9.0.",
-          "PKSA-scnn-p8mm-jbft": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.9.0.",
-          "PKSA-zyf5-hrxv-hrd7": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.9.0.",
-          "PKSA-nv44-1b4d-6gjg": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.9.0.",
-          "PKSA-kr3s-894t-g5w2": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.9.0.",
-          "PKSA-9q1p-3s19-bp1q": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.9.0.",
-          "PKSA-m2dq-1fhr-29b1": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.10.2.",
-          "PKSA-m4t9-vsgq-8khn": "league/commonmark pinned to exact 2.8.2 by helsingborg-stad/municipio; remove once upstream bumps its pin to >=2.10.2."
-        }
-      }
-    }
+    "process-timeout": 21600
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "repositories": [
+    {
+      "type": "composer",
+      "url": "https://repo.wp-packages.org"
+    },
     {
       "type": "composer",
       "url": "https://packagist.org"
@@ -56,92 +37,100 @@
     {
       "type": "composer",
       "url": "https://wpackagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://connect.advancedcustomfields.com"
     }
   ],
   "require": {
     "php": "^8.0.0 || ^8.1.0 || ^8.2.0 || ^8.3.0",
     "composer/installers": "v2.3.0",
     "helsingborg-stad/acf-icon-field": "0.2.46",
-    "helsingborg-stad/acf-openstreetmap-field": "0.79.13",
-    "helsingborg-stad/active-directory-api-wp-integration": "3.2.0",
-    "helsingborg-stad/algolia-index": "3.5.10",
-    "helsingborg-stad/algolia-index-js-searchpage-addon": "3.6.14",
-    "helsingborg-stad/algolia-index-modularity-addon": "3.1.5",
-    "helsingborg-stad/algolia-index-typesense-provider": "1.0.15",
-    "helsingborg-stad/api-alarm-integration": "5.0.15",
-    "helsingborg-stad/api-event-manager-integration": "3.1.4",
+    "helsingborg-stad/acf-openstreetmap-field": "0.81.0",
+    "helsingborg-stad/active-directory-api-wp-integration": "3.2.2",
+    "helsingborg-stad/api-alarm-integration": "5.0.25",
+    "helsingborg-stad/api-event-manager-integration": "3.1.12",
     "helsingborg-stad/api-volunteer-manager-integration": "5.1.9",
-    "helsingborg-stad/attachment-revisions": "3.0.11",
-    "helsingborg-stad/better-post-ui": "3.1.2",
+    "helsingborg-stad/attachment-revisions": "3.0.13",
+    "helsingborg-stad/better-post-ui": "3.1.6",
     "helsingborg-stad/blade": "3.5.1",
-    "helsingborg-stad/broken-link-detector": "4.2.30",
-    "helsingborg-stad/custom-short-links": "3.0.8",
-    "helsingborg-stad/customer-feedback": "4.2.4",
-    "helsingborg-stad/easy-to-read-alternative": "3.0.9",
+    "helsingborg-stad/broken-link-detector": "4.2.32",
+    "helsingborg-stad/custom-short-links": "3.1.0",
+    "helsingborg-stad/customer-feedback": "4.2.8",
     "helsingborg-stad/force-ssl": "3.0.3",
     "helsingborg-stad/gdi-modularity-my-pages-about-me": "2.0.1",
     "helsingborg-stad/job-listings": "4.1.8",
-    "helsingborg-stad/like-posts": "3.1.3",
+    "helsingborg-stad/like-posts": "3.1.9",
     "helsingborg-stad/lix-calculator": "4.1.3",
     "helsingborg-stad/media-usage": "3.0.8",
     "helsingborg-stad/miniorange-saml-20-single-sign-on": "5.2.4",
     "helsingborg-stad/mod-my-pages": "2.0.3",
-    "helsingborg-stad/modularity-contact-banner": "4.0.24",
-    "helsingborg-stad/modularity-entryscape": "5.0.12",
-    "helsingborg-stad/modularity-form-builder": "4.0.12",
-    "helsingborg-stad/modularity-frontend-form": "0.83.14",
-    "helsingborg-stad/modularity-guides": "5.0.8",
-    "helsingborg-stad/modularity-json-render": "4.0.8",
-    "helsingborg-stad/modularity-open-street-map": "3.1.18",
-    "helsingborg-stad/modularity-products": "4.0.4",
-    "helsingborg-stad/modularity-recommend": "4.2.0",
-    "helsingborg-stad/modularity-sections": "4.0.4",
-    "helsingborg-stad/modularity-testimonials": "4.0.4",
-    "helsingborg-stad/modularity-timeline": "5.0.4",
-    "helsingborg-stad/multi-network-urls": "2.0.0",
+    "helsingborg-stad/modularity-contact-banner": "4.0.28",
+    "helsingborg-stad/modularity-entryscape": "5.0.24",
+    "helsingborg-stad/modularity-form-builder": "4.0.22",
+    "helsingborg-stad/modularity-frontend-form": "0.84.18",
+    "helsingborg-stad/modularity-guides": "5.0.16",
+    "helsingborg-stad/modularity-json-render": "4.2.0",
+    "helsingborg-stad/modularity-open-street-map": "3.1.24",
+    "helsingborg-stad/modularity-products": "4.0.8",
+    "helsingborg-stad/modularity-recommend": "4.2.6",
+    "helsingborg-stad/modularity-sections": "4.0.6",
+    "helsingborg-stad/modularity-testimonials": "4.0.6",
+    "helsingborg-stad/modularity-timeline": "5.0.8",
+    "helsingborg-stad/multi-network-urls": "2.0.1",
     "helsingborg-stad/multisite-role-propagation": "3.0.7",
-    "helsingborg-stad/municipio": "7.7.68",
+    "helsingborg-stad/municipio": "7.67.21",
+    "helsingborg-stad/municipio-clone": "v1.6.3",
     "helsingborg-stad/redirection-extended": "3.0.8",
-    "helsingborg-stad/s3-local-index": "1.2.0",
+    "helsingborg-stad/s3-local-index": "1.2.1",
     "helsingborg-stad/s3-uploads-custom-endpoint": "2.0.0",
     "helsingborg-stad/search-notices": "3.0.6",
     "helsingborg-stad/visit-custom-posttypes-taxonomies": "2.0.10",
-    "helsingborg-stad/webhooks-manager": "1.3.1",
-    "helsingborg-stad/wp-page-for-post-type": "2.0.14",
-    "helsingborg-stad/wp-search-statistics": "1.0.6",
+    "helsingborg-stad/webhooks-manager": "1.3.3",
+    "helsingborg-stad/wp-page-for-post-type": "2.0.16",
+    "helsingborg-stad/wp-search-statistics": "1.0.8",
+    "helsingborg-stad/wpmu-acf-fatal-error-when-used-too-early": "0.2.0",
     "helsingborg-stad/wpmu-acf-google-maps-key": "1.0.1",
+    "helsingborg-stad/wpmu-allow-sentry-agent": "0.1.2",
     "helsingborg-stad/wpmu-correct-file-paths": "1.2.2",
     "helsingborg-stad/wpmu-focus-point": "0.2.6",
     "helsingborg-stad/wpmu-invalidate-login-pagecache": "1.1.1",
     "helsingborg-stad/wpmu-litespeed-common-settings": "2.0.2",
     "helsingborg-stad/wpmu-mu-plugins-url-everywhere": "2.0.3",
     "helsingborg-stad/wpmu-network-admin-url": "2.0.4",
+    "helsingborg-stad/wpmu-noindex-by-config": "0.1.2",
     "helsingborg-stad/wpmu-propagate-miniorange-saml-sso-settings": "0.1.3",
     "helsingborg-stad/wpmu-remove-user-endpoint": "0.2.3",
-    "helsingborg-stad/wpmu-security": "1.9.1",
-    "helsingborg/modularity-dynamic-guides": "2.0.7",
+    "helsingborg-stad/wpmu-security": "1.12.1",
+    "helsingborg/modularity-dynamic-guides": "2.2.0",
     "humanmade/s3-uploads": "3.0.13",
-    "johnpbloch/wordpress": "7.1.4",
     "municipio-se/modularity-noticeboard": "1.1.0",
-    "wpackagist-plugin/autodescription": "5.1.4",
-    "wpackagist-plugin/cookies-and-content-security-policy": "2.40",
-    "wpackagist-plugin/fakerpress": "0.9.1",
-    "wpackagist-plugin/litespeed-cache": "7.8.1",
-    "wpackagist-plugin/network-plugin-auditor": "1.10.1",
-    "wpackagist-plugin/nginx-helper": "2.3.5",
-    "wpackagist-plugin/post-expirator": "4.10.3",
-    "wpackagist-plugin/pressidium-cookie-consent": "1.9.1",
-    "wpackagist-plugin/redirection": "5.8.0",
-    "wpackagist-plugin/redis-cache": "2.8.0",
-    "wpackagist-plugin/simple-smtp": "1.3.4.1",
-    "wpackagist-plugin/simplify-admin-menus": "2.0.1",
-    "wpackagist-plugin/stream": "4.2.0",
-    "wpackagist-plugin/user-switching": "1.12.0",
-    "wpackagist-plugin/username-changer": "3.2.9",
-    "wpackagist-plugin/varnish-http-purge": "5.12.0",
-    "wpackagist-plugin/worddown": "1.2.4",
-    "wpackagist-plugin/wp-multi-network": "3.0.0",
-    "wpackagist-plugin/wp-nested-pages": "3.2.13"
+    "roots/wordpress-core-installer": "v4.0.0",
+    "roots/wordpress-no-content": "7.1.3",
+    "sentry/sentry-agent": "1.0.0",
+    "wp-plugin/autodescription": "5.2.0",
+    "wp-plugin/cookies-and-content-security-policy": "2.41",
+    "wp-plugin/fakerpress": "0.10.0",
+    "wp-plugin/litespeed-cache": "7.9.1",
+    "wp-plugin/network-plugin-auditor": "1.10.1",
+    "wp-plugin/nginx-helper": "2.4.1",
+    "wp-plugin/post-expirator": "4.10.7",
+    "wp-plugin/pressidium-cookie-consent": "1.9.1",
+    "wp-plugin/redirection": "5.10.1",
+    "wp-plugin/redis-cache": "3.0.0",
+    "wp-plugin/simple-smtp": "1.3.4.1",
+    "wp-plugin/simplify-admin-menus": "2.0.1",
+    "wp-plugin/stream": "4.4.0",
+    "wp-plugin/user-switching": "1.12.2",
+    "wp-plugin/username-changer": "3.3.1",
+    "wp-plugin/varnish-http-purge": "5.12.3",
+    "wp-plugin/worddown": "1.2.4",
+    "wp-plugin/wordpress-importer": "0.9.6",
+    "wp-plugin/wp-multi-network": "3.2.0",
+    "wp-plugin/wp-nested-pages": "3.3.3",
+    "wp-plugin/wp-sentry-integration": "8.12.0",
+    "wpengine/advanced-custom-fields-pro": "6.8.10"
   },
   "extra": {
     "path": "/",
@@ -149,7 +138,7 @@
     "installer-paths": {
       "wp-content/mu-plugins/{$name}": [
         "type:wordpress-muplugin",
-        "type:acf-plugin"
+        "wpengine/advanced-custom-fields-pro"
       ],
       "wp-content/plugins/{$name}": [
         "type:wordpress-plugin"
@@ -169,7 +158,8 @@
     ],
     "post-install-cmd": [
       "php composer-local-merge.php post-install",
-      "mkdir -p wp-content/uploads/cache/blade-cache"
+      "mkdir -p wp-content/uploads/cache/blade-cache",
+      "cp wp-content/plugins/redis-cache/includes/object-cache.php wp-content/object-cache.php"
     ],
     "pre-update-cmd": [
       "php composer-local-merge.php pre-install"
@@ -192,7 +182,8 @@
     "dev": [
       ".devcontainer/scripts/setup-dev-package.sh"
     ],
+    "devcontainer:clone": "wp municipio clone-batch --config=.devcontainer/sites.json && composer devcontainer:deactivate-ssl",
     "devcontainer:reset": ".devcontainer/scripts/setup.sh",
-    "devcontainer:migrate": ".devcontainer/scripts/migrate.sh"
+    "devcontainer:deactivate-ssl": "wp site list --field=url | xargs -i wp plugin deactivate force-ssl --url={}"
   }
 }

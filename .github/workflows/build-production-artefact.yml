@@ -6,6 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ACF_PRO_KEY: ${{ secrets.ACF_PRO_KEY }}
+      ACF_PRO_SITE_URL: ${{ secrets.ACF_PRO_SITE_URL }}
 
     steps:
       - uses: actions/checkout@v6
@@ -58,6 +61,18 @@ jobs:
           fi
         shell: bash
 
+      - name: Validate ACF PRO auth
+        if: env.ACF_PRO_KEY == ''
+        run: |
+          echo "::error::ACF_PRO_KEY secret is required. ACF PRO is installed via Composer (wpengine/advanced-custom-fields-pro)."
+          exit 1
+        shell: bash
+
+      - name: Configure Composer auth for ACF PRO
+        run: composer config --global --auth http-basic.connect.advancedcustomfields.com
+          "$ACF_PRO_KEY" "${ACF_PRO_SITE_URL:-https://www.alingsas.se}"
+        shell: bash
+
       - name: Install composer dependencies.
         run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative
         shell: bash
@@ -79,13 +94,6 @@ jobs:
         run: |
           echo "@helsingborg-stad:registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-        shell: bash
-
-      - name: Get ACF
-        run: |
-          wget "${{ secrets.ACF_URL }}" -O acf.zip
-          unzip acf.zip -d wp-content/plugins/
-          rm acf.zip
         shell: bash
 
       - name: Execute buildscripts in themes and plugins folders.
