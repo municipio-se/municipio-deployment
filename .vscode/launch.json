@@ -9,9 +9,6 @@
             "type": "php",
             "request": "launch",
             "port": 9003,
-            "pathMappings": {
-                "/var/www/vhosts/localhost/html": "${workspaceFolder}"
-            },
             "stopOnEntry": true
         }
     ]

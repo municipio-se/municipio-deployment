@@ -3,10 +3,10 @@
 {
     "name": "Municipio Deployment(PHP & MariaDB)",
     "dockerComposeFile": "docker-compose.yml",
-    "workspaceFolder": "/workspaces/municipio-deployment",
+    "workspaceFolder": "/var/www/vhosts/localhost/html",
     "service": "app",
     "remoteUser": "vscode",
-    "onCreateCommand": "if [ \"${CODESPACES:-}\" = true ]; then sudo -n chown -R -- \"$(id -u):$(id -g)\" \"$PWD\"; fi",
+    "updateRemoteUserUID": true,
     "forwardPorts": [
         80,
         8306,
@@ -14,6 +14,8 @@
     ],
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": "bash .devcontainer/scripts/postCreateCommand.sh",
+    // Make Codespaces forwarding variables available to web PHP on each start.
+    "postStartCommand": "bash .devcontainer/scripts/codespaces-env.sh",
     // Show configuration status whenever VS Code attaches to the container.
     "postAttachCommand": "bash .devcontainer/scripts/status.sh",
     // Features to add to the dev container. More info: https://containers.dev/features.
