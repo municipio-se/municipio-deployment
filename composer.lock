@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f20cd1db2d64ffd2c74e0f9860674479",
+    "content-hash": "126ccd2c01bef44b03d0edaa642d8361",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
-            "version": "3.5.0",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adbario/php-dot-notation.git",
-                "reference": "aa09db5a7a365a8d2d8dd7edfa3cd501d1a8acb0"
+                "reference": "b59a609293b22fdb8a7d9fcb4b9b283176463d40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adbario/php-dot-notation/zipball/aa09db5a7a365a8d2d8dd7edfa3cd501d1a8acb0",
-                "reference": "aa09db5a7a365a8d2d8dd7edfa3cd501d1a8acb0",
+                "url": "https://api.github.com/repos/adbario/php-dot-notation/zipball/b59a609293b22fdb8a7d9fcb4b9b283176463d40",
+                "reference": "b59a609293b22fdb8a7d9fcb4b9b283176463d40",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +25,10 @@
                 "php": "^7.4 || ^8.0"
             },
             "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+                "phpcompatibility/php-compatibility": "^9.3",
                 "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2",
                 "phpunit/phpunit": "^9.5",
                 "squizlabs/php_codesniffer": "^3.7"
             },
@@ -56,9 +59,9 @@
             ],
             "support": {
                 "issues": "https://github.com/adbario/php-dot-notation/issues",
-                "source": "https://github.com/adbario/php-dot-notation/tree/3.5.0"
+                "source": "https://github.com/adbario/php-dot-notation/tree/3.6.0"
             },
-            "time": "2026-04-04T04:29:49+00:00"
+            "time": "2026-11-13T07:38:00+00:00"
         },
         {
             "name": "algolia/algoliasearch-client-php",
@@ -261,16 +264,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.403.5",
+            "version": "3.403.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6e52905dabd868c1bc7fd491e0deec6f78a0f7d1"
+                "reference": "39b30513acab6e4cdcca6d8e179d4f4d98189f78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6e52905dabd868c1bc7fd491e0deec6f78a0f7d1",
-                "reference": "6e52905dabd868c1bc7fd491e0deec6f78a0f7d1",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/39b30513acab6e4cdcca6d8e179d4f4d98189f78",
+                "reference": "39b30513acab6e4cdcca6d8e179d4f4d98189f78",
                 "shasum": ""
             },
             "require": {
@@ -352,9 +355,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.403.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.403.6"
             },
-            "time": "2026-11-12T19:40:30+00:00"
+            "time": "2026-11-13T19:03:43+00:00"
         },
         {
             "name": "brick/math",
@@ -3155,16 +3158,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-guides",
-            "version": "5.0.16",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-guides.git",
-                "reference": "07694851c10bf5bbedcfc5c84e274b8e05a762e6"
+                "reference": "3bcb60de0cd386308a197859fae121d008a8cde6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-guides/zipball/07694851c10bf5bbedcfc5c84e274b8e05a762e6",
-                "reference": "07694851c10bf5bbedcfc5c84e274b8e05a762e6",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-guides/zipball/3bcb60de0cd386308a197859fae121d008a8cde6",
+                "reference": "3bcb60de0cd386308a197859fae121d008a8cde6",
                 "shasum": ""
             },
             "require": {
@@ -3216,9 +3219,9 @@
             "description": "Addon for Modularity for creating guides",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-guides/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-guides/tree/5.0.16"
+                "source": "https://github.com/helsingborg-stad/modularity-guides/tree/5.1.0"
             },
-            "time": "2026-09-09T14:55:52+00:00"
+            "time": "2026-11-16T07:58:50+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-json-render",
@@ -3700,16 +3703,16 @@
         },
         {
             "name": "helsingborg-stad/municipio",
-            "version": "7.88.15",
+            "version": "7.89.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Municipio.git",
-                "reference": "fac89b2e8dd89691be5830ad4a4fff9b4ef214fc"
+                "reference": "b1aa137918f9eb1c9973c782d67dc7ca5db8411c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/fac89b2e8dd89691be5830ad4a4fff9b4ef214fc",
-                "reference": "fac89b2e8dd89691be5830ad4a4fff9b4ef214fc",
+                "url": "https://api.github.com/repos/helsingborg-stad/Municipio/zipball/b1aa137918f9eb1c9973c782d67dc7ca5db8411c",
+                "reference": "b1aa137918f9eb1c9973c782d67dc7ca5db8411c",
                 "shasum": ""
             },
             "require": {
@@ -3801,9 +3804,9 @@
             "description": "A bootstrap theme for creating municipality sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Municipio/issues",
-                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.88.15"
+                "source": "https://github.com/helsingborg-stad/Municipio/tree/7.89.3"
             },
-            "time": "2026-11-13T13:33:35+00:00"
+            "time": "2026-11-16T08:23:59+00:00"
         },
         {
             "name": "helsingborg-stad/municipio-clone",
@@ -9478,15 +9481,15 @@
         },
         {
             "name": "wp-plugin/fakerpress",
-            "version": "0.10.1",
+            "version": "0.10.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/fakerpress/",
-                "reference": "tags/0.10.1"
+                "reference": "tags/0.10.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/fakerpress.0.10.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/fakerpress.0.10.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9505,7 +9508,7 @@
                 "issues": "https://wordpress.org/support/plugin/fakerpress",
                 "source": "https://plugins.svn.wordpress.org/fakerpress"
             },
-            "time": "2026-11-11T05:49:08+00:00"
+            "time": "2026-11-15T01:46:40+00:00"
         },
         {
             "name": "wp-plugin/litespeed-cache",
@@ -9911,15 +9914,15 @@
         },
         {
             "name": "wp-plugin/worddown",
-            "version": "1.2.4",
+            "version": "1.2.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/worddown/",
-                "reference": "tags/1.2.4"
+                "reference": "tags/1.2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/worddown.1.2.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/worddown.1.2.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9937,7 +9940,7 @@
                 "issues": "https://wordpress.org/support/plugin/worddown",
                 "source": "https://plugins.svn.wordpress.org/worddown"
             },
-            "time": "2026-09-29T13:03:58+00:00"
+            "time": "2026-11-13T14:37:16+00:00"
         },
         {
             "name": "wp-plugin/wordpress-importer",
