@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "84c197dbd82f54dd6b9a523a5853513e",
+    "content-hash": "86e6f7072055e19dd331931ee36a216a",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -2310,17 +2310,16 @@
         },
         {
             "name": "helsingborg-stad/api-sponsor-manager",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/api-sponsor-manager.git",
-                "reference": "0c46f042368d99ae325c97dd7fa66572e951529a"
+                "reference": "f56519f89295077ea97cce291d9d0ee66c4cd0ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/api-sponsor-manager/zipball/0c46f042368d99ae325c97dd7fa66572e951529a",
-                "reference": "0c46f042368d99ae325c97dd7fa66572e951529a",
-                "shasum": ""
+                "url": "https://github.com/helsingborg-stad/api-sponsor-manager/releases/download/%prettyVersion%/api-sponsor-manager-%prettyVersion%.zip",
+                "reference": "f56519f89295077ea97cce291d9d0ee66c4cd0ac"
             },
             "require": {
                 "helsingborg-stad/acf-export-manager": "^1.0",
@@ -2358,10 +2357,10 @@
             "description": "Manages looking for sponsor listnings.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/api-sponsor-manager/issues",
-                "source": "https://github.com/helsingborg-stad/api-sponsor-manager/tree/1.0.7"
+                "source": "https://github.com/helsingborg-stad/api-sponsor-manager/tree/1.0.8"
             },
-            "time": "2026-09-25T11:27:21+00:00",
-            "published-time": "2026-09-28T10:58:50+00:00"
+            "time": "2026-11-17T10:31:51+00:00",
+            "published-time": "2026-11-17T10:32:36+00:00"
         },
         {
             "name": "helsingborg-stad/api-volunteer-manager",
