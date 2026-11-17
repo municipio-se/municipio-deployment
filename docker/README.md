@@ -51,8 +51,11 @@ Runtime settings use the `WP_CONF_` prefix. The most useful ones are:
 | `WP_CONF_WP_REDIS_DISABLED` | Set to `true` when no Redis or Valkey service is used. |
 | `ENABLE_LS_CACHE` | Set to `true` to enable LiteSpeed Cache plugin and include LiteSpeed rewrite rules when `.htaccess` is first created. |
 | `ENABLE_PHP_TIDY` | Set to `true` to install the Tidy extension for the current LiteSpeed PHP version on startup (requires access to the package repository). |
+| `OLS_LSAPI_CHILDREN` | Concurrent LiteSpeed PHP workers. Defaults to `20`; it sets both `maxConns` and `PHP_LSAPI_CHILDREN` together. |
 
 The database and admin values are only used to perform the initial installation. If a database volume already contains WordPress, changing the initial admin values will not update the existing account.
+
+`OLS_LSAPI_CHILDREN` must be a positive integer. The container applies it to both LiteSpeed limits because they must remain equal. Override it only when the pod has enough CPU and memory for the additional concurrent PHP workers.
 
 On startup, `.htaccess` is created from the selected single-site or multisite template only if it does not already exist. Existing files, including plugin-generated rules and ownership, are left untouched; changing multisite or cache settings does not rewrite them. An installed site with a missing `.htaccess` receives the template without a WordPress rewrite flush.
 

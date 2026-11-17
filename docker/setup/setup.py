@@ -17,10 +17,12 @@ OLS_CONF = Path("/usr/local/lsws/conf/httpd_config.conf")
 OLS_ENTRYPOINT = "/entrypoint.sh"
 LSWS_DIR = Path("/usr/local/lsws")
 PHP_INI_FILE = "zz-municipio-settings.ini"
+OLS_LSAPI_CHILDREN = "OLS_LSAPI_CHILDREN"
 
 WP_CONF_NAME = re.compile(r"WP_CONF_[A-Za-z0-9_]+")
 ENV_VAR_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 PHP_INI_DIRECTIVE = re.compile(r"[A-Za-z][A-Za-z0-9_.-]*\s*=.*")
+POSITIVE_INTEGER = re.compile(r"[1-9][0-9]*")
 
 
 def configure_php_ini() -> None:
@@ -43,6 +45,36 @@ def configure_php_ini() -> None:
             f"Expected one LiteSpeed PHP ini directory under {LSWS_DIR}, found {len(ini_dirs)}"
         )
     (ini_dirs[0] / PHP_INI_FILE).write_text("\n".join(directives) + "\n")
+
+
+def configure_lsapi_children(config: str) -> str:
+    """Set matching PHP worker and connection limits in the lsphp processor."""
+    value = os.environ.get(OLS_LSAPI_CHILDREN)
+    if value is None:
+        return config
+    if not POSITIVE_INTEGER.fullmatch(value):
+        raise ValueError(f"{OLS_LSAPI_CHILDREN} must be a positive integer")
+
+    processor = re.search(r"^extProcessor lsphp\{.*?^\}", config, re.MULTILINE | re.DOTALL)
+    if processor is None:
+        raise RuntimeError("OpenLiteSpeed lsphp extProcessor was not found")
+
+    block = processor.group()
+    block, max_connections = re.subn(
+        r"^(\s*maxConns\s+)\d+\s*$", rf"\g<1>{value}", block,
+        count=1, flags=re.MULTILINE,
+    )
+    block, children = re.subn(
+        r"^(\s*env\s+PHP_LSAPI_CHILDREN=)\d+\s*$", rf"\g<1>{value}", block,
+        count=1, flags=re.MULTILINE,
+    )
+    if max_connections != 1 or children != 1:
+        raise RuntimeError(
+            "OpenLiteSpeed lsphp extProcessor must define exactly one maxConns "
+            "and PHP_LSAPI_CHILDREN setting"
+        )
+
+    return config[:processor.start()] + block + config[processor.end():]
 
 
 def inject_ols_env() -> None:
@@ -73,10 +105,12 @@ def inject_ols_env() -> None:
         f"    env {name}={value.splitlines()[0] if value else ''}\n"
         for name, value in env_values
     ]
+    config = configure_lsapi_children(OLS_CONF.read_text())
     if not env_lines:
+        OLS_CONF.write_text(config)
         return
 
-    lines = OLS_CONF.read_text().splitlines(keepends=True)
+    lines = config.splitlines(keepends=True)
     output = []
     for line in lines:
         output.append(line)

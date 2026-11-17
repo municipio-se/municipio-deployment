@@ -42,6 +42,45 @@ class OpenLiteSpeedEnvironmentTests(unittest.TestCase):
                 "}\n"
             ))
 
+    def test_lsapi_children_updates_matching_worker_limits(self):
+        with tempfile.TemporaryDirectory() as directory:
+            config = Path(directory) / "httpd_config.conf"
+            config.write_text(
+                "extProcessor lsphp{\n"
+                "    type lsapi\n"
+                "    maxConns 10\n"
+                "    env PHP_LSAPI_CHILDREN=10\n"
+                "}\n"
+            )
+            with patch.dict(os.environ, {setup.OLS_LSAPI_CHILDREN: "20"}, clear=True), \
+                 patch.object(setup, "OLS_CONF", config):
+                setup.inject_ols_env()
+
+            self.assertEqual(config.read_text(), (
+                "extProcessor lsphp{\n"
+                "    type lsapi\n"
+                "    maxConns 20\n"
+                "    env PHP_LSAPI_CHILDREN=20\n"
+                "}\n"
+            ))
+
+    def test_lsapi_children_rejects_invalid_values_without_changing_config(self):
+        with tempfile.TemporaryDirectory() as directory:
+            config = Path(directory) / "httpd_config.conf"
+            original = (
+                "extProcessor lsphp{\n"
+                "    maxConns 10\n"
+                "    env PHP_LSAPI_CHILDREN=10\n"
+                "}\n"
+            )
+            config.write_text(original)
+            with patch.dict(os.environ, {setup.OLS_LSAPI_CHILDREN: "0"}, clear=True), \
+                 patch.object(setup, "OLS_CONF", config):
+                with self.assertRaisesRegex(ValueError, "positive integer"):
+                    setup.inject_ols_env()
+
+            self.assertEqual(config.read_text(), original)
+
     def test_explicit_names_forward_other_environment_variables(self):
         with tempfile.TemporaryDirectory() as directory:
             config = Path(directory) / "httpd_config.conf"
