@@ -46,7 +46,7 @@ RUN --mount=type=secret,id=acf_pro_key,required=true \
 
 # Start from a clean copy of the runtime image so build tools and package
 # manager caches do not become part of the deployed image.
-FROM ghcr.io/helsingborg-stad/ols-docker-hbg:0.1.2-php8.3 AS runtime
+FROM ghcr.io/helsingborg-stad/ols-docker-hbg:0.3.0-php8.3 AS runtime
 
 ENV PHP_EXTENSIONS=tidy,tideways
 

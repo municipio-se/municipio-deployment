@@ -58,29 +58,37 @@ On startup, `.htaccess` is created from the selected single-site or multisite te
 
 Any additional WordPress constant can be defined with `WP_CONF_EXTRA_`. For example, `WP_CONF_EXTRA_MY_SETTING: enabled` defines the `MY_SETTING` constant.
 
-To configure Tideways for web requests, pass `TIDEWAYS_APIKEY` as a runtime environment variable and add its name to `OLS_PHP_ENV_VARS`. For example:
+### PHP and OpenLiteSpeed settings
+
+The runtime image is [ols-docker-hbg](https://github.com/helsingborg-stad/ols-docker-hbg), and its README documents these settings in full. In short:
+
+| Variable | Purpose |
+| --- | --- |
+| `OLS_PHP_ENV_VARS` | Comma-separated names of container variables that web PHP should see. `WP_CONF_*` variables are added automatically. |
+| `PHP_INI_SETTINGS` | PHP ini directives, one `name=value` per line. |
+| `PHP_MEMORY_LIMIT` | PHP `memory_limit` (default `256M`). Don't set `memory_limit` in `PHP_INI_SETTINGS`; it stops startup. |
+| `OLS_PHP_CHILDREN` | Maximum concurrent PHP requests (default `10`). |
+| `OLS_HTTPD_WORKERS` | OpenLiteSpeed worker processes (default `1`). |
+| `OLS_PHP_KEEPALIVE_TIMEOUT` | Seconds an idle connection keeps a PHP child reserved (default `5`). |
+| `PHP_EXTENSIONS` | Optional PHP extensions to enable. This image enables `tidy,tideways`. |
+
+Web PHP gets its environment from OpenLiteSpeed's configuration, not from the container, so a variable such as `TIDEWAYS_APIKEY` must be listed:
 
 ```yaml
 environment:
   TIDEWAYS_APIKEY: your-key
   OTHER_API_KEY: another-key
   OLS_PHP_ENV_VARS: "TIDEWAYS_APIKEY,OTHER_API_KEY"
-```
-
-For any additional setting needed by web PHP, add its name to the comma-separated `OLS_PHP_ENV_VARS` list and set its value separately in the container. `WP_CONF_*` variables continue to be forwarded automatically; all other variables, including `TIDEWAYS_*`, require explicit listing. Invalid or unset names in the list stop startup instead of silently omitting them. `WP_CONF_EXTRA_TIDEWAYS_APIKEY` instead defines a WordPress constant named `TIDEWAYS_APIKEY`; it does not set the environment variable used by the Tideways extension. Only list values PHP should be able to access; treat keys as secrets and avoid exposing `phpinfo()` publicly.
-
-To set PHP ini directives, use `PHP_INI_SETTINGS` with one `name=value` directive per line:
-
-```yaml
-environment:
   PHP_INI_SETTINGS: |
     allow_url_include=0
     upload_max_filesize=64M
 ```
 
-The container discovers the LiteSpeed PHP version in the runtime image and writes these directives to an additional ini file in its default scanned directory, so they apply to both web requests and PHP processes started during container setup. If no single PHP ini directory can be found, or a directive line is invalid, startup stops with an error.
+`WP_CONF_EXTRA_TIDEWAYS_APIKEY` instead defines a WordPress constant named `TIDEWAYS_APIKEY`; it does not set the environment variable used by the Tideways extension. Only list values PHP should be able to access; treat keys as secrets and avoid exposing `phpinfo()` publicly.
 
-In Kubernetes, an `envFrom.secretRef` Secret must have a key named `PHP_INI_SETTINGS` containing the newline-separated directives (for example, create it with `kubectl create secret generic php-ini --from-file=PHP_INI_SETTINGS=./settings.ini`). A Secret mounted as a file does not automatically become this environment variable. Restart the pod after changing the Secret; environment variables are not updated in running pods. Avoid overriding `PHP_INI_SCAN_DIR`, which can exclude the default scanned directory.
+These settings are applied on every start before WordPress is installed, so WP-CLI setup steps see the same PHP settings as web requests. An invalid value stops startup with an error naming the variable. Size `PHP_MEMORY_LIMIT` and `OLS_PHP_CHILDREN` together against the container's memory limit, as described in the ols-docker-hbg README. `WP_MEMORY_LIMIT` follows `PHP_MEMORY_LIMIT` by default (see `config/memory.php`). Setting `WP_CONF_WP_MEMORY_LIMIT` higher makes WordPress raise `memory_limit` to it on every request, so count that value instead if you set it. The admin can use up to `WP_MAX_MEMORY_LIMIT` (WordPress default `256M`).
+
+In Kubernetes, `PHP_INI_SETTINGS` is easiest to manage as a Secret or ConfigMap key loaded with `envFrom` (for example `kubectl create secret generic php-ini --from-file=PHP_INI_SETTINGS=./settings.ini`). Restart the pod after changing it; environment variables are not updated in running pods.
 
 ## Multisite
 
