@@ -1,0 +1,62 @@
+# Caddy/FrankenPHP configuration for the Municipio container image.
+#
+# https://frankenphp.dev/docs/config
+# https://caddyserver.com/docs/caddyfile
+{
+	# TLS is terminated in front of the container (ingress or load balancer),
+	# so serve plain HTTP and skip Caddy's certificate handling.
+	auto_https off
+	admin off
+	skip_install_trust
+
+	frankenphp {
+		# Optional tuning without rebuilding the image, for example
+		# FRANKENPHP_CONFIG="num_threads 8".
+		{$FRANKENPHP_CONFIG}
+	}
+}
+
+# An unprivileged port, so the server can run as a non-root user.
+:8080 {
+	root * /var/www/vhosts/localhost/html
+	encode zstd br gzip
+
+	# Directives run in the order written.
+	route {
+		# Liveness probe for the container runtime.
+		respond /healthz 200
+
+		# Dotfiles, except .well-known.
+		@hidden {
+			path_regexp /\.
+			not path /.well-known/*
+		}
+		error @hidden 404
+
+		# Build tooling and dependencies left in the webroot.
+		@internal path /vendor/* /config/* /*.json /*.lock /*.md /*.sh /*.yml /build.php /build-pre.php /composer-local-merge.php
+		error @internal 404
+
+		# Never execute uploaded PHP files.
+		@uploadedPhp path_regexp ^/wp-content/uploads/.*\.php
+		error @uploadedPhp 404
+
+		# Add a trailing slash to /wp-admin (and /<site>/wp-admin on a subfolder
+		# multisite network).
+		@wpAdminNoSlash path_regexp ^(/[_0-9a-zA-Z-]+)?/wp-admin$
+		redir @wpAdminNoSlash {path}/ 301
+
+		# WordPress core is installed in /wp. Core paths and PHP files that do not
+		# exist in the webroot are served from there, with any subfolder multisite
+		# site prefix removed. This works for single-site, subdomain and subfolder
+		# installs alike.
+		@core {
+			not file
+			path_regexp core ^/(?:[_0-9a-zA-Z-]+/)?(wp-(?:content|admin|includes).*|.*\.php)$
+		}
+		rewrite @core /wp/{re.core.1}
+
+		# Serves existing files and sends everything else to index.php.
+		php_server
+	}
+}
