@@ -1,4 +1,5 @@
 import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -12,140 +13,62 @@ import setup_htaccess
 import setup_install
 
 
-class OpenLiteSpeedEnvironmentTests(unittest.TestCase):
-    def create_php_ini_dir(self, root, lsphp="lsphp83", version="8.3"):
-        ini_dir = root / lsphp / "etc" / "php" / version / "mods-available"
-        ini_dir.mkdir(parents=True)
-        return ini_dir
-
-    def test_wordpress_settings_reach_lsphp_without_forwarding_other_secrets(self):
-        with tempfile.TemporaryDirectory() as directory:
-            config = Path(directory) / "httpd_config.conf"
-            config.write_text("extProcessor lsphp{\n    type lsapi\n}\n")
-            environment = {
-                "TIDEWAYS_APIKEY": "tideways-secret",
-                "TIDEWAYS_FUTURE_SETTING": "enabled",
-                "WP_CONF_EXTRA_TIDEWAYS_APIKEY": "wordpress-secret",
-                "WP_CONF_DB_NAME": "municipio",
-                "TIDEWAYS_OTHER-INVALID": "not-forwarded",
-                "UNRELATED_SECRET": "not-forwarded",
-            }
-            with patch.dict(os.environ, environment, clear=True), \
-                 patch.object(setup, "OLS_CONF", config):
-                setup.inject_ols_env()
-
-            self.assertEqual(config.read_text(), (
-                "extProcessor lsphp{\n"
-                "    env WP_CONF_EXTRA_TIDEWAYS_APIKEY=wordpress-secret\n"
-                "    env WP_CONF_DB_NAME=municipio\n"
-                "    type lsapi\n"
-                "}\n"
-            ))
-
-    def test_explicit_names_forward_other_environment_variables(self):
-        with tempfile.TemporaryDirectory() as directory:
-            config = Path(directory) / "httpd_config.conf"
-            config.write_text("extProcessor lsphp{\n    type lsapi\n}\n")
-            environment = {
-                "OLS_PHP_ENV_VARS": "TIDEWAYS_APIKEY, OTHER_API_KEY, CUSTOM_SETTING, OTHER_API_KEY",
-                "TIDEWAYS_APIKEY": "tideways-secret",
-                "TIDEWAYS_FUTURE_SETTING": "not-forwarded",
-                "OTHER_API_KEY": "secret",
-                "CUSTOM_SETTING": "enabled",
-                "UNRELATED_SECRET": "not-forwarded",
-            }
-            with patch.dict(os.environ, environment, clear=True), \
-                 patch.object(setup, "OLS_CONF", config):
-                setup.inject_ols_env()
-
-            self.assertEqual(config.read_text(), (
-                "extProcessor lsphp{\n"
-                "    env TIDEWAYS_APIKEY=tideways-secret\n"
-                "    env OTHER_API_KEY=secret\n"
-                "    env CUSTOM_SETTING=enabled\n"
-                "    type lsapi\n"
-                "}\n"
-            ))
-
-    def test_php_ini_settings_are_written_without_forwarding_multiline_values(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            config = root / "httpd_config.conf"
-            ini_dir = self.create_php_ini_dir(root, "lsphp84", "8.4")
-            config.write_text("extProcessor lsphp{\n    type lsapi\n}\n")
-            environment = {
-                "PHP_INI_SETTINGS": "allow_url_include=0\nupload_max_filesize=64M",
-            }
-            with patch.dict(os.environ, environment, clear=True), \
-                 patch.object(setup, "OLS_CONF", config), \
-                 patch.object(setup, "LSWS_DIR", root):
-                setup.inject_ols_env()
-                self.assertNotIn("PHP_INI_SCAN_DIR", os.environ)
-
+class OpenLiteSpeedConfigurationTests(unittest.TestCase):
+    def test_wp_conf_names_are_added_to_explicit_names(self):
+        environment = {
+            "OLS_PHP_ENV_VARS": "TIDEWAYS_APIKEY, OTHER_API_KEY WP_CONF_DB_NAME",
+            "TIDEWAYS_APIKEY": "tideways-secret",
+            "OTHER_API_KEY": "secret",
+            "WP_CONF_DB_NAME": "municipio",
+            "WP_CONF_EXTRA_TIDEWAYS_APIKEY": "wordpress-secret",
+            "WP_CONFIGURATION": "not-forwarded",
+            "UNRELATED_SECRET": "not-forwarded",
+        }
+        with patch.dict(os.environ, environment, clear=True):
+            setup.forward_wp_conf_env()
             self.assertEqual(
-                (ini_dir / setup.PHP_INI_FILE).read_text(),
-                "allow_url_include=0\nupload_max_filesize=64M\n",
+                os.environ["OLS_PHP_ENV_VARS"],
+                "TIDEWAYS_APIKEY,OTHER_API_KEY,WP_CONF_DB_NAME,WP_CONF_EXTRA_TIDEWAYS_APIKEY",
             )
-            self.assertEqual(config.read_text(), "extProcessor lsphp{\n    type lsapi\n}\n")
 
-    def test_php_ini_settings_use_default_scan_directory_and_reject_invalid_lines(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            config = root / "httpd_config.conf"
-            ini_dir = self.create_php_ini_dir(root)
-            original = "extProcessor lsphp{\n    type lsapi\n}\n"
-            config.write_text(original)
+    def test_no_names_leaves_variable_unset(self):
+        with patch.dict(os.environ, {"UNRELATED_SECRET": "x"}, clear=True):
+            setup.forward_wp_conf_env()
+            self.assertNotIn("OLS_PHP_ENV_VARS", os.environ)
 
-            with patch.dict(os.environ, {"PHP_INI_SETTINGS": "allow_url_include=0"},
-                            clear=True), \
-                 patch.object(setup, "OLS_CONF", config), \
-                 patch.object(setup, "LSWS_DIR", root):
-                setup.inject_ols_env()
-                self.assertNotIn("PHP_INI_SCAN_DIR", os.environ)
+    def test_configure_runs_base_image_script_with_forwarded_names(self):
+        seen = {}
 
-            config.write_text(original)
-            with patch.dict(os.environ, {
-                "PHP_INI_SETTINGS": "allow_url_include=0\nunexpected config",
-            }, clear=True), patch.object(setup, "OLS_CONF", config), \
-                 patch.object(setup, "LSWS_DIR", root):
-                with self.assertRaisesRegex(ValueError, "Invalid PHP ini directive"):
-                    setup.inject_ols_env()
+        def run(command):
+            seen["command"] = command
+            seen["names"] = os.environ.get("OLS_PHP_ENV_VARS")
+            return subprocess.CompletedProcess(command, 0)
 
-            self.assertEqual(config.read_text(), original)
-            self.assertEqual((ini_dir / setup.PHP_INI_FILE).read_text(),
-                             "allow_url_include=0\n")
+        with patch.dict(os.environ, {"WP_CONF_DB_NAME": "municipio"}, clear=True), \
+             patch.object(setup.subprocess, "run", side_effect=run):
+            setup.configure_ols()
 
-    def test_php_ini_settings_fail_when_scan_directory_is_missing_or_ambiguous(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            with patch.dict(os.environ, {"PHP_INI_SETTINGS": "memory_limit=128M"},
-                            clear=True), patch.object(setup, "LSWS_DIR", root):
-                with self.assertRaisesRegex(RuntimeError, "found 0"):
-                    setup.configure_php_ini()
+        self.assertEqual(seen, {"command": [setup.OLS_CONFIGURE], "names": "WP_CONF_DB_NAME"})
 
-                first = self.create_php_ini_dir(root)
-                second = self.create_php_ini_dir(root, "lsphp84", "8.4")
-                with self.assertRaisesRegex(RuntimeError, "found 2"):
-                    setup.configure_php_ini()
+    def test_configure_failure_stops_startup_with_its_exit_code(self):
+        with patch.dict(os.environ, {}, clear=True), \
+             patch.object(setup.subprocess, "run",
+                          return_value=subprocess.CompletedProcess([], 1)):
+            with self.assertRaises(SystemExit) as raised:
+                setup.configure_ols()
+        self.assertEqual(raised.exception.code, 1)
 
-            self.assertFalse((first / setup.PHP_INI_FILE).exists())
-            self.assertFalse((second / setup.PHP_INI_FILE).exists())
-
-    def test_invalid_or_missing_explicit_names_fail_setup(self):
-        for names, environment in (
-            ("MISSING_KEY", {}),
-            ("INVALID-NAME", {"INVALID-NAME": "secret"}),
-            ("CUSTOM_SETTING,", {"CUSTOM_SETTING": "enabled"}),
-        ):
-            with self.subTest(names=names), tempfile.TemporaryDirectory() as directory:
-                config = Path(directory) / "httpd_config.conf"
-                original = "extProcessor lsphp{\n    type lsapi\n}\n"
-                config.write_text(original)
-                with patch.dict(os.environ, {"OLS_PHP_ENV_VARS": names, **environment}, clear=True), \
-                     patch.object(setup, "OLS_CONF", config):
-                    with self.assertRaises(ValueError):
-                        setup.inject_ols_env()
-                self.assertEqual(config.read_text(), original)
+    def test_main_configures_before_wordpress_setup_and_then_execs_entrypoint(self):
+        calls = []
+        with tempfile.TemporaryDirectory() as directory, \
+             patch.object(setup, "ROOT_DIR", Path(directory)), \
+             patch.object(setup, "configure_ols", side_effect=lambda: calls.append("configure")), \
+             patch.object(setup.setup_htaccess, "main", side_effect=lambda: calls.append("htaccess")), \
+             patch.object(setup.setup_install, "main", side_effect=lambda: calls.append("install")), \
+             patch.object(setup.os, "execv", side_effect=lambda *a: calls.append("exec")), \
+             patch.object(setup.sys, "argv", ["setup.py"]):
+            setup.main()
+        self.assertEqual(calls, ["configure", "htaccess", "install", "exec"])
 
 
 class HtaccessSetupTests(unittest.TestCase):
