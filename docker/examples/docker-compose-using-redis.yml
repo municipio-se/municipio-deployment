@@ -19,17 +19,17 @@ services:
       WP_CONF_WP_ADMIN_EMAIL: admin@example.com
       # Redis configuration
       WP_CONF_WP_REDIS_DISABLED: false
-      WP_CONF_REDIS_HOST: redis
-      WP_CONF_REDIS_SCHEME: unix
-      WP_CONF_REDIS_PATH: /var/run/valkey/valkey.sock
+      WP_CONF_WP_REDIS_HOST: redis
+      WP_CONF_WP_REDIS_SCHEME: unix
+      WP_CONF_WP_REDIS_PATH: /var/run/valkey/valkey.sock
 
-    command: wp plugin activate redis-cache --allow-root
+    command: wp plugin activate redis-cache
 
     depends_on:
       - db
       - redis
     ports:
-      - "9090:80"
+      - "9090:8080"
 
     volumes:
       - valkey-socket:/var/run/valkey

@@ -23,7 +23,7 @@ services:
       - db
 
     ports:
-      - "9090:80"
+      - "9090:8080"
 
   db:
     extends:
