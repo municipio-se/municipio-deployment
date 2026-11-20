@@ -57,6 +57,14 @@ install_wordpress() {
 	else
 		wp core install "${args[@]}"
 	fi
+
+	# The install stores the WordPress core address (/wp) as the main site's
+	# home. Multisite ignores the WP_HOME and WP_SITEURL constants, so store them.
+	local home siteurl
+	home="$(conf WP_HOME)"
+	siteurl="$(conf WP_SITEURL)"
+	if [[ -n "$home" ]]; then wp option update home "$home"; fi
+	if [[ -n "$siteurl" ]]; then wp option update siteurl "$siteurl"; fi
 }
 
 install_wordpress
