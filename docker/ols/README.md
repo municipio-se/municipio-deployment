@@ -11,26 +11,26 @@ This layer used to be built and published separately as `ghcr.io/helsingborg-sta
 | Server layer | `docker/ols/` | Ubuntu, OpenLiteSpeed, lsphp and its extensions, `php.ini` tuning, listener/vhost config, `/entrypoint.sh` and `ols-hbg-configure` |
 | Application layer | `docker/` | Municipio build (Composer, npm), WP-CLI, WordPress config, `.htaccess` templates and the `setup.py` startup script |
 
-[`docker-bake.hcl`](../../docker-bake.hcl) at the repository root ties them together. Its `ols` target builds this directory, and its `municipio` target receives that result as the named build context `ols`, which `docker/Dockerfile` uses in `FROM ols AS runtime`.
+[`docker/Dockerfile`](../Dockerfile) builds both. Its first stage, `ols`, runs the scripts in this directory, and its final stage starts `FROM ols`. Everything the server layer does is defined here; the stage only runs it.
 
 ## Building and testing this layer
 
 From the repository root:
 
 ```bash
-# Build only the OLS layer and load it into the local Docker daemon.
-docker buildx bake ols --set ols.tags=municipio-ols:local --set ols.output=type=docker
+# Build only the OLS layer (no ACF key needed).
+docker build --target ols -f docker/Dockerfile -t municipio-ols:local .
 
 # Smoke test: runtime tuning defaults, overrides, restarts and validation.
 docker/ols/tests/smoke.sh municipio-ols:local
 
 # Build the full Municipio image (OLS layer included).
-docker buildx bake municipio --load
+docker build --secret id=acf_pro_key,env=ACF_PRO_KEY -f docker/Dockerfile -t municipio:local .
 ```
 
 A healthy empty OLS layer answers `404` with `Server: LiteSpeed` on port 80. The site is served from `/var/www/vhosts/localhost/html/`, with `.htaccess` rewrites enabled.
 
-The PHP line is set by `PHP_VERSION` on the `ols` target in `docker-bake.hcl` (for example `lsphp83`), and the OpenLiteSpeed version by `OLS_VERSION`. The PHP patch level is whatever LiteSpeed's apt repository ships at build time.
+The PHP line is set by the `PHP_VERSION` build argument of the `ols` stage (default `lsphp83`), and the OpenLiteSpeed version by `OLS_VERSION`. The PHP patch level is whatever LiteSpeed's apt repository ships at build time.
 
 ## Sizing
 

@@ -3,8 +3,6 @@ services:
     build:
       context: ../..
       dockerfile: docker/Dockerfile
-      additional_contexts:
-        ols: service:ols
       secrets:
         - acf_pro_key
     environment:
@@ -46,11 +44,6 @@ services:
 
     ports:
       - "9090:80"
-
-  ols:
-    extends:
-      file: common-services.yml
-      service: ols
 
   db:
     extends:

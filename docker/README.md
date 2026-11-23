@@ -10,10 +10,10 @@ The image is built in two layers that are kept in separate directories, so it is
 
 | Layer | Directory | What it contains |
 | --- | --- | --- |
-| Server (OpenLiteSpeed) | [`ols/`](ols/) | Ubuntu, OpenLiteSpeed, lsphp and its extensions, `php.ini` tuning, listener and vhost config, `/entrypoint.sh` and `ols-hbg-configure`. Its runtime settings are summarised under [Common settings](#common-settings) and detailed in the [OLS layer guide](ols/README.md). |
-| Application (Municipio) | this directory | [`Dockerfile`](Dockerfile), which builds Municipio with Composer and npm and adds WP-CLI, [`config/`](config/), [`htaccess/`](htaccess/) and the [`setup/`](setup/) startup script. |
+| Server (OpenLiteSpeed) | [`ols/`](ols/), built by the `ols` stage of [`Dockerfile`](Dockerfile) | Ubuntu, OpenLiteSpeed, lsphp and its extensions, `php.ini` tuning, listener and vhost config, `/entrypoint.sh` and `ols-hbg-configure`. Its runtime settings are summarised under [Common settings](#common-settings) and detailed in the [OLS layer guide](ols/README.md). |
+| Application (Municipio) | this directory | The `builder` and `runtime` stages of [`Dockerfile`](Dockerfile), which build Municipio with Composer and npm and adds WP-CLI, [`config/`](config/), [`htaccess/`](htaccess/) and the [`setup/`](setup/) startup script. |
 
-[`docker-bake.hcl`](../docker-bake.hcl) at the repository root connects them. Its `ols` target builds `docker/ols/`, and its `municipio` target receives that result as the named build context `ols` (`FROM ols AS runtime` in the Dockerfile). The result is **one** image. The server layer is built from source in the same build and is not published separately.
+One Dockerfile builds both into **one** image: its `ols` stage runs the scripts in `docker/ols/`, and the final stage starts `FROM ols`. The server layer is built from source in the same build and is not published separately. All server logic stays in `docker/ols/`; the stage only runs it.
 
 ## Before you start
 
@@ -33,12 +33,13 @@ export ACF_PRO_KEY="your-license-key"
 You can also build the image without Compose, from the repository root:
 
 ```sh
-docker buildx bake --load
+docker build \
+  --secret id=acf_pro_key,env=ACF_PRO_KEY \
+  -f docker/Dockerfile \
+  -t municipio:local .
 ```
 
-This builds the default `municipio` target (including the `ols` layer) and tags it `municipio:local`. Use `--set municipio.tags=<name>` to choose another tag. A plain `docker build -f docker/Dockerfile` no longer works on its own, because the `ols` build context comes from the bake file.
-
-The `acf_pro_key` secret (read from `ACF_PRO_KEY`) is required for the build. It is mounted only while Composer installs the dependencies and is not retained in the resulting image.
+The `acf_pro_key` secret is required for the build. It is mounted only while Composer installs the dependencies and is not retained in the resulting image.
 
 The build context is the repository root, and the checked-out source is copied into the image. Check out the branch or tag you want to build before running the command.
 
@@ -146,7 +147,7 @@ docker compose -f docker/examples/docker-compose-base.yml down -v
 | `docker-compose-using-s3.yml` | Adds a MinIO service for S3-compatible media offloading and activates the `s3-uploads`/`s3-local-index` plugins. See the file's comments for the required `S3_UPLOADS_*` constants. |
 | `docker-compose-multisite-subfolder.yml` | Enables WordPress multisite (subfolder mode) and creates a `subsite` site on first start. |
 | `docker-compose-local-build.yml` | Builds the image from the current local source checkout. |
-| `common-services.yml` | Shared `ols`, `database` and `redis` service definitions, extended by the other examples via `extends`. `ols` is build-only (profile `build-only`): it builds `docker/ols/` and is passed to `municipio` as the `ols` build context. Not meant to be run on its own. |
+| `common-services.yml` | Shared `database` and `redis` service definitions, extended by the other examples via `extends`. Not meant to be run on its own. |
 
 ## Useful commands
 
