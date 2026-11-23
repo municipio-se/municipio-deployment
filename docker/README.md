@@ -79,23 +79,7 @@ In Kubernetes, mount a ConfigMap key to the same path with `subPath`. The image 
 
 The container serves plain HTTP on port **8080** as the unprivileged user `municipio` (uid 1000). TLS is expected to terminate in front of it; WordPress treats requests with `X-Forwarded-Proto: https` as HTTPS. `/healthz` responds with `200` for liveness checks.
 
-### Resources
-
-FrankenPHP starts two PHP threads per CPU, and reads the CPU count from the container's CPU limit. **Always set a CPU limit.** Without one, it sizes the pool from the whole node.
-
-| CPU limit | PHP threads | Pages per second | Memory used | Recommended memory limit |
-| --- | --- | --- | --- | --- |
-| 1 | 2 | about 14 | about 210 MiB | 768 MiB |
-| 2 | 4 | about 27 | about 300 MiB | 1 GiB |
-
-- **Scale with CPU.** Throughput grows linearly with the CPU limit. Above that rate, extra requests queue and get slower but do not fail. Add CPUs or replicas, or cache pages in front of the container.
-- **Keep the default thread count.** More threads than two per CPU made things worse: 4 threads on 1 CPU halved throughput to about 8 pages per second, and 8 threads on 2 CPUs dropped it to about 18.
-- **Redis did not raise throughput.** Page rendering is limited by PHP CPU time, not by database queries. Redis can still reduce load on a shared database.
-- **Leave memory headroom.** The memory limits above allow for image processing and admin requests. Each request may use up to `memory_limit` (512M).
-
-These figures are from a load test on a fresh install with 200 posts. The mix was home page, pages, posts, search and the REST API, with no page cache. The database ran outside the container's limits. A production site with more content and plugins will be slower per request, so treat the numbers as a ceiling and measure your own site.
-
-Thread settings can be changed with `FRANKENPHP_CONFIG`, for example `FRANKENPHP_CONFIG: "num_threads 4"`.
+FrankenPHP sizes its PHP thread pool from the CPU count. To tune it, set `FRANKENPHP_CONFIG`, for example `FRANKENPHP_CONFIG: "num_threads 8"`.
 
 ### Setup commands
 
