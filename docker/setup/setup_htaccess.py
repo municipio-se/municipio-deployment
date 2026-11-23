@@ -1,48 +1,19 @@
 #!/usr/bin/env python3
-"""Create the document root .htaccess from the selected site template if missing.
+"""Install the document root .htaccess for this site type.
 
-OpenLiteSpeed's autoLoadHtaccess/RewriteFile reads the document root file, not
-the templates in htaccess/. Existing rules and ownership are left untouched.
+The files in htaccess/ are complete and static; one is copied over the
+document root's .htaccess on every container start, so the site always runs
+exactly the rules in the repository. The copy is owned by root and not
+writable by WordPress or plugins: OpenLiteSpeed only reads the root
+.htaccess when the server starts, so runtime edits would not apply anyway.
 """
 from __future__ import annotations
 
 import os
+import shutil
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
-
-LSCACHE_RULES = r"""# BEGIN LSCACHE
-## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
-<IfModule mod_rewrite.c>
-RewriteEngine on
-RewriteRule litespeed/debug/.*\.log$ - [F,L]
-RewriteRule \.litespeed_conf\.dat - [F,L]
-</IfModule>
-<IfModule LiteSpeed>
-CacheLookup on
-RewriteRule .* - [E=Cache-Control:no-autoflush]
-
-### marker ASYNC start ###
-RewriteCond %{REQUEST_URI} /wp-admin/admin-ajax\.php
-RewriteCond %{QUERY_STRING} action=async_litespeed
-RewriteRule .* - [E=noabort:1]
-### marker ASYNC end ###
-
-### marker DROPQS start ###
-CacheKeyModify -qs:fbclid
-CacheKeyModify -qs:gclid
-CacheKeyModify -qs:utm*
-CacheKeyModify -qs:_ga
-### marker DROPQS end ###
-
-</IfModule>
-## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
-# END LSCACHE
-# BEGIN NON_LSCACHE
-## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
-## LITESPEED WP CACHE PLUGIN - Do not edit the contents of this block! ##
-# END NON_LSCACHE
-"""
 
 
 def env(name: str, default: str = "") -> str:
@@ -53,33 +24,26 @@ def env(name: str, default: str = "") -> str:
     return os.environ.get("WP_CONF_" + name) or os.environ.get(name) or default
 
 
+def flavor() -> str:
+    """Name of the .htaccess flavor for WP_ALLOW_MULTISITE / SUBDOMAIN_INSTALL."""
+    if env("WP_ALLOW_MULTISITE", "false") != "true":
+        return "single-site"
+    if env("SUBDOMAIN_INSTALL", "false") == "true":
+        return "multisite-subdomain"
+    return "multisite-subfolder"
+
+
 def main() -> None:
-    htaccess = ROOT_DIR / ".htaccess"
-    if htaccess.exists() or htaccess.is_symlink():
-        return
+    source = ROOT_DIR / "htaccess" / f"{flavor()}.htaccess"
+    target = ROOT_DIR / ".htaccess"
+    temporary = target.with_name(".htaccess.tmp")
 
-    allow_multisite = env("WP_ALLOW_MULTISITE", "false")
-    subdomain = env("SUBDOMAIN_INSTALL", "false")
-    enable_ls_cache = env("ENABLE_LS_CACHE", "false")
-
-    if allow_multisite == "true":
-        if subdomain == "true":
-            selected = "htaccess/.htaccess-multisite-subdomain"
-        else:
-            selected = "htaccess/.htaccess-multisite-subfolder"
-    else:
-        selected = "htaccess/.htaccess"
-
-    content = (ROOT_DIR / selected).read_bytes()
-    if enable_ls_cache == "true":
-        content = LSCACHE_RULES.encode() + content
-
-    try:
-        with htaccess.open("xb") as file:
-            file.write(content)
-    except FileExistsError:
-        return
-    os.chown(htaccess, 1000, 1000)
+    shutil.copyfile(source, temporary)
+    os.chown(temporary, 0, 0)
+    os.chmod(temporary, 0o644)
+    # Atomic replace; also replaces a symlink or a plugin-edited file.
+    os.replace(temporary, target)
+    print(f"setup_htaccess.py: installed {source.name} as .htaccess")
 
 
 if __name__ == "__main__":

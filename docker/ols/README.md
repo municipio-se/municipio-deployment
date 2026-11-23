@@ -9,7 +9,7 @@ This layer used to be built and published separately as `ghcr.io/helsingborg-sta
 | Part | Directory | Contents |
 | --- | --- | --- |
 | Server layer | `docker/ols/` | Ubuntu, OpenLiteSpeed, lsphp and its extensions, `php.ini` tuning, listener/vhost config, `/entrypoint.sh` and `ols-hbg-configure` |
-| Application layer | `docker/` | Municipio build (Composer, npm), WP-CLI, WordPress config, `.htaccess` templates and the `setup.py` startup script |
+| Application layer | `docker/` | Municipio build (Composer, npm), WP-CLI, WordPress config, the per-site-type `.htaccess` files and the `setup.py` startup script |
 
 [`docker/Dockerfile`](../Dockerfile) builds both. Its first stage, `ols`, runs the scripts in this directory, and its final stage starts `FROM ols`. Everything the server layer does is defined here; the stage only runs it.
 
@@ -131,6 +131,18 @@ services:
 ## Startup order
 
 `/usr/local/bin/ols-hbg-configure` applies everything in this README. Municipio's [`../setup/setup.py`](../setup/setup.py) runs it first, so WP-CLI install steps use the same PHP settings as web requests, and finally hands over to `/entrypoint.sh` with `OLS_HBG_CONFIGURED=1`, which then starts OpenLiteSpeed without configuring again. Run on its own (e.g. the `ols` stage alone), `/entrypoint.sh` runs `ols-hbg-configure` itself. Both must run as root.
+
+## Rewrites, headers and caching
+
+OpenLiteSpeed only reads rewrite rules from `.htaccess` (and only when the server starts); Apache directives such as `Header`, `FilesMatch`/`Deny`, `ExpiresByType`, `ErrorDocument` and `SetEnv` are silently ignored there. So [`templates/docker.conf`](templates/docker.conf) holds everything that is the same for every site type:
+
+- the LiteSpeed Cache plugin's rules (`CacheLookup`, `CacheKeyModify` for tracking parameters, no-cache flags), which the plugin would otherwise write to `.htaccess`
+- site-level rewrite rules, which run before `.htaccess`: `www.` removal, a trailing slash on page URLs, blocked `xmlrpc.php`/`wp-trackback.php`/`wp-signup.php`, hidden `?author=` pages, the `Authorization` header passed to PHP
+- response headers (`extraHeaders`), with `Access-Control-Allow-Origin: *` only on static assets, since WordPress sends its own CORS headers for pages and the REST API
+- browser cache lifetimes (`expiresByType`)
+- WordPress's 404 page for missing files (`errorPage 404`)
+
+The document root's `.htaccess` only adds what differs per site type, copied from [`../htaccess/`](../htaccess/) at startup. [`../tests/htaccess_routing.sh`](../tests/htaccess_routing.sh) checks the routing, headers and caching of all three site types against a mock document root.
 
 ## Logs
 

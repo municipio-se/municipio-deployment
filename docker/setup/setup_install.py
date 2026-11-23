@@ -98,7 +98,8 @@ def main() -> None:
     else:
         wp("core", "install", *install_args)
 
-    wp("rewrite", "flush", "--hard")
+    # Soft flush: .htaccess is static and read-only (setup_htaccess.py).
+    wp("rewrite", "flush")
 
 
 if __name__ == "__main__":

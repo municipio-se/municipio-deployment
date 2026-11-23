@@ -60,11 +60,22 @@ Runtime settings use the `WP_CONF_` prefix. The most useful ones are:
 | `WP_CONF_WP_ADMIN_EMAIL` | Admin email created on the first start. |
 | `WP_CONF_WP_DEBUG` | Set to `true` to enable WordPress debugging. |
 | `WP_CONF_WP_REDIS_DISABLED` | Set to `true` when no Redis or Valkey service is used. |
-| `ENABLE_LS_CACHE` | Set to `true` to enable LiteSpeed Cache plugin and include LiteSpeed rewrite rules when `.htaccess` is first created. |
 
 The database and admin values are only used to perform the initial installation. If a database volume already contains WordPress, changing the initial admin values will not update the existing account.
 
-On startup, `.htaccess` is created from the selected single-site or multisite template only if it does not already exist. Existing files, including plugin-generated rules and ownership, are left untouched; changing multisite or cache settings does not rewrite them. An installed site with a missing `.htaccess` receives the template without a WordPress rewrite flush.
+### Web server rules
+
+The image ships fixed web server rules; nothing is generated or edited at runtime.
+
+- **Shared by every site type**, in OpenLiteSpeed's site config [`ols/templates/docker.conf`](ols/templates/docker.conf):
+  - the LiteSpeed Cache plugin's rules (page cache lookup, tracking parameters left out of the cache key); they have no effect until the plugin is activated
+  - rewrites: `www.` removal, a trailing slash on page URLs, blocking `xmlrpc.php`, `wp-trackback.php` and `wp-signup.php`, hiding `?author=` pages, and passing the `Authorization` header to PHP
+  - response headers: HSTS, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, and `Access-Control-Allow-Origin: *` on static assets
+  - one-year browser cache lifetimes for media, scripts, styles and fonts
+  - WordPress's 404 page for missing files
+- **Per site type**, in [`htaccess/`](htaccess/): `single-site.htaccess`, `multisite-subdomain.htaccess` and `multisite-subfolder.htaccess`. Each holds only the WordPress routing for that site type.
+
+On every start, the file matching `WP_CONF_WP_ALLOW_MULTISITE` and `WP_CONF_SUBDOMAIN_INSTALL` is copied over the document root's `.htaccess`, owned by root and read-only for WordPress. Edits made inside the container, by hand or by a plugin, are replaced on the next start; change the files in the repository instead. OpenLiteSpeed only reads rewrite rules from `.htaccess`, and only when the server starts, which is why headers and the like live in the server config.
 
 Any additional WordPress constant can be defined with `WP_CONF_EXTRA_`. For example, `WP_CONF_EXTRA_MY_SETTING: enabled` defines the `MY_SETTING` constant.
 
@@ -142,7 +153,6 @@ docker compose -f docker/examples/docker-compose-base.yml down -v
 | File | Description |
 | --- | --- |
 | `docker-compose-base.yml` | Minimal single-site setup: `municipio` plus a MariaDB `db` service, no cache. |
-| `docker-compose-using-lscache.yml` | Enables the `litespeed-cache` plugin and applies LiteSpeed Cache `.htaccess` rewrite rules. |
 | `docker-compose-using-redis.yml` | Adds a Valkey (Redis-compatible) service and activates the `redis-cache` plugin for object caching. |
 | `docker-compose-using-s3.yml` | Adds a MinIO service for S3-compatible media offloading and activates the `s3-uploads`/`s3-local-index` plugins. See the file's comments for the required `S3_UPLOADS_*` constants. |
 | `docker-compose-multisite-subfolder.yml` | Enables WordPress multisite (subfolder mode) and creates a `subsite` site on first start. |
