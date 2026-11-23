@@ -1,4 +1,58 @@
 # syntax=docker/dockerfile:1.7
+# Municipio container image, built from the repository root:
+#
+#   docker build --secret id=acf_pro_key,env=ACF_PRO_KEY -f docker/Dockerfile -t municipio:local .
+#
+# Stages:
+#   ols      OpenLiteSpeed + lsphp server layer. All its scripts, templates,
+#            tests and docs live in docker/ols/; this stage only runs them.
+#   node     Node.js binaries for the builder.
+#   builder  Builds Municipio with Composer and npm.
+#   runtime  The final image: the ols stage plus the built Municipio.
+
+# --- OpenLiteSpeed server layer (docker/ols/) -------------------------------
+FROM ubuntu:24.04 AS ols
+
+ARG OLS_VERSION=1.8.5
+ARG PHP_VERSION=lsphp83
+# TARGETARCH is auto-populated by BuildKit (e.g. amd64, arm64).
+ARG TARGETARCH
+
+ENV PATH="/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin"
+ENV LS_FD="/usr/local/lsws"
+
+# OpenLiteSpeed + PHP
+RUN --mount=type=bind,source=docker/ols/templates/setup_ols.sh,target=setup_ols.sh <<EOT
+  set -eu
+  case "$TARGETARCH" in
+    arm64) PLATFORM=aarch64-linux ;;
+    amd64) PLATFORM=x86_64-linux ;;
+    *) echo "Unsupported TARGETARCH: ${TARGETARCH:-<unset>}" >&2; exit 1 ;;
+  esac
+  export PLATFORM
+  ./setup_ols.sh
+EOT
+
+# Vhost template lives in the image (referenced by httpd_config.conf at runtime).
+COPY docker/ols/templates/docker.conf $LS_FD/conf/templates/docker.conf
+COPY --chmod=755 docker/ols/templates/entrypoint.sh /entrypoint.sh
+COPY --chmod=755 docker/ols/templates/configure.sh /usr/local/bin/ols-hbg-configure
+
+# Configure the listener/vhost and snapshot conf for empty-volume hydration.
+RUN --mount=type=bind,source=docker/ols/templates/setup_docker.sh,target=setup_docker.sh <<EOT
+  set -eu
+  touch $LS_FD/admin/conf/htpasswd
+  ./setup_docker.sh
+  chown -R 994:994 $LS_FD/conf
+  cp -RP $LS_FD/conf/ $LS_FD/.conf/
+  cp -RP $LS_FD/admin/conf $LS_FD/admin/.conf
+EOT
+
+EXPOSE 80
+ENTRYPOINT ["/entrypoint.sh"]
+CMD []
+
+# --- Municipio build ----------------------------------------------------------
 # Node.js is copied from the official image instead of installed from
 # NodeSource, so it matches the Debian release of the PHP image below.
 FROM node:24-bookworm-slim AS node
@@ -44,11 +98,10 @@ RUN --mount=type=secret,id=acf_pro_key,required=true \
     rm -rf .git config-example docker && \
     chmod -R 755 .
 
-# Start from a clean copy of the runtime image so build tools and package
-# manager caches do not become part of the deployed image.
-FROM ghcr.io/helsingborg-stad/ols-docker-hbg:0.1.2-php8.3 AS runtime
-
-ENV PHP_EXTENSIONS=tidy,tideways
+# --- Final image ----------------------------------------------------------------
+# Start from the ols stage above so build tools and package manager caches do
+# not become part of the deployed image.
+FROM ols AS runtime
 
 USER root
 

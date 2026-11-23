@@ -4,6 +4,17 @@ This directory builds a ready-to-run [Municipio](https://github.com/municipio-se
 
 On its first start, the container connects to the database, installs WordPress, and activates ACF Pro automatically. Later starts reuse the existing database and ensure that ACF Pro remains active.
 
+## How the image is built
+
+The image is built in two layers that are kept in separate directories, so it is always clear which part configures the server and which part configures Municipio:
+
+| Layer | Directory | What it contains |
+| --- | --- | --- |
+| Server (OpenLiteSpeed) | [`ols/`](ols/), built by the `ols` stage of [`Dockerfile`](Dockerfile) | Ubuntu, OpenLiteSpeed, lsphp and its extensions, `php.ini` tuning, listener and vhost config, `/entrypoint.sh` and `ols-hbg-configure`. Its runtime settings are summarised under [Common settings](#common-settings) and detailed in the [OLS layer guide](ols/README.md). |
+| Application (Municipio) | this directory | The `builder` and `runtime` stages of [`Dockerfile`](Dockerfile), which build Municipio with Composer and npm and adds WP-CLI, [`config/`](config/), [`htaccess/`](htaccess/) and the [`setup/`](setup/) startup script. |
+
+One Dockerfile builds both into **one** image: its `ols` stage runs the scripts in `docker/ols/`, and the final stage starts `FROM ols`. The server layer is built from source in the same build and is not published separately. All server logic stays in `docker/ols/`; the stage only runs it.
+
 ## Before you start
 
 You need:
@@ -19,7 +30,7 @@ export ACF_PRO_KEY="your-license-key"
 
 ## Building the image directly
 
-You can also build the image without Compose:
+You can also build the image without Compose, from the repository root:
 
 ```sh
 docker build \
@@ -50,7 +61,6 @@ Runtime settings use the `WP_CONF_` prefix. The most useful ones are:
 | `WP_CONF_WP_DEBUG` | Set to `true` to enable WordPress debugging. |
 | `WP_CONF_WP_REDIS_DISABLED` | Set to `true` when no Redis or Valkey service is used. |
 | `ENABLE_LS_CACHE` | Set to `true` to enable LiteSpeed Cache plugin and include LiteSpeed rewrite rules when `.htaccess` is first created. |
-| `ENABLE_PHP_TIDY` | Set to `true` to install the Tidy extension for the current LiteSpeed PHP version on startup (requires access to the package repository). |
 
 The database and admin values are only used to perform the initial installation. If a database volume already contains WordPress, changing the initial admin values will not update the existing account.
 
@@ -58,18 +68,39 @@ On startup, `.htaccess` is created from the selected single-site or multisite te
 
 Any additional WordPress constant can be defined with `WP_CONF_EXTRA_`. For example, `WP_CONF_EXTRA_MY_SETTING: enabled` defines the `MY_SETTING` constant.
 
-To configure Tideways for web requests, pass `TIDEWAYS_APIKEY` as a runtime environment variable and add its name to `OLS_PHP_ENV_VARS`. For example:
+### Server sizing
 
-```yaml
-environment:
-  TIDEWAYS_APIKEY: your-key
-  OTHER_API_KEY: another-key
-  OLS_PHP_ENV_VARS: "TIDEWAYS_APIKEY,OTHER_API_KEY"
-```
+The server sizes itself from Municipio's needs, so normally only the container memory limit needs setting:
 
-For any additional setting needed by web PHP, add its name to the comma-separated `OLS_PHP_ENV_VARS` list and set its value separately in the container. `WP_CONF_*` variables continue to be forwarded automatically; all other variables, including `TIDEWAYS_*`, require explicit listing. Invalid or unset names in the list stop startup instead of silently omitting them. `WP_CONF_EXTRA_TIDEWAYS_APIKEY` instead defines a WordPress constant named `TIDEWAYS_APIKEY`; it does not set the environment variable used by the Tideways extension. Only list values PHP should be able to access; treat keys as secrets and avoid exposing `phpinfo()` publicly.
+| Setting | Default | Effect |
+| --- | --- | --- |
+| `PHP_MEMORY_LIMIT` | `512M` | Memory one PHP request may use. WordPress's `WP_MEMORY_LIMIT` follows it unless `WP_CONF_WP_MEMORY_LIMIT` is set. |
+| `OLS_PHP_CHILDREN` | automatic | PHP requests handled at once. When unset: (container memory limit − 512M) ÷ `PHP_MEMORY_LIMIT`, so a 3 GiB pod gets 5 and a 6 GiB pod gets 11. Without a memory limit: 10. |
 
-To set PHP ini directives, use `PHP_INI_SETTINGS` with one `name=value` directive per line:
+The chosen values are logged at startup. See the [OLS layer guide](ols/README.md#sizing) for the less common `OLS_HTTPD_WORKERS` and `OLS_PHP_KEEPALIVE_TIMEOUT`.
+
+### PHP extensions and environment
+
+tidy, Tideways, Imagick, intl, cURL, MySQL and OPcache are always enabled.
+
+`WP_CONF_*` variables reach WordPress through a file, not through the web server's environment. On every start, the container writes them to `/var/www/vhosts/localhost/wp-conf.php`. That file is outside the web root, readable only by the site user, and read by [`config/env.php`](config/env.php). The values are therefore never in `getenv()`, `$_SERVER` or `phpinfo()`, nor in the environment of processes PHP starts. Set `WP_CONF_*` as environment variables as usual; nothing has to be mounted.
+
+Other container variables are not passed to web PHP at all. Tideways is configured with its usual variables, which the server turns into the extension's ini settings:
+
+| Variable | Tideways setting |
+| --- | --- |
+| `TIDEWAYS_APIKEY` | `tideways.api_key` |
+| `TIDEWAYS_CONNECTION` | `tideways.connection`, e.g. `tcp://tideways-daemon:9135` |
+| `TIDEWAYS_SERVICE` | `tideways.service` |
+| `TIDEWAYS_SAMPLERATE` | `tideways.sample_rate` |
+| `TIDEWAYS_TRACE_SAMPLE_RATE` | `tideways.trace_sample_rate` |
+| `TIDEWAYS_FRAMEWORK` | `tideways.framework` |
+
+For any other PHP setting, use `PHP_INI_SETTINGS`. For a WordPress constant, use `WP_CONF_EXTRA_<NAME>`.
+
+### PHP ini settings
+
+Set other PHP ini directives with `PHP_INI_SETTINGS`, one `name=value` per line:
 
 ```yaml
 environment:
@@ -78,9 +109,7 @@ environment:
     upload_max_filesize=64M
 ```
 
-The container discovers the LiteSpeed PHP version in the runtime image and writes these directives to an additional ini file in its default scanned directory, so they apply to both web requests and PHP processes started during container setup. If no single PHP ini directory can be found, or a directive line is invalid, startup stops with an error.
-
-In Kubernetes, an `envFrom.secretRef` Secret must have a key named `PHP_INI_SETTINGS` containing the newline-separated directives (for example, create it with `kubectl create secret generic php-ini --from-file=PHP_INI_SETTINGS=./settings.ini`). A Secret mounted as a file does not automatically become this environment variable. Restart the pod after changing the Secret; environment variables are not updated in running pods. Avoid overriding `PHP_INI_SCAN_DIR`, which can exclude the default scanned directory.
+They apply to web requests and to WP-CLI during container setup. Use `PHP_MEMORY_LIMIT` rather than `memory_limit` here; a `memory_limit` line, or any line that isn't `name=value`, stops startup. In Kubernetes, load a multi-line value from a Secret or ConfigMap key named `PHP_INI_SETTINGS` with `envFrom`. Restart the pod after changing it.
 
 ## Multisite
 
@@ -161,7 +190,7 @@ Set these Actions secrets in the repository or an organization that grants acces
 | Secret | Purpose |
 | --- | --- |
 | `ACF_PRO_KEY` | Downloads Advanced Custom Fields Pro during the image build. |
-| `DOCKERHUB_USERNAME` | Authenticates to Docker Hub to pull the private OpenLiteSpeed base image. |
+| `DOCKERHUB_USERNAME` | Authenticates to Docker Hub when pulling public base images (Ubuntu, PHP, Node.js), to avoid anonymous rate limits. |
 | `DOCKERHUB_TOKEN` | Docker Hub access token for that login. |
 
 `GITHUB_TOKEN` is supplied by Actions. The workflows declare `contents: read` and `packages: write` to check out source and publish to GHCR. Set the published package's visibility so target environments can pull it. Release-candidate builds skip pull requests from forks, so forked repositories must create eligible PRs within the fork.

@@ -122,6 +122,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set platform slug
+        env:
+          PLATFORM: ${{ matrix.platform }}
+        run: echo "platform_slug=${PLATFORM//\//-}" >> "$GITHUB_ENV"
+
+      # docker/Dockerfile builds the OpenLiteSpeed layer (its "ols" stage, from
+      # docker/ols/) and Municipio into one image. The cache mainly saves the
+      # slow OpenLiteSpeed/PHP install.
       - name: Build and push image
         id: build
         uses: docker/build-push-action@v7
@@ -139,15 +147,15 @@ jobs:
             municipio-se.run=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           secrets: |
             "acf_pro_key=${{ secrets.ACF_PRO_KEY }}"
+          cache-from: type=gha,scope=municipio-${{ env.platform_slug }}
+          cache-to: type=gha,mode=min,scope=municipio-${{ env.platform_slug }}
 
       - name: Export image digest
         env:
           DIGEST: ${{ steps.build.outputs.digest }}
-          PLATFORM: ${{ matrix.platform }}
         run: |
           mkdir -p "$RUNNER_TEMP/digests"
           touch "$RUNNER_TEMP/digests/${DIGEST#sha256:}"
-          echo "platform_slug=${PLATFORM//\//-}" >> "$GITHUB_ENV"
 
       - name: Upload image digest
         uses: actions/upload-artifact@v4
