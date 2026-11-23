@@ -61,7 +61,7 @@ def main() -> None:
     (ROOT_DIR / ".env").unlink(missing_ok=True)
 
     # Configure PHP first, so WP-CLI below runs with the same PHP settings as
-    # web requests. /entrypoint.sh runs it again; it is idempotent.
+    # web requests.
     subprocess.run([OLS_CONFIGURE], check=True)
 
     # WordPress settings for web requests and WP-CLI.
@@ -79,6 +79,8 @@ def main() -> None:
     # Flush before exec, or buffered output is lost when stdout isn't a tty.
     sys.stdout.flush()
     sys.stderr.flush()
+    # The configuration above is current, so /entrypoint.sh can skip it.
+    os.environ["OLS_HBG_CONFIGURED"] = "1"
     os.execv(OLS_ENTRYPOINT, [OLS_ENTRYPOINT, *sys.argv[1:]])
 
 

@@ -20,12 +20,15 @@ class StartupOrderTests(unittest.TestCase):
              patch.object(setup, "write_wp_conf", side_effect=lambda: order.append("wp-conf")), \
              patch.object(setup_htaccess, "main", side_effect=lambda: order.append("htaccess")), \
              patch.object(setup_install, "main", side_effect=lambda: order.append("install")), \
-             patch.object(setup.os, "execv", side_effect=lambda path, args: order.append(path)), \
+             patch.dict(setup.os.environ, {}, clear=False), \
+             patch.object(setup.os, "execv",
+                          side_effect=lambda path, args: order.append((path, setup.os.environ.get("OLS_HBG_CONFIGURED")))), \
              patch.object(setup, "ROOT_DIR", Path(tempfile.mkdtemp())):
             setup.main()
 
         run.assert_called_once_with([setup.OLS_CONFIGURE], check=True)
-        self.assertEqual(order, [setup.OLS_CONFIGURE, "wp-conf", "htaccess", "install", setup.OLS_ENTRYPOINT])
+        # /entrypoint.sh is told the configuration is current, so it doesn't redo it.
+        self.assertEqual(order, [setup.OLS_CONFIGURE, "wp-conf", "htaccess", "install", (setup.OLS_ENTRYPOINT, "1")])
 
 
 class HtaccessSetupTests(unittest.TestCase):

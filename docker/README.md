@@ -151,7 +151,7 @@ docker compose -f docker/examples/docker-compose-base.yml down -v
 
 ## Useful commands
 
-Follow startup logs:
+Follow the logs: startup, then OpenLiteSpeed's error log (including PHP errors and warnings) and access log as requests come in:
 
 ```sh
 docker compose logs -f municipio

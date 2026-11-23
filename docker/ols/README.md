@@ -130,4 +130,14 @@ services:
 
 ## Startup order
 
-`/usr/local/bin/ols-hbg-configure` applies everything in this README. Municipio's [`../setup/setup.py`](../setup/setup.py) runs it first, so WP-CLI install steps use the same PHP settings as web requests, and finally hands over to `/entrypoint.sh`, which runs it again (it is idempotent) and starts OpenLiteSpeed. Both must run as root.
+`/usr/local/bin/ols-hbg-configure` applies everything in this README. Municipio's [`../setup/setup.py`](../setup/setup.py) runs it first, so WP-CLI install steps use the same PHP settings as web requests, and finally hands over to `/entrypoint.sh` with `OLS_HBG_CONFIGURED=1`, which then starts OpenLiteSpeed without configuring again. Run on its own (e.g. the `ols` stage alone), `/entrypoint.sh` runs `ols-hbg-configure` itself. Both must run as root.
+
+## Logs
+
+`/entrypoint.sh` streams the server's logs to the container's output, so `docker logs`, `docker compose logs` and Kubernetes show them as they are written:
+
+- `error.log`: server messages and PHP errors, warnings and notices from web requests (tagged `[STDERR]`)
+- `stderr.log`: other output lsphp writes to stderr
+- `localhost.access.log`: one line per request, in combined log format
+
+The files stay in `/usr/local/lsws/logs/` and are rotated at 10 MB; the stream follows rotation. Only lines written after the container starts are streamed. The image's health check requests `/` every 30 seconds, which shows up in the access log.
