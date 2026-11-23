@@ -22,9 +22,7 @@ require() {
 
 install_wordpress() {
 	local tries=0
-	# A plain query, not `wp db check`, which runs CHECK TABLE on every table
-	# and can take minutes on a large network.
-	until wp db query 'SELECT 1' >/dev/null 2>&1; do
+	until wp db check --quiet >/dev/null 2>&1; do
 		if ((++tries >= 30)); then
 			echo "entrypoint: the database never became reachable" >&2
 			exit 1
@@ -70,23 +68,6 @@ install_wordpress() {
 }
 
 install_wordpress
-
-# Load the Tideways extension only when it has somewhere to report. The leading
-# colon keeps PHP's default scan directory.
-if [[ -n "${TIDEWAYS_APIKEY:-}" ]]; then
-	export PHP_INI_SCAN_DIR="${PHP_INI_SCAN_DIR:-}:$PHP_INI_DIR/conf.d-tideways"
-fi
-
-# The page cache is used when it has a Redis server. Purging it deletes every
-# key in its database, so refuse to share the object cache's database.
-if [[ -n "${PAGE_CACHE_REDIS:-}" ]]; then
-	if [[ "${PAGE_CACHE_REDIS%:*}" == "$(conf WP_REDIS_HOST 127.0.0.1)" &&
-		"${PAGE_CACHE_REDIS_DB:-1}" == "$(conf WP_REDIS_DATABASE 0)" ]]; then
-		echo "entrypoint: PAGE_CACHE_REDIS_DB must differ from the object cache database (WP_CONF_WP_REDIS_DATABASE)" >&2
-		exit 1
-	fi
-	export MUNICIPIO_PAGE_CACHE=on
-fi
 
 if (($#)); then
 	echo "entrypoint: running setup command: $*"

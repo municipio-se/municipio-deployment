@@ -2,59 +2,12 @@
 #
 # https://frankenphp.dev/docs/config
 # https://caddyserver.com/docs/caddyfile
-
-# Optional page cache (Souin), shared by all replicas through Redis. The
-# entrypoint sets MUNICIPIO_PAGE_CACHE=on when PAGE_CACHE_REDIS is set, which
-# imports the "-on" snippets below. See "Page cache" in README.md.
-(page-cache-global-on) {
-	cache {
-		ttl {$PAGE_CACHE_TTL:120s}
-		# Ignore Cache-Control in requests, so a browser reload cannot bypass or
-		# refresh the cache for everyone.
-		mode bypass_request
-		# Surrogate keys are not used. Their Redis sets never expire and would
-		# grow with every distinct URL.
-		disable_surrogate_key
-		# WordPress builds http or https links from X-Forwarded-Proto.
-		key {
-			headers X-Forwarded-Proto
-		}
-		redis {
-			configuration {
-				Addrs {$PAGE_CACHE_REDIS}
-				# Must differ from the object cache database: purging the page
-				# cache deletes every key in this database.
-				DB {$PAGE_CACHE_REDIS_DB:1}
-				Password "{$PAGE_CACHE_REDIS_PASSWORD}"
-			}
-		}
-	}
-}
-(page-cache-global-off) {
-}
-(page-cache-on) {
-	# Anonymous GET and HEAD requests for pages. Logged-in users, comment
-	# authors, password-protected posts and API clients always reach PHP.
-	# Responses WordPress marks no-store (404s, admin, login) are not stored.
-	@pageCache {
-		method GET HEAD
-		not file
-		not path /wp/wp-admin/* /wp/wp-login.php /wp/wp-cron.php /wp/xmlrpc.php
-		not header Authorization *
-		not header_regexp Cookie (wordpress_logged_in_|wordpress_sec_|wp-postpass_|comment_author_|wp-settings-)
-	}
-	cache @pageCache
-}
-(page-cache-off) {
-}
-
 {
 	# TLS is terminated in front of the container (ingress or load balancer),
 	# so serve plain HTTP and skip Caddy's certificate handling.
 	auto_https off
 	admin off
 	skip_install_trust
-	import page-cache-global-{$MUNICIPIO_PAGE_CACHE:off}
 
 	frankenphp {
 		# Optional tuning without rebuilding the image, for example
@@ -102,28 +55,6 @@
 			path_regexp core ^/(?:[_0-9a-zA-Z-]+/)?(wp-(?:content|admin|includes).*|.*\.php)$
 		}
 		rewrite @core /wp/{re.core.1}
-
-		# Static files. A missing one gets a plain 404 here instead of booting
-		# WordPress to render its home page with status 200. favicon.ico is left
-		# out because WordPress redirects it to the site icon.
-		@static path *.css *.js *.mjs *.map *.png *.jpg *.jpeg *.gif *.webp *.avif *.svg *.woff *.woff2 *.ttf *.otf *.eot *.mp3 *.mp4 *.webm *.pdf
-		@missingStatic {
-			path *.css *.js *.mjs *.map *.png *.jpg *.jpeg *.gif *.webp *.avif *.svg *.woff *.woff2 *.ttf *.otf *.eot *.mp3 *.mp4 *.webm *.pdf
-			not file
-		}
-		error @missingStatic 404
-
-		# WordPress adds ?ver= to theme, plugin and core assets and changes it
-		# when they change, so those URLs can be cached for a year. Other static
-		# files, such as uploads, may be replaced under the same name.
-		@versioned {
-			path *.css *.js *.mjs *.map *.png *.jpg *.jpeg *.gif *.webp *.avif *.svg *.woff *.woff2 *.ttf *.otf *.eot *.mp3 *.mp4 *.webm *.pdf
-			query ver=*
-		}
-		header @static Cache-Control "public, max-age=86400"
-		header @versioned Cache-Control "public, max-age=31536000, immutable"
-
-		import page-cache-{$MUNICIPIO_PAGE_CACHE:off}
 
 		# Serves existing files and sends everything else to index.php.
 		php_server

@@ -62,7 +62,7 @@ The admin values are only used for the initial installation. If the database alr
 
 ### Other environment variables
 
-Any other variable is available to PHP through `getenv()` as it is. The Tidy and Tideways extensions are installed in the image. Tideways is loaded only when `TIDEWAYS_APIKEY` is set, because the extension costs about 15% throughput even when nothing reports to it.
+Any other variable, such as `TIDEWAYS_APIKEY`, is available to PHP through `getenv()` as it is. The Tidy and Tideways extensions are installed in the image.
 
 ### PHP settings
 
@@ -85,50 +85,17 @@ FrankenPHP starts two PHP threads per CPU, and reads the CPU count from the cont
 
 | CPU limit | PHP threads | Pages per second | Memory used | Recommended memory limit |
 | --- | --- | --- | --- | --- |
-| 1 | 2 | about 16 | about 210 MiB | 768 MiB |
-| 2 | 4 | about 30 | about 300 MiB | 1 GiB |
+| 1 | 2 | about 14 | about 210 MiB | 768 MiB |
+| 2 | 4 | about 27 | about 300 MiB | 1 GiB |
 
-- **Scale with CPU.** Throughput grows linearly with the CPU limit. Above that rate, extra requests queue and get slower but do not fail. Add CPUs or replicas, or turn on the page cache (see below).
+- **Scale with CPU.** Throughput grows linearly with the CPU limit. Above that rate, extra requests queue and get slower but do not fail. Add CPUs or replicas, or cache pages in front of the container.
 - **Keep the default thread count.** More threads than two per CPU made things worse: 4 threads on 1 CPU halved throughput to about 8 pages per second, and 8 threads on 2 CPUs dropped it to about 18.
-- **The object cache did not raise throughput.** Page rendering is limited by PHP CPU time, not by database queries. Redis can still reduce load on a shared database, and the page cache skips PHP entirely for anonymous visitors.
+- **Redis did not raise throughput.** Page rendering is limited by PHP CPU time, not by database queries. Redis can still reduce load on a shared database.
 - **Leave memory headroom.** The memory limits above allow for image processing and admin requests. Each request may use up to `memory_limit` (512M).
 
 These figures are from a load test on a fresh install with 200 posts. The mix was home page, pages, posts, search and the REST API, with no page cache. The database ran outside the container's limits. A production site with more content and plugins will be slower per request, so treat the numbers as a ceiling and measure your own site.
 
 Thread settings can be changed with `FRANKENPHP_CONFIG`, for example `FRANKENPHP_CONFIG: "num_threads 4"`.
-
-### Page cache
-
-The image can cache whole pages for anonymous visitors in front of PHP, using [Souin](https://github.com/darkweak/souin) inside Caddy. Cached pages are stored in Redis or Valkey, so every replica shares one cache and a purge clears it everywhere. Set `PAGE_CACHE_REDIS` to turn it on:
-
-| Setting | Purpose |
-| --- | --- |
-| `PAGE_CACHE_REDIS` | Redis address, such as `redis:6379`. Turns the page cache on. |
-| `PAGE_CACHE_REDIS_DB` | Redis database number (default `1`). **It must not be the object cache's database** (`WP_CONF_WP_REDIS_DATABASE`, default `0`): purging deletes every key in it. The container refuses to start if both use the same database on the same host. |
-| `PAGE_CACHE_REDIS_PASSWORD` | Redis password, if any. |
-| `PAGE_CACHE_TTL` | How long a page is cached (default `120s`). |
-
-The page cache and the object cache can share one Redis server as long as they use different databases, which the defaults already do. Give the server a `maxmemory` limit with `maxmemory-policy allkeys-lru`, so neither cache can fill it. Redis Cluster supports only database 0, so a cluster needs a separate server for the page cache.
-
-On 1 CPU, cached pages are served at about 460–600 requests per second, compared with about 16 rendered by PHP.
-
-Only anonymous `GET` and `HEAD` requests are cached. These always reach PHP:
-
-- requests with WordPress login, comment author, post password or `wp-settings` cookies
-- requests with an `Authorization` header
-- `wp-admin`, `wp-login.php`, `wp-cron.php` and `xmlrpc.php`
-- responses that WordPress marks `no-store`, such as 404 pages
-
-Responses carry a `Cache-Status` header that shows hits and misses.
-
-When content changes, the bundled `municipio-page-cache` must-use plugin purges the edited site's pages. This covers publishing, updating or unpublishing posts and pages, media, menus, terms, widgets, the Customizer, ACF options pages and site settings. It deletes the keys in Redis directly, so it also works from WP-CLI and cron containers. Anything else, such as a change made by a scheduled task in another system, shows up within `PAGE_CACHE_TTL`. To purge by hand:
-
-```sh
-wp page-cache flush                  # the current site (use --url on a network)
-wp page-cache flush --network        # every site
-```
-
-On a subfolder network, purging the main site also purges the other sites on the same domain.
 
 ### Setup commands
 
@@ -144,7 +111,7 @@ A command given as the container command runs after WordPress is installed and b
 | Settings without the `WP_CONF_` prefix, such as `DB_NAME` | Only `WP_CONF_DB_NAME` is read |
 | `OLS_PHP_ENV_VARS` | Not needed; PHP sees all environment variables |
 | `PHP_INI_SETTINGS` | Mount an `.ini` file (see PHP settings) |
-| `ENABLE_LS_CACHE`, LiteSpeed Cache | `PAGE_CACHE_REDIS` (see Page cache) |
+| `ENABLE_LS_CACHE`, LiteSpeed Cache | Removed; there is no LiteSpeed server |
 | `.htaccess` templates | [`Caddyfile`](Caddyfile) |
 | `?debug` in any URL enabled `WP_DEBUG` | Removed; use `WP_CONF_WP_DEBUG` |
 | `exec --user ubuntu` | The container already runs as `municipio` |
@@ -180,7 +147,7 @@ docker compose -f docker/examples/docker-compose-base.yml down -v
 | File | Description |
 | --- | --- |
 | `docker-compose-base.yml` | Minimal single-site setup: `municipio` plus a MariaDB `db` service, no cache. |
-| `docker-compose-using-redis.yml` | Adds a Valkey (Redis-compatible) service, activates the `redis-cache` plugin for object caching and turns on the page cache. |
+| `docker-compose-using-redis.yml` | Adds a Valkey (Redis-compatible) service and activates the `redis-cache` plugin for object caching. |
 | `docker-compose-using-s3.yml` | Adds a MinIO service for S3-compatible media offloading and activates the `s3-uploads`/`s3-local-index` plugins. See the file's comments for the required `S3_UPLOADS_*` constants. |
 | `docker-compose-multisite-subfolder.yml` | Enables WordPress multisite (subfolder mode) and creates a `subsite` site on first start. |
 | `docker-compose-local-build.yml` | Builds the image from the current local source checkout. |
