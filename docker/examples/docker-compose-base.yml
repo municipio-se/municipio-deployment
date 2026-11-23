@@ -22,7 +22,7 @@ services:
     depends_on:
       - db
     ports:
-      - "9090:8080"
+      - "9090:80"
 
   db:
     extends:

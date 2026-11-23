@@ -23,12 +23,12 @@ services:
       WP_CONF_SUBDOMAIN_INSTALL: false
       WP_CONF_DOMAIN_CURRENT_SITE: localhost:9090
 
-    command: wp site create --slug=subsite --title=Subsite --email=admin@example.com
+    command: wp site create --slug=subsite --title=Subsite --email=admin@example.com --allow-root
 
     depends_on:
       - db
     ports:
-      - "9090:8080"
+      - "9090:80"
 
   db:
     extends:

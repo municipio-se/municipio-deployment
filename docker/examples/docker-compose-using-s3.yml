@@ -19,19 +19,20 @@ services:
       WP_CONF_WP_ADMIN_EMAIL: admin@example.com
       WP_CONF_WP_REDIS_DISABLED: true
       # S3-compatible object storage (MinIO) for media offloading, consumed by
-      # the bundled s3-uploads plugin. The endpoint override must be
-      # S3_UPLOADS_CUSTOM_ENDPOINT -- that is the constant the bundled
+      # the bundled s3-uploads plugin. These become WordPress constants via
+      # the WP_CONF_EXTRA_ mechanism (config/env.php). The endpoint override
+      # must be S3_UPLOADS_CUSTOM_ENDPOINT -- that's the constant the bundled
       # "S3 Uploads custom endpoint" mu-plugin reads (s3-uploads itself has no
       # S3_UPLOADS_ENDPOINT constant, so that name is silently ignored).
-      WP_CONF_S3_UPLOADS_BUCKET: municipio
-      WP_CONF_S3_UPLOADS_KEY: minioadmin
-      WP_CONF_S3_UPLOADS_SECRET: minioadmin
-      WP_CONF_S3_UPLOADS_REGION: us-east-1
-      WP_CONF_S3_UPLOADS_CUSTOM_ENDPOINT: http://minio:9000
-      WP_CONF_S3_UPLOADS_BUCKET_URL: http://localhost:9000/municipio
+      WP_CONF_EXTRA_S3_UPLOADS_BUCKET: municipio
+      WP_CONF_EXTRA_S3_UPLOADS_KEY: minioadmin
+      WP_CONF_EXTRA_S3_UPLOADS_SECRET: minioadmin
+      WP_CONF_EXTRA_S3_UPLOADS_REGION: us-east-1
+      WP_CONF_EXTRA_S3_UPLOADS_CUSTOM_ENDPOINT: http://minio:9000
+      WP_CONF_EXTRA_S3_UPLOADS_BUCKET_URL: http://localhost:9000/municipio
 
     # s3-uploads ships with the deployment but isn't active by default.
-    command: wp plugin activate s3-uploads s3-local-index
+    command: wp plugin activate s3-uploads s3-local-index --allow-root
 
     depends_on:
       db:
@@ -42,7 +43,7 @@ services:
         condition: service_completed_successfully
 
     ports:
-      - "9090:8080"
+      - "9090:80"
 
   db:
     extends:

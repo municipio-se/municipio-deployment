@@ -20,7 +20,10 @@
     "postAttachCommand": "bash .devcontainer/scripts/status.sh",
     // Features to add to the dev container. More info: https://containers.dev/features.
     "features": {
-        "ghcr.io/devcontainers/features/common-utils:2": {},
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "username": "vscode"
+        },
         "ghcr.io/devcontainers/features/node:1": {
             "version": "lts"
         },
@@ -29,10 +32,7 @@
         },
         "./features/wp-cli": {},
         "./features/gh-cli": {},
-        "./features/xdebug": {},
-        "ghcr.io/devcontainers/features/docker-in-docker:4": {},
-        "ghcr.io/devcontainers/features/node:2": {},
-        "ghcr.io/devcontainers-extra/features/composer:1": {}
+        "./features/xdebug": {}
     },
     "waitFor": "postCreateCommand",
     // Configure tool-specific properties.
