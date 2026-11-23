@@ -16,6 +16,44 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 # environment forwarded to web PHP). Lives in the OLS layer, docker/ols/.
 OLS_CONFIGURE = "/usr/local/bin/ols-hbg-configure"
 OLS_ENTRYPOINT = "/entrypoint.sh"
+# WP_CONF_* values for WordPress, read by config/env.php. Outside the
+# document root, so it can't be fetched over HTTP.
+WP_CONF_FILE = ROOT_DIR.parent / "wp-conf.php"
+# Owner of the webroot; lsphp and WP-CLI run as this user.
+SITE_UID = SITE_GID = 1000
+
+# PHP writes the file itself, so var_export() handles quoting of any value.
+WRITE_WP_CONF = r"""
+$values = array_filter(
+    getenv(),
+    static fn (string $name): bool => str_starts_with($name, 'WP_CONF_'),
+    ARRAY_FILTER_USE_KEY
+);
+ksort($values);
+file_put_contents(
+    $argv[1],
+    "<?php\n// Generated from WP_CONF_* variables at container start. Do not edit.\nreturn "
+        . var_export($values, true) . ";\n"
+);
+"""
+
+
+def write_wp_conf() -> None:
+    """Write the WP_CONF_* environment variables to WP_CONF_FILE.
+
+    WordPress reads its settings from this file instead of the web server's
+    environment, so they never appear in getenv(), $_SERVER or phpinfo().
+    """
+    temporary = WP_CONF_FILE.with_name(f".{WP_CONF_FILE.name}.tmp")
+    temporary.unlink(missing_ok=True)
+    old_umask = os.umask(0o077)
+    try:
+        subprocess.run(["php", "-r", WRITE_WP_CONF, str(temporary)], check=True)
+    finally:
+        os.umask(old_umask)
+    os.chown(temporary, SITE_UID, SITE_GID)
+    os.chmod(temporary, 0o400)
+    os.replace(temporary, WP_CONF_FILE)
 
 
 def main() -> None:
@@ -25,6 +63,9 @@ def main() -> None:
     # Configure PHP first, so WP-CLI below runs with the same PHP settings as
     # web requests. /entrypoint.sh runs it again; it is idempotent.
     subprocess.run([OLS_CONFIGURE], check=True)
+
+    # WordPress settings for web requests and WP-CLI.
+    write_wp_conf()
 
     # Configure .htaccess rules
     setup_htaccess.main()

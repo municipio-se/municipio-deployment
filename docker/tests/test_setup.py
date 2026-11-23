@@ -17,6 +17,7 @@ class StartupOrderTests(unittest.TestCase):
         order = []
         with patch.object(setup.subprocess, "run",
                           side_effect=lambda args, check: order.append(args[0])) as run, \
+             patch.object(setup, "write_wp_conf", side_effect=lambda: order.append("wp-conf")), \
              patch.object(setup_htaccess, "main", side_effect=lambda: order.append("htaccess")), \
              patch.object(setup_install, "main", side_effect=lambda: order.append("install")), \
              patch.object(setup.os, "execv", side_effect=lambda path, args: order.append(path)), \
@@ -24,7 +25,7 @@ class StartupOrderTests(unittest.TestCase):
             setup.main()
 
         run.assert_called_once_with([setup.OLS_CONFIGURE], check=True)
-        self.assertEqual(order, [setup.OLS_CONFIGURE, "htaccess", "install", setup.OLS_ENTRYPOINT])
+        self.assertEqual(order, [setup.OLS_CONFIGURE, "wp-conf", "htaccess", "install", setup.OLS_ENTRYPOINT])
 
 
 class HtaccessSetupTests(unittest.TestCase):

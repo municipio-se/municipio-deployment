@@ -101,38 +101,30 @@ for ext in tidy tideways; do
   expect_web "$ext loaded in web PHP" "var_export(extension_loaded(\"$ext\"), true)" true
 done
 
-echo "== WP_CONF_* and TIDEWAYS_* reach web PHP without listing"
-start -e WP_CONF_SMOKE_SETTING=wp-value -e TIDEWAYS_APIKEY=tw-key -e SMOKE_UNLISTED=hidden
-expect_web "WP_CONF_* forwarded" 'getenv("WP_CONF_SMOKE_SETTING")' wp-value
-expect_web "TIDEWAYS_* forwarded" 'getenv("TIDEWAYS_APIKEY")' tw-key
-expect_web "other variables not forwarded" 'var_export(getenv("SMOKE_UNLISTED"), true)' false
-docker restart "$NAME" >/dev/null
-sleep 3
-expect_conf "WP_CONF_* line not duplicated after restart" "^ +env +WP_CONF_SMOKE_SETTING=wp-value$" 1
-expect_conf "TIDEWAYS_* line not duplicated after restart" "^ +env +TIDEWAYS_APIKEY=tw-key$" 1
-docker exec "$NAME" env -u WP_CONF_SMOKE_SETTING ols-hbg-configure >/dev/null
-expect_conf "unset WP_CONF_* variable removed" "WP_CONF_SMOKE_SETTING=" 0
-
-echo "== OLS_PHP_ENV_VARS and PHP_INI_SETTINGS"
-start -e SMOKE_A=alpha -e "SMOKE_B=two words" -e SMOKE_C=gamma -e OLS_PHP_ENV_VARS="SMOKE_A, SMOKE_B" \
-  -e PHP_INI_SETTINGS=$'max_input_vars=4321\n\n  display_errors = Off  \n'
-expect_web "env var reaches web PHP" 'getenv("SMOKE_A")' alpha
-expect_web "env value with spaces" 'getenv("SMOKE_B")' "two words"
-expect_web "unlisted env var not forwarded" 'var_export(getenv("SMOKE_C"), true)' false
+echo "== container environment stays out of web PHP; Tideways via ini"
+start -e WP_CONF_SMOKE_SETTING=wp-value -e TIDEWAYS_APIKEY=tw-key -e TIDEWAYS_SERVICE=smoke \
+  -e TIDEWAYS_SERVICE_HOST=10.0.0.1 -e PHP_INI_SETTINGS=$'max_input_vars=4321\n\n  display_errors = Off  \n'
+expect_web "WP_CONF_* not in web PHP env" 'var_export(getenv("WP_CONF_SMOKE_SETTING"), true)' false
+expect_web "TIDEWAYS_* not in web PHP env" 'var_export(getenv("TIDEWAYS_APIKEY"), true)' false
+expect_web "TIDEWAYS_APIKEY -> tideways.api_key" 'ini_get("tideways.api_key")' tw-key
+expect_web "TIDEWAYS_SERVICE -> tideways.service" 'ini_get("tideways.service")' smoke
 expect_web "ini setting applied" 'ini_get("max_input_vars")' 4321
-docker restart "$NAME" >/dev/null
-sleep 3
-expect_conf "env line not duplicated after restart" "^ +env +SMOKE_A=alpha$" 1
+expect_conf "no forwarded env lines" "^ +env +(WP_CONF|TIDEWAYS)_" 0
 expect_conf "PHP_LSAPI_CHILDREN kept once" "PHP_LSAPI_CHILDREN=" 1
 expect_conf "image env lines kept" "LSAPI_AVOID_FORK=" 1
-# Rerun configure in the same container with a shorter list and no ini
-# settings, as a later start with changed variables would. docker exec
-# inherits the container's environment, so unset what should be gone.
-docker exec "$NAME" env -u PHP_INI_SETTINGS OLS_PHP_ENV_VARS=SMOKE_A ols-hbg-configure
-expect_conf "dropped env var removed" "SMOKE_B=" 0
-expect_conf "kept env var still once" "^ +env +SMOKE_A=alpha$" 1
-docker exec "$NAME" env -u OLS_PHP_ENV_VARS -u PHP_INI_SETTINGS ols-hbg-configure
-expect_conf "all forwarded env vars removed" "SMOKE_" 0
+# Env lines from earlier versions on a persisted conf volume are removed.
+docker exec "$NAME" sed -i '/extProcessor lsphp{/a\    env WP_CONF_OLD=leftover' "$CONF"
+docker restart "$NAME" >/dev/null
+sleep 3
+expect_conf "old WP_CONF_* env lines removed" "WP_CONF_OLD=" 0
+# Rerun configure without the Tideways key and ini settings, as a later start
+# would. docker exec inherits the container's environment, so unset them.
+docker exec "$NAME" env -u TIDEWAYS_APIKEY -u TIDEWAYS_SERVICE -u PHP_INI_SETTINGS ols-hbg-configure >/dev/null
+if docker exec "$NAME" sh -c 'ls /usr/local/lsws/lsphp*/etc/php/*/mods-available/70-hbg-tideways.ini' >/dev/null 2>&1; then
+  fail "Tideways ini removed when no TIDEWAYS_* settings are set"
+else
+  pass "Tideways ini removed when no TIDEWAYS_* settings are set"
+fi
 if docker exec "$NAME" sh -c 'ls /usr/local/lsws/lsphp*/etc/php/*/mods-available/60-hbg-ini-settings.ini' >/dev/null 2>&1; then
   fail "ini settings file removed when PHP_INI_SETTINGS is empty"
 else
@@ -146,11 +138,9 @@ for case in \
   "OLS_PHP_CHILDREN=two|OLS_PHP_CHILDREN must be" \
   "OLS_PHP_KEEPALIVE_TIMEOUT=-1|OLS_PHP_KEEPALIVE_TIMEOUT must be" \
   "PHP_MEMORY_LIMIT=lots|PHP_MEMORY_LIMIT must be" \
-  "OLS_PHP_ENV_VARS=SMOKE_MISSING|unset variable: SMOKE_MISSING" \
-  "OLS_PHP_ENV_VARS=BAD-NAME|Invalid name in OLS_PHP_ENV_VARS" \
-  "OLS_PHP_ENV_VARS=PHP_LSAPI_CHILDREN|use OLS_PHP_CHILDREN" \
   "PHP_INI_SETTINGS=memory_limit=1G|Set memory_limit with PHP_MEMORY_LIMIT" \
-  "PHP_INI_SETTINGS=not a directive|Invalid PHP ini directive"; do
+  "PHP_INI_SETTINGS=not a directive|Invalid PHP ini directive" \
+  'TIDEWAYS_APIKEY=bad"key|TIDEWAYS_APIKEY must be a single line'; do
   setting=${case%%|*} expected=${case#*|}
   cleanup
   if output=$(docker run --name "$NAME" -e "$setting" "$IMAGE" 2>&1); then

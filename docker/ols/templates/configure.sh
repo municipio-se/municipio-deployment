@@ -1,7 +1,6 @@
 #!/bin/bash
 # Applies the image's runtime configuration: conf hydration, OpenLiteSpeed/PHP
-# sizing for Municipio, PHP ini settings and the environment forwarded to
-# lsphp. This is the only script that writes server or PHP config. See README.
+# sizing for Municipio, PHP ini settings and Tideways settings. This is the only script that writes server or PHP config. See README.
 #
 # Installed as /usr/local/bin/ols-hbg-configure. Municipio's setup.py runs it
 # first (so WP-CLI sees the same PHP config as web requests), and
@@ -16,12 +15,13 @@ readonly LSADM_GID=994
 readonly LSWS_DIR=/usr/local/lsws
 readonly LSWS_CONF=$LSWS_DIR/conf
 readonly OLS_CONF=$LSWS_CONF/httpd_config.conf
-# Names forwarded by OLS_PHP_ENV_VARS on the previous run, so their env lines
-# can be removed again when a name is dropped from the list.
+# Names forwarded to lsphp by earlier versions of this script, so their env
+# lines are removed from a persisted conf volume.
 readonly ENV_VARS_STATE=$LSWS_CONF/.hbg-php-env-vars
 # Also created at build time by setup_ols.sh; keep the names in sync.
 readonly PHP_RUNTIME_INI=50-hbg-runtime.ini
 readonly PHP_SETTINGS_INI=60-hbg-ini-settings.ini
+readonly TIDEWAYS_SETTINGS_INI=70-hbg-tideways.ini
 
 fail() {
   echo "$*" >&2
@@ -103,30 +103,32 @@ else
 fi
 echo "ols-hbg-configure: $ols_php_children PHP children ($children_reason), memory_limit $php_memory_limit"
 
-# Variables passed to web PHP. lsphp gets its environment from
-# httpd_config.conf, not from the container, so only these reach getenv():
-# every WP_CONF_* (Municipio's WordPress config) and TIDEWAYS_* (the Tideways
-# extension) variable, plus any names listed in OLS_PHP_ENV_VARS (comma or
-# space separated).
+# Web PHP gets no container variables: lsphp's environment would expose them
+# through getenv(), $_SERVER and phpinfo(). Municipio's WP_CONF_* settings
+# reach WordPress through a generated PHP file instead (docker/setup/setup.py,
+# read by docker/config/env.php). Env lines forwarded by earlier versions are
+# removed below.
 env_names=()
 env_lines=""
-add_env() {
-  local name=$1 value
-  [[ " ${env_names[*]} " == *" $name "* ]] && return 0
-  env_names+=("$name")
+
+# Tideways: the documented TIDEWAYS_* variables become the extension's ini
+# settings, so the API key never enters lsphp's environment. Only exact names
+# are mapped; other TIDEWAYS_* variables (such as Kubernetes' service
+# variables TIDEWAYS_SERVICE_HOST/TIDEWAYS_PORT) are ignored.
+declare -A TIDEWAYS_INI=(
+  [TIDEWAYS_APIKEY]=api_key
+  [TIDEWAYS_CONNECTION]=connection
+  [TIDEWAYS_SERVICE]=service
+  [TIDEWAYS_SAMPLERATE]=sample_rate
+  [TIDEWAYS_TRACE_SAMPLE_RATE]=trace_sample_rate
+  [TIDEWAYS_FRAMEWORK]=framework
+)
+tideways_settings=""
+for name in $(printf '%s\n' "${!TIDEWAYS_INI[@]}" | sort); do
+  [ -n "${!name:-}" ] || continue
   value=${!name}
-  # A config line can't span lines, so only the first line of a value is kept.
-  env_lines+="    env                             $name=${value%%$'\n'*}"$'\n'
-}
-while IFS= read -r name; do
-  add_env "$name"
-done < <(compgen -e | grep -E '^(WP_CONF|TIDEWAYS)_[A-Za-z0-9_]+$' | sort)
-env_vars_list=${OLS_PHP_ENV_VARS:-}
-for name in ${env_vars_list//,/ }; do
-  [[ "$name" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || fail "Invalid name in OLS_PHP_ENV_VARS: '$name'"
-  [ "$name" != PHP_LSAPI_CHILDREN ] || fail "PHP_LSAPI_CHILDREN can't be set via OLS_PHP_ENV_VARS; use OLS_PHP_CHILDREN"
-  [ -n "${!name+set}" ] || fail "OLS_PHP_ENV_VARS references an unset variable: $name"
-  add_env "$name"
+  [[ "$value" != *[$'\n"']* ]] || fail "$name must be a single line without double quotes"
+  tideways_settings+="tideways.${TIDEWAYS_INI[$name]} = \"$value\""$'\n'
 done
 
 # PHP_INI_SETTINGS: one `name=value` directive per line.
@@ -148,7 +150,8 @@ readonly PHP_ETC=${php_etc_candidates[0]}
 # --- httpd_config.conf -----------------------------------------------------
 
 # Replace top-level httpdWorkers, and inside the lsphp extProcessor: maxConns,
-# PHP_LSAPI_CHILDREN, pcKeepAliveTimeout and the env lines for OLS_PHP_ENV_VARS
+# PHP_LSAPI_CHILDREN and pcKeepAliveTimeout. Env lines forwarded by earlier
+# versions (WP_CONF_* and names in the state file) are dropped
 # (this run's names plus the previous run's). Existing lines for these keys
 # are dropped and fresh ones written, so the result is the same however many
 # times this runs. Other lsphp lines (such as LSAPI_AVOID_FORK) are kept.
@@ -181,7 +184,7 @@ awk \
   in_lsphp && depth == 1 && /^[[:space:]]*env[[:space:]]+[A-Za-z_][A-Za-z0-9_]*=/ {
     name = $2
     sub(/=.*/, "", name)
-    if (name == "PHP_LSAPI_CHILDREN" || name in remove) next
+    if (name == "PHP_LSAPI_CHILDREN" || name ~ /^WP_CONF_/ || name in remove) next
   }
   {
     print
@@ -215,4 +218,11 @@ if [ -n "$ini_settings" ]; then
   printf '%s' "$ini_settings" >"$PHP_ETC/mods-available/$PHP_SETTINGS_INI"
 else
   rm -f "$PHP_ETC/mods-available/$PHP_SETTINGS_INI"
+fi
+if [ -n "$tideways_settings" ]; then
+  printf '%s' "$tideways_settings" >"$PHP_ETC/mods-available/$TIDEWAYS_SETTINGS_INI"
+  chmod 640 "$PHP_ETC/mods-available/$TIDEWAYS_SETTINGS_INI"
+  chgrp 1000 "$PHP_ETC/mods-available/$TIDEWAYS_SETTINGS_INI"
+else
+  rm -f "$PHP_ETC/mods-available/$TIDEWAYS_SETTINGS_INI"
 fi

@@ -82,12 +82,20 @@ The chosen values are logged at startup. See the [OLS layer guide](ols/README.md
 
 tidy, Tideways, Imagick, intl, cURL, MySQL and OPcache are always enabled.
 
-Web PHP only sees the container variables the server passes on. These are passed automatically:
+`WP_CONF_*` variables reach WordPress through a file, not through the web server's environment. On every start, the container writes them to `/var/www/vhosts/localhost/wp-conf.php`. That file is outside the web root, readable only by the site user, and read by [`config/env.php`](config/env.php). The values are therefore never in `getenv()`, `$_SERVER` or `phpinfo()`, nor in the environment of processes PHP starts. Set `WP_CONF_*` as environment variables as usual; nothing has to be mounted.
 
-- every `WP_CONF_*` variable (WordPress config, including `WP_CONF_EXTRA_*` constants)
-- every `TIDEWAYS_*` variable (for example `TIDEWAYS_APIKEY` and `TIDEWAYS_CONNECTION`)
+Other container variables are not passed to web PHP at all. Tideways is configured with its usual variables, which the server turns into the extension's ini settings:
 
-To pass anything else, list its name in `OLS_PHP_ENV_VARS` (comma separated). An invalid or unset name stops startup. Passed values end up in the server config and in `phpinfo()`, so don't expose `phpinfo()` publicly.
+| Variable | Tideways setting |
+| --- | --- |
+| `TIDEWAYS_APIKEY` | `tideways.api_key` |
+| `TIDEWAYS_CONNECTION` | `tideways.connection`, e.g. `tcp://tideways-daemon:9135` |
+| `TIDEWAYS_SERVICE` | `tideways.service` |
+| `TIDEWAYS_SAMPLERATE` | `tideways.sample_rate` |
+| `TIDEWAYS_TRACE_SAMPLE_RATE` | `tideways.trace_sample_rate` |
+| `TIDEWAYS_FRAMEWORK` | `tideways.framework` |
+
+For any other PHP setting, use `PHP_INI_SETTINGS`. For a WordPress constant, use `WP_CONF_EXTRA_<NAME>`.
 
 ### PHP ini settings
 

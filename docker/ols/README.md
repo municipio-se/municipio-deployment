@@ -76,21 +76,15 @@ docker compose exec municipio grep -E 'httpdWorkers|maxConns|PHP_LSAPI_CHILDREN|
 
 Environment variables are not updated in a running pod, so restart it after changing them.
 
-## Environment variables for web PHP
+## Environment variables and web PHP
 
-Web requests run in lsphp processes that OpenLiteSpeed starts with the environment in `httpd_config.conf`, not the container's environment. `ols-hbg-configure` writes these into it automatically:
+Web requests run in lsphp processes that OpenLiteSpeed starts with the environment in `httpd_config.conf`. That environment is visible to `getenv()`, `$_SERVER`, `phpinfo()`, error trackers and child processes, so `ols-hbg-configure` deliberately passes **no** container variables into it.
 
-- every `WP_CONF_*` variable, which Municipio's WordPress config reads (see [`../config/env.php`](../config/env.php))
-- every `TIDEWAYS_*` variable, which the Tideways extension reads
+- **WordPress settings (`WP_CONF_*`):** Municipio's [`../setup/setup.py`](../setup/setup.py) writes these to `/var/www/vhosts/localhost/wp-conf.php` on every start. The file is outside the web root, mode `0400`, owned by the site user, and read by [`../config/env.php`](../config/env.php).
+- **Tideways:** see [Tideways](#tideways); its variables become ini settings.
+- **Anything else PHP needs:** use `PHP_INI_SETTINGS`, or `WP_CONF_EXTRA_<NAME>` for a WordPress constant.
 
-To pass any other variable, list its name in `OLS_PHP_ENV_VARS` (comma or space separated).
-
-- Values are rewritten on every start. A variable that is removed, or a name removed from the list, disappears from the config on the next start.
-- Only the first line of a multi-line value is passed on, because a config line can't span lines.
-- An invalid name in `OLS_PHP_ENV_VARS`, or a listed name whose variable is not set, stops the container at startup. An empty value is allowed.
-- `PHP_LSAPI_CHILDREN` can't be listed; use `OLS_PHP_CHILDREN`.
-- PHP CLI processes (WP-CLI, cron, `docker exec … php`) already see the container's environment.
-- Passed values end up in `httpd_config.conf` and in `phpinfo()`, so don't expose `phpinfo()` publicly.
+Env lines that earlier versions wrote (any `WP_CONF_*`, and names recorded in `conf/.hbg-php-env-vars`) are removed from a persisted `conf` volume on the next start. PHP CLI processes (WP-CLI, cron, `docker exec … php`) still see the container's environment directly.
 
 ## PHP ini settings
 
@@ -124,6 +118,7 @@ services:
     environment:
       TIDEWAYS_APIKEY: ${TIDEWAYS_APIKEY:?Set TIDEWAYS_APIKEY}
       TIDEWAYS_CONNECTION: tcp://tideways-daemon:9135
+      # Optional: TIDEWAYS_SERVICE, TIDEWAYS_SAMPLERATE, TIDEWAYS_TRACE_SAMPLE_RATE, TIDEWAYS_FRAMEWORK
     depends_on:
       - tideways-daemon
 
@@ -131,7 +126,7 @@ services:
     image: ghcr.io/tideways/daemon
 ```
 
-`TIDEWAYS_*` variables reach web PHP automatically. Supply `TIDEWAYS_APIKEY` from your deployment secrets at runtime, never in the Dockerfile. The daemon does not authenticate incoming connections, so do not publish its port or expose its network publicly. `WP_CONF_EXTRA_TIDEWAYS_APIKEY` would define a WordPress constant instead, which the extension does not read.
+`ols-hbg-configure` writes these variables to the extension's ini settings (`tideways.api_key`, `tideways.connection`, …) in `mods-available/70-hbg-tideways.ini`, readable only by root and the site user, and removes the file when none are set. They are not put in the web PHP environment. Values must be a single line without double quotes. Other `TIDEWAYS_*` names, such as the `TIDEWAYS_SERVICE_HOST` that Kubernetes adds for a service named `tideways`, are ignored. Supply `TIDEWAYS_APIKEY` from your deployment secrets at runtime, never in the Dockerfile. The daemon does not authenticate incoming connections, so do not publish its port or expose its network publicly. `WP_CONF_EXTRA_TIDEWAYS_APIKEY` would define a WordPress constant instead, which the extension does not read.
 
 ## Startup order
 
