@@ -17,11 +17,23 @@ esac
 # running https://repo.litespeed.sh, which fetches keys over plain HTTP.
 readonly LST_KEY_SHA256=186cd78298b9349134c38130f48b015e87fc228b9a9ca9aeb0c65e47630ed2d5
 
-# Install OpenLiteSpeed
+# Fail fast on slow or unreachable mirrors instead of hanging the build:
+# apt and wget retry a few times with short timeouts.
+cat > /etc/apt/apt.conf.d/80-hbg-network <<'APT'
+Acquire::Retries "5";
+Acquire::http::Timeout "30";
+Acquire::https::Timeout "30";
+APT
+WGET=(wget --quiet --timeout=30 --tries=3)
+
+# Install OpenLiteSpeed. Only what the image needs, without recommended extras
+# (systemd, dbus, ...): ca-certificates for HTTPS downloads, python3 for
+# Municipio's docker/setup scripts, curl for the health check.
 apt-get update
-apt-get install -y wget curl cron tzdata zip less
+apt-get install -y --no-install-recommends ca-certificates python3 \
+  wget curl cron tzdata zip less
 ols_tgz="openlitespeed-${OLS_VERSION}-${PLATFORM}.tgz"
-wget -q "https://openlitespeed.org/packages/$ols_tgz"
+"${WGET[@]}" "https://openlitespeed.org/packages/$ols_tgz"
 echo "$ols_sha256  $ols_tgz" | sha256sum -c -
 tar xzf "$ols_tgz"
 ( cd openlitespeed && ./install.sh )
@@ -29,7 +41,7 @@ echo 'cloud-docker' > "$LS_FD/PLAT"
 rm -rf /openlitespeed "/$ols_tgz"
 
 # Add the LiteSpeed apt repo (HTTPS, key pinned and scoped via signed-by).
-wget -qO /usr/share/keyrings/litespeed.gpg https://rpms.litespeedtech.com/debian/lst_repo.gpg
+"${WGET[@]}" -O /usr/share/keyrings/litespeed.gpg https://rpms.litespeedtech.com/debian/lst_repo.gpg
 echo "$LST_KEY_SHA256  /usr/share/keyrings/litespeed.gpg" | sha256sum -c -
 . /etc/os-release
 echo "deb [signed-by=/usr/share/keyrings/litespeed.gpg] https://rpms.litespeedtech.com/debian/ $VERSION_CODENAME main" \
@@ -44,7 +56,7 @@ apt-get install -y --no-install-recommends mysql-client \
   "$PHP_VERSION"-curl "$PHP_VERSION"-imagick "$PHP_VERSION"-intl \
   "$PHP_VERSION"-mysql "$PHP_VERSION"-tidy
 
-wget -qO /usr/share/keyrings/tideways.asc https://packages.tideways.com/key.gpg
+"${WGET[@]}" -O /usr/share/keyrings/tideways.asc https://packages.tideways.com/key.gpg
 echo 'deb [signed-by=/usr/share/keyrings/tideways.asc] https://packages.tideways.com/apt-packages-main any-version main' \
   > /etc/apt/sources.list.d/tideways.list
 apt-get update

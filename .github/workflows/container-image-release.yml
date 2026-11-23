@@ -92,6 +92,9 @@ jobs:
     needs: prepare
     name: Build ${{ matrix.platform }}
     runs-on: ${{ matrix.runner }}
+    # A cold build takes a few minutes; a stalled package mirror must fail the
+    # job instead of holding it for GitHub's 6-hour default.
+    timeout-minutes: 30
     strategy:
       fail-fast: true
       matrix:
