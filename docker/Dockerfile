@@ -43,6 +43,27 @@ RUN --mount=type=secret,id=acf_pro_key,required=true \
     rm -rf .git .htaccess config config-example docker && \
     chmod -R 755 .
 
+# FrankenPHP with the Souin HTTP cache and its Redis storage compiled in, used
+# as the optional page cache (see "Page cache" in docker/README.md). Brotli is
+# kept from the official build; Mercure and Vulcain are not used.
+# https://frankenphp.dev/docs/docker/#how-to-install-more-caddy-modules
+FROM dunglas/frankenphp:1-builder-php8.3-bookworm AS frankenphp
+COPY --from=caddy:2-builder /usr/bin/xcaddy /usr/bin/xcaddy
+RUN --mount=type=cache,target=/root/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=1 \
+    XCADDY_SETCAP=0 \
+    XCADDY_GO_BUILD_FLAGS="-ldflags='-w -s' -tags=nobadger,nomysql,nopgx" \
+    CGO_CFLAGS=$(php-config --includes) \
+    CGO_LDFLAGS="$(php-config --ldflags) $(php-config --libs)" \
+    xcaddy build \
+        --output /usr/local/bin/frankenphp \
+        --with github.com/dunglas/frankenphp=./ \
+        --with github.com/dunglas/frankenphp/caddy=./caddy/ \
+        --with github.com/dunglas/caddy-cbrotli \
+        --with github.com/caddyserver/cache-handler@v0.17.0 \
+        --with github.com/darkweak/storages/go-redis/caddy@v0.0.23
+
 # FrankenPHP runs PHP inside the Caddy web server, so PHP sees the container's
 # environment directly and the web server is configured by docker/Caddyfile.
 FROM dunglas/frankenphp:1-php8.3-bookworm AS runtime
@@ -54,6 +75,10 @@ RUN install-php-extensions bcmath exif gd imagick intl mysqli redis tidy tideway
     apt-get install -y --no-install-recommends mariadb-client && \
     rm -rf /var/lib/apt/lists/* && \
     cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
+    # Tideways costs about 15% throughput even when nothing reports to it, so
+    # the entrypoint loads it only when TIDEWAYS_APIKEY is set.
+    mkdir "$PHP_INI_DIR/conf.d-tideways" && \
+    mv "$PHP_INI_DIR/conf.d/docker-php-ext-tideways.ini" "$PHP_INI_DIR/conf.d-tideways/" && \
     useradd --uid 1000 --user-group --no-create-home municipio && \
     chown -R municipio:municipio /config /data
 
@@ -62,9 +87,11 @@ WORKDIR /var/www/vhosts/localhost/html
 # WP-CLI is needed by the entrypoint, but Composer, Node.js, npm, and Git
 # are build-only dependencies and stay in the builder stage.
 COPY --from=builder /usr/local/bin/wp /usr/local/bin/wp
+COPY --from=frankenphp /usr/local/bin/frankenphp /usr/local/bin/frankenphp
 COPY --from=builder --chown=1000:1000 /var/www/vhosts/localhost/html/ ./
 
 COPY docker/Caddyfile /etc/frankenphp/Caddyfile
+COPY --chown=1000:1000 docker/page-cache.php ./wp-content/mu-plugins/municipio-page-cache.php
 COPY docker/php.ini $PHP_INI_DIR/conf.d/zz-municipio.ini
 COPY --chmod=755 docker/entrypoint.sh /usr/local/bin/municipio-entrypoint
 COPY --chown=1000:1000 docker/wp-config.php ./wp-config.php
