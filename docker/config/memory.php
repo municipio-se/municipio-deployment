@@ -5,15 +5,15 @@ if (!function_exists('env')) {
 }
 
 /**
- * WordPress memory limit. This setting should be as
- * low as possible to enshure that site runs smoothly.
+ * WordPress memory limit.
  *
- * Default value is intentionally 'high' to avoid
- * crashes in setup process. A good value for production
- * may be as low as 128M but will vary.
- *
+ * Defaults to the PHP memory_limit the server already applies (set by
+ * PHP_MEMORY_LIMIT in the OLS layer, docker/ols). WordPress raises
+ * memory_limit to WP_MEMORY_LIMIT when it is higher, which would break the
+ * server's sizing of PHP children by memory, so the two stay equal unless
+ * WP_CONF_WP_MEMORY_LIMIT is set explicitly.
  */
 
 if (!defined('WP_MEMORY_LIMIT')) {
-    define('WP_MEMORY_LIMIT', env('WP_MEMORY_LIMIT', '512M'));
+    define('WP_MEMORY_LIMIT', env('WP_MEMORY_LIMIT', ini_get('memory_limit') ?: '512M'));
 }

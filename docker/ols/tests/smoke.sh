@@ -72,18 +72,46 @@ expect_settings() {
   if [ "$actual" = "$memory" ]; then pass "$label memory_limit"; else fail "$label memory_limit: expected $memory, got $actual"; fi
 }
 
-echo "== defaults"
+echo "== defaults (no container memory limit)"
 start
-expect_settings 1 10 5 256M defaults
+expect_settings 1 10 5 512M defaults
 
 echo "== defaults after restart"
 docker restart "$NAME" >/dev/null
 sleep 3
-expect_settings 1 10 5 256M restart
+expect_settings 1 10 5 512M restart
+
+echo "== children follow the container memory limit"
+# (3072M - 512M reserved) / 512M = 5
+start --memory 3g
+expect_settings 1 5 5 512M "3g limit"
+# (3072M - 512M) / 256M = 10
+start --memory 3g -e PHP_MEMORY_LIMIT=256M
+expect_settings 1 10 5 256M "3g limit, 256M requests"
+# Less than one request fits: still one child.
+start --memory 600m
+expect_settings 1 1 5 512M "600m limit"
 
 echo "== overrides"
-start -e OLS_HTTPD_WORKERS=2 -e OLS_PHP_CHILDREN=6 -e OLS_PHP_KEEPALIVE_TIMEOUT=30 -e PHP_MEMORY_LIMIT=512M
-expect_settings 2 6 30 512M overrides
+start --memory 3g -e OLS_HTTPD_WORKERS=2 -e OLS_PHP_CHILDREN=6 -e OLS_PHP_KEEPALIVE_TIMEOUT=30 -e PHP_MEMORY_LIMIT=1G
+expect_settings 2 6 30 1G overrides
+
+echo "== extensions are always loaded"
+for ext in tidy tideways; do
+  expect_web "$ext loaded in web PHP" "var_export(extension_loaded(\"$ext\"), true)" true
+done
+
+echo "== WP_CONF_* and TIDEWAYS_* reach web PHP without listing"
+start -e WP_CONF_SMOKE_SETTING=wp-value -e TIDEWAYS_APIKEY=tw-key -e SMOKE_UNLISTED=hidden
+expect_web "WP_CONF_* forwarded" 'getenv("WP_CONF_SMOKE_SETTING")' wp-value
+expect_web "TIDEWAYS_* forwarded" 'getenv("TIDEWAYS_APIKEY")' tw-key
+expect_web "other variables not forwarded" 'var_export(getenv("SMOKE_UNLISTED"), true)' false
+docker restart "$NAME" >/dev/null
+sleep 3
+expect_conf "WP_CONF_* line not duplicated after restart" "^ +env +WP_CONF_SMOKE_SETTING=wp-value$" 1
+expect_conf "TIDEWAYS_* line not duplicated after restart" "^ +env +TIDEWAYS_APIKEY=tw-key$" 1
+docker exec "$NAME" env -u WP_CONF_SMOKE_SETTING ols-hbg-configure >/dev/null
+expect_conf "unset WP_CONF_* variable removed" "WP_CONF_SMOKE_SETTING=" 0
 
 echo "== OLS_PHP_ENV_VARS and PHP_INI_SETTINGS"
 start -e SMOKE_A=alpha -e "SMOKE_B=two words" -e SMOKE_C=gamma -e OLS_PHP_ENV_VARS="SMOKE_A, SMOKE_B" \

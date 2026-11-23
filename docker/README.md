@@ -10,7 +10,7 @@ The image is built in two layers that are kept in separate directories, so it is
 
 | Layer | Directory | What it contains |
 | --- | --- | --- |
-| Server (OpenLiteSpeed) | [`ols/`](ols/) | Ubuntu, OpenLiteSpeed, lsphp and its extensions, `php.ini` tuning, listener and vhost config, `/entrypoint.sh` and `ols-hbg-configure`. See the [OLS layer guide](ols/README.md) for its runtime variables (`OLS_PHP_CHILDREN`, `PHP_MEMORY_LIMIT`, `PHP_INI_SETTINGS`, `OLS_PHP_ENV_VARS`, `PHP_EXTENSIONS`). |
+| Server (OpenLiteSpeed) | [`ols/`](ols/) | Ubuntu, OpenLiteSpeed, lsphp and its extensions, `php.ini` tuning, listener and vhost config, `/entrypoint.sh` and `ols-hbg-configure`. Its runtime settings are summarised under [Common settings](#common-settings) and detailed in the [OLS layer guide](ols/README.md). |
 | Application (Municipio) | this directory | [`Dockerfile`](Dockerfile), which builds Municipio with Composer and npm and adds WP-CLI, [`config/`](config/), [`htaccess/`](htaccess/) and the [`setup/`](setup/) startup script. |
 
 [`docker-bake.hcl`](../docker-bake.hcl) at the repository root connects them. Its `ols` target builds `docker/ols/`, and its `municipio` target receives that result as the named build context `ols` (`FROM ols AS runtime` in the Dockerfile). The result is **one** image. The server layer is built from source in the same build and is not published separately.
@@ -60,7 +60,6 @@ Runtime settings use the `WP_CONF_` prefix. The most useful ones are:
 | `WP_CONF_WP_DEBUG` | Set to `true` to enable WordPress debugging. |
 | `WP_CONF_WP_REDIS_DISABLED` | Set to `true` when no Redis or Valkey service is used. |
 | `ENABLE_LS_CACHE` | Set to `true` to enable LiteSpeed Cache plugin and include LiteSpeed rewrite rules when `.htaccess` is first created. |
-| `ENABLE_PHP_TIDY` | Set to `true` to install the Tidy extension for the current LiteSpeed PHP version on startup (requires access to the package repository). |
 
 The database and admin values are only used to perform the initial installation. If a database volume already contains WordPress, changing the initial admin values will not update the existing account.
 
@@ -68,18 +67,31 @@ On startup, `.htaccess` is created from the selected single-site or multisite te
 
 Any additional WordPress constant can be defined with `WP_CONF_EXTRA_`. For example, `WP_CONF_EXTRA_MY_SETTING: enabled` defines the `MY_SETTING` constant.
 
-To configure Tideways for web requests, pass `TIDEWAYS_APIKEY` as a runtime environment variable and add its name to `OLS_PHP_ENV_VARS`. For example:
+### Server sizing
 
-```yaml
-environment:
-  TIDEWAYS_APIKEY: your-key
-  OTHER_API_KEY: another-key
-  OLS_PHP_ENV_VARS: "TIDEWAYS_APIKEY,OTHER_API_KEY"
-```
+The server sizes itself from Municipio's needs, so normally only the container memory limit needs setting:
 
-For any additional setting needed by web PHP, add its name to the comma-separated `OLS_PHP_ENV_VARS` list and set its value separately in the container. `WP_CONF_*` variables continue to be forwarded automatically; all other variables, including `TIDEWAYS_*`, require explicit listing. Invalid or unset names in the list stop startup instead of silently omitting them. `WP_CONF_EXTRA_TIDEWAYS_APIKEY` instead defines a WordPress constant named `TIDEWAYS_APIKEY`; it does not set the environment variable used by the Tideways extension. Only list values PHP should be able to access; treat keys as secrets and avoid exposing `phpinfo()` publicly.
+| Setting | Default | Effect |
+| --- | --- | --- |
+| `PHP_MEMORY_LIMIT` | `512M` | Memory one PHP request may use. WordPress's `WP_MEMORY_LIMIT` follows it unless `WP_CONF_WP_MEMORY_LIMIT` is set. |
+| `OLS_PHP_CHILDREN` | automatic | PHP requests handled at once. When unset: (container memory limit − 512M) ÷ `PHP_MEMORY_LIMIT`, so a 3 GiB pod gets 5 and a 6 GiB pod gets 11. Without a memory limit: 10. |
 
-To set PHP ini directives, use `PHP_INI_SETTINGS` with one `name=value` directive per line:
+The chosen values are logged at startup. See the [OLS layer guide](ols/README.md#sizing) for the less common `OLS_HTTPD_WORKERS` and `OLS_PHP_KEEPALIVE_TIMEOUT`.
+
+### PHP extensions and environment
+
+tidy, Tideways, Imagick, intl, cURL, MySQL and OPcache are always enabled.
+
+Web PHP only sees the container variables the server passes on. These are passed automatically:
+
+- every `WP_CONF_*` variable (WordPress config, including `WP_CONF_EXTRA_*` constants)
+- every `TIDEWAYS_*` variable (for example `TIDEWAYS_APIKEY` and `TIDEWAYS_CONNECTION`)
+
+To pass anything else, list its name in `OLS_PHP_ENV_VARS` (comma separated). An invalid or unset name stops startup. Passed values end up in the server config and in `phpinfo()`, so don't expose `phpinfo()` publicly.
+
+### PHP ini settings
+
+Set other PHP ini directives with `PHP_INI_SETTINGS`, one `name=value` per line:
 
 ```yaml
 environment:
@@ -88,9 +100,7 @@ environment:
     upload_max_filesize=64M
 ```
 
-The container discovers the LiteSpeed PHP version in the runtime image and writes these directives to an additional ini file in its default scanned directory, so they apply to both web requests and PHP processes started during container setup. If no single PHP ini directory can be found, or a directive line is invalid, startup stops with an error.
-
-In Kubernetes, an `envFrom.secretRef` Secret must have a key named `PHP_INI_SETTINGS` containing the newline-separated directives (for example, create it with `kubectl create secret generic php-ini --from-file=PHP_INI_SETTINGS=./settings.ini`). A Secret mounted as a file does not automatically become this environment variable. Restart the pod after changing the Secret; environment variables are not updated in running pods. Avoid overriding `PHP_INI_SCAN_DIR`, which can exclude the default scanned directory.
+They apply to web requests and to WP-CLI during container setup. Use `PHP_MEMORY_LIMIT` rather than `memory_limit` here; a `memory_limit` line, or any line that isn't `name=value`, stops startup. In Kubernetes, load a multi-line value from a Secret or ConfigMap key named `PHP_INI_SETTINGS` with `envFrom`. Restart the pod after changing it.
 
 ## Multisite
 

@@ -37,11 +37,12 @@ echo "deb [signed-by=/usr/share/keyrings/litespeed.gpg] https://rpms.litespeedte
 
 # Install PHP modules from the LiteSpeed repo added above
 apt-get update
-apt-get install -y --no-install-recommends mysql-client build-essential autoconf \
+# Municipio needs all of these, including tidy and Tideways, so every
+# extension is enabled at build time; there is no runtime toggle.
+apt-get install -y --no-install-recommends mysql-client \
   "$PHP_VERSION" "$PHP_VERSION"-common "$PHP_VERSION"-opcache \
   "$PHP_VERSION"-curl "$PHP_VERSION"-imagick "$PHP_VERSION"-intl \
-  "$PHP_VERSION"-mysql "$PHP_VERSION"-tidy \
-  "$PHP_VERSION"-dev "$PHP_VERSION"-pear
+  "$PHP_VERSION"-mysql "$PHP_VERSION"-tidy
 
 wget -qO /usr/share/keyrings/tideways.asc https://packages.tideways.com/key.gpg
 echo 'deb [signed-by=/usr/share/keyrings/tideways.asc] https://packages.tideways.com/apt-packages-main any-version main' \
@@ -78,27 +79,24 @@ opcache.max_accelerated_files = 20000
 opcache.interned_strings_buffer = 16
 INI
 
-# Build-time default for PHP_MEMORY_LIMIT, so `RUN php ...` in downstream
-# Dockerfiles sees the same limit. entrypoint.sh rewrites this file on every
-# start; keep the file name and default in sync with configure.sh.
+# Build-time default for PHP_MEMORY_LIMIT, so `RUN php ...` in the Municipio
+# build sees the same limit. configure.sh rewrites this file on every start;
+# keep the file name and default in sync with configure.sh.
 php_etc=${php_ini%/litespeed/php.ini}
-printf 'memory_limit = 256M\n' > "$php_etc/mods-available/50-hbg-runtime.ini"
+printf 'memory_limit = 512M\n' > "$php_etc/mods-available/50-hbg-runtime.ini"
 
-# Optional extensions: installed, but moved out of PHP's scan dir so they are
-# off by default. configure.sh symlinks them back in when listed in the
-# PHP_EXTENSIONS env var.
-mkdir -p "$php_etc/mods-optional"
-"$LS_FD/$PHP_VERSION/bin/pecl" install excimer
-printf 'extension=excimer.so\n' > "$php_etc/mods-optional/excimer.ini"
+# Tideways ships one .so per PHP version; link the one for this lsphp into
+# its extension dir. Its ini (from tideways-php) stays in mods-available, so
+# the extension is always loaded.
 php_version=$(php -r 'echo PHP_MAJOR_VERSION, ".", PHP_MINOR_VERSION, PHP_ZTS ? "-zts" : "";')
 extension_dir=$(php -r 'echo ini_get("extension_dir");')
 ln -sf "/usr/lib/tideways/tideways-php-$php_version.so" "$extension_dir/tideways.so"
 for ext in tidy tideways; do
-  mv "$php_etc/mods-available/$ext.ini" "$php_etc/mods-optional/$ext.ini"
+  [ -f "$php_etc/mods-available/$ext.ini" ] || { echo "Missing $ext.ini in $php_etc/mods-available" >&2; exit 1; }
 done
 
 # Cleanup
-apt-get purge -y wget zip build-essential autoconf "$PHP_VERSION"-dev "$PHP_VERSION"-pear
+apt-get purge -y wget zip
 apt-get autoremove -y
 apt-get clean
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

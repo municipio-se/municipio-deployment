@@ -51,8 +51,6 @@ RUN --mount=type=secret,id=acf_pro_key,required=true \
 # with `docker buildx bake` rather than plain `docker build`.
 FROM ols AS runtime
 
-ENV PHP_EXTENSIONS=tidy,tideways
-
 USER root
 
 WORKDIR /var/www/vhosts/localhost/html

@@ -1,12 +1,12 @@
 #!/bin/bash
-# Applies the image's runtime configuration from environment variables:
-# conf hydration, OpenLiteSpeed/PHP tuning, optional PHP extensions, PHP ini
-# settings and environment variables forwarded to lsphp. See README.
+# Applies the image's runtime configuration: conf hydration, OpenLiteSpeed/PHP
+# sizing for Municipio, PHP ini settings and the environment forwarded to
+# lsphp. This is the only script that writes server or PHP config. See README.
 #
-# Installed as /usr/local/bin/ols-hbg-configure. /entrypoint.sh runs it before
-# starting OpenLiteSpeed. It is idempotent, so a downstream startup script that
-# needs the configuration earlier (for example before running PHP CLI setup
-# steps) can run it first and then `exec /entrypoint.sh`. Must run as root.
+# Installed as /usr/local/bin/ols-hbg-configure. Municipio's setup.py runs it
+# first (so WP-CLI sees the same PHP config as web requests), and
+# /entrypoint.sh runs it again before starting OpenLiteSpeed. It is
+# idempotent. Must run as root.
 set -euo pipefail
 
 # 994 = lsadm, created by the OLS install script.
@@ -36,38 +36,97 @@ fi
 
 # --- Validate everything before changing anything -------------------------
 
-# Runtime tuning. Each setting is written on every start, from its variable or
-# its documented default, so unsetting a variable restores the default on a
-# reused container or a persisted conf volume. See README "Runtime tuning".
+# Sizing. Each setting is written on every start, from its variable or its
+# default, so unsetting a variable restores the default on a reused container
+# or a persisted conf volume. See README "Sizing".
 positive_int() {
   [[ "$2" =~ ^[1-9][0-9]*$ ]] || fail "$1 must be a positive integer, got '$2'"
 }
 
+# Memory reserved outside PHP requests: OPcache (256M, shared), OpenLiteSpeed
+# and the lsphp parent process.
+readonly RESERVED_BYTES=$((512 * 1024 * 1024))
+# PHP children when the container has no memory limit to size from.
+readonly FALLBACK_PHP_CHILDREN=10
+
+# Container memory limit in bytes, or nothing when unlimited (cgroup v2 "max",
+# or cgroup v1's near-2^63 "unlimited" value).
+container_memory_limit() {
+  local limit=""
+  if [ -r /sys/fs/cgroup/memory.max ]; then
+    limit=$(cat /sys/fs/cgroup/memory.max)
+  elif [ -r /sys/fs/cgroup/memory/memory.limit_in_bytes ]; then
+    limit=$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes)
+  fi
+  [[ "$limit" =~ ^[0-9]+$ ]] && [ "${#limit}" -lt 16 ] && echo "$limit"
+  return 0
+}
+
+# PHP size (e.g. 512M, 1G) to bytes.
+size_bytes() {
+  local number=${1%[KMG]}
+  case "$1" in
+    *K) echo $((number * 1024)) ;;
+    *M) echo $((number * 1024 * 1024)) ;;
+    *G) echo $((number * 1024 * 1024 * 1024)) ;;
+    *) echo "$number" ;;
+  esac
+}
+
 ols_httpd_workers=${OLS_HTTPD_WORKERS:-1}
-ols_php_children=${OLS_PHP_CHILDREN:-10}
 ols_php_keepalive_timeout=${OLS_PHP_KEEPALIVE_TIMEOUT:-5}
-php_memory_limit=${PHP_MEMORY_LIMIT:-256M}
+php_memory_limit=${PHP_MEMORY_LIMIT:-512M}
 positive_int OLS_HTTPD_WORKERS "$ols_httpd_workers"
-positive_int OLS_PHP_CHILDREN "$ols_php_children"
 positive_int OLS_PHP_KEEPALIVE_TIMEOUT "$ols_php_keepalive_timeout"
 [[ "$php_memory_limit" =~ ^(-1|[1-9][0-9]*[KMG]?)$ ]] ||
-  fail "PHP_MEMORY_LIMIT must be a size such as 256M, 1G or -1, got '$php_memory_limit'"
+  fail "PHP_MEMORY_LIMIT must be a size such as 512M, 1G or -1, got '$php_memory_limit'"
 
-# OLS_PHP_ENV_VARS: names (comma or space separated) of container variables to
-# pass to lsphp. Web PHP gets its environment from httpd_config.conf, not from
-# the container, so only listed variables reach it.
+# PHP children: OLS_PHP_CHILDREN if set, otherwise as many requests at
+# PHP_MEMORY_LIMIT as fit in the container's memory limit after the reserve.
+if [ -n "${OLS_PHP_CHILDREN:-}" ]; then
+  ols_php_children=$OLS_PHP_CHILDREN
+  positive_int OLS_PHP_CHILDREN "$ols_php_children"
+  children_reason="from OLS_PHP_CHILDREN"
+else
+  memory_limit_bytes=$(container_memory_limit)
+  if [ -z "$memory_limit_bytes" ]; then
+    ols_php_children=$FALLBACK_PHP_CHILDREN
+    children_reason="default; the container has no memory limit"
+  elif [ "$php_memory_limit" = -1 ]; then
+    ols_php_children=$FALLBACK_PHP_CHILDREN
+    children_reason="default; PHP_MEMORY_LIMIT is -1"
+  else
+    ols_php_children=$(( (memory_limit_bytes - RESERVED_BYTES) / $(size_bytes "$php_memory_limit") ))
+    [ "$ols_php_children" -ge 1 ] || ols_php_children=1
+    children_reason="($((memory_limit_bytes / 1024 / 1024))M container limit - 512M reserved) / $php_memory_limit per request"
+  fi
+fi
+echo "ols-hbg-configure: $ols_php_children PHP children ($children_reason), memory_limit $php_memory_limit"
+
+# Variables passed to web PHP. lsphp gets its environment from
+# httpd_config.conf, not from the container, so only these reach getenv():
+# every WP_CONF_* (Municipio's WordPress config) and TIDEWAYS_* (the Tideways
+# extension) variable, plus any names listed in OLS_PHP_ENV_VARS (comma or
+# space separated).
 env_names=()
 env_lines=""
+add_env() {
+  local name=$1 value
+  [[ " ${env_names[*]} " == *" $name "* ]] && return 0
+  env_names+=("$name")
+  value=${!name}
+  # A config line can't span lines, so only the first line of a value is kept.
+  env_lines+="    env                             $name=${value%%$'\n'*}"$'\n'
+}
+while IFS= read -r name; do
+  add_env "$name"
+done < <(compgen -e | grep -E '^(WP_CONF|TIDEWAYS)_[A-Za-z0-9_]+$' | sort)
 env_vars_list=${OLS_PHP_ENV_VARS:-}
 for name in ${env_vars_list//,/ }; do
   [[ "$name" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || fail "Invalid name in OLS_PHP_ENV_VARS: '$name'"
   [ "$name" != PHP_LSAPI_CHILDREN ] || fail "PHP_LSAPI_CHILDREN can't be set via OLS_PHP_ENV_VARS; use OLS_PHP_CHILDREN"
   [ -n "${!name+set}" ] || fail "OLS_PHP_ENV_VARS references an unset variable: $name"
-  [[ " ${env_names[*]} " == *" $name "* ]] && continue
-  env_names+=("$name")
-  value=${!name}
-  # A config line can't span lines, so only the first line of a value is kept.
-  env_lines+="    env                             $name=${value%%$'\n'*}"$'\n'
+  add_env "$name"
 done
 
 # PHP_INI_SETTINGS: one `name=value` directive per line.
@@ -86,20 +145,13 @@ php_etc_candidates=("$LSWS_DIR"/lsphp*/etc/php/*)
   fail "Expected one lsphp ini directory under $LSWS_DIR, found: ${php_etc_candidates[*]}"
 readonly PHP_ETC=${php_etc_candidates[0]}
 
-php_extensions=${PHP_EXTENSIONS:-}
-for ext in ${php_extensions//,/ }; do
-  [ -f "$PHP_ETC/mods-optional/$ext.ini" ] || fail "Unknown optional PHP extension '$ext'. Available:" \
-    "$(cd "$PHP_ETC/mods-optional" && ls -- *.ini | sed 's/\.ini$//' | tr '\n' ' ')"
-done
-
 # --- httpd_config.conf -----------------------------------------------------
 
 # Replace top-level httpdWorkers, and inside the lsphp extProcessor: maxConns,
 # PHP_LSAPI_CHILDREN, pcKeepAliveTimeout and the env lines for OLS_PHP_ENV_VARS
 # (this run's names plus the previous run's). Existing lines for these keys
 # are dropped and fresh ones written, so the result is the same however many
-# times this runs. Other lsphp lines (such as env lines added by downstream
-# images) are kept.
+# times this runs. Other lsphp lines (such as LSAPI_AVOID_FORK) are kept.
 previous_names=""
 [ -f "$ENV_VARS_STATE" ] && previous_names=$(tr '\n' ' ' <"$ENV_VARS_STATE")
 env_lines_file=$(mktemp)
@@ -157,16 +209,7 @@ chown -R "$LSADM_UID:$LSADM_GID" "$LSWS_CONF"
 
 # --- PHP ini scan dir ------------------------------------------------------
 
-# Optional extensions from PHP_EXTENSIONS. Links are rebuilt on every start so
-# removing a name from the env var disables it again on a reused container.
-find "$PHP_ETC/mods-available" -maxdepth 1 -type l -lname '../mods-optional/*' -delete
-for ext in ${php_extensions//,/ }; do
-  ln -sf "../mods-optional/$ext.ini" "$PHP_ETC/mods-available/$ext.ini"
-done
-
-# memory_limit, then PHP_INI_SETTINGS, both rewritten on every start. The
-# numeric prefixes sort them before other files in the scan dir, so a
-# downstream image's own ini file there (e.g. zz-*.ini) still wins.
+# memory_limit, then PHP_INI_SETTINGS, both rewritten on every start.
 printf 'memory_limit = %s\n' "$php_memory_limit" >"$PHP_ETC/mods-available/$PHP_RUNTIME_INI"
 if [ -n "$ini_settings" ]; then
   printf '%s' "$ini_settings" >"$PHP_ETC/mods-available/$PHP_SETTINGS_INI"

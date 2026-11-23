@@ -32,104 +32,65 @@ A healthy empty OLS layer answers `404` with `Server: LiteSpeed` on port 80. The
 
 The PHP line is set by `PHP_VERSION` on the `ols` target in `docker-bake.hcl` (for example `lsphp83`), and the OpenLiteSpeed version by `OLS_VERSION`. The PHP patch level is whatever LiteSpeed's apt repository ships at build time.
 
-## Runtime tuning
+## Sizing
 
-OpenLiteSpeed and PHP sizing is set with environment variables. The entrypoint writes every setting each time the container starts, using the variable if it is set and the default below if it isn't. Removing a variable therefore restores the default, even on a restarted container or a persisted `conf` volume. An invalid value stops the container at startup with an error naming the variable.
+OpenLiteSpeed and PHP are sized for Municipio on every container start. Normally the only thing to set is the container's memory limit; the number of PHP children follows from it.
 
 | Variable | Default | Sets | What it controls |
 | --- | --- | --- | --- |
+| `PHP_MEMORY_LIMIT` | `512M` | PHP `memory_limit` | Maximum memory one PHP request may use. Accepts PHP sizes such as `512M`, `1G`, or `-1` (no limit). Municipio's `WP_MEMORY_LIMIT` follows it ([`../config/memory.php`](../config/memory.php)). |
+| `OLS_PHP_CHILDREN` | automatic | lsphp `maxConns` and `PHP_LSAPI_CHILDREN` (always equal) | Maximum number of PHP requests handled at the same time; further requests wait in a queue. |
 | `OLS_HTTPD_WORKERS` | `1` | `httpdWorkers` in `httpd_config.conf` | Number of OpenLiteSpeed worker processes. |
-| `OLS_PHP_CHILDREN` | `10` | lsphp `maxConns` and `PHP_LSAPI_CHILDREN` (always equal) | Maximum number of PHP requests handled at the same time. Further requests wait in a queue. |
 | `OLS_PHP_KEEPALIVE_TIMEOUT` | `5` | lsphp `pcKeepAliveTimeout`, in seconds | How long an idle connection from OpenLiteSpeed keeps a PHP child reserved. |
-| `PHP_MEMORY_LIMIT` | `256M` | PHP `memory_limit` | Maximum memory one PHP request may use. Accepts PHP sizes such as `512M`, `1G`, or `-1` (no limit). |
 
-The defaults suit a pod with about 1.5 CPU cores and 3 GiB of memory. Change them together, using the rules below.
+Every setting is written on each start, from its variable or its default, so removing a variable restores the default even on a restarted container or a persisted `conf` volume. An invalid value stops the container at startup with an error naming the variable.
 
-### What affects each setting
+### PHP children
 
-**`OLS_HTTPD_WORKERS`: keep it at `1` unless the container has well over 2 CPU cores.** OpenLiteSpeed's own default sizes the worker count from the CPU count of the *host*, not the container's CPU limit, so on a large Kubernetes node it can start many workers. Each worker keeps its own pool of connections to lsphp. When the workers together hold more connections than there are PHP children, requests fail with `No request delivery notification has been received from LSAPI application`. One worker handles many concurrent connections, because PHP rather than OpenLiteSpeed is the bottleneck for WordPress.
-
-**`OLS_PHP_CHILDREN` and `PHP_MEMORY_LIMIT` together decide how much memory PHP can use.** In the worst case every child reaches the memory limit at once. Keep this within the container's memory limit:
+When `OLS_PHP_CHILDREN` is not set, `ols-hbg-configure` reads the container's memory limit (cgroup v2 `memory.max`, or cgroup v1 `memory.limit_in_bytes`) and starts as many PHP children as fit if every one of them reaches `PHP_MEMORY_LIMIT`:
 
 ```
-OLS_PHP_CHILDREN × PHP_MEMORY_LIMIT + about 512M  ≤  container memory limit
+children = (container memory limit − 512M) ÷ PHP_MEMORY_LIMIT     (at least 1)
 ```
 
-The 512M covers the OPcache (256M, shared by all children), OpenLiteSpeed and the lsphp parent process. Leave extra room if the application processes images with Imagick, whose memory is not counted in `memory_limit`.
+The 512M covers the OPcache (256M, shared by all children), OpenLiteSpeed and the lsphp parent process. Without a memory limit, or with `PHP_MEMORY_LIMIT=-1`, it uses 10. The result is logged at startup, for example `ols-hbg-configure: 5 PHP children ((3072M container limit - 512M reserved) / 512M per request), memory_limit 512M`.
 
-| Container memory | `PHP_MEMORY_LIMIT` | `OLS_PHP_CHILDREN` |
+| Container memory limit | `PHP_MEMORY_LIMIT` | Children |
 | --- | --- | --- |
-| 3 GiB | `256M` | `10` (default) |
-| 3 GiB | `512M` | `5` |
-| 6 GiB | `256M` | `22` |
-| 6 GiB | `512M` | `11` |
+| 3 GiB | `512M` (default) | 5 |
+| 3 GiB | `256M` | 10 |
+| 6 GiB | `512M` (default) | 11 |
 
-More children only help if the container also has the CPU to run them. Several children per core is normal, because WordPress requests spend much of their time waiting for the database and other services.
+Set `OLS_PHP_CHILDREN` only to override this, for example when Imagick-heavy requests need extra headroom (Imagick memory is not counted in `memory_limit`). More children only help if the container also has the CPU to run them; several children per core is normal, because WordPress requests spend much of their time waiting for the database.
+
+**`OLS_HTTPD_WORKERS`: keep it at `1` unless the container has well over 2 CPU cores.** OpenLiteSpeed's own default sizes the worker count from the CPU count of the *host*, not the container's CPU limit. Each worker keeps its own pool of connections to lsphp, and when the workers together hold more connections than there are PHP children, requests fail with `No request delivery notification has been received from LSAPI application`.
 
 **`OLS_PHP_KEEPALIVE_TIMEOUT`:** a short timeout frees children for other connections sooner. Raise it only if logs show PHP processes being started and stopped constantly under steady load.
 
-**WordPress can raise `memory_limit` itself.** `WP_MEMORY_LIMIT` (and `WP_MAX_MEMORY_LIMIT` in the admin) call `ini_set()` and raise the limit for the request if they are higher than `PHP_MEMORY_LIMIT`. If your application sets them, use them as `PHP_MEMORY_LIMIT` in the calculation above, or lower them.
-
-**Ini files in the scan directory win.** `PHP_MEMORY_LIMIT` is written to `mods-available/50-hbg-runtime.ini` in PHP's scan directory. A downstream image's own ini file that sorts after it (for example `zz-*.ini`) and sets `memory_limit` overrides it.
-
-### Examples
-
-Docker Compose:
-
-```yaml
-services:
-  municipio:
-    image: ghcr.io/municipio-se/municipio-deployment:latest
-    environment:
-      OLS_PHP_CHILDREN: "5"
-      PHP_MEMORY_LIMIT: 512M
-```
-
-Kubernetes, for a pod with 6 GiB of memory:
-
-```yaml
-resources:
-  requests:
-    cpu: 3000m
-    memory: 6144Mi
-  limits:
-    cpu: 3000m
-    memory: 6144Mi
-env:
-  - name: OLS_HTTPD_WORKERS
-    value: "1"
-  - name: OLS_PHP_CHILDREN
-    value: "22"
-  - name: PHP_MEMORY_LIMIT
-    value: 256M
-```
-
-Like all settings in this README, these are applied when the container starts (see [Custom startup scripts](#custom-startup-scripts)). Environment variables are not updated in a running pod, so restart it after changing them. To check what a running container uses:
+To check what a running container uses:
 
 ```bash
-docker exec my-app grep -E 'httpdWorkers|maxConns|PHP_LSAPI_CHILDREN|pcKeepAliveTimeout' /usr/local/lsws/conf/httpd_config.conf
-docker exec my-app sh -c 'cat /usr/local/lsws/lsphp*/etc/php/*/mods-available/50-hbg-runtime.ini'
+docker compose logs municipio | grep ols-hbg-configure
+docker compose exec municipio grep -E 'httpdWorkers|maxConns|PHP_LSAPI_CHILDREN|pcKeepAliveTimeout' /usr/local/lsws/conf/httpd_config.conf
 ```
 
-Changes from earlier versions: the `memory_limit` default was `1024M` before these variables were added, and `httpdWorkers` was sized from the host's CPU count.
+Environment variables are not updated in a running pod, so restart it after changing them.
 
 ## Environment variables for web PHP
 
-Web requests run in lsphp processes that OpenLiteSpeed starts with the environment in `httpd_config.conf`, not the container's environment. A variable set on the container is therefore invisible to `getenv()` in web PHP unless you list its name in `OLS_PHP_ENV_VARS` (comma or space separated):
+Web requests run in lsphp processes that OpenLiteSpeed starts with the environment in `httpd_config.conf`, not the container's environment. `ols-hbg-configure` writes these into it automatically:
 
-```yaml
-environment:
-  TIDEWAYS_APIKEY: ${TIDEWAYS_APIKEY:?Set TIDEWAYS_APIKEY}
-  MY_API_KEY: ${MY_API_KEY}
-  OLS_PHP_ENV_VARS: "TIDEWAYS_APIKEY,MY_API_KEY"
-```
+- every `WP_CONF_*` variable, which Municipio's WordPress config reads (see [`../config/env.php`](../config/env.php))
+- every `TIDEWAYS_*` variable, which the Tideways extension reads
 
-- The values are written to the lsphp block of `httpd_config.conf` on every start. A name removed from the list is removed from the config on the next start.
+To pass any other variable, list its name in `OLS_PHP_ENV_VARS` (comma or space separated).
+
+- Values are rewritten on every start. A variable that is removed, or a name removed from the list, disappears from the config on the next start.
 - Only the first line of a multi-line value is passed on, because a config line can't span lines.
-- An invalid name, or a name whose variable is not set, stops the container at startup. An empty value is allowed.
+- An invalid name in `OLS_PHP_ENV_VARS`, or a listed name whose variable is not set, stops the container at startup. An empty value is allowed.
 - `PHP_LSAPI_CHILDREN` can't be listed; use `OLS_PHP_CHILDREN`.
-- PHP CLI processes (`docker exec … php`, cron, startup scripts) already see the container's environment and don't need this.
-- Only list values that PHP should be able to read. Treat them as secrets: they end up in `httpd_config.conf`, and `phpinfo()` shows them, so don't expose `phpinfo()` publicly.
+- PHP CLI processes (WP-CLI, cron, `docker exec … php`) already see the container's environment.
+- Passed values end up in `httpd_config.conf` and in `phpinfo()`, so don't expose `phpinfo()` publicly.
 
 ## PHP ini settings
 
@@ -142,78 +103,36 @@ environment:
     upload_max_filesize=64M
 ```
 
-The directives are written to `mods-available/60-hbg-ini-settings.ini` in PHP's scan directory on every start, and the file is removed when the variable is empty. They apply to web requests and to PHP CLI processes started after the container's configuration step. Blank lines are ignored; any other line that isn't `name=value` stops the container at startup. Use `PHP_MEMORY_LIMIT` for `memory_limit`; setting it here is rejected so that the sizing rules in [Runtime tuning](#runtime-tuning) stay in one place.
+The directives are written to `mods-available/60-hbg-ini-settings.ini` in PHP's scan directory on every start, and the file is removed when the variable is empty. They apply to web requests and to PHP CLI processes started after the container's configuration step. Blank lines are ignored; any other line that isn't `name=value` stops the container at startup. Use `PHP_MEMORY_LIMIT` for `memory_limit`; setting it here is rejected because the number of PHP children is sized from it (see [Sizing](#sizing)).
 
-The file sorts after the image's own settings and before a downstream image's `zz-*.ini` files, which still win. Don't override `PHP_INI_SCAN_DIR`, which can exclude the scan directory.
+The file sorts after the image's own settings. Don't override `PHP_INI_SCAN_DIR`, which can exclude the scan directory.
 
 In Kubernetes, a multi-line value is easiest to manage as a Secret or ConfigMap key named `PHP_INI_SETTINGS`, loaded with `envFrom` (for example `kubectl create secret generic php-ini --from-file=PHP_INI_SETTINGS=./settings.ini`). A Secret mounted as a file does not become this environment variable. Restart the pod after changing it.
 
-## Custom startup scripts
+## PHP extensions
 
-All settings in this README (runtime tuning, `OLS_PHP_ENV_VARS`, `PHP_INI_SETTINGS` and `PHP_EXTENSIONS`) are applied by `/usr/local/bin/ols-hbg-configure`, which `/entrypoint.sh` runs before starting OpenLiteSpeed. Keep the base image's entrypoint, or end your own startup script with `exec /entrypoint.sh "$@"`. Both must run as root (the default), so don't add a `USER` before them.
+The image always loads the extensions Municipio needs: OPcache, cURL, Imagick, intl, MySQL, tidy and Tideways. There is no runtime toggle; to add or drop one, change the package list in [`templates/setup_ols.sh`](templates/setup_ols.sh).
 
-`ols-hbg-configure` is idempotent. If your startup script runs PHP before handing over to `/entrypoint.sh`, for example WP-CLI install steps, run it first so those steps see the same ini settings and extensions as web requests:
+### Tideways
 
-```bash
-#!/bin/bash
-set -euo pipefail
-ols-hbg-configure
-wp core is-installed --allow-root || wp core install --allow-root …
-exec /entrypoint.sh "$@"
-```
-
-## Optional PHP extensions
-
-Some PHP extensions are installed in the image but disabled by default, because not every consumer needs them. Enable them with the `PHP_EXTENSIONS` environment variable (comma or space separated). The image's entrypoint links them into PHP's config when the container starts.
-
-Currently available: `tidy`, `excimer` and `tideways`. The Municipio image sets `PHP_EXTENSIONS=tidy,tideways` in [`../Dockerfile`](../Dockerfile).
-
-### Enabling extensions
-
-1. **Set `PHP_EXTENSIONS` in `docker/Dockerfile`** (or per deployment, see below):
-
-   ```dockerfile
-   FROM ols AS runtime
-
-   ENV PHP_EXTENSIONS=tidy,excimer
-   ```
-
-2. **Keep the base image's entrypoint.** The extensions are enabled when the container starts; see [Custom startup scripts](#custom-startup-scripts) if you have your own.
-
-3. **Build and check** (runs only the configure step, so no database is needed):
-
-   ```bash
-   docker buildx bake municipio --load
-   docker run --rm --entrypoint sh municipio:local -c \
-     'ols-hbg-configure && /usr/local/lsws/lsphp*/bin/php -m | grep -Ei "^(tidy|excimer)$"'   # should print both names
-   ```
-
-### Using Tideways
-
-Tideways requires a separate [daemon](https://support.tideways.com/documentation/setup/installation/docker-with-compose.html) to send data to Tideways. Enable the extension in your application container and connect it to the daemon on a private container network:
+The Tideways extension is always loaded and does nothing until it has an API key. It also needs a separate [daemon](https://support.tideways.com/documentation/setup/installation/docker-with-compose.html) to send data to Tideways. Connect the two on a private container network:
 
 ```yaml
 services:
-   municipio:
-      image: ghcr.io/municipio-se/municipio-deployment:latest
-      environment:
-         PHP_EXTENSIONS: tideways
-         TIDEWAYS_APIKEY: ${TIDEWAYS_APIKEY:?Set TIDEWAYS_APIKEY}
-         TIDEWAYS_CONNECTION: tcp://tideways-daemon:9135
-         # Web PHP only sees variables listed here; see "Environment variables for web PHP".
-         OLS_PHP_ENV_VARS: TIDEWAYS_APIKEY,TIDEWAYS_CONNECTION
-      depends_on:
-         - tideways-daemon
+  municipio:
+    image: ghcr.io/municipio-se/municipio-deployment:latest
+    environment:
+      TIDEWAYS_APIKEY: ${TIDEWAYS_APIKEY:?Set TIDEWAYS_APIKEY}
+      TIDEWAYS_CONNECTION: tcp://tideways-daemon:9135
+    depends_on:
+      - tideways-daemon
 
-   tideways-daemon:
-      image: ghcr.io/tideways/daemon
+  tideways-daemon:
+    image: ghcr.io/tideways/daemon
 ```
 
-Supply `TIDEWAYS_APIKEY` from your deployment secrets at runtime, never in the Dockerfile. Set `TIDEWAYS_SERVICE` or `TIDEWAYS_TRACE_SAMPLE_RATE` in the app environment if needed, and add them to `OLS_PHP_ENV_VARS`. The daemon does not authenticate incoming connections, so do not publish its port or expose its network publicly. Check that the extension loads with `docker compose exec municipio php -m | grep -i tideways`; confirm that the web PHP process loads it and that traces reach your Tideways project with a real API key.
+`TIDEWAYS_*` variables reach web PHP automatically. Supply `TIDEWAYS_APIKEY` from your deployment secrets at runtime, never in the Dockerfile. The daemon does not authenticate incoming connections, so do not publish its port or expose its network publicly. `WP_CONF_EXTRA_TIDEWAYS_APIKEY` would define a WordPress constant instead, which the extension does not read.
 
-### Things to know
+## Startup order
 
-- **Runtime only:** extensions are enabled when the container starts, not during `docker build`. A `RUN php -m` or a `composer install` that checks for `ext-tidy`, `ext-excimer`, or `ext-tideways` during the build won't see them. For Composer, use `--ignore-platform-req=ext-<name>` in that step as needed.
-- **Changing it without a rebuild:** override the variable per deployment with `docker run -e PHP_EXTENSIONS=excimer …` or `env:` in Kubernetes. Setting it to empty disables the extensions again, because the links are rebuilt on every start.
-- **Spelling:** an unknown name stops the container at startup with an "Unknown optional PHP extension" error that lists the valid names. Check `docker logs` if the container exits immediately.
-- **Don't create the link yourself during the build:** the entrypoint deletes every link pointing to `mods-optional/` on startup, so a `RUN ln -s …` in your Dockerfile would be removed. Use the variable.
+`/usr/local/bin/ols-hbg-configure` applies everything in this README. Municipio's [`../setup/setup.py`](../setup/setup.py) runs it first, so WP-CLI install steps use the same PHP settings as web requests, and finally hands over to `/entrypoint.sh`, which runs it again (it is idempotent) and starts OpenLiteSpeed. Both must run as root.
