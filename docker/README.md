@@ -4,6 +4,17 @@ This directory builds a ready-to-run [Municipio](https://github.com/municipio-se
 
 On its first start, the container connects to the database, installs WordPress, and activates ACF Pro automatically. Later starts reuse the existing database and ensure that ACF Pro remains active.
 
+## How the image is built
+
+The image is built in two layers that are kept in separate directories, so it is always clear which part configures the server and which part configures Municipio:
+
+| Layer | Directory | What it contains |
+| --- | --- | --- |
+| Server (OpenLiteSpeed) | [`ols/`](ols/) | Ubuntu, OpenLiteSpeed, lsphp and its extensions, `php.ini` tuning, listener and vhost config, `/entrypoint.sh` and `ols-hbg-configure`. See the [OLS layer guide](ols/README.md) for its runtime variables (`OLS_PHP_CHILDREN`, `PHP_MEMORY_LIMIT`, `PHP_INI_SETTINGS`, `OLS_PHP_ENV_VARS`, `PHP_EXTENSIONS`). |
+| Application (Municipio) | this directory | [`Dockerfile`](Dockerfile), which builds Municipio with Composer and npm and adds WP-CLI, [`config/`](config/), [`htaccess/`](htaccess/) and the [`setup/`](setup/) startup script. |
+
+[`docker-bake.hcl`](../docker-bake.hcl) at the repository root connects them. Its `ols` target builds `docker/ols/`, and its `municipio` target receives that result as the named build context `ols` (`FROM ols AS runtime` in the Dockerfile). The result is **one** image. The server layer is built from source in the same build and is not published separately.
+
 ## Before you start
 
 You need:
@@ -19,16 +30,15 @@ export ACF_PRO_KEY="your-license-key"
 
 ## Building the image directly
 
-You can also build the image without Compose:
+You can also build the image without Compose, from the repository root:
 
 ```sh
-docker build \
-  --secret id=acf_pro_key,env=ACF_PRO_KEY \
-  -f docker/Dockerfile \
-  -t municipio:local .
+docker buildx bake --load
 ```
 
-The `acf_pro_key` secret is required for the build. It is mounted only while Composer installs the dependencies and is not retained in the resulting image.
+This builds the default `municipio` target (including the `ols` layer) and tags it `municipio:local`. Use `--set municipio.tags=<name>` to choose another tag. A plain `docker build -f docker/Dockerfile` no longer works on its own, because the `ols` build context comes from the bake file.
+
+The `acf_pro_key` secret (read from `ACF_PRO_KEY`) is required for the build. It is mounted only while Composer installs the dependencies and is not retained in the resulting image.
 
 The build context is the repository root, and the checked-out source is copied into the image. Check out the branch or tag you want to build before running the command.
 
@@ -118,7 +128,7 @@ docker compose -f docker/examples/docker-compose-base.yml down -v
 | `docker-compose-using-s3.yml` | Adds a MinIO service for S3-compatible media offloading and activates the `s3-uploads`/`s3-local-index` plugins. See the file's comments for the required `S3_UPLOADS_*` constants. |
 | `docker-compose-multisite-subfolder.yml` | Enables WordPress multisite (subfolder mode) and creates a `subsite` site on first start. |
 | `docker-compose-local-build.yml` | Builds the image from the current local source checkout. |
-| `common-services.yml` | Shared `database` and `redis` service definitions, extended by the other examples via `extends`. Not meant to be run on its own. |
+| `common-services.yml` | Shared `ols`, `database` and `redis` service definitions, extended by the other examples via `extends`. `ols` is build-only (profile `build-only`): it builds `docker/ols/` and is passed to `municipio` as the `ols` build context. Not meant to be run on its own. |
 
 ## Useful commands
 
@@ -161,7 +171,7 @@ Set these Actions secrets in the repository or an organization that grants acces
 | Secret | Purpose |
 | --- | --- |
 | `ACF_PRO_KEY` | Downloads Advanced Custom Fields Pro during the image build. |
-| `DOCKERHUB_USERNAME` | Authenticates to Docker Hub to pull the private OpenLiteSpeed base image. |
+| `DOCKERHUB_USERNAME` | Authenticates to Docker Hub when pulling public base images (Ubuntu, PHP, Node.js), to avoid anonymous rate limits. |
 | `DOCKERHUB_TOKEN` | Docker Hub access token for that login. |
 
 `GITHUB_TOKEN` is supplied by Actions. The workflows declare `contents: read` and `packages: write` to check out source and publish to GHCR. Set the published package's visibility so target environments can pull it. Release-candidate builds skip pull requests from forks, so forked repositories must create eligible PRs within the fork.

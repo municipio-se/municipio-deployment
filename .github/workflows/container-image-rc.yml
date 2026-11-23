@@ -97,33 +97,43 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set platform slug
+        env:
+          PLATFORM: ${{ matrix.platform }}
+        run: echo "platform_slug=${PLATFORM//\//-}" >> "$GITHUB_ENV"
+
+      # docker-bake.hcl builds the OpenLiteSpeed layer (docker/ols) and the
+      # Municipio layer (docker/Dockerfile) together; only the final municipio
+      # image is pushed. The slow ols layer is cached per platform.
       - name: Build and push image
         id: build
-        uses: docker/build-push-action@v7
+        uses: docker/bake-action@v7
+        env:
+          ACF_PRO_KEY: ${{ secrets.ACF_PRO_KEY }}
         with:
-          context: .
-          file: docker/Dockerfile
-          platforms: ${{ matrix.platform }}
-          outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=true
-          labels: |
-            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
-            org.opencontainers.image.version=${{ needs.prepare.outputs.version }}
-            org.opencontainers.image.revision=${{ needs.prepare.outputs.head_sha }}
-            municipio-se.source-ref=${{ needs.prepare.outputs.head_sha }}
-            municipio-se.rc=${{ needs.prepare.outputs.rc }}
-            municipio-se.pr=${{ github.event.pull_request.number }}
-            municipio-se.run=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          secrets: |
-            "acf_pro_key=${{ secrets.ACF_PRO_KEY }}"
+          source: .
+          targets: municipio
+          set: |
+            *.platform=${{ matrix.platform }}
+            municipio.tags=
+            municipio.output=type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=true
+            municipio.labels.org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            municipio.labels.org.opencontainers.image.version=${{ needs.prepare.outputs.version }}
+            municipio.labels.org.opencontainers.image.revision=${{ needs.prepare.outputs.head_sha }}
+            municipio.labels.municipio-se.source-ref=${{ needs.prepare.outputs.head_sha }}
+            municipio.labels.municipio-se.rc=${{ needs.prepare.outputs.rc }}
+            municipio.labels.municipio-se.pr=${{ github.event.pull_request.number }}
+            municipio.labels.municipio-se.run=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            ols.cache-from=type=gha,scope=ols-${{ env.platform_slug }}
+            ols.cache-to=type=gha,mode=max,scope=ols-${{ env.platform_slug }}
 
       - name: Export image digest
         env:
-          DIGEST: ${{ steps.build.outputs.digest }}
-          PLATFORM: ${{ matrix.platform }}
+          METADATA: ${{ steps.build.outputs.metadata }}
         run: |
+          DIGEST="$(jq -er '.municipio["containerimage.digest"]' <<< "$METADATA")"
           mkdir -p "$RUNNER_TEMP/digests"
           touch "$RUNNER_TEMP/digests/${DIGEST#sha256:}"
-          echo "platform_slug=${PLATFORM//\//-}" >> "$GITHUB_ENV"
 
       - name: Upload image digest
         uses: actions/upload-artifact@v7

@@ -46,7 +46,10 @@ RUN --mount=type=secret,id=acf_pro_key,required=true \
 
 # Start from a clean copy of the runtime image so build tools and package
 # manager caches do not become part of the deployed image.
-FROM ghcr.io/helsingborg-stad/ols-docker-hbg:0.1.2-php8.3 AS runtime
+# "ols" is the OpenLiteSpeed + PHP server layer built from docker/ols/. It is
+# supplied as a named build context by docker-bake.hcl, so build this file
+# with `docker buildx bake` rather than plain `docker build`.
+FROM ols AS runtime
 
 ENV PHP_EXTENSIONS=tidy,tideways
 

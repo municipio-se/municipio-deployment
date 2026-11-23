@@ -1,4 +1,15 @@
 services:
+  # OpenLiteSpeed + PHP server layer from docker/ols. Build-only: the profile
+  # keeps it from starting a container; municipio uses it as the named build
+  # context "ols". Keep args in sync with the "ols" target in docker-bake.hcl.
+  ols:
+    build:
+      context: ../ols
+      args:
+        OLS_VERSION: 1.8.5
+        PHP_VERSION: lsphp83
+    profiles: [build-only]
+
   redis:
     # image: redis:latest
     image: valkey/valkey:9.1.2
