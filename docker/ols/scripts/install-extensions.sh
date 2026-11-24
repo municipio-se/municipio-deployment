@@ -38,7 +38,7 @@ fi
 cat >> "$php_ini" <<'INI'
 
 ; --- Municipio overrides ---
-; memory_limit is set at runtime from PHP_MEMORY_LIMIT (see configure.sh).
+; memory_limit is set at runtime from PHP_MEMORY_LIMIT (see configure-runtime.sh).
 upload_max_filesize = 1024M
 post_max_size = 1024M
 max_execution_time = 300
@@ -50,8 +50,8 @@ opcache.interned_strings_buffer = 16
 INI
 
 # Build-time default for PHP_MEMORY_LIMIT, so `RUN php ...` in the Municipio
-# build sees the same limit. configure.sh rewrites this file on every start;
-# keep the file name and default in sync with configure.sh.
+# build sees the same limit. configure-runtime.sh rewrites this file on every start;
+# keep the file name and default in sync with configure-runtime.sh.
 php_etc=${php_ini%/litespeed/php.ini}
 printf 'memory_limit = 512M\n' > "$php_etc/mods-available/50-hbg-runtime.ini"
 

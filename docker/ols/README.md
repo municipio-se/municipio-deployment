@@ -9,7 +9,7 @@ The OLS and PHP base image is pinned by version and multi-architecture digest in
 | Part | Directory | Contents |
 | --- | --- | --- |
 | Server layer | `docker/ols/` | The official OpenLiteSpeed/lsphp base plus Municipio-specific packages, `php.ini` tuning, listener/vhost config, `/entrypoint.sh` and `ols-hbg-configure` |
-| Application layer | `docker/` | Municipio build (Composer, npm), WP-CLI, WordPress config, the per-site-type `.htaccess` files and the `setup.py` startup script |
+| Application layer | `docker/wordpress/` | WordPress config, per-site-type `.htaccess` files and startup scripts; the Dockerfile builds Municipio and adds WP-CLI |
 
 [`docker/Dockerfile`](../Dockerfile) builds both. Its first stage, `ols`, starts from the pinned LiteSpeed image and runs the scripts in this directory; the final stage starts `FROM ols`.
 
@@ -22,13 +22,13 @@ From the repository root:
 docker build --target ols -f docker/Dockerfile -t municipio-ols:local .
 
 # Smoke test: runtime tuning defaults, overrides, restarts and validation.
-docker/ols/tests/smoke.sh municipio-ols:local
+docker/tests/ols_smoke.sh municipio-ols:local
 
 # Build the full Municipio image (OLS layer included).
 docker build --secret id=acf_pro_key,env=ACF_PRO_KEY -f docker/Dockerfile -t municipio:local .
 ```
 
-A healthy empty OLS layer answers `404` with `Server: LiteSpeed` on port 80. The site is served from `/var/www/vhosts/localhost/html/`, with `.htaccess` rewrites enabled. The base image version and digest are pinned in the Dockerfile; `setup_ols.sh` adds only what Municipio needs beyond that image.
+A healthy empty OLS layer answers `404` with `Server: LiteSpeed` on port 80. The site is served from `/var/www/vhosts/localhost/html/`, with `.htaccess` rewrites enabled. The base image version and digest are pinned in the Dockerfile; `install-extensions.sh` adds only what Municipio needs beyond that image.
 
 The pinned base image currently provides OpenLiteSpeed 1.9.4 and lsphp83 on Ubuntu 26.04 for both amd64 and arm64. To update either, select and verify a new vendor tag and multi-architecture digest in the Dockerfile.
 
@@ -43,7 +43,7 @@ OpenLiteSpeed and PHP are sized for Municipio on every container start. Normally
 
 | Variable | Default | Sets | What it controls |
 | --- | --- | --- | --- |
-| `PHP_MEMORY_LIMIT` | `512M` | PHP `memory_limit` | Maximum memory one PHP request may use. Accepts PHP sizes such as `512M`, `1G`, or `-1` (no limit). Municipio's `WP_MEMORY_LIMIT` follows it ([`../config/memory.php`](../config/memory.php)). |
+| `PHP_MEMORY_LIMIT` | `512M` | PHP `memory_limit` | Maximum memory one PHP request may use. Accepts PHP sizes such as `512M`, `1G`, or `-1` (no limit). Municipio's `WP_MEMORY_LIMIT` follows it ([`../wordpress/config/memory.php`](../wordpress/config/memory.php)). |
 | `OLS_PHP_CHILDREN` | automatic | lsphp `maxConns` and `PHP_LSAPI_CHILDREN` (always equal) | Maximum number of PHP requests handled at the same time; further requests wait in a queue. |
 | `OLS_PHP_KEEPALIVE_TIMEOUT` | `5` | lsphp `pcKeepAliveTimeout`, in seconds | How long an idle connection from OpenLiteSpeed keeps a PHP child reserved. |
 
@@ -82,7 +82,7 @@ Environment variables are not updated in a running pod, so restart it after chan
 
 Web requests run in lsphp processes that OpenLiteSpeed starts with the environment in `httpd_config.conf`. That environment is visible to `getenv()`, `$_SERVER`, `phpinfo()`, error trackers and child processes, so `ols-hbg-configure` deliberately passes **no** container variables into it.
 
-- **WordPress settings (`WP_CONF_*`):** Municipio's [`../setup/setup.py`](../setup/setup.py) writes these to `/var/www/vhosts/localhost/wp-conf.php` on every start. The file is outside the web root, mode `0400`, owned by the site user, and read by [`../config/env.php`](../config/env.php).
+- **WordPress settings (`WP_CONF_*`):** Municipio's [`../wordpress/setup/setup.py`](../wordpress/setup/setup.py) writes these to `/var/www/vhosts/localhost/wp-conf.php` on every start. The file is outside the web root, mode `0400`, owned by the site user, and read by [`../wordpress/config/env.php`](../wordpress/config/env.php).
 - **Tideways:** see [Tideways](#tideways); its variables become ini settings.
 - **Anything else PHP needs:** use `PHP_INI_SETTINGS`, or `WP_CONF_EXTRA_<NAME>` for a WordPress constant.
 
@@ -107,7 +107,7 @@ In Kubernetes, a multi-line value is easiest to manage as a Secret or ConfigMap 
 
 ## PHP extensions
 
-The image always loads the extensions Municipio needs: OPcache, cURL, Imagick, intl, MySQL, tidy and Tideways. The base image provides the common extensions; [`templates/setup_ols.sh`](templates/setup_ols.sh) adds Tidy and Tideways. There is no runtime toggle.
+The image always loads the extensions Municipio needs: OPcache, cURL, Imagick, intl, MySQL, tidy and Tideways. The base image provides the common extensions; [`scripts/install-extensions.sh`](scripts/install-extensions.sh) adds Tidy and Tideways. There is no runtime toggle.
 
 ### Tideways
 
@@ -132,11 +132,11 @@ services:
 
 ## Startup order
 
-`/usr/local/bin/ols-hbg-configure` applies everything in this README, including restoring empty server and admin config volumes from the snapshots in the image. Municipio's [`../setup/setup.py`](../setup/setup.py) runs it first, so WP-CLI install steps use the same PHP settings as web requests, and finally hands over to the Municipio `/entrypoint.sh` with `OLS_HBG_CONFIGURED=1`, which starts OpenLiteSpeed and streams its logs without configuring again. Run on its own (e.g. the `ols` stage alone), `/entrypoint.sh` runs `ols-hbg-configure` itself. Both must run as root.
+`/usr/local/bin/ols-hbg-configure` applies everything in this README, including restoring empty server and admin config volumes from the snapshots in the image. Municipio's [`../wordpress/setup/setup.py`](../wordpress/setup/setup.py) runs it first, so WP-CLI install steps use the same PHP settings as web requests, and finally hands over to the Municipio `/entrypoint.sh` with `OLS_HBG_CONFIGURED=1`, which starts OpenLiteSpeed and streams its logs without configuring again. Run on its own (e.g. the `ols` stage alone), `/entrypoint.sh` runs `ols-hbg-configure` itself. Both must run as root.
 
 ## Rewrites, headers and caching
 
-OpenLiteSpeed only reads rewrite rules from `.htaccess` (and only when the server starts); Apache directives such as `Header`, `FilesMatch`/`Deny`, `ExpiresByType`, `ErrorDocument` and `SetEnv` are silently ignored there. So [`templates/docker.conf`](templates/docker.conf) holds everything that is the same for every site type:
+OpenLiteSpeed only reads rewrite rules from `.htaccess` (and only when the server starts); Apache directives such as `Header`, `FilesMatch`/`Deny`, `ExpiresByType`, `ErrorDocument` and `SetEnv` are silently ignored there. So [`config/vhost.conf`](config/vhost.conf) holds everything that is the same for every site type:
 
 - the LiteSpeed Cache plugin's rules (`CacheLookup`, `CacheKeyModify` for tracking parameters, no-cache flags), which the plugin would otherwise write to `.htaccess`
 - site-level rewrite rules, which run before `.htaccess`: `www.` removal, a trailing slash on page URLs, blocked `xmlrpc.php`/`wp-trackback.php`/`wp-signup.php`, hidden `?author=` pages, the `Authorization` header passed to PHP
@@ -144,7 +144,7 @@ OpenLiteSpeed only reads rewrite rules from `.htaccess` (and only when the serve
 - browser cache lifetimes (`expiresByType`)
 - WordPress's 404 page for missing files (`errorPage 404`)
 
-The document root's `.htaccess` only adds what differs per site type, copied from [`../htaccess/`](../htaccess/) at startup. [`../tests/htaccess_routing.sh`](../tests/htaccess_routing.sh) checks the routing, headers and caching of all three site types against a mock document root.
+The document root's `.htaccess` only adds what differs per site type, copied from [`../wordpress/htaccess/`](../wordpress/htaccess/) at startup. [`../tests/htaccess_routing.sh`](../tests/htaccess_routing.sh) checks the routing, headers and caching of all three site types against a mock document root.
 
 ## Logs
 

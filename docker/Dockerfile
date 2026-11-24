@@ -4,8 +4,7 @@
 #   docker build --secret id=acf_pro_key,env=ACF_PRO_KEY -f docker/Dockerfile -t municipio:local .
 #
 # Stages:
-#   ols      OpenLiteSpeed + lsphp server layer. All its scripts, templates,
-#            tests and docs live in docker/ols/; this stage only runs them.
+#   ols      OpenLiteSpeed + lsphp server layer; configuration lives in docker/ols/.
 #   node     Node.js binaries for the builder.
 #   builder  Builds Municipio with Composer and npm.
 #   runtime  The final image: the ols stage plus the built Municipio.
@@ -18,21 +17,21 @@ ARG PHP_VERSION=lsphp83
 
 # The vendor image provides OpenLiteSpeed, lsphp, and the common PHP extensions.
 # Add only Municipio-specific packages and PHP configuration.
-RUN --mount=type=bind,source=docker/ols/templates/setup_ols.sh,target=setup_ols.sh <<EOT
+RUN --mount=type=bind,source=docker/ols/scripts/install-extensions.sh,target=install-extensions.sh <<EOT
   set -eu
-  ./setup_ols.sh
+  ./install-extensions.sh
 EOT
 
 # Vhost template lives in the image (referenced by httpd_config.conf at runtime).
-COPY docker/ols/templates/docker.conf $LS_FD/conf/templates/docker.conf
-COPY --chmod=755 docker/ols/templates/entrypoint.sh /entrypoint.sh
-COPY --chmod=755 docker/ols/templates/configure.sh /usr/local/bin/ols-hbg-configure
+COPY docker/ols/config/vhost.conf $LS_FD/conf/templates/docker.conf
+COPY --chmod=755 docker/ols/scripts/entrypoint.sh /entrypoint.sh
+COPY --chmod=755 docker/ols/scripts/configure-runtime.sh /usr/local/bin/ols-hbg-configure
 
 # Configure the Municipio listener/vhost and snapshot server config for
 # empty-volume hydration.
-RUN --mount=type=bind,source=docker/ols/templates/setup_docker.sh,target=setup_docker.sh <<EOT
+RUN --mount=type=bind,source=docker/ols/scripts/configure-listener.sh,target=configure-listener.sh <<EOT
   set -eu
-  ./setup_docker.sh
+  ./configure-listener.sh
   chown -R lsadm:lsadm $LS_FD/conf
   cp -RP $LS_FD/conf/. $LS_FD/.conf/
 EOT
@@ -101,9 +100,9 @@ WORKDIR /var/www/vhosts/localhost/html
 COPY --from=builder /usr/local/bin/wp /usr/local/bin/wp
 COPY --from=builder --chown=1000:1000 /var/www/vhosts/localhost/html/ ./
 
-COPY --chown=1000:1000 --chmod=755 docker/htaccess ./htaccess
-COPY --chown=1000:1000 --chmod=755 docker/config ./config
-COPY --chown=1000:1000 --chmod=755 docker/setup ./setup
+COPY --chown=1000:1000 --chmod=755 docker/wordpress/htaccess ./htaccess
+COPY --chown=1000:1000 --chmod=755 docker/wordpress/config ./config
+COPY --chown=1000:1000 --chmod=755 docker/wordpress/setup ./setup
 
 RUN mkdir -p wp-content/uploads/cache/blade-cache && \
     chown 1000:1000 wp-content/uploads wp-content/uploads/cache wp-content/uploads/cache/blade-cache

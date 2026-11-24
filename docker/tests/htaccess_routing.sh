@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Routing test for the .htaccess flavors in docker/htaccess/ together with the
+# Routing test for the .htaccess flavors in docker/wordpress/htaccess/ together with the
 # OpenLiteSpeed site config from the ols stage (shared rewrite rules,
 # LiteSpeed Cache rules, headers, cache lifetimes, 404 page). Runs each flavor against a mock document root laid out like the
 # image: core in wp/, wp-content/ and the wp-admin/ + wp-login.php redirect
@@ -14,7 +14,7 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 readonly IMAGE=$1
-readonly HTACCESS_DIR=$(cd "$(dirname "$0")/../htaccess" && pwd)
+readonly HTACCESS_DIR=$(cd "$(dirname "$0")/../wordpress/htaccess" && pwd)
 readonly NAME=htaccess-routing-$$
 
 failures=0

@@ -15,7 +15,7 @@ readonly OLS_CONF=$LSWS_CONF/httpd_config.conf
 # Names forwarded to lsphp by earlier versions of this script, so their env
 # lines are removed from a persisted conf volume.
 readonly ENV_VARS_STATE=$LSWS_CONF/.hbg-php-env-vars
-# Also created at build time by setup_ols.sh; keep the names in sync.
+# Also created at build time by install-extensions.sh; keep the names in sync.
 readonly PHP_RUNTIME_INI=50-hbg-runtime.ini
 readonly PHP_SETTINGS_INI=60-hbg-ini-settings.ini
 readonly TIDEWAYS_SETTINGS_INI=70-hbg-tideways.ini
@@ -111,8 +111,8 @@ echo "ols-hbg-configure: $ols_php_children PHP children ($children_reason), memo
 
 # Web PHP gets no container variables: lsphp's environment would expose them
 # through getenv(), $_SERVER and phpinfo(). Municipio's WP_CONF_* settings
-# reach WordPress through a generated PHP file instead (docker/setup/setup.py,
-# read by docker/config/env.php). Env lines forwarded by earlier versions are
+# reach WordPress through a generated PHP file instead (docker/wordpress/setup/setup.py,
+# read by docker/wordpress/config/env.php). Env lines forwarded by earlier versions are
 # removed below.
 env_names=()
 env_lines=""

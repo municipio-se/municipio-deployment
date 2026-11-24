@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Smoke test for a built image: runtime tuning defaults, overrides, restarts
 # and validation.
-#   tests/smoke.sh ghcr.io/helsingborg-stad/ols-docker-hbg:test-php8.4
+#   docker/tests/ols_smoke.sh municipio-ols:local
 set -euo pipefail
 
 if [ "$#" -ne 1 ]; then

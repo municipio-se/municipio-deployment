@@ -11,9 +11,14 @@ The image is built in two layers that are kept in separate directories, so it is
 | Layer | Directory | What it contains |
 | --- | --- | --- |
 | Server (OpenLiteSpeed) | [`ols/`](ols/), built by the `ols` stage of [`Dockerfile`](Dockerfile) | LiteSpeed's version- and digest-pinned OpenLiteSpeed/lsphp image plus Municipio-specific PHP extensions, `php.ini` tuning, listener and vhost config, `/entrypoint.sh` and `ols-hbg-configure`. Its runtime settings are summarised under [Common settings](#common-settings) and detailed in the [OLS layer guide](ols/README.md). |
-| Application (Municipio) | this directory | The `builder` and `runtime` stages of [`Dockerfile`](Dockerfile), which build Municipio with Composer and npm and adds WP-CLI, [`config/`](config/), [`htaccess/`](htaccess/) and the [`setup/`](setup/) startup script. |
+| Application (Municipio) | [`wordpress/`](wordpress/) | WordPress configuration, site-type rewrite rules and startup scripts. The `builder` and `runtime` stages of [`Dockerfile`](Dockerfile) build Municipio and add these files. |
 
 One Dockerfile builds both into **one** image: its `ols` stage extends the pinned official image with the scripts in `docker/ols/`, and the final stage starts `FROM ols`. The configured server layer is not published separately. All Municipio-specific server logic stays in `docker/ols/`.
+
+The other directories are [`examples/`](examples/) for Compose deployments,
+[`tests/`](tests/) for container and startup checks, and [`scripts/`](scripts/)
+for release tooling. Inside [`ols/`](ols/), `config/` contains the vhost
+template and `scripts/` contains the server build and startup scripts.
 
 ## Before you start
 
@@ -74,13 +79,13 @@ The database and admin values are only used to perform the initial installation.
 
 The image ships fixed web server rules; nothing is generated or edited at runtime.
 
-- **Shared by every site type**, in OpenLiteSpeed's site config [`ols/templates/docker.conf`](ols/templates/docker.conf):
+- **Shared by every site type**, in OpenLiteSpeed's site config [`ols/config/vhost.conf`](ols/config/vhost.conf):
   - the LiteSpeed Cache plugin's rules (page cache lookup, tracking parameters left out of the cache key); they have no effect until the plugin is activated
   - rewrites: `www.` removal, a trailing slash on page URLs, blocking `xmlrpc.php`, `wp-trackback.php` and `wp-signup.php`, hiding `?author=` pages, and passing the `Authorization` header to PHP
   - response headers: HSTS, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, and `Access-Control-Allow-Origin: *` on static assets
   - one-year browser cache lifetimes for media, scripts, styles and fonts
   - WordPress's 404 page for missing files
-- **Per site type**, in [`htaccess/`](htaccess/): `single-site.htaccess`, `multisite-subdomain.htaccess` and `multisite-subfolder.htaccess`. Each holds only the WordPress routing for that site type.
+- **Per site type**, in [`wordpress/htaccess/`](wordpress/htaccess/): `single-site.htaccess`, `multisite-subdomain.htaccess` and `multisite-subfolder.htaccess`. Each holds only the WordPress routing for that site type.
 
 On every start, the file matching `WP_CONF_WP_ALLOW_MULTISITE` and `WP_CONF_SUBDOMAIN_INSTALL` is copied over the document root's `.htaccess`, owned by root and read-only for WordPress. Edits made inside the container, by hand or by a plugin, are replaced on the next start; change the files in the repository instead. OpenLiteSpeed only reads rewrite rules from `.htaccess`, and only when the server starts, which is why headers and the like live in the server config.
 
@@ -101,7 +106,7 @@ The chosen values are logged at startup. OpenLiteSpeed uses one worker; see the 
 
 tidy, Tideways, Imagick, intl, cURL, MySQL and OPcache are always enabled.
 
-`WP_CONF_*` variables reach WordPress through a file, not through the web server's environment. On every start, the container writes them to `/var/www/vhosts/localhost/wp-conf.php`. That file is outside the web root, readable only by the site user, and read by [`config/env.php`](config/env.php). The values are therefore never in `getenv()`, `$_SERVER` or `phpinfo()`, nor in the environment of processes PHP starts. Set `WP_CONF_*` as environment variables as usual; nothing has to be mounted.
+`WP_CONF_*` variables reach WordPress through a file, not through the web server's environment. On every start, the container writes them to `/var/www/vhosts/localhost/wp-conf.php`. That file is outside the web root, readable only by the site user, and read by [`wordpress/config/env.php`](wordpress/config/env.php). The values are therefore never in `getenv()`, `$_SERVER` or `phpinfo()`, nor in the environment of processes PHP starts. Set `WP_CONF_*` as environment variables as usual; nothing has to be mounted.
 
 Other container variables are not passed to web PHP at all. Tideways is configured with its usual variables, which the server turns into the extension's ini settings:
 
