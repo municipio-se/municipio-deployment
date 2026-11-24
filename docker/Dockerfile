@@ -4,48 +4,36 @@
 #   docker build --secret id=acf_pro_key,env=ACF_PRO_KEY -f docker/Dockerfile -t municipio:local .
 #
 # Stages:
-#   ols      OpenLiteSpeed + lsphp server layer. All its scripts, templates,
-#            tests and docs live in docker/ols/; this stage only runs them.
+#   ols      OpenLiteSpeed + lsphp server layer; configuration lives in docker/ols/.
 #   node     Node.js binaries for the builder.
 #   builder  Builds Municipio with Composer and npm.
 #   runtime  The final image: the ols stage plus the built Municipio.
 
 # --- OpenLiteSpeed server layer (docker/ols/) -------------------------------
-FROM ubuntu:24.04 AS ols
+ARG OLS_IMAGE=litespeedtech/openlitespeed:1.9.4-lsphp83@sha256:628ae67acd413213d28bfa553bd333e1bd2f655aad0919a2f000eb16103dda83
+FROM ${OLS_IMAGE} AS ols
 
-ARG OLS_VERSION=1.8.5
 ARG PHP_VERSION=lsphp83
-# TARGETARCH is auto-populated by BuildKit (e.g. amd64, arm64).
-ARG TARGETARCH
 
-ENV PATH="/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin"
-ENV LS_FD="/usr/local/lsws"
-
-# OpenLiteSpeed + PHP
-RUN --mount=type=bind,source=docker/ols/templates/setup_ols.sh,target=setup_ols.sh <<EOT
+# The vendor image provides OpenLiteSpeed, lsphp, and the common PHP extensions.
+# Add only Municipio-specific packages and PHP configuration.
+RUN --mount=type=bind,source=docker/ols/scripts/install-extensions.sh,target=install-extensions.sh <<EOT
   set -eu
-  case "$TARGETARCH" in
-    arm64) PLATFORM=aarch64-linux ;;
-    amd64) PLATFORM=x86_64-linux ;;
-    *) echo "Unsupported TARGETARCH: ${TARGETARCH:-<unset>}" >&2; exit 1 ;;
-  esac
-  export PLATFORM
-  ./setup_ols.sh
+  ./install-extensions.sh
 EOT
 
 # Vhost template lives in the image (referenced by httpd_config.conf at runtime).
-COPY docker/ols/templates/docker.conf $LS_FD/conf/templates/docker.conf
-COPY --chmod=755 docker/ols/templates/entrypoint.sh /entrypoint.sh
-COPY --chmod=755 docker/ols/templates/configure.sh /usr/local/bin/ols-hbg-configure
+COPY docker/ols/config/vhost.conf $LS_FD/conf/templates/docker.conf
+COPY --chmod=755 docker/ols/scripts/entrypoint.sh /entrypoint.sh
+COPY --chmod=755 docker/ols/scripts/configure-runtime.sh /usr/local/bin/ols-hbg-configure
 
-# Configure the listener/vhost and snapshot conf for empty-volume hydration.
-RUN --mount=type=bind,source=docker/ols/templates/setup_docker.sh,target=setup_docker.sh <<EOT
+# Configure the Municipio listener/vhost and snapshot server config for
+# empty-volume hydration.
+RUN --mount=type=bind,source=docker/ols/scripts/configure-listener.sh,target=configure-listener.sh <<EOT
   set -eu
-  touch $LS_FD/admin/conf/htpasswd
-  ./setup_docker.sh
-  chown -R 994:994 $LS_FD/conf
-  cp -RP $LS_FD/conf/ $LS_FD/.conf/
-  cp -RP $LS_FD/admin/conf $LS_FD/admin/.conf
+  ./configure-listener.sh
+  chown -R lsadm:lsadm $LS_FD/conf
+  cp -RP $LS_FD/conf/. $LS_FD/.conf/
 EOT
 
 EXPOSE 80
@@ -112,12 +100,12 @@ WORKDIR /var/www/vhosts/localhost/html
 COPY --from=builder /usr/local/bin/wp /usr/local/bin/wp
 COPY --from=builder --chown=1000:1000 /var/www/vhosts/localhost/html/ ./
 
-COPY --chown=1000:1000 --chmod=755 docker/htaccess ./htaccess
-COPY --chown=1000:1000 --chmod=755 docker/config ./config
-COPY --chown=1000:1000 --chmod=755 docker/setup ./setup
+COPY --chown=1000:1000 --chmod=755 docker/wordpress/htaccess ./htaccess
+COPY --chown=1000:1000 --chmod=755 docker/wordpress/config ./config
+COPY --chown=1000:1000 --chmod=755 docker/wordpress/setup ./setup
 
 RUN mkdir -p wp-content/uploads/cache/blade-cache && \
-    chown 1000:1000 wp-content/uploads/cache/blade-cache
+    chown 1000:1000 wp-content/uploads wp-content/uploads/cache wp-content/uploads/cache/blade-cache
 
 EXPOSE 80
 

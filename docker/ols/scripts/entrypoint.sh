@@ -5,7 +5,7 @@ readonly LSWS_CTRL=/usr/local/lsws/bin/lswsctrl
 readonly LSWS_PID=/tmp/lshttpd/lshttpd.pid
 readonly LSWS_LOGS=/usr/local/lsws/logs
 
-# Conf hydration, sizing, ini and Tideways settings. See templates/configure.sh.
+# Conf hydration, sizing, ini and Tideways settings. See configure-runtime.sh.
 # Municipio's setup.py has already run it moments before and says so with
 # OLS_HBG_CONFIGURED, so it isn't applied (and logged) twice.
 if [ "${OLS_HBG_CONFIGURED:-}" != 1 ]; then

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Smoke test for a built image: runtime tuning defaults, overrides, restarts
 # and validation.
-#   tests/smoke.sh ghcr.io/helsingborg-stad/ols-docker-hbg:test-php8.4
+#   docker/tests/ols_smoke.sh municipio-ols:local
 set -euo pipefail
 
 if [ "$#" -ne 1 ]; then
@@ -72,14 +72,42 @@ expect_settings() {
   if [ "$actual" = "$memory" ]; then pass "$label memory_limit"; else fail "$label memory_limit: expected $memory, got $actual"; fi
 }
 
+expect_admin_disabled() {
+  expect_conf "$1 WebAdmin disabled" "^disableWebAdmin +1$" 1
+  expect_conf "$1 single WebAdmin setting" "^[[:space:]]*disableWebAdmin" 1
+  if docker exec "$NAME" sh -c '
+    for host in 127.0.0.1 "$(hostname -i | awk "{print \$1}")"; do
+      status=0
+      curl -ks --noproxy "*" --connect-timeout 2 --max-time 3 "https://$host:7080/" >/dev/null || status=$?
+      [ "$status" -eq 7 ] || { echo "WebAdmin check for $host returned curl status $status" >&2; exit 1; }
+    done'; then
+    pass "$1 WebAdmin port refuses connections"
+  else
+    fail "$1 WebAdmin port did not refuse connections"
+  fi
+}
+
 echo "== defaults (no container memory limit)"
 start
 expect_settings 1 10 5 512M defaults
+expect_admin_disabled defaults
 
 echo "== defaults after restart"
 docker restart "$NAME" >/dev/null
 sleep 3
 expect_settings 1 10 5 512M restart
+expect_admin_disabled restart
+docker exec "$NAME" sed -i 's/^disableWebAdmin .*/disableWebAdmin 0/' "$CONF"
+docker restart "$NAME" >/dev/null
+sleep 3
+expect_admin_disabled "persisted config after restart"
+
+echo "== empty server and admin config volumes are hydrated"
+start --tmpfs /usr/local/lsws/conf --tmpfs /usr/local/lsws/admin/conf
+expect_settings 1 10 5 512M "empty config volumes"
+docker exec "$NAME" test -f /usr/local/lsws/conf/templates/docker.conf
+docker exec "$NAME" sh -c 'test -n "$(ls -A /usr/local/lsws/admin/conf)"'
+expect_admin_disabled "empty config volumes"
 
 echo "== children follow the container memory limit"
 # (3072M - 512M reserved) / 512M = 5
@@ -93,8 +121,8 @@ start --memory 600m
 expect_settings 1 1 5 512M "600m limit"
 
 echo "== overrides"
-start --memory 3g -e OLS_HTTPD_WORKERS=2 -e OLS_PHP_CHILDREN=6 -e OLS_PHP_KEEPALIVE_TIMEOUT=30 -e PHP_MEMORY_LIMIT=1G
-expect_settings 2 6 30 1G overrides
+start --memory 3g -e OLS_PHP_CHILDREN=6 -e OLS_PHP_KEEPALIVE_TIMEOUT=30 -e PHP_MEMORY_LIMIT=1G
+expect_settings 1 6 30 1G overrides
 
 echo "== extensions are always loaded"
 for ext in tidy tideways; do
@@ -134,7 +162,6 @@ fi
 echo "== invalid values stop startup"
 # <variable=value>|<expected message fragment>
 for case in \
-  "OLS_HTTPD_WORKERS=0|OLS_HTTPD_WORKERS must be" \
   "OLS_PHP_CHILDREN=two|OLS_PHP_CHILDREN must be" \
   "OLS_PHP_KEEPALIVE_TIMEOUT=-1|OLS_PHP_KEEPALIVE_TIMEOUT must be" \
   "PHP_MEMORY_LIMIT=lots|PHP_MEMORY_LIMIT must be" \

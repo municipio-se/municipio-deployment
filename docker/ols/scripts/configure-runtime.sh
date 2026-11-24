@@ -8,17 +8,14 @@
 # idempotent. Must run as root.
 set -euo pipefail
 
-# 994 = lsadm, created by the OLS install script.
-readonly LSADM_UID=994
-readonly LSADM_GID=994
-
 readonly LSWS_DIR=/usr/local/lsws
 readonly LSWS_CONF=$LSWS_DIR/conf
+readonly LSWS_ADMIN_CONF=$LSWS_DIR/admin/conf
 readonly OLS_CONF=$LSWS_CONF/httpd_config.conf
 # Names forwarded to lsphp by earlier versions of this script, so their env
 # lines are removed from a persisted conf volume.
 readonly ENV_VARS_STATE=$LSWS_CONF/.hbg-php-env-vars
-# Also created at build time by setup_ols.sh; keep the names in sync.
+# Also created at build time by install-extensions.sh; keep the names in sync.
 readonly PHP_RUNTIME_INI=50-hbg-runtime.ini
 readonly PHP_SETTINGS_INI=60-hbg-ini-settings.ini
 readonly TIDEWAYS_SETTINGS_INI=70-hbg-tideways.ini
@@ -28,10 +25,21 @@ fail() {
   exit 1
 }
 
-# Hydrate /usr/local/lsws/conf from the build-time snapshot when the user
-# has mounted an empty volume on top of it.
+# Resolve the account created by the vendor image instead of assuming its uid.
+id lsadm >/dev/null 2>&1 || fail "OpenLiteSpeed user 'lsadm' is missing"
+getent group lsadm >/dev/null || fail "OpenLiteSpeed group 'lsadm' is missing"
+readonly LSADM_UID=$(id -u lsadm)
+readonly LSADM_GID=$(id -g lsadm)
+
+# Hydrate server and admin config from the image snapshots when an empty volume
+# is mounted over either directory.
 if [ -z "$(ls -A -- "$LSWS_CONF/")" ]; then
+  [ -d "$LSWS_DIR/.conf" ] || fail "Missing OpenLiteSpeed config snapshot at $LSWS_DIR/.conf"
   cp -R "$LSWS_DIR"/.conf/* "$LSWS_CONF/"
+fi
+if [ -z "$(ls -A -- "$LSWS_ADMIN_CONF/")" ]; then
+  [ -d "$LSWS_DIR/admin/.conf" ] || fail "Missing OpenLiteSpeed admin config snapshot at $LSWS_DIR/admin/.conf"
+  cp -R "$LSWS_DIR"/admin/.conf/* "$LSWS_ADMIN_CONF/"
 fi
 
 # --- Validate everything before changing anything -------------------------
@@ -73,10 +81,8 @@ size_bytes() {
   esac
 }
 
-ols_httpd_workers=${OLS_HTTPD_WORKERS:-1}
 ols_php_keepalive_timeout=${OLS_PHP_KEEPALIVE_TIMEOUT:-5}
 php_memory_limit=${PHP_MEMORY_LIMIT:-512M}
-positive_int OLS_HTTPD_WORKERS "$ols_httpd_workers"
 positive_int OLS_PHP_KEEPALIVE_TIMEOUT "$ols_php_keepalive_timeout"
 [[ "$php_memory_limit" =~ ^(-1|[1-9][0-9]*[KMG]?)$ ]] ||
   fail "PHP_MEMORY_LIMIT must be a size such as 512M, 1G or -1, got '$php_memory_limit'"
@@ -105,8 +111,8 @@ echo "ols-hbg-configure: $ols_php_children PHP children ($children_reason), memo
 
 # Web PHP gets no container variables: lsphp's environment would expose them
 # through getenv(), $_SERVER and phpinfo(). Municipio's WP_CONF_* settings
-# reach WordPress through a generated PHP file instead (docker/setup/setup.py,
-# read by docker/config/env.php). Env lines forwarded by earlier versions are
+# reach WordPress through a generated PHP file instead (docker/wordpress/setup/setup.py,
+# read by docker/wordpress/config/env.php). Env lines forwarded by earlier versions are
 # removed below.
 env_names=()
 env_lines=""
@@ -149,9 +155,9 @@ readonly PHP_ETC=${php_etc_candidates[0]}
 
 # --- httpd_config.conf -----------------------------------------------------
 
-# Replace top-level httpdWorkers, and inside the lsphp extProcessor: maxConns,
-# PHP_LSAPI_CHILDREN and pcKeepAliveTimeout. Env lines forwarded by earlier
-# versions (WP_CONF_* and names in the state file) are dropped
+# Disable WebAdmin, replace top-level httpdWorkers, and inside the lsphp
+# extProcessor: maxConns, PHP_LSAPI_CHILDREN and pcKeepAliveTimeout. Env lines
+# forwarded by earlier versions (WP_CONF_* and names in the state file) are dropped
 # (this run's names plus the previous run's). Existing lines for these keys
 # are dropped and fresh ones written, so the result is the same however many
 # times this runs. Other lsphp lines (such as LSAPI_AVOID_FORK) are kept.
@@ -160,17 +166,18 @@ previous_names=""
 env_lines_file=$(mktemp)
 printf '%s' "$env_lines" >"$env_lines_file"
 awk \
-  -v workers="$ols_httpd_workers" \
   -v children="$ols_php_children" \
   -v keepalive="$ols_php_keepalive_timeout" \
   -v env_remove="$previous_names ${env_names[*]}" \
   -v env_lines_file="$env_lines_file" '
   BEGIN {
-    printf "httpdWorkers                     %s\n", workers
+    print "httpdWorkers                     1"
+    print "disableWebAdmin                  1"
     n = split(env_remove, names, " ")
     for (i = 1; i <= n; i++) remove[names[i]] = 1
   }
   depth == 0 && /^[[:space:]]*httpdWorkers([[:space:]]|$)/ { next }
+  depth == 0 && /^[[:space:]]*disableWebAdmin([[:space:]]|$)/ { next }
   depth == 0 && /^[[:space:]]*extProcessor[[:space:]]+lsphp[[:space:]]*\{[[:space:]]*$/ {
     print
     printf "    maxConns                        %s\n", children
@@ -208,7 +215,8 @@ else
   rm -f "$ENV_VARS_STATE"
 fi
 
-chown -R "$LSADM_UID:$LSADM_GID" "$LSWS_CONF"
+chown -R "$LSADM_UID:$LSADM_GID" "$LSWS_CONF" "$LSWS_ADMIN_CONF"
+chmod -R u=rwX,go= "$LSWS_ADMIN_CONF"
 
 # --- PHP ini scan dir ------------------------------------------------------
 

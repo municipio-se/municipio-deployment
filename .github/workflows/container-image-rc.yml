@@ -105,9 +105,9 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
         run: echo "platform_slug=${PLATFORM//\//-}" >> "$GITHUB_ENV"
 
-      # docker/Dockerfile builds the OpenLiteSpeed layer (its "ols" stage, from
-      # docker/ols/) and Municipio into one image. The cache mainly saves the
-      # slow OpenLiteSpeed/PHP install.
+      # docker/Dockerfile extends the pinned official OpenLiteSpeed image and
+      # builds Municipio into one image. The cache saves the app build and
+      # Municipio-specific server configuration.
       - name: Build and push image
         id: build
         uses: docker/build-push-action@v7

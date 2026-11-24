@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import call, patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "setup"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "wordpress" / "setup"))
 
 import setup
 import setup_htaccess
@@ -34,7 +34,7 @@ class StartupOrderTests(unittest.TestCase):
 class HtaccessSetupTests(unittest.TestCase):
     FLAVORS = ("single-site", "multisite-subdomain", "multisite-subfolder")
     # The flavor files in the repository (copied to htaccess/ in the image).
-    REPO_HTACCESS = Path(__file__).resolve().parents[1] / "htaccess"
+    REPO_HTACCESS = Path(__file__).resolve().parents[1] / "wordpress" / "htaccess"
 
     def run_setup(self, root, environment):
         with patch.dict(os.environ, environment, clear=True), \
@@ -90,7 +90,7 @@ class HtaccessSetupTests(unittest.TestCase):
                     self.assertEqual((root / "elsewhere").read_text(), "keep me")
 
     def test_repository_flavors_hold_only_the_wordpress_block(self):
-        # Rules shared by all site types belong in docker/ols/templates/docker.conf,
+        # Rules shared by all site types belong in docker/ols/config/vhost.conf,
         # so each flavor file is comments plus exactly one WordPress block.
         for name in self.FLAVORS:
             with self.subTest(flavor=name):
@@ -101,7 +101,7 @@ class HtaccessSetupTests(unittest.TestCase):
                 before = [line for line in text[:start].splitlines() if line.strip()]
                 self.assertTrue(all(line.startswith("#") for line in before),
                                 f"{name}.htaccess has rules outside the WordPress block; "
-                                "move rules shared by all site types to docker.conf")
+                                "move rules shared by all site types to vhost.conf")
 
 
 class InstallationSetupTests(unittest.TestCase):

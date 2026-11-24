@@ -1,6 +1,6 @@
 # WordPress routing for a multisite subdomain (multisite-subdomain).
 # Copied over the document root's .htaccess on every container start; rules
-# shared by all site types are in docker/ols/templates/docker.conf.
+# shared by all site types are in docker/ols/config/vhost.conf.
 # See docker/README.md, "Web server rules".
 
 # BEGIN WordPress

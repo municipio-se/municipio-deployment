@@ -3,18 +3,17 @@ set -euo pipefail
 
 CONF=/usr/local/lsws/conf/httpd_config.conf
 
-# Strip OLS-shipped defaults: the :8088 Default listener plus the two
-# vhTemplates that reference it. They are inert for our use case and would
-# only confuse downstream images that FROM this one.
+# Replace the vendor's listeners and docker template with Municipio's HTTP-only
+# listener and vhost. The vendor defaults include :8088, HTTPS, and a template
+# with different server rules.
 awk '
   {
     if (skip) {
       if ($0 ~ /^\}[[:space:]]*$/) skip = 0
       next
     }
-    if ($0 ~ /^listener Default[[:space:]]*\{[[:space:]]*$/)              { skip = 1; next }
-    if ($0 ~ /^vhTemplate centralConfigLog[[:space:]]*\{[[:space:]]*$/)   { skip = 1; next }
-    if ($0 ~ /^vhTemplate EasyRailsWithSuEXEC[[:space:]]*\{[[:space:]]*$/) { skip = 1; next }
+    if ($0 ~ /^listener[[:space:]]+(Default|HTTP|HTTPS)[[:space:]]*\{[[:space:]]*$/) { skip = 1; next }
+    if ($0 ~ /^vhTemplate[[:space:]]+(centralConfigLog|EasyRailsWithSuEXEC|docker)[[:space:]]*\{[[:space:]]*$/) { skip = 1; next }
     print
   }
 ' "$CONF" > "$CONF.new"

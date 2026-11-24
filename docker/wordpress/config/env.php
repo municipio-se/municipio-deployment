@@ -7,7 +7,7 @@ declare(strict_types=1);
  */
 if (!function_exists('wp_conf_values')) {
     /**
-     * WP_CONF_* values written by the container at startup (docker/setup/setup.py)
+     * WP_CONF_* values written by the container at startup (docker/wordpress/setup/setup.py)
      * to a file outside the document root. The web server does not pass the
      * container environment to PHP, so in the container this is where the
      * values come from. Empty when the file does not exist (e.g. local dev).
