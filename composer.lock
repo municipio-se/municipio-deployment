@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15972e20473324273cc9e10539a67fd9",
+    "content-hash": "60791f9b3660f27f68cf4e7cd6164a93",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -3916,16 +3916,16 @@
         },
         {
             "name": "helsingborg-stad/municipio-clone",
-            "version": "v1.6.7",
+            "version": "v1.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/municipio-clone.git",
-                "reference": "e81dfda7cfa28ea29162a148ae6bb9ea46eaaf0d"
+                "reference": "6d931d96aa115e45942660aea76550d3125a781d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/municipio-clone/zipball/e81dfda7cfa28ea29162a148ae6bb9ea46eaaf0d",
-                "reference": "e81dfda7cfa28ea29162a148ae6bb9ea46eaaf0d",
+                "url": "https://api.github.com/repos/helsingborg-stad/municipio-clone/zipball/6d931d96aa115e45942660aea76550d3125a781d",
+                "reference": "6d931d96aa115e45942660aea76550d3125a781d",
                 "shasum": ""
             },
             "require": {
@@ -3949,10 +3949,10 @@
             "description": "WordPress plugin that enables WP-CLI command for cloning remote WordPress sites.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/municipio-clone/issues",
-                "source": "https://github.com/helsingborg-stad/municipio-clone/tree/v1.6.7"
+                "source": "https://github.com/helsingborg-stad/municipio-clone/tree/v1.6.8"
             },
-            "time": "2026-11-24T10:35:31+00:00",
-            "published-time": "2026-11-24T10:35:46+00:00"
+            "time": "2026-11-24T11:12:54+00:00",
+            "published-time": "2026-11-24T11:13:09+00:00"
         },
         {
             "name": "helsingborg-stad/psr-logger",
