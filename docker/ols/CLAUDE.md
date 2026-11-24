@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Purpose
 
-Configures the OpenLiteSpeed + lsphp **base layer** of the Municipio image, tuned for Municipio's WordPress workload. No application code lives here. It is not published on its own: the first stage of `docker/Dockerfile`, `ols`, starts from LiteSpeed's official image, runs the scripts here, and the final stage starts `FROM ols AS runtime`. Keep Municipio-specific server logic in this directory. The current base is pinned to OLS 1.9.4 / lsphp83 on Ubuntu 26.04, with amd64 and arm64 manifests.
+Configures the OpenLiteSpeed + lsphp **base layer** of the Municipio image, tuned for Municipio's WordPress workload. No application code lives here. It is not published on its own: the first stage of `docker/Dockerfile`, `ols`, starts from LiteSpeed's official image, runs the scripts here, and the final stage starts `FROM ols AS runtime`. The dev container (`.devcontainer/docker-compose.yml`) builds `--target ols` too and runs the stage's `/entrypoint.sh`, adding dev tools as features and dev-only ini settings via `PHP_INI_SETTINGS`, so changes here also affect local development. Keep Municipio-specific server logic in this directory. The current base is pinned to OLS 1.9.4 / lsphp83 on Ubuntu 26.04, with amd64 and arm64 manifests.
 
 These files were copied from the former `helsingborg-stad/ols-docker-hbg` repository at 0.3.0 (`fc12369`). That repo's release, RC and cache workflows, `bin/build_ols.sh` and `env-example` were deliberately not brought over, and its Dockerfile became the `ols` stage of `docker/Dockerfile`.
 

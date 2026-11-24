@@ -13,7 +13,7 @@ The image is built in two layers that are kept in separate directories, so it is
 | Server (OpenLiteSpeed) | [`ols/`](ols/), built by the `ols` stage of [`Dockerfile`](Dockerfile) | LiteSpeed's version- and digest-pinned OpenLiteSpeed/lsphp image plus Municipio-specific PHP extensions, `php.ini` tuning, listener and vhost config, `/entrypoint.sh` and `ols-hbg-configure`. Its runtime settings are summarised under [Common settings](#common-settings) and detailed in the [OLS layer guide](ols/README.md). |
 | Application (Municipio) | [`wordpress/`](wordpress/) | WordPress configuration, site-type rewrite rules and startup scripts. The `builder` and `runtime` stages of [`Dockerfile`](Dockerfile) build Municipio and add these files. |
 
-One Dockerfile builds both into **one** image: its `ols` stage extends the pinned official image with the scripts in `docker/ols/`, and the final stage starts `FROM ols`. The configured server layer is not published separately. All Municipio-specific server logic stays in `docker/ols/`.
+One Dockerfile builds both into **one** image: its `ols` stage extends the pinned official image with the scripts in `docker/ols/`, and the final stage starts `FROM ols`. The configured server layer is not published separately. All Municipio-specific server logic stays in `docker/ols/`. The dev container ([`.devcontainer/`](../.devcontainer/README.md#production-parity)) also builds the `ols` stage, so changes there affect local development too.
 
 The other directories are [`examples/`](examples/) for Compose deployments,
 [`tests/`](tests/) for container and startup checks, and [`scripts/`](scripts/)

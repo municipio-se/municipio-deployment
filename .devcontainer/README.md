@@ -60,9 +60,21 @@ On each container start, `CODESPACE_NAME` and `GITHUB_CODESPACES_PORT_FORWARDING
 
 The MinIO development credentials are `minioadmin` / `minioadmin`. The `municipio` bucket is created automatically.
 
+## Production Parity
+
+The `app` container is built from the `ols` stage of [`docker/Dockerfile`](../docker/Dockerfile), the same OpenLiteSpeed and lsphp server layer the production image is built on. It includes the same PHP extensions, `php.ini` tuning, vhost rules and response headers, `/entrypoint.sh` and `ols-hbg-configure`. See [`docker/ols/`](../docker/ols/). After changing anything under `docker/ols/`, run `Dev Containers: Rebuild Container` to apply it.
+
+The dev environment intentionally differs from production in these ways:
+
+- `PHP_INI_SETTINGS` in [`docker-compose.yml`](docker-compose.yml) turns OPcache timestamp checks back on, so source edits take effect immediately, and adds the Codespaces URL helper. Add other dev-only PHP settings there, one `name=value` per line.
+- Xdebug, Composer, Node.js, WP-CLI, the GitHub CLI and Docker are added as dev container features.
+- The source is bind-mounted rather than built into the image, and WordPress configuration comes from `config-example/` and `.devcontainer/config/wp-config/` instead of `WP_CONF_*` variables.
+
+The shared vhost rules redirect page URLs without a trailing slash to `https://`, as in production. On `http://localhost:8080`, include the trailing slash (for example `/somesite/`, not `/somesite`), or the redirect lands on an `https://` URL that the dev server does not serve.
+
 ## Local Site Setup
 
-`composer devcontainer:reset` runs `.devcontainer/scripts/setup.sh`. It resets the MariaDB database, replaces generated configuration, reinstalls packages, installs WordPress, activates the required plugins and Municipio theme, creates cache directories, and copies the devcontainer `.htaccess` file. Back up any local content and package changes you need before running it again.
+`composer devcontainer:reset` runs `.devcontainer/scripts/setup.sh`. It resets the MariaDB database, replaces generated configuration, reinstalls packages, installs WordPress, activates the required plugins and Municipio theme, creates cache directories, copies the production `.htaccess` for the chosen site type from `docker/wordpress/htaccess/` (`single-site` or `multisite-subfolder`), and restarts OpenLiteSpeed so it loads the file. Back up any local content and package changes you need before running it again.
 
 Choose `single` for one WordPress site or `multisite` for a network with sites under paths such as `/somesite`. Setup asks which to install when run interactively; set `SITE_TYPE=single` or `SITE_TYPE=multisite` in `.devcontainer/.env` to skip the prompt. Without a terminal or a configured `SITE_TYPE`, setup defaults to `multisite`.
 
