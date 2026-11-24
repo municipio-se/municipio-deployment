@@ -155,9 +155,9 @@ readonly PHP_ETC=${php_etc_candidates[0]}
 
 # --- httpd_config.conf -----------------------------------------------------
 
-# Replace top-level httpdWorkers, and inside the lsphp extProcessor: maxConns,
-# PHP_LSAPI_CHILDREN and pcKeepAliveTimeout. Env lines forwarded by earlier
-# versions (WP_CONF_* and names in the state file) are dropped
+# Disable WebAdmin, replace top-level httpdWorkers, and inside the lsphp
+# extProcessor: maxConns, PHP_LSAPI_CHILDREN and pcKeepAliveTimeout. Env lines
+# forwarded by earlier versions (WP_CONF_* and names in the state file) are dropped
 # (this run's names plus the previous run's). Existing lines for these keys
 # are dropped and fresh ones written, so the result is the same however many
 # times this runs. Other lsphp lines (such as LSAPI_AVOID_FORK) are kept.
@@ -172,10 +172,12 @@ awk \
   -v env_lines_file="$env_lines_file" '
   BEGIN {
     print "httpdWorkers                     1"
+    print "disableWebAdmin                  1"
     n = split(env_remove, names, " ")
     for (i = 1; i <= n; i++) remove[names[i]] = 1
   }
   depth == 0 && /^[[:space:]]*httpdWorkers([[:space:]]|$)/ { next }
+  depth == 0 && /^[[:space:]]*disableWebAdmin([[:space:]]|$)/ { next }
   depth == 0 && /^[[:space:]]*extProcessor[[:space:]]+lsphp[[:space:]]*\{[[:space:]]*$/ {
     print
     printf "    maxConns                        %s\n", children

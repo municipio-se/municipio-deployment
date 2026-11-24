@@ -72,20 +72,42 @@ expect_settings() {
   if [ "$actual" = "$memory" ]; then pass "$label memory_limit"; else fail "$label memory_limit: expected $memory, got $actual"; fi
 }
 
+expect_admin_disabled() {
+  expect_conf "$1 WebAdmin disabled" "^disableWebAdmin +1$" 1
+  expect_conf "$1 single WebAdmin setting" "^[[:space:]]*disableWebAdmin" 1
+  if docker exec "$NAME" sh -c '
+    for host in 127.0.0.1 "$(hostname -i | awk "{print \$1}")"; do
+      status=0
+      curl -ks --noproxy "*" --connect-timeout 2 --max-time 3 "https://$host:7080/" >/dev/null || status=$?
+      [ "$status" -eq 7 ] || { echo "WebAdmin check for $host returned curl status $status" >&2; exit 1; }
+    done'; then
+    pass "$1 WebAdmin port refuses connections"
+  else
+    fail "$1 WebAdmin port did not refuse connections"
+  fi
+}
+
 echo "== defaults (no container memory limit)"
 start
 expect_settings 1 10 5 512M defaults
+expect_admin_disabled defaults
 
 echo "== defaults after restart"
 docker restart "$NAME" >/dev/null
 sleep 3
 expect_settings 1 10 5 512M restart
+expect_admin_disabled restart
+docker exec "$NAME" sed -i 's/^disableWebAdmin .*/disableWebAdmin 0/' "$CONF"
+docker restart "$NAME" >/dev/null
+sleep 3
+expect_admin_disabled "persisted config after restart"
 
 echo "== empty server and admin config volumes are hydrated"
 start --tmpfs /usr/local/lsws/conf --tmpfs /usr/local/lsws/admin/conf
 expect_settings 1 10 5 512M "empty config volumes"
 docker exec "$NAME" test -f /usr/local/lsws/conf/templates/docker.conf
 docker exec "$NAME" sh -c 'test -n "$(ls -A /usr/local/lsws/admin/conf)"'
+expect_admin_disabled "empty config volumes"
 
 echo "== children follow the container memory limit"
 # (3072M - 512M reserved) / 512M = 5

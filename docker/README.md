@@ -228,4 +228,4 @@ The example is deliberately simple and uses local development credentials. For a
 - Put the site behind HTTPS and set `WP_CONF_WP_HOME` and `WP_CONF_WP_SITEURL` to the public HTTPS addresses.
 - Pin the MariaDB image and use a source semver tag for a tested Municipio deployment version.
 - Back up the database and uploads volumes.
-- Do not publish the OpenLiteSpeed administration port unless it is specifically needed and protected.
+- Only publish the application port. The OpenLiteSpeed WebAdmin listener is disabled even though the upstream image advertises port 7080 in its metadata.

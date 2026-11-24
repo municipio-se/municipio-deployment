@@ -32,6 +32,11 @@ A healthy empty OLS layer answers `404` with `Server: LiteSpeed` on port 80. The
 
 The pinned base image currently provides OpenLiteSpeed 1.9.4 and lsphp83 on Ubuntu 26.04 for both amd64 and arm64. To update either, select and verify a new vendor tag and multi-architecture digest in the Dockerfile.
 
+The OpenLiteSpeed WebAdmin listener is disabled on every start, including when
+using an existing server config volume. The upstream image advertises port 7080
+in its inherited image metadata, but Municipio does not listen on that port.
+Only port 80 should be published for the application.
+
 ## Sizing
 
 OpenLiteSpeed and PHP are sized for Municipio on every container start. Normally the only thing to set is the container's memory limit; the number of PHP children follows from it.
