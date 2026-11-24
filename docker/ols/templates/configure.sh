@@ -8,12 +8,9 @@
 # idempotent. Must run as root.
 set -euo pipefail
 
-# 994 = lsadm, created by the OLS install script.
-readonly LSADM_UID=994
-readonly LSADM_GID=994
-
 readonly LSWS_DIR=/usr/local/lsws
 readonly LSWS_CONF=$LSWS_DIR/conf
+readonly LSWS_ADMIN_CONF=$LSWS_DIR/admin/conf
 readonly OLS_CONF=$LSWS_CONF/httpd_config.conf
 # Names forwarded to lsphp by earlier versions of this script, so their env
 # lines are removed from a persisted conf volume.
@@ -28,10 +25,21 @@ fail() {
   exit 1
 }
 
-# Hydrate /usr/local/lsws/conf from the build-time snapshot when the user
-# has mounted an empty volume on top of it.
+# Resolve the account created by the vendor image instead of assuming its uid.
+id lsadm >/dev/null 2>&1 || fail "OpenLiteSpeed user 'lsadm' is missing"
+getent group lsadm >/dev/null || fail "OpenLiteSpeed group 'lsadm' is missing"
+readonly LSADM_UID=$(id -u lsadm)
+readonly LSADM_GID=$(id -g lsadm)
+
+# Hydrate server and admin config from the image snapshots when an empty volume
+# is mounted over either directory.
 if [ -z "$(ls -A -- "$LSWS_CONF/")" ]; then
+  [ -d "$LSWS_DIR/.conf" ] || fail "Missing OpenLiteSpeed config snapshot at $LSWS_DIR/.conf"
   cp -R "$LSWS_DIR"/.conf/* "$LSWS_CONF/"
+fi
+if [ -z "$(ls -A -- "$LSWS_ADMIN_CONF/")" ]; then
+  [ -d "$LSWS_DIR/admin/.conf" ] || fail "Missing OpenLiteSpeed admin config snapshot at $LSWS_DIR/admin/.conf"
+  cp -R "$LSWS_DIR"/admin/.conf/* "$LSWS_ADMIN_CONF/"
 fi
 
 # --- Validate everything before changing anything -------------------------
@@ -73,10 +81,8 @@ size_bytes() {
   esac
 }
 
-ols_httpd_workers=${OLS_HTTPD_WORKERS:-1}
 ols_php_keepalive_timeout=${OLS_PHP_KEEPALIVE_TIMEOUT:-5}
 php_memory_limit=${PHP_MEMORY_LIMIT:-512M}
-positive_int OLS_HTTPD_WORKERS "$ols_httpd_workers"
 positive_int OLS_PHP_KEEPALIVE_TIMEOUT "$ols_php_keepalive_timeout"
 [[ "$php_memory_limit" =~ ^(-1|[1-9][0-9]*[KMG]?)$ ]] ||
   fail "PHP_MEMORY_LIMIT must be a size such as 512M, 1G or -1, got '$php_memory_limit'"
@@ -160,13 +166,12 @@ previous_names=""
 env_lines_file=$(mktemp)
 printf '%s' "$env_lines" >"$env_lines_file"
 awk \
-  -v workers="$ols_httpd_workers" \
   -v children="$ols_php_children" \
   -v keepalive="$ols_php_keepalive_timeout" \
   -v env_remove="$previous_names ${env_names[*]}" \
   -v env_lines_file="$env_lines_file" '
   BEGIN {
-    printf "httpdWorkers                     %s\n", workers
+    print "httpdWorkers                     1"
     n = split(env_remove, names, " ")
     for (i = 1; i <= n; i++) remove[names[i]] = 1
   }
@@ -208,7 +213,8 @@ else
   rm -f "$ENV_VARS_STATE"
 fi
 
-chown -R "$LSADM_UID:$LSADM_GID" "$LSWS_CONF"
+chown -R "$LSADM_UID:$LSADM_GID" "$LSWS_CONF" "$LSWS_ADMIN_CONF"
+chmod -R u=rwX,go= "$LSWS_ADMIN_CONF"
 
 # --- PHP ini scan dir ------------------------------------------------------
 

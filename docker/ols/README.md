@@ -1,17 +1,17 @@
 # OpenLiteSpeed base layer
 
-This directory builds the OpenLiteSpeed + lsphp layer that the Municipio image runs on. It contains no application code. [`../Dockerfile`](../Dockerfile) adds Municipio on top of it, and the two are built together into **one** image; this layer is not published on its own.
+This directory configures the OpenLiteSpeed + lsphp layer that the Municipio image runs on. It contains no application code. [`../Dockerfile`](../Dockerfile) starts from LiteSpeed's official OpenLiteSpeed image, adds Municipio-specific server configuration, and builds the application on top; the layers are built together into **one** image, and the configured OLS layer is not published on its own.
 
-This layer used to be built and published separately as `ghcr.io/helsingborg-stad/ols-docker-hbg`. The files here were copied from that repository at version 0.3.0 (commit `fc12369`).
+The OLS and PHP base image is pinned by version and multi-architecture digest in [`../Dockerfile`](../Dockerfile). The stage adds only the PHP Tidy extension, Tideways, Python for Municipio's setup scripts, and Municipio's server/PHP configuration.
 
 ## What is built where
 
 | Part | Directory | Contents |
 | --- | --- | --- |
-| Server layer | `docker/ols/` | Ubuntu, OpenLiteSpeed, lsphp and its extensions, `php.ini` tuning, listener/vhost config, `/entrypoint.sh` and `ols-hbg-configure` |
+| Server layer | `docker/ols/` | The official OpenLiteSpeed/lsphp base plus Municipio-specific packages, `php.ini` tuning, listener/vhost config, `/entrypoint.sh` and `ols-hbg-configure` |
 | Application layer | `docker/` | Municipio build (Composer, npm), WP-CLI, WordPress config, the per-site-type `.htaccess` files and the `setup.py` startup script |
 
-[`docker/Dockerfile`](../Dockerfile) builds both. Its first stage, `ols`, runs the scripts in this directory, and its final stage starts `FROM ols`. Everything the server layer does is defined here; the stage only runs it.
+[`docker/Dockerfile`](../Dockerfile) builds both. Its first stage, `ols`, starts from the pinned LiteSpeed image and runs the scripts in this directory; the final stage starts `FROM ols`.
 
 ## Building and testing this layer
 
@@ -28,9 +28,9 @@ docker/ols/tests/smoke.sh municipio-ols:local
 docker build --secret id=acf_pro_key,env=ACF_PRO_KEY -f docker/Dockerfile -t municipio:local .
 ```
 
-A healthy empty OLS layer answers `404` with `Server: LiteSpeed` on port 80. The site is served from `/var/www/vhosts/localhost/html/`, with `.htaccess` rewrites enabled.
+A healthy empty OLS layer answers `404` with `Server: LiteSpeed` on port 80. The site is served from `/var/www/vhosts/localhost/html/`, with `.htaccess` rewrites enabled. The base image version and digest are pinned in the Dockerfile; `setup_ols.sh` adds only what Municipio needs beyond that image.
 
-The PHP line is set by the `PHP_VERSION` build argument of the `ols` stage (default `lsphp83`), and the OpenLiteSpeed version by `OLS_VERSION`. The PHP patch level is whatever LiteSpeed's apt repository ships at build time.
+The pinned base image currently provides OpenLiteSpeed 1.9.4 and lsphp83 on Ubuntu 26.04 for both amd64 and arm64. To update either, select and verify a new vendor tag and multi-architecture digest in the Dockerfile.
 
 ## Sizing
 
@@ -40,10 +40,9 @@ OpenLiteSpeed and PHP are sized for Municipio on every container start. Normally
 | --- | --- | --- | --- |
 | `PHP_MEMORY_LIMIT` | `512M` | PHP `memory_limit` | Maximum memory one PHP request may use. Accepts PHP sizes such as `512M`, `1G`, or `-1` (no limit). Municipio's `WP_MEMORY_LIMIT` follows it ([`../config/memory.php`](../config/memory.php)). |
 | `OLS_PHP_CHILDREN` | automatic | lsphp `maxConns` and `PHP_LSAPI_CHILDREN` (always equal) | Maximum number of PHP requests handled at the same time; further requests wait in a queue. |
-| `OLS_HTTPD_WORKERS` | `1` | `httpdWorkers` in `httpd_config.conf` | Number of OpenLiteSpeed worker processes. |
 | `OLS_PHP_KEEPALIVE_TIMEOUT` | `5` | lsphp `pcKeepAliveTimeout`, in seconds | How long an idle connection from OpenLiteSpeed keeps a PHP child reserved. |
 
-Every setting is written on each start, from its variable or its default, so removing a variable restores the default even on a restarted container or a persisted `conf` volume. An invalid value stops the container at startup with an error naming the variable.
+OpenLiteSpeed uses one worker; Municipio does not try to derive worker count from the container's CPU allocation. The PHP and keepalive settings are rewritten on each start, so removing an override restores its default even on a restarted container or a persisted `conf` volume. An invalid value stops the container at startup with an error naming the variable.
 
 ### PHP children
 
@@ -62,8 +61,6 @@ The 512M covers the OPcache (256M, shared by all children), OpenLiteSpeed and th
 | 6 GiB | `512M` (default) | 11 |
 
 Set `OLS_PHP_CHILDREN` only to override this, for example when Imagick-heavy requests need extra headroom (Imagick memory is not counted in `memory_limit`). More children only help if the container also has the CPU to run them; several children per core is normal, because WordPress requests spend much of their time waiting for the database.
-
-**`OLS_HTTPD_WORKERS`: keep it at `1` unless the container has well over 2 CPU cores.** OpenLiteSpeed's own default sizes the worker count from the CPU count of the *host*, not the container's CPU limit. Each worker keeps its own pool of connections to lsphp, and when the workers together hold more connections than there are PHP children, requests fail with `No request delivery notification has been received from LSAPI application`.
 
 **`OLS_PHP_KEEPALIVE_TIMEOUT`:** a short timeout frees children for other connections sooner. Raise it only if logs show PHP processes being started and stopped constantly under steady load.
 
@@ -105,7 +102,7 @@ In Kubernetes, a multi-line value is easiest to manage as a Secret or ConfigMap 
 
 ## PHP extensions
 
-The image always loads the extensions Municipio needs: OPcache, cURL, Imagick, intl, MySQL, tidy and Tideways. There is no runtime toggle; to add or drop one, change the package list in [`templates/setup_ols.sh`](templates/setup_ols.sh).
+The image always loads the extensions Municipio needs: OPcache, cURL, Imagick, intl, MySQL, tidy and Tideways. The base image provides the common extensions; [`templates/setup_ols.sh`](templates/setup_ols.sh) adds Tidy and Tideways. There is no runtime toggle.
 
 ### Tideways
 
@@ -130,7 +127,7 @@ services:
 
 ## Startup order
 
-`/usr/local/bin/ols-hbg-configure` applies everything in this README. Municipio's [`../setup/setup.py`](../setup/setup.py) runs it first, so WP-CLI install steps use the same PHP settings as web requests, and finally hands over to `/entrypoint.sh` with `OLS_HBG_CONFIGURED=1`, which then starts OpenLiteSpeed without configuring again. Run on its own (e.g. the `ols` stage alone), `/entrypoint.sh` runs `ols-hbg-configure` itself. Both must run as root.
+`/usr/local/bin/ols-hbg-configure` applies everything in this README, including restoring empty server and admin config volumes from the snapshots in the image. Municipio's [`../setup/setup.py`](../setup/setup.py) runs it first, so WP-CLI install steps use the same PHP settings as web requests, and finally hands over to the Municipio `/entrypoint.sh` with `OLS_HBG_CONFIGURED=1`, which starts OpenLiteSpeed and streams its logs without configuring again. Run on its own (e.g. the `ols` stage alone), `/entrypoint.sh` runs `ols-hbg-configure` itself. Both must run as root.
 
 ## Rewrites, headers and caching
 

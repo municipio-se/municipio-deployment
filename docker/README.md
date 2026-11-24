@@ -10,10 +10,10 @@ The image is built in two layers that are kept in separate directories, so it is
 
 | Layer | Directory | What it contains |
 | --- | --- | --- |
-| Server (OpenLiteSpeed) | [`ols/`](ols/), built by the `ols` stage of [`Dockerfile`](Dockerfile) | Ubuntu, OpenLiteSpeed, lsphp and its extensions, `php.ini` tuning, listener and vhost config, `/entrypoint.sh` and `ols-hbg-configure`. Its runtime settings are summarised under [Common settings](#common-settings) and detailed in the [OLS layer guide](ols/README.md). |
+| Server (OpenLiteSpeed) | [`ols/`](ols/), built by the `ols` stage of [`Dockerfile`](Dockerfile) | LiteSpeed's version- and digest-pinned OpenLiteSpeed/lsphp image plus Municipio-specific PHP extensions, `php.ini` tuning, listener and vhost config, `/entrypoint.sh` and `ols-hbg-configure`. Its runtime settings are summarised under [Common settings](#common-settings) and detailed in the [OLS layer guide](ols/README.md). |
 | Application (Municipio) | this directory | The `builder` and `runtime` stages of [`Dockerfile`](Dockerfile), which build Municipio with Composer and npm and adds WP-CLI, [`config/`](config/), [`htaccess/`](htaccess/) and the [`setup/`](setup/) startup script. |
 
-One Dockerfile builds both into **one** image: its `ols` stage runs the scripts in `docker/ols/`, and the final stage starts `FROM ols`. The server layer is built from source in the same build and is not published separately. All server logic stays in `docker/ols/`; the stage only runs it.
+One Dockerfile builds both into **one** image: its `ols` stage extends the pinned official image with the scripts in `docker/ols/`, and the final stage starts `FROM ols`. The configured server layer is not published separately. All Municipio-specific server logic stays in `docker/ols/`.
 
 ## Before you start
 
@@ -42,6 +42,13 @@ docker build \
 The `acf_pro_key` secret is required for the build. It is mounted only while Composer installs the dependencies and is not retained in the resulting image.
 
 The build context is the repository root, and the checked-out source is copied into the image. Check out the branch or tag you want to build before running the command.
+
+Check that the built image's upload and cache directories are writable by the
+site user:
+
+```sh
+bash docker/tests/upload_permissions.sh municipio:local
+```
 
 ## Common settings
 
@@ -88,7 +95,7 @@ The server sizes itself from Municipio's needs, so normally only the container m
 | `PHP_MEMORY_LIMIT` | `512M` | Memory one PHP request may use. WordPress's `WP_MEMORY_LIMIT` follows it unless `WP_CONF_WP_MEMORY_LIMIT` is set. |
 | `OLS_PHP_CHILDREN` | automatic | PHP requests handled at once. When unset: (container memory limit − 512M) ÷ `PHP_MEMORY_LIMIT`, so a 3 GiB pod gets 5 and a 6 GiB pod gets 11. Without a memory limit: 10. |
 
-The chosen values are logged at startup. See the [OLS layer guide](ols/README.md#sizing) for the less common `OLS_HTTPD_WORKERS` and `OLS_PHP_KEEPALIVE_TIMEOUT`.
+The chosen values are logged at startup. OpenLiteSpeed uses one worker; see the [OLS layer guide](ols/README.md#sizing) for the less common `OLS_PHP_KEEPALIVE_TIMEOUT`.
 
 ### PHP extensions and environment
 
@@ -175,17 +182,23 @@ docker compose exec --user ubuntu municipio wp option get siteurl
 
 Use `docker compose exec --user ubuntu municipio <command>` for other commands that write to the webroot. The container starts as root to install optional packages and configure OpenLiteSpeed.
 
-Stop the containers while keeping the database and uploaded files:
+Stop the containers while keeping the database. Uploaded files inside the
+container are lost unless `wp-content/uploads` is stored in a volume or
+offloaded to object storage:
 
 ```sh
 docker compose down
 ```
 
-Remove the containers, database, and uploaded files, allowing a completely fresh installation next time:
+Remove the containers and their named volumes, allowing a completely fresh installation next time:
 
 ```sh
 docker compose down --volumes
 ```
+
+For persistent local uploads, mount a volume at
+`/var/www/vhosts/localhost/html/wp-content/uploads`. An existing volume must be
+writable by the site user (UID/GID `1000:1000`).
 
 ## Releases
 
