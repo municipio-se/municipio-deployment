@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c9fc67a177e09eb464d23e35b7873c88",
+    "content-hash": "34788cb0c82307655bd2da8f4207e449",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -2497,16 +2497,16 @@
         },
         {
             "name": "helsingborg-stad/customer-feedback",
-            "version": "4.2.10",
+            "version": "4.2.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Customer-feedback.git",
-                "reference": "bec55ff44d2af5bd5b661eef1cf9fb8464d41841"
+                "reference": "c425ce2b161983a10548ad468b379d6a586eb87b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Customer-feedback/zipball/bec55ff44d2af5bd5b661eef1cf9fb8464d41841",
-                "reference": "bec55ff44d2af5bd5b661eef1cf9fb8464d41841",
+                "url": "https://api.github.com/repos/helsingborg-stad/Customer-feedback/zipball/c425ce2b161983a10548ad468b379d6a586eb87b",
+                "reference": "c425ce2b161983a10548ad468b379d6a586eb87b",
                 "shasum": ""
             },
             "require": {
@@ -2541,9 +2541,9 @@
             "description": "This WordPress plugin adds a feedback form to the end of every page (or any other activated post type).",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/Customer-feedback/issues",
-                "source": "https://github.com/helsingborg-stad/Customer-feedback/tree/4.2.10"
+                "source": "https://github.com/helsingborg-stad/Customer-feedback/tree/4.2.14"
             },
-            "time": "2026-11-12T14:03:52+00:00"
+            "time": "2026-11-20T15:12:35+00:00"
         },
         {
             "name": "helsingborg-stad/force-ssl",
@@ -2964,16 +2964,16 @@
         },
         {
             "name": "helsingborg-stad/modularity-contact-banner",
-            "version": "4.0.32",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/modularity-contact-banner.git",
-                "reference": "0788028e4d89404a9d2a45de132d351e7a28a8f0"
+                "reference": "4c9ae845bfc791fae96c5057a035f3310b73c5a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/modularity-contact-banner/zipball/0788028e4d89404a9d2a45de132d351e7a28a8f0",
-                "reference": "0788028e4d89404a9d2a45de132d351e7a28a8f0",
+                "url": "https://api.github.com/repos/helsingborg-stad/modularity-contact-banner/zipball/4c9ae845bfc791fae96c5057a035f3310b73c5a4",
+                "reference": "4c9ae845bfc791fae96c5057a035f3310b73c5a4",
                 "shasum": ""
             },
             "require": {
@@ -3016,9 +3016,9 @@
             "description": "Contact Banner",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/modularity-contact-banner/issues",
-                "source": "https://github.com/helsingborg-stad/modularity-contact-banner/tree/4.0.32"
+                "source": "https://github.com/helsingborg-stad/modularity-contact-banner/tree/4.1.0"
             },
-            "time": "2026-10-28T10:34:03+00:00"
+            "time": "2026-11-16T13:59:05+00:00"
         },
         {
             "name": "helsingborg-stad/modularity-entryscape",
@@ -4859,16 +4859,16 @@
         },
         {
             "name": "helsingborg-stad/wpmu-security",
-            "version": "1.12.1",
+            "version": "1.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpmu-security.git",
-                "reference": "005187c51f63f063cade21aaf194fa4b2ab72cce"
+                "reference": "12b5c1d589805810600edcc859b48f838be69463"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/005187c51f63f063cade21aaf194fa4b2ab72cce",
-                "reference": "005187c51f63f063cade21aaf194fa4b2ab72cce",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpmu-security/zipball/12b5c1d589805810600edcc859b48f838be69463",
+                "reference": "12b5c1d589805810600edcc859b48f838be69463",
                 "shasum": ""
             },
             "require": {
@@ -4905,9 +4905,9 @@
             "description": "A WordPress MU Plugin for security enhancements",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpmu-security/issues",
-                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.12.1"
+                "source": "https://github.com/helsingborg-stad/wpmu-security/tree/1.12.2"
             },
-            "time": "2026-10-07T12:12:32+00:00"
+            "time": "2026-11-20T13:15:30+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -7913,23 +7913,23 @@
         },
         {
             "name": "roots/wordpress-no-content",
-            "version": "7.1.4",
+            "version": "7.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress.git",
-                "reference": "7.1.4"
+                "reference": "7.1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.w.org/release/wordpress-7.1.4-no-content.zip",
-                "reference": "7.1.4",
-                "shasum": "1dd4bfa7b13dec725c0062a3fb62ba0536cb8699"
+                "url": "https://downloads.w.org/release/wordpress-7.1.5-no-content.zip",
+                "reference": "7.1.5",
+                "shasum": "360c3644ce4e382e254aa4f0c1e56d5082efe2ff"
             },
             "require": {
                 "php": ">= 7.4"
             },
             "provide": {
-                "wordpress/core-implementation": "7.1.4"
+                "wordpress/core-implementation": "7.1.5"
             },
             "suggest": {
                 "ext-curl": "Performs remote request operations.",
@@ -7980,7 +7980,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2026-10-28T17:15:58+00:00"
+            "time": "2026-11-18T17:13:39+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -9456,15 +9456,15 @@
         },
         {
             "name": "wp-plugin/autodescription",
-            "version": "5.2.1",
+            "version": "5.2.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "tags/5.2.1"
+                "reference": "tags/5.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.5.2.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/autodescription.5.2.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9483,7 +9483,7 @@
                 "issues": "https://wordpress.org/support/plugin/autodescription",
                 "source": "https://plugins.svn.wordpress.org/autodescription"
             },
-            "time": "2026-11-10T21:17:31+00:00"
+            "time": "2026-11-25T10:12:54+00:00"
         },
         {
             "name": "wp-plugin/cookies-and-content-security-policy",
@@ -9549,15 +9549,15 @@
         },
         {
             "name": "wp-plugin/litespeed-cache",
-            "version": "7.9.3",
+            "version": "7.9.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/litespeed-cache/",
-                "reference": "tags/7.9.3"
+                "reference": "tags/7.9.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/litespeed-cache.7.9.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/litespeed-cache.7.9.4.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9576,7 +9576,7 @@
                 "issues": "https://wordpress.org/support/plugin/litespeed-cache",
                 "source": "https://plugins.svn.wordpress.org/litespeed-cache"
             },
-            "time": "2026-11-03T20:22:04+00:00"
+            "time": "2026-11-24T17:21:17+00:00"
         },
         {
             "name": "wp-plugin/network-plugin-auditor",
@@ -9642,15 +9642,15 @@
         },
         {
             "name": "wp-plugin/post-expirator",
-            "version": "4.11.2",
+            "version": "4.12.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/post-expirator/",
-                "reference": "tags/4.11.2"
+                "reference": "tags/4.12.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.11.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/post-expirator.4.12.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9669,7 +9669,7 @@
                 "issues": "https://wordpress.org/support/plugin/post-expirator",
                 "source": "https://plugins.svn.wordpress.org/post-expirator"
             },
-            "time": "2026-10-22T14:26:07+00:00"
+            "time": "2026-11-24T16:06:42+00:00"
         },
         {
             "name": "wp-plugin/pressidium-cookie-consent",
@@ -9735,15 +9735,15 @@
         },
         {
             "name": "wp-plugin/redis-cache",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redis-cache/",
-                "reference": "tags/3.0.0"
+                "reference": "tags/3.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redis-cache.3.0.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/redis-cache.3.0.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9762,7 +9762,7 @@
                 "issues": "https://wordpress.org/support/plugin/redis-cache",
                 "source": "https://plugins.svn.wordpress.org/redis-cache"
             },
-            "time": "2026-09-29T13:03:58+00:00"
+            "time": "2026-11-16T21:46:30+00:00"
         },
         {
             "name": "wp-plugin/simple-smtp",
@@ -9827,15 +9827,15 @@
         },
         {
             "name": "wp-plugin/stream",
-            "version": "4.5.0",
+            "version": "4.5.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/stream/",
-                "reference": "tags/4.5.0"
+                "reference": "tags/4.5.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/stream.4.5.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/stream.4.5.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9854,7 +9854,7 @@
                 "issues": "https://wordpress.org/support/plugin/stream",
                 "source": "https://plugins.svn.wordpress.org/stream"
             },
-            "time": "2026-11-12T12:35:48+00:00"
+            "time": "2026-11-16T17:18:35+00:00"
         },
         {
             "name": "wp-plugin/user-switching",
@@ -9920,15 +9920,15 @@
         },
         {
             "name": "wp-plugin/varnish-http-purge",
-            "version": "5.12.3",
+            "version": "5.13.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/varnish-http-purge/",
-                "reference": "tags/5.12.3"
+                "reference": "tags/5.13.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/varnish-http-purge.5.12.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/varnish-http-purge.5.13.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -9947,7 +9947,7 @@
                 "issues": "https://wordpress.org/support/plugin/varnish-http-purge",
                 "source": "https://plugins.svn.wordpress.org/varnish-http-purge"
             },
-            "time": "2026-09-29T13:03:58+00:00"
+            "time": "2026-11-21T13:26:56+00:00"
         },
         {
             "name": "wp-plugin/worddown",
@@ -10043,15 +10043,15 @@
         },
         {
             "name": "wp-plugin/wp-nested-pages",
-            "version": "3.3.3",
+            "version": "3.3.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-nested-pages/",
-                "reference": "tags/3.3.3"
+                "reference": "tags/3.3.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-nested-pages.3.3.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-nested-pages.3.3.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0|~2.0"
@@ -10070,7 +10070,7 @@
                 "issues": "https://wordpress.org/support/plugin/wp-nested-pages",
                 "source": "https://plugins.svn.wordpress.org/wp-nested-pages"
             },
-            "time": "2026-09-29T13:03:58+00:00"
+            "time": "2026-11-24T15:31:35+00:00"
         },
         {
             "name": "wp-plugin/wp-sentry-integration",
@@ -10123,10 +10123,10 @@
         },
         {
             "name": "wpengine/advanced-custom-fields-pro",
-            "version": "6.8.11",
+            "version": "6.8.12",
             "dist": {
                 "type": "zip",
-                "url": "https://connect.advancedcustomfields.com/v2/plugins/composer_download?s=composer&p=pro&t=6.8.11"
+                "url": "https://connect.advancedcustomfields.com/v2/plugins/composer_download?s=composer&p=pro&t=6.8.12"
             },
             "require": {
                 "composer/installers": "~1.0 || ~2.0"
