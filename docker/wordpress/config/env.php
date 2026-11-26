@@ -30,8 +30,9 @@ if (!function_exists('wp_conf_values')) {
 if (!function_exists('env')) {
     /**
      * Get an environment variable with automatic type conversion and default value support.
-     * Looks up WP_CONF_{$key} first, then falls back to {$key}. Values from
-     * wp_conf_values() take precedence over the process environment.
+     * Looks up WP_CONF_{$key} first, then falls back to {$key}. For WP_CONF_{$key},
+     * the process environment takes precedence over wp_conf_values(), so values
+     * can be overridden per invocation (e.g. `WP_CONF_DEBUG=true wp ...`).
      *
      * @param string $key
      * @param mixed $default
@@ -40,7 +41,11 @@ if (!function_exists('env')) {
     function env(string $key, mixed $default = null): mixed
     {
         $lookupKey = str_starts_with($key, 'WP_CONF_') ? $key : 'WP_CONF_' . $key;
-        $value = wp_conf_values()[$lookupKey] ?? $_ENV[$lookupKey] ?? $_SERVER[$lookupKey] ?? getenv($lookupKey);
+        $value = $_ENV[$lookupKey] ?? $_SERVER[$lookupKey] ?? getenv($lookupKey);
+
+        if ($value === false || $value === null || $value === '') {
+            $value = wp_conf_values()[$lookupKey] ?? null;
+        }
 
         if ($value === false || $value === null || $value === '') {
             $value = $_ENV[$key] ?? $_SERVER[$key] ?? getenv($key);
