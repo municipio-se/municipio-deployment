@@ -35,6 +35,7 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           TITLE: ${{ github.event.pull_request.title }}
           TITLE_CHANGED: ${{ github.event.changes.title != null }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [[ "$ACTION" == edited && "$TITLE_CHANGED" != true ]]; then
             echo "Skipping edit that did not change the pull request title."
@@ -53,7 +54,41 @@ jobs:
             exit 0
           fi
 
-          rc="v${TITLE}-rc.${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}"
+          # Number release candidates per version: the next rc is one above the
+          # highest v<version>-rc.<N> tag already in GHCR, starting at rc.0.
+          repo="${GITHUB_REPOSITORY,,}"
+          token="$(curl -fsSL -u "$GITHUB_ACTOR:$GITHUB_TOKEN" \
+            "https://ghcr.io/token?scope=repository:${repo}:pull" | jq -r .token)"
+          tags=""
+          path="/v2/${repo}/tags/list?n=1000"
+          body="$RUNNER_TEMP/ghcr-tags.json"
+          headers="$RUNNER_TEMP/ghcr-tags.headers"
+          while [[ -n "$path" ]]; do
+            status="$(curl -sS -o "$body" -D "$headers" -w '%{http_code}' \
+              -H "Authorization: Bearer $token" "https://ghcr.io${path}")"
+            if [[ "$status" == 404 ]]; then
+              echo "No existing image tags found for $repo."
+              break
+            fi
+            if [[ "$status" != 200 ]]; then
+              echo "::error::Listing GHCR tags failed with HTTP $status."
+              cat "$body"
+              exit 1
+            fi
+            tags+="$(jq -r '.tags // [] | .[]' "$body")"$'\n'
+            path="$( (grep -i '^link:' "$headers" || true) \
+              | sed -nE 's/.*<([^>]+)>;[[:space:]]*rel="next".*/\1/p' | tr -d '\r')"
+          done
+
+          latest="$(printf '%s' "$tags" \
+            | (grep -E "^v${TITLE//./\\.}-rc\.[0-9]+$" || true) \
+            | sed -E 's/.*-rc\.//' | sort -n | tail -n 1)"
+          if [[ -n "$latest" ]]; then
+            next=$((latest + 1))
+          else
+            next=0
+          fi
+          rc="v${TITLE}-rc.${next}"
           {
             echo "eligible=true"
             echo "version=$TITLE"
