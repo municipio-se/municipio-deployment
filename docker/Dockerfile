@@ -1,4 +1,46 @@
 # syntax=docker/dockerfile:1.7
+# Municipio container image, built from the repository root:
+#
+#   docker build --secret id=acf_pro_key,env=ACF_PRO_KEY -f docker/Dockerfile -t municipio:local .
+#
+# Stages:
+#   ols      OpenLiteSpeed + lsphp server layer; configuration lives in docker/ols/.
+#   node     Node.js binaries for the builder.
+#   builder  Builds Municipio with Composer and npm.
+#   runtime  The final image: the ols stage plus the built Municipio.
+
+# --- OpenLiteSpeed server layer (docker/ols/) -------------------------------
+ARG OLS_IMAGE=litespeedtech/openlitespeed:1.9.4-lsphp83@sha256:628ae67acd413213d28bfa553bd333e1bd2f655aad0919a2f000eb16103dda83
+FROM ${OLS_IMAGE} AS ols
+
+ARG PHP_VERSION=lsphp83
+
+# The vendor image provides OpenLiteSpeed, lsphp, and the common PHP extensions.
+# Add only Municipio-specific packages and PHP configuration.
+RUN --mount=type=bind,source=docker/ols/scripts/install-extensions.sh,target=install-extensions.sh <<EOT
+  set -eu
+  ./install-extensions.sh
+EOT
+
+# Vhost template lives in the image (referenced by httpd_config.conf at runtime).
+COPY docker/ols/config/vhost.conf $LS_FD/conf/templates/docker.conf
+COPY --chmod=755 docker/ols/scripts/entrypoint.sh /entrypoint.sh
+COPY --chmod=755 docker/ols/scripts/configure-runtime.sh /usr/local/bin/ols-hbg-configure
+
+# Configure the Municipio listener/vhost and snapshot server config for
+# empty-volume hydration.
+RUN --mount=type=bind,source=docker/ols/scripts/configure-listener.sh,target=configure-listener.sh <<EOT
+  set -eu
+  ./configure-listener.sh
+  chown -R lsadm:lsadm $LS_FD/conf
+  cp -RP $LS_FD/conf/. $LS_FD/.conf/
+EOT
+
+EXPOSE 80
+ENTRYPOINT ["/entrypoint.sh"]
+CMD []
+
+# --- Municipio build ----------------------------------------------------------
 # Node.js is copied from the official image instead of installed from
 # NodeSource, so it matches the Debian release of the PHP image below.
 FROM node:24-bookworm-slim AS node
@@ -44,11 +86,10 @@ RUN --mount=type=secret,id=acf_pro_key,required=true \
     rm -rf .git config-example docker && \
     chmod -R 755 .
 
-# Start from a clean copy of the runtime image so build tools and package
-# manager caches do not become part of the deployed image.
-FROM ghcr.io/helsingborg-stad/ols-docker-hbg:0.1.2-php8.3 AS runtime
-
-ENV PHP_EXTENSIONS=tidy,tideways
+# --- Final image ----------------------------------------------------------------
+# Start from the ols stage above so build tools and package manager caches do
+# not become part of the deployed image.
+FROM ols AS runtime
 
 USER root
 
@@ -59,12 +100,12 @@ WORKDIR /var/www/vhosts/localhost/html
 COPY --from=builder /usr/local/bin/wp /usr/local/bin/wp
 COPY --from=builder --chown=1000:1000 /var/www/vhosts/localhost/html/ ./
 
-COPY --chown=1000:1000 --chmod=755 docker/htaccess ./htaccess
-COPY --chown=1000:1000 --chmod=755 docker/config ./config
-COPY --chown=1000:1000 --chmod=755 docker/setup ./setup
+COPY --chown=1000:1000 --chmod=755 docker/wordpress/htaccess ./htaccess
+COPY --chown=1000:1000 --chmod=755 docker/wordpress/config ./config
+COPY --chown=1000:1000 --chmod=755 docker/wordpress/setup ./setup
 
 RUN mkdir -p wp-content/uploads/cache/blade-cache && \
-    chown 1000:1000 wp-content/uploads/cache/blade-cache
+    chown 1000:1000 wp-content/uploads wp-content/uploads/cache wp-content/uploads/cache/blade-cache
 
 EXPOSE 80
 

@@ -4,6 +4,22 @@ This directory builds a ready-to-run [Municipio](https://github.com/municipio-se
 
 On its first start, the container connects to the database, installs WordPress, and activates ACF Pro automatically. Later starts reuse the existing database and ensure that ACF Pro remains active.
 
+## How the image is built
+
+The image is built in two layers that are kept in separate directories, so it is always clear which part configures the server and which part configures Municipio:
+
+| Layer | Directory | What it contains |
+| --- | --- | --- |
+| Server (OpenLiteSpeed) | [`ols/`](ols/), built by the `ols` stage of [`Dockerfile`](Dockerfile) | LiteSpeed's version- and digest-pinned OpenLiteSpeed/lsphp image plus Municipio-specific PHP extensions, `php.ini` tuning, listener and vhost config, `/entrypoint.sh` and `ols-hbg-configure`. Its runtime settings are summarised under [Common settings](#common-settings) and detailed in the [OLS layer guide](ols/README.md). |
+| Application (Municipio) | [`wordpress/`](wordpress/) | WordPress configuration, site-type rewrite rules and startup scripts. The `builder` and `runtime` stages of [`Dockerfile`](Dockerfile) build Municipio and add these files. |
+
+One Dockerfile builds both into **one** image: its `ols` stage extends the pinned official image with the scripts in `docker/ols/`, and the final stage starts `FROM ols`. The configured server layer is not published separately. All Municipio-specific server logic stays in `docker/ols/`. The dev container ([`.devcontainer/`](../.devcontainer/README.md#production-parity)) also builds the `ols` stage, so changes there affect local development too.
+
+The other directories are [`examples/`](examples/) for Compose deployments,
+[`tests/`](tests/) for container and startup checks, and [`scripts/`](scripts/)
+for release tooling. Inside [`ols/`](ols/), `config/` contains the vhost
+template and `scripts/` contains the server build and startup scripts.
+
 ## Before you start
 
 You need:
@@ -19,7 +35,7 @@ export ACF_PRO_KEY="your-license-key"
 
 ## Building the image directly
 
-You can also build the image without Compose:
+You can also build the image without Compose, from the repository root:
 
 ```sh
 docker build \
@@ -31,6 +47,13 @@ docker build \
 The `acf_pro_key` secret is required for the build. It is mounted only while Composer installs the dependencies and is not retained in the resulting image.
 
 The build context is the repository root, and the checked-out source is copied into the image. Check out the branch or tag you want to build before running the command.
+
+Check that the built image's upload and cache directories are writable by the
+site user:
+
+```sh
+bash docker/tests/upload_permissions.sh municipio:local
+```
 
 ## Common settings
 
@@ -49,27 +72,58 @@ Runtime settings use the `WP_CONF_` prefix. The most useful ones are:
 | `WP_CONF_WP_ADMIN_EMAIL` | Admin email created on the first start. |
 | `WP_CONF_WP_DEBUG` | Set to `true` to enable WordPress debugging. |
 | `WP_CONF_WP_REDIS_DISABLED` | Set to `true` when no Redis or Valkey service is used. |
-| `ENABLE_LS_CACHE` | Set to `true` to enable LiteSpeed Cache plugin and include LiteSpeed rewrite rules when `.htaccess` is first created. |
-| `ENABLE_PHP_TIDY` | Set to `true` to install the Tidy extension for the current LiteSpeed PHP version on startup (requires access to the package repository). |
 
 The database and admin values are only used to perform the initial installation. If a database volume already contains WordPress, changing the initial admin values will not update the existing account.
 
-On startup, `.htaccess` is created from the selected single-site or multisite template only if it does not already exist. Existing files, including plugin-generated rules and ownership, are left untouched; changing multisite or cache settings does not rewrite them. An installed site with a missing `.htaccess` receives the template without a WordPress rewrite flush.
+### Web server rules
+
+The image ships fixed web server rules; nothing is generated or edited at runtime.
+
+- **Shared by every site type**, in OpenLiteSpeed's site config [`ols/config/vhost.conf`](ols/config/vhost.conf):
+  - the LiteSpeed Cache plugin's rules (page cache lookup, tracking parameters left out of the cache key); they have no effect until the plugin is activated
+  - rewrites: `www.` removal, a trailing slash on page URLs, blocking `xmlrpc.php`, `wp-trackback.php` and `wp-signup.php`, hiding `?author=` pages, and passing the `Authorization` header to PHP
+  - response headers: HSTS, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, and `Access-Control-Allow-Origin: *` on static assets
+  - one-year browser cache lifetimes for media, scripts, styles and fonts
+  - WordPress's 404 page for missing files
+- **Per site type**, in [`wordpress/htaccess/`](wordpress/htaccess/): `single-site.htaccess`, `multisite-subdomain.htaccess` and `multisite-subfolder.htaccess`. Each holds only the WordPress routing for that site type.
+
+On every start, the file matching `WP_CONF_WP_ALLOW_MULTISITE` and `WP_CONF_SUBDOMAIN_INSTALL` is copied over the document root's `.htaccess`, owned by root and read-only for WordPress. Edits made inside the container, by hand or by a plugin, are replaced on the next start; change the files in the repository instead. OpenLiteSpeed only reads rewrite rules from `.htaccess`, and only when the server starts, which is why headers and the like live in the server config.
 
 Any additional WordPress constant can be defined with `WP_CONF_EXTRA_`. For example, `WP_CONF_EXTRA_MY_SETTING: enabled` defines the `MY_SETTING` constant.
 
-To configure Tideways for web requests, pass `TIDEWAYS_APIKEY` as a runtime environment variable and add its name to `OLS_PHP_ENV_VARS`. For example:
+### Server sizing
 
-```yaml
-environment:
-  TIDEWAYS_APIKEY: your-key
-  OTHER_API_KEY: another-key
-  OLS_PHP_ENV_VARS: "TIDEWAYS_APIKEY,OTHER_API_KEY"
-```
+The server sizes itself from Municipio's needs, so normally only the container memory limit needs setting:
 
-For any additional setting needed by web PHP, add its name to the comma-separated `OLS_PHP_ENV_VARS` list and set its value separately in the container. `WP_CONF_*` variables continue to be forwarded automatically; all other variables, including `TIDEWAYS_*`, require explicit listing. Invalid or unset names in the list stop startup instead of silently omitting them. `WP_CONF_EXTRA_TIDEWAYS_APIKEY` instead defines a WordPress constant named `TIDEWAYS_APIKEY`; it does not set the environment variable used by the Tideways extension. Only list values PHP should be able to access; treat keys as secrets and avoid exposing `phpinfo()` publicly.
+| Setting | Default | Effect |
+| --- | --- | --- |
+| `PHP_MEMORY_LIMIT` | `512M` | Memory one PHP request may use. WordPress's `WP_MEMORY_LIMIT` follows it unless `WP_CONF_WP_MEMORY_LIMIT` is set. |
+| `OLS_PHP_CHILDREN` | automatic | PHP requests handled at once. When unset: (container memory limit − 512M) ÷ `PHP_MEMORY_LIMIT`, so a 3 GiB pod gets 5 and a 6 GiB pod gets 11. Without a memory limit: 10. |
 
-To set PHP ini directives, use `PHP_INI_SETTINGS` with one `name=value` directive per line:
+The chosen values are logged at startup. OpenLiteSpeed uses one worker; see the [OLS layer guide](ols/README.md#sizing) for the less common `OLS_PHP_KEEPALIVE_TIMEOUT`.
+
+### PHP extensions and environment
+
+tidy, Tideways, Imagick, intl, cURL, MySQL and OPcache are always enabled.
+
+`WP_CONF_*` variables reach WordPress through a file, not through the web server's environment. On every start, the container writes them to `/var/www/vhosts/localhost/wp-conf.php`. That file is outside the web root, readable only by the site user, and read by [`wordpress/config/env.php`](wordpress/config/env.php). The values are therefore never in `getenv()`, `$_SERVER` or `phpinfo()`, nor in the environment of processes PHP starts. Set `WP_CONF_*` as environment variables as usual; nothing has to be mounted.
+
+Other container variables are not passed to web PHP at all. Tideways is configured with its usual variables, which the server turns into the extension's ini settings:
+
+| Variable | Tideways setting |
+| --- | --- |
+| `TIDEWAYS_APIKEY` | `tideways.api_key` |
+| `TIDEWAYS_CONNECTION` | `tideways.connection`, e.g. `tcp://tideways-daemon:9135` |
+| `TIDEWAYS_SERVICE` | `tideways.service` |
+| `TIDEWAYS_SAMPLERATE` | `tideways.sample_rate` |
+| `TIDEWAYS_TRACE_SAMPLE_RATE` | `tideways.trace_sample_rate` |
+| `TIDEWAYS_FRAMEWORK` | `tideways.framework` |
+
+For any other PHP setting, use `PHP_INI_SETTINGS`. For a WordPress constant, use `WP_CONF_EXTRA_<NAME>`.
+
+### PHP ini settings
+
+Set other PHP ini directives with `PHP_INI_SETTINGS`, one `name=value` per line:
 
 ```yaml
 environment:
@@ -78,9 +132,7 @@ environment:
     upload_max_filesize=64M
 ```
 
-The container discovers the LiteSpeed PHP version in the runtime image and writes these directives to an additional ini file in its default scanned directory, so they apply to both web requests and PHP processes started during container setup. If no single PHP ini directory can be found, or a directive line is invalid, startup stops with an error.
-
-In Kubernetes, an `envFrom.secretRef` Secret must have a key named `PHP_INI_SETTINGS` containing the newline-separated directives (for example, create it with `kubectl create secret generic php-ini --from-file=PHP_INI_SETTINGS=./settings.ini`). A Secret mounted as a file does not automatically become this environment variable. Restart the pod after changing the Secret; environment variables are not updated in running pods. Avoid overriding `PHP_INI_SCAN_DIR`, which can exclude the default scanned directory.
+They apply to web requests and to WP-CLI during container setup. Use `PHP_MEMORY_LIMIT` rather than `memory_limit` here; a `memory_limit` line, or any line that isn't `name=value`, stops startup. In Kubernetes, load a multi-line value from a Secret or ConfigMap key named `PHP_INI_SETTINGS` with `envFrom`. Restart the pod after changing it.
 
 ## Multisite
 
@@ -113,7 +165,6 @@ docker compose -f docker/examples/docker-compose-base.yml down -v
 | File | Description |
 | --- | --- |
 | `docker-compose-base.yml` | Minimal single-site setup: `municipio` plus a MariaDB `db` service, no cache. |
-| `docker-compose-using-lscache.yml` | Enables the `litespeed-cache` plugin and applies LiteSpeed Cache `.htaccess` rewrite rules. |
 | `docker-compose-using-redis.yml` | Adds a Valkey (Redis-compatible) service and activates the `redis-cache` plugin for object caching. |
 | `docker-compose-using-s3.yml` | Adds a MinIO service for S3-compatible media offloading and activates the `s3-uploads`/`s3-local-index` plugins. See the file's comments for the required `S3_UPLOADS_*` constants. |
 | `docker-compose-multisite-subfolder.yml` | Enables WordPress multisite (subfolder mode) and creates a `subsite` site on first start. |
@@ -122,7 +173,7 @@ docker compose -f docker/examples/docker-compose-base.yml down -v
 
 ## Useful commands
 
-Follow startup logs:
+Follow the logs: startup, then OpenLiteSpeed's error log (including PHP errors and warnings) and access log as requests come in:
 
 ```sh
 docker compose logs -f municipio
@@ -136,23 +187,33 @@ docker compose exec --user ubuntu municipio wp option get siteurl
 
 Use `docker compose exec --user ubuntu municipio <command>` for other commands that write to the webroot. The container starts as root to install optional packages and configure OpenLiteSpeed.
 
-Stop the containers while keeping the database and uploaded files:
+Stop the containers while keeping the database. Uploaded files inside the
+container are lost unless `wp-content/uploads` is stored in a volume or
+offloaded to object storage:
 
 ```sh
 docker compose down
 ```
 
-Remove the containers, database, and uploaded files, allowing a completely fresh installation next time:
+Remove the containers and their named volumes, allowing a completely fresh installation next time:
 
 ```sh
 docker compose down --volumes
 ```
 
+For persistent local uploads, mount a volume at
+`/var/www/vhosts/localhost/html/wp-content/uploads`. An existing volume must be
+writable by the site user (UID/GID `1000:1000`).
+
 ## Releases
 
 The workflows in `municipio-deployment` publish to `ghcr.io/${{ github.repository }}`. Source release tags use plain `X.Y.Z` versions (for example `6.3.7`, without a leading `v`). A tag push builds the final multi-platform image directly from that source revision and publishes `vX.Y.Z`, `vX.Y`, `vX`, and `latest`; floating tags only move forward to newer versions.
 
-A release pull request must target the repository's default branch, come from a branch in that same repository, and have a title containing only `X.Y.Z`. Opening, updating, reopening, or retitling an eligible pull request builds its head commit as the multi-platform staging tag `vX.Y.Z-rc.RUN_NUMBER.RUN_ATTEMPT`. Final images are built independently from source tag pushes, not promoted or retagged from an RC.
+A release pull request must target the repository's default branch, come from a branch in that same repository, and have a title containing only `X.Y.Z`. Opening, updating, reopening, or retitling an eligible pull request builds its head commit as the multi-platform staging tag `vX.Y.Z-rc.N`, where `N` starts at `0` and increases with each build for that version. Final images are built independently from source tag pushes, not promoted or retagged from an RC.
+
+After a release publishes `vX.Y.Z`, the release workflow deletes that version's `vX.Y.Z-rc.N` images from GHCR, together with the untagged platform, attestation, and per-platform index manifests behind them ([docker/scripts/delete-ghcr-rc-versions.sh](scripts/delete-ghcr-rc-versions.sh)). Nothing the `vX.Y.Z` image uses is deleted, and an RC image that also carries another tag is skipped. To clean up versions released before this existed, run the **Delete container release candidates** workflow manually; it defaults to a dry run and refuses to run for a version without a `vX.Y.Z` image.
+
+Deleting package versions with `GITHUB_TOKEN` requires the repository to have the **Admin** role under the package's *Manage Actions access* settings. This is the default when the repository's workflow published the package first; otherwise the cleanup fails with HTTP 403.
 
 On the first release, the final-image workflow treats only GHCR's `404 NAME_UNKNOWN` response for the initial tag-list request as an empty package. Authentication failures, malformed responses, and other registry errors fail the workflow rather than being treated as an empty tag list.
 
@@ -161,7 +222,7 @@ Set these Actions secrets in the repository or an organization that grants acces
 | Secret | Purpose |
 | --- | --- |
 | `ACF_PRO_KEY` | Downloads Advanced Custom Fields Pro during the image build. |
-| `DOCKERHUB_USERNAME` | Authenticates to Docker Hub to pull the private OpenLiteSpeed base image. |
+| `DOCKERHUB_USERNAME` | Authenticates to Docker Hub when pulling public base images (Ubuntu, PHP, Node.js), to avoid anonymous rate limits. |
 | `DOCKERHUB_TOKEN` | Docker Hub access token for that login. |
 
 `GITHUB_TOKEN` is supplied by Actions. The workflows declare `contents: read` and `packages: write` to check out source and publish to GHCR. Set the published package's visibility so target environments can pull it. Release-candidate builds skip pull requests from forks, so forked repositories must create eligible PRs within the fork.
@@ -176,4 +237,4 @@ The example is deliberately simple and uses local development credentials. For a
 - Put the site behind HTTPS and set `WP_CONF_WP_HOME` and `WP_CONF_WP_SITEURL` to the public HTTPS addresses.
 - Pin the MariaDB image and use a source semver tag for a tested Municipio deployment version.
 - Back up the database and uploads volumes.
-- Do not publish the OpenLiteSpeed administration port unless it is specifically needed and protected.
+- Only publish the application port. The OpenLiteSpeed WebAdmin listener is disabled even though the upstream image advertises port 7080 in its metadata.

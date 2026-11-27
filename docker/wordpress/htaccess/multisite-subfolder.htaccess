@@ -1,0 +1,36 @@
+# WordPress routing for a multisite subfolder (multisite-subfolder).
+# Copied over the document root's .htaccess on every container start; rules
+# shared by all site types are in docker/ols/config/vhost.conf.
+# See docker/README.md, "Web server rules".
+
+# BEGIN WordPress
+# Multisite with subfolders: sites live under /<site>/, so that first path
+# segment is stripped before files are looked up. WordPress core is in /wp/
+# and wp-content in the document root:
+#   /<site>/wp/...                          -> wp/...
+#   /<site>/wp-admin/..., /<site>/wp-includes/..., /<site>/wp-*.php -> wp/...
+#   /<site>/wp-content/...                  -> wp-content/...
+#   /<site>/other.php                       -> other.php
+# Both core URL styles are handled, with and without /wp/ in the site URL.
+# Anything else that isn't a file goes to index.php, where WordPress renders
+# the page or its own 404.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.php$ - [L]
+  RewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  # Already pointing into core but not found: stop, so the server's 404 page
+  # applies. OpenLiteSpeed re-applies these rules to a rewritten path, so
+  # every rule below must change the path, or a missing file would loop.
+  RewriteRule ^wp/ - [L]
+  RewriteRule ^[_0-9a-zA-Z-]+/(wp/.*)$ $1 [L]
+  RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(admin|includes)/.*)$ wp/$2 [L]
+  RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-[_0-9a-zA-Z-]+\.php)$ wp/$2 [L]
+  RewriteRule ^[_0-9a-zA-Z-]+/(wp-content/.*)$ $1 [L]
+  RewriteRule ^[_0-9a-zA-Z-]+/(.*\.php)$ $1 [L]
+  RewriteRule . index.php [L]
+</IfModule>
+# END WordPress

@@ -1,6 +1,24 @@
 services:
   app:
-    image: ghcr.io/helsingborg-stad/ols-docker-hbg:0.1.0-php8.3
+    # The same OpenLiteSpeed + lsphp server layer as the production image: the
+    # `ols` stage of docker/Dockerfile (configured in docker/ols/). Rebuild the
+    # dev container after changing anything under docker/ols/.
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: ols
+    environment:
+      # Dev-only PHP settings, applied by the image's ols-hbg-configure on every
+      # start (written to mods-available/60-hbg-ini-settings.ini, read by both
+      # web PHP and the php CLI). One `name=value` per line.
+      #
+      # The image ships opcache.validate_timestamps=0, so lsphp workers would
+      # cache compiled code forever and never notice source edits; re-enable
+      # timestamp checking with immediate revalidation.
+      PHP_INI_SETTINGS: |
+        opcache.validate_timestamps=1
+        opcache.revalidate_freq=0
+        auto_prepend_file=/var/www/vhosts/localhost/html/.devcontainer/config/codespaces-env.php
     depends_on:
       redis:
         condition: service_healthy
@@ -15,7 +33,6 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./php-ini-overrides.ini:/usr/local/lsws/lsphp83/etc/php/8.3/mods-available/zz-overrides.ini:cached
       - ..:/var/www/vhosts/localhost/html
       - ${HOME}/.ssh:/home/vscode/.ssh:ro
 

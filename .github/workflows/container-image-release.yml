@@ -92,6 +92,9 @@ jobs:
     needs: prepare
     name: Build ${{ matrix.platform }}
     runs-on: ${{ matrix.runner }}
+    # A cold build takes a few minutes; a stalled package mirror must fail the
+    # job instead of holding it for GitHub's 6-hour default.
+    timeout-minutes: 30
     strategy:
       fail-fast: true
       matrix:
@@ -122,6 +125,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set platform slug
+        env:
+          PLATFORM: ${{ matrix.platform }}
+        run: echo "platform_slug=${PLATFORM//\//-}" >> "$GITHUB_ENV"
+
+      # docker/Dockerfile extends the pinned official OpenLiteSpeed image and
+      # builds Municipio into one image. The cache saves the app build and
+      # Municipio-specific server configuration.
       - name: Build and push image
         id: build
         uses: docker/build-push-action@v7
@@ -139,15 +150,15 @@ jobs:
             municipio-se.run=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           secrets: |
             "acf_pro_key=${{ secrets.ACF_PRO_KEY }}"
+          cache-from: type=gha,scope=municipio-${{ env.platform_slug }}
+          cache-to: type=gha,mode=min,scope=municipio-${{ env.platform_slug }}
 
       - name: Export image digest
         env:
           DIGEST: ${{ steps.build.outputs.digest }}
-          PLATFORM: ${{ matrix.platform }}
         run: |
           mkdir -p "$RUNNER_TEMP/digests"
           touch "$RUNNER_TEMP/digests/${DIGEST#sha256:}"
-          echo "platform_slug=${PLATFORM//\//-}" >> "$GITHUB_ENV"
 
       - name: Upload image digest
         uses: actions/upload-artifact@v4
@@ -200,3 +211,27 @@ jobs:
           done <<< "$TAGS"
           docker buildx imagetools create "${tags[@]}" "${sources[@]}"
           docker buildx imagetools inspect "$IMAGE:v$VERSION"
+
+  # Release candidates are never promoted, so once vX.Y.Z is published its
+  # vX.Y.Z-rc.N images are obsolete. Runs only after publish succeeded.
+  cleanup-rc:
+    needs: [prepare, publish]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Delete release-candidate images
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+          OWNER: ${{ github.repository_owner }}
+          PACKAGE: ${{ github.event.repository.name }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY,,}"
+          REGISTRY_BEARER_TOKEN="$(curl -fsSu "$GITHUB_ACTOR:$GH_TOKEN" "https://ghcr.io/token?scope=repository:$repo:pull" | jq -er .token)"
+          export REGISTRY_BEARER_TOKEN
+          bash docker/scripts/delete-ghcr-rc-versions.sh "$OWNER" "$PACKAGE" "$VERSION"

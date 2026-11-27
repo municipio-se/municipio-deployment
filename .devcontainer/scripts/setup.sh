@@ -286,9 +286,24 @@ print_success "Site configured"
 
 # Step 4: Add .htaccess
 print_header "Adding .htaccess"
-print_info "Copying .htaccess from devcontainer config..."
-cp ./.devcontainer/config/.htaccess ./.htaccess
+# Same WordPress routing as the production image (docker/wordpress/setup/setup_htaccess.py);
+# rules shared by all site types live in the image's vhost (docker/ols/config/vhost.conf).
+if [[ "$SITE_TYPE" == "multisite" ]]; then
+    HTACCESS_FLAVOR="multisite-subfolder"
+else
+    HTACCESS_FLAVOR="single-site"
+fi
+print_info "Copying ${HTACCESS_FLAVOR}.htaccess from docker/wordpress/htaccess..."
+cp "./docker/wordpress/htaccess/${HTACCESS_FLAVOR}.htaccess" ./.htaccess
 print_success ".htaccess added"
+
+# OpenLiteSpeed reads the document root's .htaccess only at server start.
+print_info "Restarting OpenLiteSpeed to load .htaccess..."
+if sudo -n /usr/local/lsws/bin/lswsctrl restart >/dev/null; then
+    print_success "OpenLiteSpeed restarted"
+else
+    print_warning "Could not restart OpenLiteSpeed. Rebuild or restart the dev container to apply .htaccess."
+fi
 
 # Step 5: Set up cache directories
 print_header "Setting Up Cache"

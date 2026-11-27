@@ -1,0 +1,19 @@
+# WordPress routing for a single site (single-site).
+# Copied over the document root's .htaccess on every container start; rules
+# shared by all site types are in docker/ols/config/vhost.conf.
+# See docker/README.md, "Web server rules".
+
+# BEGIN WordPress
+# Single site. WordPress core is in /wp/ (WP_SITEURL ends in /wp) and
+# wp-content is in the document root; both are real paths, so everything
+# that isn't a file or directory goes to index.php.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.php$ - [L]
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule . index.php [L]
+</IfModule>
+# END WordPress

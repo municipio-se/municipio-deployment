@@ -1,0 +1,23 @@
+# WordPress routing for a multisite subdomain (multisite-subdomain).
+# Copied over the document root's .htaccess on every container start; rules
+# shared by all site types are in docker/ols/config/vhost.conf.
+# See docker/README.md, "Web server rules".
+
+# BEGIN WordPress
+# Multisite with subdomains: every site uses the same paths as a single site.
+# WordPress core is in /wp/ and wp-content in the document root. Core URLs
+# without /wp/ (wp-admin/, wp-includes/, wp-*.php, as WordPress may build them
+# for a site whose site URL has no /wp) are mapped into /wp/.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.php$ - [L]
+  RewriteRule ^wp-admin$ wp-admin/ [R=301,L]
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule ^(wp-(admin|includes)/.*)$ wp/$1 [L]
+  RewriteRule ^(wp-[_0-9a-zA-Z-]+\.php)$ wp/$1 [L]
+  RewriteRule . index.php [L]
+</IfModule>
+# END WordPress

@@ -12,7 +12,7 @@ INI_DIR="${LSPHP_DIR}/etc/php/${PHP_VERSION}/mods-available"
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y --no-install-recommends "lsphp${PHP_SHORT}-dev" "lsphp${PHP_SHORT}-pear" "php${PHP_VERSION}-mysql" autoconf pkg-config make gcc
+apt-get install -y --no-install-recommends "lsphp${PHP_SHORT}-dev" "lsphp${PHP_SHORT}-pear" autoconf pkg-config make gcc
 
 PACKAGE="xdebug"
 if [ "$VERSION" != "latest" ]; then
