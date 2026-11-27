@@ -211,3 +211,27 @@ jobs:
           done <<< "$TAGS"
           docker buildx imagetools create "${tags[@]}" "${sources[@]}"
           docker buildx imagetools inspect "$IMAGE:v$VERSION"
+
+  # Release candidates are never promoted, so once vX.Y.Z is published its
+  # vX.Y.Z-rc.N images are obsolete. Runs only after publish succeeded.
+  cleanup-rc:
+    needs: [prepare, publish]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Delete release-candidate images
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+          OWNER: ${{ github.repository_owner }}
+          PACKAGE: ${{ github.event.repository.name }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY,,}"
+          REGISTRY_BEARER_TOKEN="$(curl -fsSu "$GITHUB_ACTOR:$GH_TOKEN" "https://ghcr.io/token?scope=repository:$repo:pull" | jq -er .token)"
+          export REGISTRY_BEARER_TOKEN
+          bash docker/scripts/delete-ghcr-rc-versions.sh "$OWNER" "$PACKAGE" "$VERSION"

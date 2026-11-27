@@ -1,0 +1,46 @@
+name: Delete container release candidates
+
+# Manual cleanup of vX.Y.Z-rc.N images for an already released vX.Y.Z, e.g. for
+# versions released before automatic cleanup existed. Releases clean up their
+# own release candidates in container-image-release.yml.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Released version (X.Y.Z) whose release candidates to delete
+        required: true
+        type: string
+      dry_run:
+        description: Only list what would be deleted
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: municipio-image-release-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  cleanup-rc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Delete release-candidate images
+        env:
+          VERSION: ${{ inputs.version }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          OWNER: ${{ github.repository_owner }}
+          PACKAGE: ${{ github.event.repository.name }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY,,}"
+          REGISTRY_BEARER_TOKEN="$(curl -fsSu "$GITHUB_ACTOR:$GH_TOKEN" "https://ghcr.io/token?scope=repository:$repo:pull" | jq -er .token)"
+          export REGISTRY_BEARER_TOKEN
+          bash docker/scripts/delete-ghcr-rc-versions.sh "$OWNER" "$PACKAGE" "$VERSION"
